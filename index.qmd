@@ -1,0 +1,16 @@
+---
+title: "Data_Analysis_II_Notes"
+---
+
+Here are some git commands I never remember:
+    1. git add .
+    2. git commit -m “comment”
+    3. git push origin main
+    4. git remote set-url origin [URL]
+    5. git remote -v
+    6. git remote show origin
+
+Here are some quarto commands:
+    1. quarto publish gh-pages
+    2. 
+    3. 
