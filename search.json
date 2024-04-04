@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Data_Analysis_II_Notes",
+    "title": "Git",
     "section": "",
     "text": "Here are some git commands I never remember:\nAdd, commit, and publish the folder to the github repo\n\ngit add .\ngit commit -m “comment”\ngit push origin main\n\nSet the location of the github repo\n\ngit remote set-url origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git\ngit remote -v\ngit remote show origin\n\n\nHere are some quarto commands:\n\nquarto publish gh-pages\nquarto publish gh-pages document.qmd\n\n\nThis is from the github repo creation page\nPush an existing repository from the command line:\n\ngit remote add origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git\ngit branch -M main\ngit push -u origin main\n\n\nSetting up the website:\n\nCreate a new git repository\nCreate a quarto project/website\nRender the project\nAdd /_site/ & /.quarto/ to the .gitignore file\ngit remote add origin\ngit branch -M main\ngit add .\ngit commit\ngit push\nrefresh github.com/name\nview all branches -&gt; New -&gt; “gh-pages”\nsettings -&gt; pages -&gt; deploy from gh-pages\nquarto publish gh-pages\n\nIt should work ever after by just typing quarto publish gh-pages. There may be a need to get a personal access token at the start. I did that my first go around so I’m not sure. Sometimes the site doesn’t render immediately. You have to wait for it to finish in the actions tab of github."
   },
