@@ -20,7 +20,15 @@ website:
       - 10_Final_Project.qmd
       - text: "Labs"
         menu: 
-          - 1_learnR.qmd
+          - z0_learnR.qmd
+          - z1_learnR.qmd
+          - z2_learnR.qmd
+          - z3_learnR.qmd
+          - z4_learnR.qmd
+          - z5_learnR.qmd
+          - z6_learnR.qmd
+          - z7_learnR.qmd
+          - z8_learnR.qmd
 
 format:
   html:

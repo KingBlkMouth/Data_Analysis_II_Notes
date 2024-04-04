@@ -1,5 +1,7 @@
 ---
 title: "6 Disp & 0 Inflation"
+execute: 
+  freeze: auto
 ---
 
 Learning Objectives
