@@ -4,42 +4,28 @@
     "href": "index.html",
     "title": "Reference",
     "section": "",
-    "text": "Gradescope"
-  },
-  {
-    "objectID": "index.html#gradescope",
-    "href": "index.html#gradescope",
-    "title": "Reference",
-    "section": "",
-    "text": "Gradescope"
-  },
-  {
-    "objectID": "index.html#reading",
-    "href": "index.html#reading",
-    "title": "Reference",
-    "section": "Reading",
-    "text": "Reading\nCat Data Anal\nStat. Meth\nOpen Stats 4th ed\nR4DS\n\nExtra Reading\nMathmatical Stats 8th\nPractical Stats for DS"
-  },
-  {
-    "objectID": "index.html#lectures",
-    "href": "index.html#lectures",
-    "title": "Reference",
-    "section": "Lectures",
-    "text": "Lectures\nLectures"
+    "text": "Gradescope\nLectures"
   },
   {
     "objectID": "index.html#git-stuff",
     "href": "index.html#git-stuff",
     "title": "Reference",
     "section": "Git stuff",
-    "text": "Git stuff\nHere are some git commands I never remember:\nAdd, commit, and publish the folder to the github repo\n\ngit add .\ngit commit -m “comment”\ngit push origin main\n\nSet the location of the github repo\n\ngit remote set-url origin url\ngit remote -v\ngit remote show origin\n\n\nHere are some quarto commands:\n\nquarto publish gh-pages\nquarto publish gh-pages document.qmd\nquarto publish gh-pages –no-prompt\n\n\nThis is from the github repo creation page\nPush an existing repository from the command line:\n\ngit remote add origin url\ngit branch -M main\ngit push -u origin main"
+    "text": "Git stuff\nAdd, commit, and publish the folder to the github repo\n\ngit add .\ngit commit -m “comment”\ngit push origin main\n\nSet the location of the github repo\n\ngit remote set-url origin url\ngit remote -v\ngit remote show origin\n\n\nHere are some quarto commands:\n\nquarto publish gh-pages\nquarto publish gh-pages document.qmd\nquarto publish gh-pages –no-prompt"
+  },
+  {
+    "objectID": "index.html#reading-list",
+    "href": "index.html#reading-list",
+    "title": "Reference",
+    "section": "Reading list",
+    "text": "Reading list\nCat Data Anal 3rd\nStat. Meth 3rd\nOpen Stats 4th ed\nR4DS 1st\n\nExtra Reading\nMathmatical Stats 8th\nPractical Stats for DS\n\n\nModule 1\n\nCategorical Data Analysis, Sections 1.1, 1.2\nStatistical Methods, Section 12.1\nOpenIntro Statistics, Section 6.1\nR for Data Science, Look over Chapters 1, 2, and 3\n\n\n\nModule 2\n\nCategorical Data Analysis, Sections 1.2, 1.3.\nStatistical Methods, Section 12.2-12.4.\nOpenIntro Statistics, Section 6.2-6.4\nR for Data Science (Lab references Chapter 22)\n\n\n\nModule 3\n\nCategorical Data Analysis, Sections 4.1, 4.2 (through 4.2.5); 5.1-5.3 (through 5.3.6). Please note: content not in lectures.\nStatistical Methods, Sections 13.1-13.2.\nOpenIntro Statistics, Section 8.4. and Section 9.5\n\n\n\nModule 4\n\nCategorical Data Analysis, Sections 4.7, 6.2\n\n\n\nModule 5\n\nCategorical Data Analysis, Sections 4.3, 9.1 (through 9.1.3; some of the notation here may be difficult, but it is equivalent to using indicator functions to denote different categories).\n\n\n\nModule 6\n\nAn Application of Claim Frequency Data using Zero Inflated and Hurdle Models in General Insurance\n\n\n\nModule 7\n\nCategorical Data Analysis, Chapter 13, through Section 13.1.4; Section 13.3. Please note: models are given in matrix notation.\n\n\n\nModule 8\n\nCategorical Data Analysis, Chapter 6, 6.3.1, 6.3.3 and 6.3.4\nOpenIntro Statistics, Section 8.4"
   },
   {
     "objectID": "index.html#website",
     "href": "index.html#website",
     "title": "Reference",
     "section": "Website",
-    "text": "Website\nSetting up the website:\n\nCreate a new git repository\nCreate a quarto project website\nRender the project\nAdd _site & .quarto to the .gitignore file\ngit remote add origin\ngit branch -M main\ngit add .\ngit commit\ngit push\nrefresh github.com/name\nview all branches -&gt; New -&gt; “gh-pages”\nsettings -&gt; pages -&gt; deploy from gh-pages\nquarto publish gh-pages\n\nIt should work ever after by just typing quarto publish gh-pages. There may be a need to get a personal access token at the start. I did that my first go around so I’m not sure. Sometimes the site doesn’t render immediately. You have to wait for it to finish in the actions tab of github."
+    "text": "Website\nThis is from the github repo creation page\nPush an existing repository from the command line:\n\ngit remote add origin url\ngit branch -M main\ngit push -u origin main\n\n\nSetting up the website:\n\nCreate a new git repository\nCreate a quarto project website\nRender the project\nAdd _site & .quarto to the .gitignore file\ngit remote add origin\ngit branch -M main\ngit add .\ngit commit\ngit push\nrefresh github.com/name\nview all branches -&gt; New -&gt; “gh-pages”\nsettings -&gt; pages -&gt; deploy from gh-pages\nquarto publish gh-pages\n\nIt should work ever after by just typing quarto publish gh-pages. There may be a need to get a personal access token at the start. I did that my first go around so I’m not sure. Sometimes the site doesn’t render immediately. You have to wait for it to finish in the actions tab of github."
   },
   {
     "objectID": "8_Evaluating_Models.html",
