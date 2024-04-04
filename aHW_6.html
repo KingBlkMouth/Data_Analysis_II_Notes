@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Chris Eckerson">
+<meta name="dcterms.date" content="2024-04-04">
 
-<title>Data_Analysis_II_Notes - 3 Log Reg I</title>
+<title>Data_Analysis_II_Notes - ST-518 HW 6</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +96,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">2 Props, Risk &amp; Odds</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./3_Logistic_Regression_I.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./3_Logistic_Regression_I.html" rel="" target="">
  <span class="menu-text">3 Log Reg I</span></a>
   </li>  
   <li class="nav-item">
@@ -224,8 +226,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#task-list" id="toc-task-list" class="nav-link" data-scroll-target="#task-list">Task list</a></li>
+  <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a></li>
+  <li><a href="#conceptual-question" id="toc-conceptual-question" class="nav-link" data-scroll-target="#conceptual-question">Conceptual Question</a></li>
   </ul>
 </nav>
     </div>
@@ -234,14 +236,26 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">3 Log Reg I</h1>
+<h1 class="title">ST-518 HW 6</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chris Eckerson </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 4, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -249,32 +263,29 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>After successful completion of this module, you will be able to:</p>
-<ul>
-<li>Describe the logistic regression model, which includes a probability model for the responses and the model equation.</li>
-<li>Write a few sentences in non-technical language that explain the results of a logistic regression model fit.</li>
-<li>Describe how to compare two logistic regression models.</li>
-<li>Explain the need for the link function in logistic regression.</li>
-</ul>
-<p>In R:</p>
-<ul>
-<li>Fit logistic regression models and interpret the output.</li>
-<li>Create exploratory plots for logistic regression, and be able to explain any limitations of these plots.</li>
-<li>Prepare and submit an R markdown script.</li>
-</ul>
+<p>output: pdf_document</p>
+<section id="r-question" class="level2">
+<h2 class="anchored" data-anchor-id="r-question">R Question</h2>
+<ol type="1">
+<li><p>(5 points) Consider data on 4406 individuals, aged 66 and over, who are covered by Medicare, a public insurance program, in the file DT.rda. The objective is to model the number of physician/non-physician oce and hospital outpatient visits using available covariate information for the patients. The covariates include health status variables hosp (number of hospital stays), health (self-perceived health status), numchron (number of chronic conditions), as well as socioeconomic variables gender, school (number of years of education), and privins (private insurance indicator). Once you download the <code>DT.rda</code> file, you can load it into R using <code>load("DT.rda")</code>.</p>
+<ol type="a">
+<li><p>Produce a histogram of the dependent variable. What types of statistical models (.e.g, Poisson regression, hurdle Poisson model, etc.) should you consider for these data? Give a brief justification for your answer.</p></li>
+<li><p>Fit the models you indicated in part (a), using the identical set of explanatory variables in each, and report the AIC for each.</p></li>
+<li><p>Based on parts (a) and (b) and considering interpretation of the models in the context of the data, write a sentence summarizing your findings in terms of which model seems most appropriate for these data.</p></li>
+</ol></li>
+</ol>
 </section>
-<section id="task-list" class="level2">
-<h2 class="anchored" data-anchor-id="task-list">Task list</h2>
-<p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
-<ul>
-<li>Review Module 3 Readings and Lectures</li>
-<li>Submit Module 3 Homework</li>
-<li>Submit Module 3 Lab</li>
-<li>Take the Module 3 Content Quiz and R Quiz</li>
-<li>Participate in the Module 3 Discussion</li>
-</ul>
+<section id="conceptual-question" class="level2">
+<h2 class="anchored" data-anchor-id="conceptual-question">Conceptual Question</h2>
+<ol start="2" type="1">
+<li><p>(5 points) For each of the following response variables, indicate whether a zero-inflated model or a hurdle model would be more appropriate. Justify your answer by providing possible processes responsible for generating the excess zeros and the counts that correspond to the model. There may not be a clear answer for you, so simply pick one and try to justify it.</p>
+<ol type="a">
+<li><p>School administrators study the attendance behavior of high school juniors and take the number of days absent as the response variable.</p></li>
+<li><p>Wildlife biologists want to model how many fish are being caught by fishermen at a state park. All park visitors are asked how many fish they caught.</p></li>
+<li><p>Researchers are interested in creating a stock trading model for investors. The response is trades per week made by each investor.</p></li>
+<li><p>Researchers want to create a model for loan defaults. They take the number of outstanding payments that exist for each of a random sample of loans.</p></li>
+</ol></li>
+</ol>
 
 
 </section>

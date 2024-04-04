@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Chris Eckerson">
+<meta name="dcterms.date" content="2024-04-04">
 
-<title>Data_Analysis_II_Notes - 3 Log Reg I</title>
+<title>Data_Analysis_II_Notes - ST-518 HW 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +96,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">2 Props, Risk &amp; Odds</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./3_Logistic_Regression_I.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./3_Logistic_Regression_I.html" rel="" target="">
  <span class="menu-text">3 Log Reg I</span></a>
   </li>  
   <li class="nav-item">
@@ -224,8 +226,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#task-list" id="toc-task-list" class="nav-link" data-scroll-target="#task-list">Task list</a></li>
+  <li><a href="#r-questions" id="toc-r-questions" class="nav-link active" data-scroll-target="#r-questions">R Questions</a></li>
+  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link" data-scroll-target="#conceptual-questions">Conceptual Questions</a></li>
   </ul>
 </nav>
     </div>
@@ -234,14 +236,26 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">3 Log Reg I</h1>
+<h1 class="title">ST-518 HW 2</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chris Eckerson </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 4, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -249,32 +263,35 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>After successful completion of this module, you will be able to:</p>
-<ul>
-<li>Describe the logistic regression model, which includes a probability model for the responses and the model equation.</li>
-<li>Write a few sentences in non-technical language that explain the results of a logistic regression model fit.</li>
-<li>Describe how to compare two logistic regression models.</li>
-<li>Explain the need for the link function in logistic regression.</li>
-</ul>
-<p>In R:</p>
-<ul>
-<li>Fit logistic regression models and interpret the output.</li>
-<li>Create exploratory plots for logistic regression, and be able to explain any limitations of these plots.</li>
-<li>Prepare and submit an R markdown script.</li>
-</ul>
+<p>output: pdf_document</p>
+<section id="r-questions" class="level2">
+<h2 class="anchored" data-anchor-id="r-questions">R Questions</h2>
+<ol type="1">
+<li><p>(4 points) It is often argued that victims of violence exhibit more violent behavior toward others. To study this hypothesis, a researcher searched court records to find 908 individuals who had been victims of abuse as children. She then found 667 individuals, with similar demographic characteristics, who had not been abused as children. Based on a search through subsequent years of court records, she was able to determine how many in each of these groups became involved in violent crimes, as shown in the following table.</p>
+<p>Involved in violent crime? Yes No Abuse Victim 102 806 Control 53 614</p>
+<p>The researcher concluded: ”Early childhood victimization has demonstrable long-term consequences for violent criminal behavior.”</p>
+<p>Conduct your own analysis of the data and comment on this conclusion. Is there evidence of a difference between the two groups? Is the strength of the causal implication of this statement justified by the data from this study?</p></li>
+</ol>
 </section>
-<section id="task-list" class="level2">
-<h2 class="anchored" data-anchor-id="task-list">Task list</h2>
-<p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
-<ul>
-<li>Review Module 3 Readings and Lectures</li>
-<li>Submit Module 3 Homework</li>
-<li>Submit Module 3 Lab</li>
-<li>Take the Module 3 Content Quiz and R Quiz</li>
-<li>Participate in the Module 3 Discussion</li>
-</ul>
+<section id="conceptual-questions" class="level2">
+<h2 class="anchored" data-anchor-id="conceptual-questions">Conceptual Questions</h2>
+<ol start="2" type="1">
+<li><p>(1 point) During an investigation of the U.S. space shuttle Challenger disaster, it was learned that project managers had judged the probability of mission failure to be 0.00001, whereas engineers working on the project had estimated failure probability at 0.005. The difference between these two probabilities, 0.00499, was discounted as being too small to worry about. Is a different picture provided by considering odds? How is that interpreted?</p></li>
+<li><p>(2 points) Suppose that 90% of orange tabby cats are male. Determine if the following statements are true or false, and explain your reasoning.</p>
+<ol type="a">
+<li><p>The distribution of sample proportions of random samples of size 30 is left skewed.</p></li>
+<li><p>Using a sample size that is 4 times as large will reduce the standard error of the sample proportion by one-half.</p></li>
+<li><p>The distribution of sample proportions of random samples of size 140 is approximately normal.</p></li>
+<li><p>The distribution of sample proportions of random samples of size 280 is approximately normal. Homework 2 ST518: Data Analytics II</p></li>
+</ol></li>
+<li><p>(2 points) A 2010 survey asked 827 randomly sampled registered voters in California, ”Do you support or do you oppose drilling for oil and natural gas off the coast of California? Or do you not know enough to say?” Below is the distribution of responses, separated based on whether or not the respondent graduated from college.</p>
+<p>College Grad Yes No Support 154 132 Oppose 180 126 Do not know 104 131 Total 438 389</p>
+<ol type="a">
+<li><p>What percents of college graduates and non-college graduates in this sample do not know enough to have an opinion on drilling for oil and natural gas off the coast of California (i.e., report two percent values)?</p></li>
+<li><p>Conduct a hypothesis test to determine whether there is evidence that the proportion of college graduates who do not have an opinion on this issue is different from that of non-college graduates.</p></li>
+</ol></li>
+<li><p>(1 point) A study of British male physicians noted that the proportion who died from lung cancer was 0.0140 per year for cigarette smokers and 0.00010 per year for nonsmokers. Additionally, the proportion who died from heart disease was 0.00669 for smokers and 0.00413 for nonsmokers. Which response (lung cancer or heart disease) is more strongly related to cigarette smoking, in terms of the reduction in deaths that could occur with the absence of smoking?</p></li>
+</ol>
 
 
 </section>

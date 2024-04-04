@@ -204,6 +204,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">HW</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hw">    
+        <li class="dropdown-header">aHW_0.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./aHW_1.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./aHW_2.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./aHW_3.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./aHW_4.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./aHW_5.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./aHW_6.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./aHW_7.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./aHW_8.html" rel="" target="">
+ <span class="dropdown-text">ST-518 HW 8</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
             <div class="quarto-navbar-tools ms-auto">
 </div>
@@ -852,11 +892,8 @@ BIC-corrected          2.182454 model1 &gt; model2 0.0145380</code></pre>
 <li><p>Finally, simulate some data from a zero-inflated negative binomial distribution using the <code>rzinegbin</code> function in the <code>VGAM</code> package.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>?rzinegbin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>starting httpd help server ... done</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>sim.df<span class="sc">$</span>negbin0 <span class="ot">&lt;-</span> <span class="fu">rzinegbin</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="fl">1.4</span>, <span class="at">munb =</span> <span class="dv">5</span>, <span class="at">pstr0 =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?rzinegbin</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>sim.df<span class="sc">$</span>negbin0 <span class="ot">&lt;-</span> <span class="fu">rzinegbin</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="fl">1.4</span>, <span class="at">munb =</span> <span class="dv">5</span>, <span class="at">pstr0 =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Try plotting a histogram of the zero-inflated negative binomial data. Is it easy or difficult to tell based on these histograms whether data come from the poisson, negative binomial, zero-inflated poisson, or zero-inflated negative binomial models?</p>
 
