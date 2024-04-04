@@ -2,9 +2,93 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Git",
+    "title": "Reference",
     "section": "",
-    "text": "Here are some git commands I never remember:\nAdd, commit, and publish the folder to the github repo\n\ngit add .\ngit commit -m “comment”\ngit push origin main\n\nSet the location of the github repo\n\ngit remote set-url origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git\ngit remote -v\ngit remote show origin\n\n\nHere are some quarto commands:\n\nquarto publish gh-pages\nquarto publish gh-pages document.qmd\n\n\nThis is from the github repo creation page\nPush an existing repository from the command line:\n\ngit remote add origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git\ngit branch -M main\ngit push -u origin main\n\n\nSetting up the website:\n\nCreate a new git repository\nCreate a quarto project/website\nRender the project\nAdd /_site/ & /.quarto/ to the .gitignore file\ngit remote add origin\ngit branch -M main\ngit add .\ngit commit\ngit push\nrefresh github.com/name\nview all branches -&gt; New -&gt; “gh-pages”\nsettings -&gt; pages -&gt; deploy from gh-pages\nquarto publish gh-pages\n\nIt should work ever after by just typing quarto publish gh-pages. There may be a need to get a personal access token at the start. I did that my first go around so I’m not sure. Sometimes the site doesn’t render immediately. You have to wait for it to finish in the actions tab of github."
+    "text": "Gradescope"
+  },
+  {
+    "objectID": "index.html#gradescope",
+    "href": "index.html#gradescope",
+    "title": "Reference",
+    "section": "",
+    "text": "Gradescope"
+  },
+  {
+    "objectID": "index.html#reading",
+    "href": "index.html#reading",
+    "title": "Reference",
+    "section": "Reading",
+    "text": "Reading\nCat Data Anal\nStat. Meth\nOpen Stats 4th ed\nR4DS\n\nExtra Reading\nMathmatical Stats 8th\nPractical Stats for DS"
+  },
+  {
+    "objectID": "index.html#lectures",
+    "href": "index.html#lectures",
+    "title": "Reference",
+    "section": "Lectures",
+    "text": "Lectures\nLectures"
+  },
+  {
+    "objectID": "index.html#git-stuff",
+    "href": "index.html#git-stuff",
+    "title": "Reference",
+    "section": "Git stuff",
+    "text": "Git stuff\nHere are some git commands I never remember:\nAdd, commit, and publish the folder to the github repo\n\ngit add .\ngit commit -m “comment”\ngit push origin main\n\nSet the location of the github repo\n\ngit remote set-url origin url\ngit remote -v\ngit remote show origin\n\n\nHere are some quarto commands:\n\nquarto publish gh-pages\nquarto publish gh-pages document.qmd\nquarto publish gh-pages –no-prompt\n\n\nThis is from the github repo creation page\nPush an existing repository from the command line:\n\ngit remote add origin url\ngit branch -M main\ngit push -u origin main"
+  },
+  {
+    "objectID": "index.html#website",
+    "href": "index.html#website",
+    "title": "Reference",
+    "section": "Website",
+    "text": "Website\nSetting up the website:\n\nCreate a new git repository\nCreate a quarto project website\nRender the project\nAdd _site & .quarto to the .gitignore file\ngit remote add origin\ngit branch -M main\ngit add .\ngit commit\ngit push\nrefresh github.com/name\nview all branches -&gt; New -&gt; “gh-pages”\nsettings -&gt; pages -&gt; deploy from gh-pages\nquarto publish gh-pages\n\nIt should work ever after by just typing quarto publish gh-pages. There may be a need to get a personal access token at the start. I did that my first go around so I’m not sure. Sometimes the site doesn’t render immediately. You have to wait for it to finish in the actions tab of github."
+  },
+  {
+    "objectID": "8_Evaluating_Models.html",
+    "href": "8_Evaluating_Models.html",
+    "title": "8 Model Eval",
+    "section": "",
+    "text": "Learning Objectives\nAt the end of this week you should be able to:\n\nDiscuss issues having to with making predictions of binary outcomes\nDescribe methods for prediction of categorical and count data\nDescribe the statistical concerns to be aware of in the big data setting\n\nIn R:\n\nMake predictions from generalized linear models\nEvaluate different models using cross validation methods\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 8 Readings and Lectures\nSubmit Module 8 Homework\nSubmit Module 8 Lab\nTake the Module 8 Content Quiz and R Quiz\nParticipate in the Module 8 Discussion"
+  },
+  {
+    "objectID": "6_Dispersion_Zero_Inflation.html",
+    "href": "6_Dispersion_Zero_Inflation.html",
+    "title": "6 Disp & 0 Inflation",
+    "section": "",
+    "text": "Learning Objectives\nAfter successful completion of this module, you will be able to:\n\nWrite out the expression of a zero-inflated Poisson regression model, including the response distribution and the model equations.\nDescribe the distinctions between over dispersion and zero-inflation.\nDescribe the distinction between “true zeroes” and “excess zeroes” and provide some examples.\nDescribe the key difference between zero-inflated models and hurdle models.\n\nIn R:\n\nFit ZIP and ZINB regression models, and Poisson and negative binomial hurdle regression models, and make comparisons among these models.\nUse simulations to understand what zero-inflation and over dispersion look like in certain situations.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 6 Readings and Lectures\nSubmit Module 6 Homework\nSubmit Module 6 Lab\nTake the Module 6 Content Quiz and R Quiz\nParticipate in the Module 6 Discussion"
+  },
+  {
+    "objectID": "4_Logistic_Regression_II.html",
+    "href": "4_Logistic_Regression_II.html",
+    "title": "4 Log-Reg II",
+    "section": "",
+    "text": "After successful completion of this module, you will be able to:\n\nDescribe how to examine the goodness of fit of a logistic regression model.\nExplain what an empirical logit is, why it’s useful and how to calculate it.\nDescribe how to compare two logistic regression models.\nDefine over dispersion (or extra-binomial variation), and indicate why it can cause problems for inference in logistic regression.\nList some reasons that counts may exhibit extra-binomial variation.\n\nIn R:\n\nEstimate and interpret the dispersion parameter.\nCreate exploratory plots for logistic regression using the empirical logit.\nUse the deviance residuals to examine goodness of fit of the logistic regression model.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 4 Readings and Lectures\nSubmit Module 4 Homework\nSubmit Module 4 Lab\nTake the Module 4 Content Quiz and R Quiz\nParticipate in the Module 4 Discussion"
+  },
+  {
+    "objectID": "4_Logistic_Regression_II.html#learning-objectives",
+    "href": "4_Logistic_Regression_II.html#learning-objectives",
+    "title": "4 Log-Reg II",
+    "section": "",
+    "text": "After successful completion of this module, you will be able to:\n\nDescribe how to examine the goodness of fit of a logistic regression model.\nExplain what an empirical logit is, why it’s useful and how to calculate it.\nDescribe how to compare two logistic regression models.\nDefine over dispersion (or extra-binomial variation), and indicate why it can cause problems for inference in logistic regression.\nList some reasons that counts may exhibit extra-binomial variation.\n\nIn R:\n\nEstimate and interpret the dispersion parameter.\nCreate exploratory plots for logistic regression using the empirical logit.\nUse the deviance residuals to examine goodness of fit of the logistic regression model.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 4 Readings and Lectures\nSubmit Module 4 Homework\nSubmit Module 4 Lab\nTake the Module 4 Content Quiz and R Quiz\nParticipate in the Module 4 Discussion"
+  },
+  {
+    "objectID": "2_Props_Risks_Odds.html",
+    "href": "2_Props_Risks_Odds.html",
+    "title": "2 Props, Risk & Odds",
+    "section": "",
+    "text": "At the end of this week you should be able to:\n\nIdentify potential issues with small sample sizes in tables of counts.\nDescribe the situations in which a comparison of odds ratios is more appropriate than a comparison of proportions.\nIndicate the one-to-one relationship between proportions and odds.\nDescribe the multinomial and Poisson distributions and the connection between them.\n\nIn R:\n\nPerform tests for a difference in proportions and an odds ratio.\nUse simulations to understand the performance of statistical tests for count data when the sample sizes are small.\nPrepare and submit an R markdown script."
+  },
+  {
+    "objectID": "2_Props_Risks_Odds.html#learning-objectives",
+    "href": "2_Props_Risks_Odds.html#learning-objectives",
+    "title": "2 Props, Risk & Odds",
+    "section": "",
+    "text": "At the end of this week you should be able to:\n\nIdentify potential issues with small sample sizes in tables of counts.\nDescribe the situations in which a comparison of odds ratios is more appropriate than a comparison of proportions.\nIndicate the one-to-one relationship between proportions and odds.\nDescribe the multinomial and Poisson distributions and the connection between them.\n\nIn R:\n\nPerform tests for a difference in proportions and an odds ratio.\nUse simulations to understand the performance of statistical tests for count data when the sample sizes are small.\nPrepare and submit an R markdown script."
+  },
+  {
+    "objectID": "2_Props_Risks_Odds.html#task-list",
+    "href": "2_Props_Risks_Odds.html#task-list",
+    "title": "2 Props, Risk & Odds",
+    "section": "Task list",
+    "text": "Task list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 2 Readings and Lectures\nSubmit Module 2 Homework\nSubmit Module 2 Lab\nTake the Module 2 Content Quiz and R Quiz\nParticipate in the Module 2 Discussion"
   },
   {
     "objectID": "1_learnR.html",
@@ -12,5 +96,75 @@
     "title": "1 Types of Categoricals",
     "section": "",
     "text": "Learn R"
+  },
+  {
+    "objectID": "10_Final_Project.html",
+    "href": "10_Final_Project.html",
+    "title": "10 Final Project",
+    "section": "",
+    "text": "Data Analysis Writing\nFinal Project.pdf"
+  },
+  {
+    "objectID": "1_Types_of_Categoricals.html",
+    "href": "1_Types_of_Categoricals.html",
+    "title": "1 Types of Categoricals",
+    "section": "",
+    "text": "At the end of this week you should be able to:\n\nDescribe the different types of categorical data that you can encounter.\nDescribe the Bernoulli probability distribution.\nDescribe the mathematical representation of categorical data with more than two categories.\nIdentify a key feature of the variances of categorical and count random variables.\nExplain the perils of aggregation and give an example.\n\nIn R:\n\nIn Lab Zero: Familiarize yourself with the new lab format, R markdown.\nIn Lab Zero: Familiarize yourself with some new R packages and functions (e.g., dplyr, the ggplot function in the ggplot2 package).\nIn Lab One: Be able to create different tabulations of categorical data, either for summary purposes or for more efficient data analysis.\nIn Lab One: Prepare and submit your first R markdown script.\n\n\n\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 1 Readings and Lectures\nSubmit Module 1 Homework\nSubmit Module 1 Labs Zero and One\nTake the Module 1 Content Quiz and R Quiz\nParticipate in the Module 1 Discussion"
+  },
+  {
+    "objectID": "1_Types_of_Categoricals.html#learning-objectives",
+    "href": "1_Types_of_Categoricals.html#learning-objectives",
+    "title": "1 Types of Categoricals",
+    "section": "",
+    "text": "At the end of this week you should be able to:\n\nDescribe the different types of categorical data that you can encounter.\nDescribe the Bernoulli probability distribution.\nDescribe the mathematical representation of categorical data with more than two categories.\nIdentify a key feature of the variances of categorical and count random variables.\nExplain the perils of aggregation and give an example.\n\nIn R:\n\nIn Lab Zero: Familiarize yourself with the new lab format, R markdown.\nIn Lab Zero: Familiarize yourself with some new R packages and functions (e.g., dplyr, the ggplot function in the ggplot2 package).\nIn Lab One: Be able to create different tabulations of categorical data, either for summary purposes or for more efficient data analysis.\nIn Lab One: Prepare and submit your first R markdown script.\n\n\n\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 1 Readings and Lectures\nSubmit Module 1 Homework\nSubmit Module 1 Labs Zero and One\nTake the Module 1 Content Quiz and R Quiz\nParticipate in the Module 1 Discussion"
+  },
+  {
+    "objectID": "3_Logistic_Regression_I.html",
+    "href": "3_Logistic_Regression_I.html",
+    "title": "3 Log Reg I",
+    "section": "",
+    "text": "After successful completion of this module, you will be able to:\n\nDescribe the logistic regression model, which includes a probability model for the responses and the model equation.\nWrite a few sentences in non-technical language that explain the results of a logistic regression model fit.\nDescribe how to compare two logistic regression models.\nExplain the need for the link function in logistic regression.\n\nIn R:\n\nFit logistic regression models and interpret the output.\nCreate exploratory plots for logistic regression, and be able to explain any limitations of these plots.\nPrepare and submit an R markdown script."
+  },
+  {
+    "objectID": "3_Logistic_Regression_I.html#learning-objectives",
+    "href": "3_Logistic_Regression_I.html#learning-objectives",
+    "title": "3 Log Reg I",
+    "section": "",
+    "text": "After successful completion of this module, you will be able to:\n\nDescribe the logistic regression model, which includes a probability model for the responses and the model equation.\nWrite a few sentences in non-technical language that explain the results of a logistic regression model fit.\nDescribe how to compare two logistic regression models.\nExplain the need for the link function in logistic regression.\n\nIn R:\n\nFit logistic regression models and interpret the output.\nCreate exploratory plots for logistic regression, and be able to explain any limitations of these plots.\nPrepare and submit an R markdown script."
+  },
+  {
+    "objectID": "3_Logistic_Regression_I.html#task-list",
+    "href": "3_Logistic_Regression_I.html#task-list",
+    "title": "3 Log Reg I",
+    "section": "Task list",
+    "text": "Task list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 3 Readings and Lectures\nSubmit Module 3 Homework\nSubmit Module 3 Lab\nTake the Module 3 Content Quiz and R Quiz\nParticipate in the Module 3 Discussion"
+  },
+  {
+    "objectID": "5_Log_linear_Regression.html",
+    "href": "5_Log_linear_Regression.html",
+    "title": "5 Log-lin-Reg",
+    "section": "",
+    "text": "After successful completion of this module, you will be able to:\n\nWrite out the expression of a Poisson regression model, including the response distribution and the model equation.\nInterpret the results of a Poisson regression.\nIdentify potential problems with the fit of a Poisson regression model.\nDescribe models for over dispersion of Poisson counts in the regression setting.\nEvaluate and compare models in the Poisson regression setting.\nDescribe how log linear models can be used for general contingency table data.\n\nIn R:\n\nFit Poisson, quasi-Poisson and negative binomial regression models, and make comparisons among them.\nFit log linear models to general contingency table data.\nUse simulations to understand problems that can arise when the sample size is small and/or the counts are small.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 5 Readings and Lectures\nSubmit Module 5 Homework\nSubmit Module 5 Lab\nTake the Module 5 Content Quiz and R Quiz\nParticipate in the Module 5 Discussion"
+  },
+  {
+    "objectID": "5_Log_linear_Regression.html#learning-objectives",
+    "href": "5_Log_linear_Regression.html#learning-objectives",
+    "title": "5 Log-lin-Reg",
+    "section": "",
+    "text": "After successful completion of this module, you will be able to:\n\nWrite out the expression of a Poisson regression model, including the response distribution and the model equation.\nInterpret the results of a Poisson regression.\nIdentify potential problems with the fit of a Poisson regression model.\nDescribe models for over dispersion of Poisson counts in the regression setting.\nEvaluate and compare models in the Poisson regression setting.\nDescribe how log linear models can be used for general contingency table data.\n\nIn R:\n\nFit Poisson, quasi-Poisson and negative binomial regression models, and make comparisons among them.\nFit log linear models to general contingency table data.\nUse simulations to understand problems that can arise when the sample size is small and/or the counts are small.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 5 Readings and Lectures\nSubmit Module 5 Homework\nSubmit Module 5 Lab\nTake the Module 5 Content Quiz and R Quiz\nParticipate in the Module 5 Discussion"
+  },
+  {
+    "objectID": "7_Random_Effects.html",
+    "href": "7_Random_Effects.html",
+    "title": "7 Random_Effects",
+    "section": "",
+    "text": "Learning Objectives\nAfter successful completion of this module, you will be able to:\n\nWrite out the expression of a generalized linear mixed model.\nDescribe the situation in which adding a random effect is important\nDescribe the correct method for interpreting fixed effect coefficient estimates from GLMM and be able to give an example.\n\nIn R:\n\nFit GLMM in R, and perform model selection for both the random and fixed parts.\nUse some examples to understand the issue involved with interpreting fixed effect estimates from GLMM.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 7 Readings and Lectures\nSubmit Module 7 Homework\nSubmit Module 7 Lab\nTake the Module 7 Content Quiz and R Quiz\nParticipate in the Module 7 Discussion"
+  },
+  {
+    "objectID": "9_Imp_Pred_Validate.html",
+    "href": "9_Imp_Pred_Validate.html",
+    "title": "9 Imp, Pred, Validate",
+    "section": "",
+    "text": "Learning Objectives\nAfter successful completion of this module, you will be able to:\n\nPerform a complete analysis of a dataset involving categorical or count responses.\nSpecifically articulate the question(s) of interest that you will explore using the data you chose for your final project.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview/work through Birdkeeping.Rmd\nReview/work through Badgers.Rmd with accompanying data Badgers.csv\nReview/work through Respiratory.Rmd with accompanying data respiratory.csv\nRead through the Final Project.pdf assignment and complete the tasks for Week 9."
   }
 ]

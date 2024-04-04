@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data_Analysis_II_Notes - Git</title>
+<title>Data_Analysis_II_Notes - Reference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./2_Props_Risks_Odds.html" rel="" target="">
- <span class="menu-text">Props, Risk &amp; Odds</span></a>
+ <span class="menu-text">2 Props, Risk &amp; Odds</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./3_Logistic_Regression_I.html" rel="" target="">
@@ -148,14 +148,27 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#gradescope" id="toc-gradescope" class="nav-link active" data-scroll-target="#gradescope">GradeScope</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">Reading</a>
+  <ul class="collapse">
+  <li><a href="#extra-reading" id="toc-extra-reading" class="nav-link" data-scroll-target="#extra-reading">Extra Reading</a></li>
+  </ul></li>
+  <li><a href="#lectures" id="toc-lectures" class="nav-link" data-scroll-target="#lectures">Lectures</a></li>
+  <li><a href="#git-stuff" id="toc-git-stuff" class="nav-link" data-scroll-target="#git-stuff">Git stuff</a></li>
+  <li><a href="#website" id="toc-website" class="nav-link" data-scroll-target="#website">Website</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Git</h1>
+<h1 class="title">Reference</h1>
 </div>
 
 
@@ -170,6 +183,28 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="gradescope" class="level2">
+<h2 class="anchored" data-anchor-id="gradescope">GradeScope</h2>
+<p><a href="https:\www.gradescope.com">Gradescope</a></p>
+</section>
+<section id="reading" class="level2">
+<h2 class="anchored" data-anchor-id="reading">Reading</h2>
+<p><a href="C:\Users\cmeck\Desktop\Books%20and%20References\Categorical_data_analysis_ed3.pdf">Cat Data Anal</a></p>
+<p><a href="https:\\ebookcentral.proquest.com\lib\osu\detail.action?docID=802390">Stat. Meth</a></p>
+<p><a href="C:\Users\cmeck\Desktop\Books%20and%20References\_Open_Intro_Stats.pdf">Open Stats 4th ed</a></p>
+<p><a href="https:\\r4ds.had.co.nz\index.html">R4DS</a></p>
+<section id="extra-reading" class="level3">
+<h3 class="anchored" data-anchor-id="extra-reading">Extra Reading</h3>
+<p><a href="C:\Users\cmeck\Desktop\Books%20and%20References\Mathematical%20Statistics%20eigth%20ed.pdf">Mathmatical Stats 8th</a></p>
+<p><a href="C:\Users\cmeck\Desktop\Books%20and%20References\PracticalStatisticsforDataScientists.pdf">Practical Stats for DS</a></p>
+</section>
+</section>
+<section id="lectures" class="level2">
+<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<p><a href="C:\Users\cmeck\Desktop\D_Anal\Anal_II\_Data_Analysis_II_All_Lectures.pdf">Lectures</a></p>
+</section>
+<section id="git-stuff" class="level2">
+<h2 class="anchored" data-anchor-id="git-stuff">Git stuff</h2>
 <p>Here are some git commands I never remember:</p>
 <p><strong>Add, commit, and publish the folder to the github repo</strong></p>
 <ol type="1">
@@ -179,7 +214,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p><strong>Set the location of the github repo</strong></p>
 <ol type="1">
-<li>git remote set-url origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git</li>
+<li>git remote set-url origin <em>url</em></li>
 <li>git remote -v</li>
 <li>git remote show origin</li>
 </ol>
@@ -188,22 +223,26 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>quarto publish gh-pages</li>
 <li>quarto publish gh-pages document.qmd</li>
+<li>quarto publish gh-pages –no-prompt</li>
 </ol>
 <hr>
 <p><strong>This is from the github repo creation page</strong></p>
 <p>Push an existing repository from the command line:</p>
 <ol type="1">
-<li>git remote add origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git</li>
+<li>git remote add origin <em>url</em></li>
 <li>git branch -M main</li>
 <li>git push -u origin main</li>
 </ol>
 <hr>
+</section>
+<section id="website" class="level2">
+<h2 class="anchored" data-anchor-id="website">Website</h2>
 <p><strong>Setting up the website:</strong></p>
 <ol type="1">
 <li>Create a new git repository</li>
-<li>Create a quarto project/website</li>
+<li>Create a quarto project website</li>
 <li>Render the project</li>
-<li>Add /_site/ &amp; /.quarto/ to the .gitignore file</li>
+<li>Add _site &amp; .quarto to the .gitignore file</li>
 <li>git remote add origin</li>
 <li>git branch -M main</li>
 <li>git add .</li>
@@ -217,6 +256,7 @@ ul.task-list li input[type="checkbox"] {
 <p>It should work ever after by just typing quarto publish gh-pages. There may be a need to get a personal access token at the start. I did that my first go around so I’m not sure. Sometimes the site doesn’t render immediately. You have to wait for it to finish in the actions tab of github.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
