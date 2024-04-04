@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data_Analysis_II_Notes - LearnR 8</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data_Analysis_II_Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./1_Types_of_Categoricals.html" rel="" target="">
+ <span class="menu-text">1 Types of Categoricals</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./2_Props_Risks_Odds.html" rel="" target="">
+ <span class="menu-text">2 Props, Risk &amp; Odds</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./3_Logistic_Regression_I.html" rel="" target="">
+ <span class="menu-text">3 Log Reg I</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./4_Logistic_Regression_II.html" rel="" target="">
+ <span class="menu-text">4 Log-Reg II</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./5_Log_linear_Regression.html" rel="" target="">
+ <span class="menu-text">5 Log-lin-Reg</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./6_Dispersion_Zero_Inflation.html" rel="" target="">
+ <span class="menu-text">6 Disp &amp; 0 Inflation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./7_Random_Effects.html" rel="" target="">
+ <span class="menu-text">7 Random_Effects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./8_Evaluating_Models.html" rel="" target="">
+ <span class="menu-text">8 Model Eval</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./9_Imp_Pred_Validate.html" rel="" target="">
+ <span class="menu-text">9 Imp, Pred, Validate</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./10_Final_Project.html" rel="" target="">
+ <span class="menu-text">10 Final Project</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="./z0_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 0</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z1_learnR.html" rel="" target="">
+ <span class="dropdown-text">1 Types of Categoricals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z7_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z8_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 8</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-email-data" id="toc-the-email-data" class="nav-link active" data-scroll-target="#the-email-data">The Email Data</a>
+  <ul class="collapse">
+  <li><a href="#binary-predictionclassification" id="toc-binary-predictionclassification" class="nav-link" data-scroll-target="#binary-predictionclassification">Binary Prediction/Classification</a></li>
+  <li><a href="#classification-into-k-categories" id="toc-classification-into-k-categories" class="nav-link" data-scroll-target="#classification-into-k-categories">Classification into <span class="math inline">\(k\)</span> Categories</a></li>
+  </ul></li>
+  <li><a href="#crash-data-prediction-in-a-poisson-glm" id="toc-crash-data-prediction-in-a-poisson-glm" class="nav-link" data-scroll-target="#crash-data-prediction-in-a-poisson-glm">Crash Data: Prediction in a Poisson GLM</a></li>
+  <li><a href="#lab-questions-cross-validation" id="toc-lab-questions-cross-validation" class="nav-link" data-scroll-target="#lab-questions-cross-validation">Lab Questions: Cross validation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">LearnR 8</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>The topic of this lab is prediction in the generalized linear modeling setting. We’ll first talk about prediction (or classification) in the case of binary categories, and then about classification into <span class="math inline">\(k\)</span> categories. We’ll also talk about prediction in the case of responses that are counts.</p>
+<p>We’ll look at some R functions that perform cross-validation, and we’ll discuss issues of model comparison on the basis of prediction error.</p>
+<p>To start off, please load these libraries that you’ll need for this lab. Note that you may have to install some of these packages first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro) <span class="co"># contains email data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)     <span class="co"># access the mixed functions</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VGAM)     <span class="co"># contains crash data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tree)     <span class="co"># for classification trees</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)     <span class="co"># ROC curves   </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)     <span class="co"># contains the cv.glm function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="the-email-data" class="level1">
+<h1>The Email Data</h1>
+<p>You’ve already seen the <code>email</code> dataset in the narrated lectures. The lecture goes into detail about how to calculate MSPE and how to plot an ROC curve to help come up with a classification rule. However, you might be wondering how to pick a good model in the first place. With so many variables in the <code>email</code> data set, trial and error (choosing a model and then calculating that model’s MSPE) does not seem very efficient. One fairly common thing to do is build a classification tree. We won’t go into any of the mathematics of how these trees are built (it is actually more complex than you might think and is a product of <em>binary recursive partitioning</em>). Classification trees are nice, however, in that they are quite easy to interpret and it is not too difficult to explain the results to non-statisticians. In other words, there’s no need to go into any explanation of logistic regression when using classification trees.</p>
+<section id="binary-predictionclassification" class="level2">
+<h2 class="anchored" data-anchor-id="binary-predictionclassification">Binary Prediction/Classification</h2>
+<p>We will use the <code>tree</code> package in R for this part of the lab.</p>
+<p>Note: the <code>email</code> data set has some missing values, which we will ignore to save time. This admittedly is not the wisest thing to do: with an important dataset, you must consider why there are missing values, and take action accordingly. At the very least, in a report, you should tell your readers that you built your model ignoring missing values in the data set.</p>
+<p>First, let’s again use 75% of the data for training the model and use the remaining 25% for testing the model that we build, as you saw in the narrated lecture about the Classifier.Rmd code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">90210</span>) <span class="do">## so you get the same results I do</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>(n <span class="ot">&lt;-</span> <span class="fu">dim</span>(email)[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3921</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(r <span class="ot">&lt;-</span> <span class="fu">round</span>(n <span class="sc">*</span> .<span class="dv">75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2941</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nidx <span class="ot">&lt;-</span> <span class="fu">sample</span>(idx, r, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>email75 <span class="ot">&lt;-</span> email[nidx, ]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>email25 <span class="ot">&lt;-</span> email[<span class="sc">-</span>nidx, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>tree</code> function follows the same form as a linear regression model: we give the function the response variable to the left of ~ and specify it as a factor so the function knows that the response is not numeric, and then we put all of the predictors to the right of ~.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">tree</span>(<span class="fu">as.factor</span>(spam) <span class="sc">~</span>  to_multiple <span class="sc">+</span> from <span class="sc">+</span> cc <span class="sc">+</span> sent_email <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>             image <span class="sc">+</span> attach <span class="sc">+</span> dollar <span class="sc">+</span> winner <span class="sc">+</span> inherit <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             viagra <span class="sc">+</span> password <span class="sc">+</span> num_char <span class="sc">+</span> line_breaks <span class="sc">+</span> format <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>             re_subj <span class="sc">+</span> exclaim_subj <span class="sc">+</span> urgent_subj <span class="sc">+</span> exclaim_mess <span class="sc">+</span>number, <span class="at">data =</span> email75)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Classification tree:
+tree(formula = as.factor(spam) ~ to_multiple + from + cc + sent_email + 
+    image + attach + dollar + winner + inherit + viagra + password + 
+    num_char + line_breaks + format + re_subj + exclaim_subj + 
+    urgent_subj + exclaim_mess + number, data = email75)
+Variables actually used in tree construction:
+[1] "line_breaks" "sent_email"  "num_char"    "to_multiple" "winner"     
+[6] "dollar"      "format"      "number"     
+Number of terminal nodes:  14 
+Residual mean deviance:  0.366 = 1071 / 2927 
+Misclassification error rate: 0.08296 = 244 / 2941 </code></pre>
+</div>
+</div>
+<p>The summary information tells us that there were 8 variables that the function decided were “important” to include in the prediction model: <code>line_breaks</code>, <code>sent_email</code>, <code>num_char</code>, <code>to_multiple</code>, <code>winner</code>, <code>dollar</code>, <code>format</code>, and <code>number</code> (you can see these below the line that says <code>Variables actually used in tree construction</code> in the output above). We also see that on the training data the final tree misclassifies 8.296% of the emails. Let’s plot the tree to have a better idea about how the splits are made.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tr); <span class="fu">text</span>(tr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z8_learnR_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>If you zoom in on the plot above, you can better see what is happening. All emails are classified as not spam except at 5 of the nodes of the tree. Fr example, starting from the base of the tree, if there are less than 49.5 line breaks, the <code>sent_email</code> variable is 0, and the <code>num_char</code> variable is less than 0.7105, then the model calls the email spam. See if you can trace down to the other 4 nodes on the tree to see what other types of emails the model is classifying as spam.</p>
+<p>Let’s now use our the model suggested by <code>tree</code> to make predictions on the test data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>email.noresp <span class="ot">&lt;-</span> email25[, <span class="sc">-</span><span class="dv">1</span>] <span class="do">## dropping the response variable</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(spam<span class="sc">~</span>line_breaks<span class="sc">+</span>sent_email<span class="sc">+</span>num_char<span class="sc">+</span>to_multiple<span class="sc">+</span>format,<span class="at">data=</span>email75,<span class="at">family=</span><span class="st">"binomial"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, email.noresp, <span class="at">type =</span> <span class="st">"link"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>phats <span class="ot">&lt;-</span> <span class="fu">plogis</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, let’s take a look at the ROC Curve for this predictive model and see if we can decide on a good classification rule.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc</span>(email25<span class="sc">$</span>spam,phats,<span class="at">plot=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Setting levels: control = 0, case = 1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Setting direction: controls &lt; cases</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="z8_learnR_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+roc.default(response = email25$spam, predictor = phats, plot = T)
+
+Data: phats in 892 controls (email25$spam 0) &lt; 88 cases (email25$spam 1).
+Area under the curve: 0.8432</code></pre>
+</div>
+</div>
+<p>It looks like we can simultaneously maximize specificity and sensitivity if we take the classification cutoff value to be around 0.75 – that is, we’ll classify an email as spam if <span class="math inline">\(\hat{p} \ge 0.75\)</span>. Then, we can use that to calculate the MSPE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(phats<span class="sc">&gt;=</span><span class="fl">0.75</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>(MSPE <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam) <span class="sc">-</span> preds <span class="sc">-</span><span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08979592</code></pre>
+</div>
+</div>
+<p>We get a MSPE of 0.090. Note that this is slightly higher than the model misclassification rate from the <code>summary(tr)</code>. This is typical, as the misclassification rate on the training data should be lower since the training data has an advantage over the test data in that the model is built using the training data.</p>
+<p>This MSPE is quite similar to the value we calculated for several models in the narrated lectures, indicating that none of these models would necessarily be preferable. Please note that the models that we used in the narrated lectures were trained and tested on a different random split of the data. If we were truly comparing models, we should sure the we used the <strong>same</strong> training data and test data. The main advantage of the classification tree is its ease of interpretation, especially to someone who might not be familiar with statistics.</p>
+<blockquote class="blockquote">
+<p>We find the classification tree to be a reasonable way to find a model with good predictive properties. There are certainly other methods of model selection that you can use.</p>
+</blockquote>
+</section>
+<section id="classification-into-k-categories" class="level2">
+<h2 class="anchored" data-anchor-id="classification-into-k-categories">Classification into <span class="math inline">\(k\)</span> Categories</h2>
+<p>Classification trees extend very nicely to incorporating a response variable with more than 2 categories. On the other hand, if taking a more regression oriented approach, we would have to learn multinomial regression. It might not be a bad idea to familiarize yourself with multinomial regression, but the remainder of this section of lab will use classification trees instead.</p>
+<p>To save the time of looking at a new data set, we will actually just use the <code>email</code> data set again. Now suppose that we want to classify whether emails contain no numbers, a small number, or a big number. I’ll leave it to your own imagination as to why we would want to classify emails into these three categories. Then we will use all of the other variables in the <code>email</code> data set as possible predictors.</p>
+<p>Let’s re-select training and test sets:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">773355</span>) <span class="do">## so you get the same results I do</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>(n <span class="ot">&lt;-</span> <span class="fu">dim</span>(email)[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3921</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(r <span class="ot">&lt;-</span> <span class="fu">round</span>(n <span class="sc">*</span> .<span class="dv">75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2941</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>nidx <span class="ot">&lt;-</span> <span class="fu">sample</span>(idx, r, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>email75 <span class="ot">&lt;-</span> email[nidx, ]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>email25 <span class="ot">&lt;-</span> email[<span class="sc">-</span>nidx, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we’ll run the classification tree algorithm using <code>as.factor(number)</code> as the response.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tr2 <span class="ot">&lt;-</span> <span class="fu">tree</span>(<span class="fu">as.factor</span>(number) <span class="sc">~</span> spam <span class="sc">+</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>        to_multiple <span class="sc">+</span> from <span class="sc">+</span> cc <span class="sc">+</span> sent_email <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        image <span class="sc">+</span> attach <span class="sc">+</span> dollar <span class="sc">+</span> winner <span class="sc">+</span> inherit <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        viagra <span class="sc">+</span> password <span class="sc">+</span> num_char <span class="sc">+</span> line_breaks <span class="sc">+</span> format <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        re_subj <span class="sc">+</span> exclaim_subj <span class="sc">+</span> urgent_subj <span class="sc">+</span> exclaim_mess, <span class="at">data =</span> email75)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Classification tree:
+tree(formula = as.factor(number) ~ spam + to_multiple + from + 
+    cc + sent_email + image + attach + dollar + winner + inherit + 
+    viagra + password + num_char + line_breaks + format + re_subj + 
+    exclaim_subj + urgent_subj + exclaim_mess, data = email75)
+Variables actually used in tree construction:
+[1] "line_breaks" "num_char"    "re_subj"     "spam"        "to_multiple"
+[6] "format"     
+Number of terminal nodes:  8 
+Residual mean deviance:  1.19 = 3490 / 2933 
+Misclassification error rate: 0.2414 = 710 / 2941 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tr2); <span class="fu">text</span>(tr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z8_learnR_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>When zooming in the plot, we see that the model will not classify any emails as containing a big number, but will for instance classify an email as containing no numbers when the number of line breaks is less than 65.5 and the number of characters is less than 0.5315. You can trace the other branches of the tree to see when emails will be classified as having a small number or having no numbers. The misclassification rate is 0.241.</p>
+<p>In this approach, we’ll just use the default classification rule for <code>tree</code> objects in the <code>predict.tree</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(tr2, email25, <span class="at">type =</span> <span class="st">"class"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, let’s calculate the misclassification rate – we’ll just sum up the number of times the predicted classification does not match the classification in the <code>email25</code> data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(predictions <span class="sc">!=</span> email25<span class="sc">$</span>number) <span class="sc">/</span> <span class="fu">length</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2285714</code></pre>
+</div>
+</div>
+<p>The misclassification rate is 0.229, which is actually quite similar to the misclassification rate provided in the output of the <code>summary</code> for the training data for this particular response. While this is unusual, it is not impossible: perhaps in this case, the test data set was just relatively easy to predict.</p>
+<p>We will stop here with classification, but you can imagine a few extensions. What if we care more about an email being misclassified as having no numbers than an email being misclassified as having a large number? Then we might want to change our model to reflect this preference.</p>
+</section>
+</section>
+<section id="crash-data-prediction-in-a-poisson-glm" class="level1">
+<h1>Crash Data: Prediction in a Poisson GLM</h1>
+<p>For prediction in a Poisson GLM, we will use the <code>crashi</code> data in the <code>VGAM</code> package, which has data on the number of crashes (a count) in New Zealand in 2009. The columns in the data set are the days of the week and the rows are the hour in military time (for example, the fifth row in the Wednesday column says that there were 11 reported crashes in 2009 in New Zealand on Wednesdays between 4:00 am and 5:00 am).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(crashi)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ?crashi</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(crashi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Mon</th>
+<th style="text-align: right;">Tue</th>
+<th style="text-align: right;">Wed</th>
+<th style="text-align: right;">Thu</th>
+<th style="text-align: right;">Fri</th>
+<th style="text-align: right;">Sat</th>
+<th style="text-align: right;">Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">35</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We first need to restructure the data a bit. Instead of using <code>tidyr</code>, we can actually just use the <code>stack</code> function in base R, which combines the seven columns in <code>crashi</code> into a single column with the number of crashes and a second column that preserves which day of the week the number of crashes came from. Then, we can manually add hours (0 through 23) as a third column in our restructured data set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>hour <span class="ot">&lt;-</span> <span class="fu">rownames</span>(crashi) <span class="do">## grab the hours</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>crashi2 <span class="ot">&lt;-</span> <span class="fu">stack</span>(crashi) <span class="do">## combine 7 columns of crashes into 1</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(crashi2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Count"</span>,<span class="st">"Day"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>crashi2<span class="sc">$</span>Day <span class="ot">&lt;-</span> <span class="fu">factor</span>(crashi2<span class="sc">$</span>Day,<span class="fu">levels</span>(crashi2<span class="sc">$</span>Day)[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)])  <span class="co"># make sure the days are ordered correctly</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>crashi2<span class="sc">$</span>Hour <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">rep</span>(hour, <span class="fu">ncol</span>(crashi)))  </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="do">## add a column with hour and make it numeric (not categorical)</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(crashi2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Count</th>
+<th style="text-align: left;">Day</th>
+<th style="text-align: right;">Hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>First, let’s make an exploratory plot of the data. This is a fairly simple plot with the number of crashes on the y-axis, the hour of the day on the x-axis, and we’ll use colour for the different days of the week.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> crashi2, <span class="fu">aes</span>(<span class="at">x =</span> Hour, <span class="at">y =</span> Count, <span class="at">group =</span> Day)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Day)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Day))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z8_learnR_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The number of crashes across the different days of the week look more similar than what you may have expected. We can see a few reasonable differences between weekdays and weekends – early Saturday morning and early Sunday morning between midnight and 5:00 am, there seem to be more crashes than on the other days of the week at those times, likely because drivers are out much later on weekends. Also, during the 7:00 - 8:00 am rush hour on Monday through Friday, there are many more crashes than on Saturday and Sunday during these times.</p>
+<p>Next, we can fit a Poisson regression model that just includes terms for <code>Day</code> and <code>Hour</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Count <span class="sc">~</span> Day <span class="sc">+</span> Hour, <span class="at">data =</span> crashi2, </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"poisson"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Count ~ Day + Hour, family = "poisson", data = crashi2)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  3.657014   0.032391 112.902  &lt; 2e-16 ***
+DaySat       0.147305   0.036171   4.073 4.65e-05 ***
+DaySun      -0.024166   0.037705  -0.641   0.5216    
+DayFri       0.238198   0.035435   6.722 1.79e-11 ***
+DayMon      -0.088033   0.038329  -2.297   0.0216 *  
+DayWed       0.059963   0.036927   1.624   0.1044    
+DayThu       0.151539   0.036135   4.194 2.74e-05 ***
+Hour         0.034580   0.001418  24.391  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 4227.4  on 167  degrees of freedom
+Residual deviance: 3499.4  on 160  degrees of freedom
+AIC: 4480.4
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<p>Notice how we just used <code>Hour</code> as a linear predictor here. Logically, this does not really make the most sense, as there are clear up and down patterns in the counts. What can we do instead? We might split up time into a few categories, such as morning, noon, and night. Also, from the plot there appears to be hardly any difference in crash counts among Monday, Tuesday, Wednesday, and Thursday. As one option, we might combine these days into one category (Weekday), leaving Friday, Saturday and Sunday as separate categories.</p>
+<p>Another option would be to include a few transformations of the <code>Hour</code> variable to model the cyclic nature of the data. Specifically, if we include a few sine and cosine term, we might do a decent job at modeling the cycles. For now, however, we’ll proceed by using some new indicator functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## lump Mon, Tue, Wed, Thu into a single Weekday category and</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="do">## categorize the times into Early Morning, Morning, Afternoon, and Evening</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>crashi2 <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(.,<span class="at">Day.Cat =</span> <span class="fu">ifelse</span>((Day <span class="sc">!=</span> <span class="st">"Fri"</span> <span class="sc">&amp;</span> Day <span class="sc">!=</span> <span class="st">"Sat"</span> <span class="sc">&amp;</span> Day <span class="sc">!=</span> <span class="st">"Sun"</span>),<span class="st">"Weekday"</span>,<span class="fu">as.character</span>(Day)), <span class="at">Time.Cat =</span> <span class="fu">cut</span>(Hour,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="fl">5.5</span>, <span class="fl">11.5</span>, <span class="fl">18.5</span>, <span class="dv">25</span>),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Early.Morn"</span>, <span class="st">"Morn"</span>, <span class="st">"Afternoon"</span>, <span class="st">"Evening"</span>)))</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(crashi2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Count</th>
+<th style="text-align: left;">Day</th>
+<th style="text-align: right;">Hour</th>
+<th style="text-align: left;">Day.Cat</th>
+<th style="text-align: left;">Time.Cat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Weekday</td>
+<td style="text-align: left;">Early.Morn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Weekday</td>
+<td style="text-align: left;">Early.Morn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Weekday</td>
+<td style="text-align: left;">Early.Morn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Weekday</td>
+<td style="text-align: left;">Early.Morn</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Weekday</td>
+<td style="text-align: left;">Early.Morn</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Mon</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Weekday</td>
+<td style="text-align: left;">Early.Morn</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The model we fit above didn’t include interactions, but there are likely some interactions between Day of the Week and Time of Day. As an example, we would expect the number of crashes on Monday mornings to be different than those for Sunday mornings. This next model that we’ll fit uses our new indicator variables and includes some interaction terms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Count <span class="sc">~</span> Day.Cat <span class="sc">*</span> Time.Cat, <span class="at">data =</span> crashi2, </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"poisson"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Count ~ Day.Cat * Time.Cat, family = "poisson", 
+    data = crashi2)
+
+Coefficients:
+                                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                       3.03655    0.08944  33.950  &lt; 2e-16 ***
+Day.CatSat                        0.59664    0.11138   5.357 8.47e-08 ***
+Day.CatSun                        0.86878    0.10656   8.153 3.56e-16 ***
+Day.CatWeekday                   -0.53785    0.10689  -5.032 4.85e-07 ***
+Time.CatMorn                      1.26976    0.10123  12.544  &lt; 2e-16 ***
+Time.CatAfternoon                 1.80763    0.09552  18.923  &lt; 2e-16 ***
+Time.CatEvening                   1.20621    0.10428  11.567  &lt; 2e-16 ***
+Day.CatSat:Time.CatMorn          -0.76247    0.13155  -5.796 6.79e-09 ***
+Day.CatSun:Time.CatMorn          -1.28668    0.13044  -9.864  &lt; 2e-16 ***
+Day.CatWeekday:Time.CatMorn       0.57318    0.11922   4.808 1.53e-06 ***
+Day.CatSat:Time.CatAfternoon     -0.80471    0.12213  -6.589 4.43e-11 ***
+Day.CatSun:Time.CatAfternoon     -1.22433    0.11868 -10.316  &lt; 2e-16 ***
+Day.CatWeekday:Time.CatAfternoon  0.34012    0.11354   2.995  0.00274 ** 
+Day.CatSat:Time.CatEvening       -0.66810    0.13552  -4.930 8.23e-07 ***
+Day.CatSun:Time.CatEvening       -1.55050    0.14111 -10.988  &lt; 2e-16 ***
+Day.CatWeekday:Time.CatEvening    0.03632    0.12444   0.292  0.77035    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 4227.41  on 167  degrees of freedom
+Residual deviance:  902.73  on 152  degrees of freedom
+AIC: 1899.7
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Wow, just about everything seems important here! Let’s replot the data with the fitted values for this model included.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>crashi2<span class="sc">$</span>fits <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(mod2,crashi2,<span class="at">type=</span><span class="st">"response"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> crashi2, <span class="fu">aes</span>(<span class="at">x =</span> Time.Cat, <span class="at">y =</span> Count, <span class="at">group =</span> Day.Cat)) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Day.Cat)) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(Time.Cat,fits,<span class="at">color=</span>Day.Cat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z8_learnR_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We have coarsened the data by creating these new time and day categories, and that’s why the plot is different from the original plot we created. <em>This is not the only way to proceed with these data, but it’s effective for our purposes.</em></p>
+<p>Notice in the summary model output that there is evidence for overdispersion in the counts the residual deviance from <code>mod2</code> is about 903 and the corresponding df are 152. Therefore, we should fit a negative binomial model to address the over dispersion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(Count <span class="sc">~</span> Day.Cat <span class="sc">*</span> Time.Cat, <span class="at">data =</span> crashi2)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = Count ~ Day.Cat * Time.Cat, data = crashi2, 
+    init.theta = 13.71581333, link = log)
+
+Coefficients:
+                                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                       3.03655    0.14196  21.391  &lt; 2e-16 ***
+Day.CatSat                        0.59664    0.19159   3.114 0.001845 ** 
+Day.CatSun                        0.86878    0.18883   4.601 4.21e-06 ***
+Day.CatWeekday                   -0.53785    0.16314  -3.297 0.000977 ***
+Time.CatMorn                      1.26976    0.18588   6.831 8.42e-12 ***
+Time.CatAfternoon                 1.80763    0.17802  10.154  &lt; 2e-16 ***
+Time.CatEvening                   1.20621    0.19392   6.220 4.97e-10 ***
+Day.CatSat:Time.CatMorn          -0.76247    0.25673  -2.970 0.002979 ** 
+Day.CatSun:Time.CatMorn          -1.28668    0.25617  -5.023 5.09e-07 ***
+Day.CatWeekday:Time.CatMorn       0.57318    0.21117   2.714 0.006642 ** 
+Day.CatSat:Time.CatAfternoon     -0.80471    0.24505  -3.284 0.001024 ** 
+Day.CatSun:Time.CatAfternoon     -1.22433    0.24335  -5.031 4.88e-07 ***
+Day.CatWeekday:Time.CatAfternoon  0.34012    0.20273   1.678 0.093415 .  
+Day.CatSat:Time.CatEvening       -0.66810    0.26801  -2.493 0.012675 *  
+Day.CatSun:Time.CatEvening       -1.55050    0.27088  -5.724 1.04e-08 ***
+Day.CatWeekday:Time.CatEvening    0.03632    0.22114   0.164 0.869524    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(13.7158) family taken to be 1)
+
+    Null deviance: 880.82  on 167  degrees of freedom
+Residual deviance: 172.14  on 152  degrees of freedom
+AIC: 1439.5
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  13.72 
+          Std. Err.:  1.93 
+
+ 2 x log-likelihood:  -1405.533 </code></pre>
+</div>
+</div>
+<p>The negative binomial model actually gives the same coefficients as the Poisson model (verified below), but the standard errors are different. Therefore, if we care <strong>only</strong> about making predictions and do not care what the variance of our predictions is, then we can fit either model. If we do care about the variance of our predictions <strong>and we typically should</strong>, then we should use the negative binomial model. There are actually cases where we do not really care about the variance of our prediction and only want to make the best possible choice (for example, if I want to drive somewhere on the weekend when there is the lowest chance of a crash, I might not care about the variability in the model: I simply would pick the time with the lowest fit number of crashes).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## coefficients of the two models are the same</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(mod2<span class="sc">$</span>coefficients, mod3<span class="sc">$</span>coefficients)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                        [,1]        [,2]
+(Intercept)                       3.03655427  3.03655427
+Day.CatSat                        0.59663628  0.59663628
+Day.CatSun                        0.86877975  0.86877975
+Day.CatWeekday                   -0.53785430 -0.53785430
+Time.CatMorn                      1.26976054  1.26976054
+Time.CatAfternoon                 1.80763282  1.80763282
+Time.CatEvening                   1.20621030  1.20621030
+Day.CatSat:Time.CatMorn          -0.76246537 -0.76246537
+Day.CatSun:Time.CatMorn          -1.28668142 -1.28668142
+Day.CatWeekday:Time.CatMorn       0.57317806  0.57317806
+Day.CatSat:Time.CatAfternoon     -0.80470838 -0.80470838
+Day.CatSun:Time.CatAfternoon     -1.22433047 -1.22433047
+Day.CatWeekday:Time.CatAfternoon  0.34011643  0.34011643
+Day.CatSat:Time.CatEvening       -0.66809524 -0.66809524
+Day.CatSun:Time.CatEvening       -1.55049823 -1.55049823
+Day.CatWeekday:Time.CatEvening    0.03632441  0.03632441</code></pre>
+</div>
+</div>
+<p>Let’s now suppose that we want to predict the number of crashes that will occur on Saturday in the early morning hours in this upcoming year. Perhaps we need this for scheduling purposes to assign a proper number of paramedics during these hours. Before we get to this, note the following:</p>
+<p><em>Note 1</em>: In past labs, we were careful to say that fitting a bunch of models and then making conclusions about the association of explanatory variables with the response variable was <em>not</em> an appropriate thing to do (data snooping). However, if we are <em>only</em> interested in prediction and not, for instance making a conclusion along the lines of Day of the week being statistically associated with the number of crashes, then fitting many models is not much of an issue.</p>
+<p><em>Note 2</em>: When we make a prediction for an upcoming year, we make the very crucial assumption that there will not be any systematic changes in the number crashes or roads or rules or behaviors of people in the following year. This may or may not be reasonable depending on the application. You may not know much about the New Zealand transit system, but, in a real application, you should be able to evaluate any generalization assumptions logically.</p>
+<p>Let’s make the prediction using both the Poisson model and the negative binomial model that accounts for the over dispersion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## define predictor values </span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>newdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Day.Cat =</span> <span class="st">"Sat"</span>, <span class="at">Time.Cat =</span> <span class="st">"Early.Morn"</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="do">## predict using Poisson regression and NB regression</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod2, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+37.83333 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod3, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+37.83333 </code></pre>
+</div>
+</div>
+<p>We see that, as expected, the Poisson model and the Negative Binomial model give us the same prediction of 37.8 crashes per year (since the regression coefficients for the two models were identical).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## manually doing the back transformation</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod2, <span class="at">newdata =</span> newdat, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$fit
+       1 
+3.633191 
+
+$se.fit
+[1] 0.06637233
+
+$residual.scale
+[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.633191</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37.83335</code></pre>
+</div>
+</div>
+<p>The most important thing to realize is that we have to pay attention to the scale that the <code>predict</code> function returns our prediction. Predicting 3.6 crashes per year on Saturday in the early morning hours is much different than predicting 37.8 crashes per year on Saturday in the early morning hours!</p>
+<p>If we want a standard error associated with our prediction,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod2, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$fit
+       1 
+37.83333 
+
+$se.fit
+       1 
+2.511086 
+
+$residual.scale
+[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod3, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$fit
+       1 
+37.83333 
+
+$se.fit
+       1 
+4.868124 
+
+$residual.scale
+[1] 1</code></pre>
+</div>
+</div>
+<p>Now we see that the standard error for the prediction in the Poisson model is much lower than the standard error in the negative binomial model. If we naively ignore overdispersion in the data, then our prediction interval would be too narrow! If we don’t care about the standard error of our prediction, then either model would be fine to use.</p>
+</section>
+<section id="lab-questions-cross-validation" class="level1">
+<h1>Lab Questions: Cross validation</h1>
+<p>The <code>Prestige</code> data set in the <code>car</code> package contains data on the average income, average education, percentage of women, Pineo-Porter prestige score, and type of occupation for 102 occupations in 1971. The prestige score is actually a score on a 0 to 100 scale, but we will dichotomize it here to perform predictions.</p>
+<p>You’ll use the <code>cv.glm</code> function in the <code>boot</code> R package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("car") ## contains the Prestige data</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ?Prestige</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, let’s create a binary prestige score, and then fit a simple model to illustrate the functionality in <code>cvTools</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42491</span>) <span class="do">## so you get the same results I do</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dichotomize presige</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>Pres <span class="ot">&lt;-</span> Prestige</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>Pres <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(.,<span class="at">presCat =</span> <span class="fu">ifelse</span>(prestige<span class="sc">&gt;=</span><span class="dv">70</span>,<span class="dv">1</span>,<span class="dv">0</span>))</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a model</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(presCat <span class="sc">~</span> education, <span class="at">data =</span> Pres, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = presCat ~ education, family = "binomial", data = Pres)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept) -20.8612     6.4435  -3.238  0.00121 **
+education     1.3983     0.4401   3.177  0.00149 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 69.764  on 101  degrees of freedom
+Residual deviance: 30.596  on 100  degrees of freedom
+AIC: 34.596
+
+Number of Fisher Scoring iterations: 8</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><p>Find the MSPE for 5-fold and 10-fold cross validation on the <code>mod</code> object. Report these values.</p></li>
+<li><p>What is a different cost that you can use in the <code>cv.glm</code> function [see Examples in the help file]? What do you think are some advantages and disadvantages of the various types of costs that you can use?</p></li>
+</ol>
+<p>Let’s compare the MSPE of the model above to a model with <code>education</code>, <code>women</code>, <code>income</code>, and their two-way interactions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presCat <span class="sc">~</span> education<span class="sc">*</span>women <span class="sc">+</span> education<span class="sc">*</span>income <span class="sc">+</span> women<span class="sc">*</span>income, <span class="at">data =</span> Pres, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = presCat ~ education * women + education * income + 
+    women * income, family = "binomial", data = Pres)
+
+Coefficients:
+                   Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)      -9.842e+00  1.400e+01  -0.703    0.482
+education         7.447e-01  9.788e-01   0.761    0.447
+women            -2.503e-01  3.542e-01  -0.707    0.480
+income           -1.893e-03  1.731e-03  -1.093    0.274
+education:women   2.634e-02  3.215e-02   0.819    0.413
+education:income  1.248e-04  1.113e-04   1.121    0.262
+women:income     -2.184e-05  1.784e-05  -1.224    0.221
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 69.764  on 101  degrees of freedom
+Residual deviance: 26.874  on  95  degrees of freedom
+AIC: 40.874
+
+Number of Fisher Scoring iterations: 9</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li><p>How do the MSPE’s compare?</p></li>
+<li><p>In the <code>crashi2</code> data frame that you created during the lab, make a new variable that puts the day of the week Friday as a Weekday and lumps Saturday and Sunday into one category, Weekend. So this new variable will have two categories: Weekday or Weekend. Fit a Poisson regression model with your new variable and <code>Time.Cat</code> as well as their interaction.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Make new variable here</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Perform Poisson regression here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Use the <code>cv.glm</code> function with <code>K</code> = 10 to find a MSPE for this model.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">77732</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="do">## do cross-validation here using cv.glm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

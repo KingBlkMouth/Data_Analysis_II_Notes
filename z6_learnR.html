@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data_Analysis_II_Notes - LearnR 6</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data_Analysis_II_Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./1_Types_of_Categoricals.html" rel="" target="">
+ <span class="menu-text">1 Types of Categoricals</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./2_Props_Risks_Odds.html" rel="" target="">
+ <span class="menu-text">2 Props, Risk &amp; Odds</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./3_Logistic_Regression_I.html" rel="" target="">
+ <span class="menu-text">3 Log Reg I</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./4_Logistic_Regression_II.html" rel="" target="">
+ <span class="menu-text">4 Log-Reg II</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./5_Log_linear_Regression.html" rel="" target="">
+ <span class="menu-text">5 Log-lin-Reg</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./6_Dispersion_Zero_Inflation.html" rel="" target="">
+ <span class="menu-text">6 Disp &amp; 0 Inflation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./7_Random_Effects.html" rel="" target="">
+ <span class="menu-text">7 Random_Effects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./8_Evaluating_Models.html" rel="" target="">
+ <span class="menu-text">8 Model Eval</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./9_Imp_Pred_Validate.html" rel="" target="">
+ <span class="menu-text">9 Imp, Pred, Validate</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./10_Final_Project.html" rel="" target="">
+ <span class="menu-text">10 Final Project</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="./z0_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 0</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z1_learnR.html" rel="" target="">
+ <span class="dropdown-text">1 Types of Categoricals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z7_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z8_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 8</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#zero-inflation" id="toc-zero-inflation" class="nav-link active" data-scroll-target="#zero-inflation">Zero-Inflation</a></li>
+  <li><a href="#quine-data" id="toc-quine-data" class="nav-link" data-scroll-target="#quine-data">Quine Data</a>
+  <ul class="collapse">
+  <li><a href="#some-data-exploration" id="toc-some-data-exploration" class="nav-link" data-scroll-target="#some-data-exploration">Some data exploration</a></li>
+  </ul></li>
+  <li><a href="#zero-inflation-1" id="toc-zero-inflation-1" class="nav-link" data-scroll-target="#zero-inflation-1">Zero Inflation</a>
+  <ul class="collapse">
+  <li><a href="#zero-inflated-models" id="toc-zero-inflated-models" class="nav-link" data-scroll-target="#zero-inflated-models">Zero-Inflated Models</a></li>
+  <li><a href="#hurdle-models" id="toc-hurdle-models" class="nav-link" data-scroll-target="#hurdle-models">Hurdle Models</a></li>
+  <li><a href="#model-evaluation-comparison-and-information-criteria" id="toc-model-evaluation-comparison-and-information-criteria" class="nav-link" data-scroll-target="#model-evaluation-comparison-and-information-criteria">Model Evaluation, Comparison, and Information Criteria</a>
+  <ul class="collapse">
+  <li><a href="#vuong-test" id="toc-vuong-test" class="nav-link" data-scroll-target="#vuong-test">Vuong test</a></li>
+  <li><a href="#coefficient-interpretation" id="toc-coefficient-interpretation" class="nav-link" data-scroll-target="#coefficient-interpretation">Coefficient Interpretation</a></li>
+  <li><a href="#looking-at-residuals" id="toc-looking-at-residuals" class="nav-link" data-scroll-target="#looking-at-residuals">Looking at Residuals</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#lab-questions" id="toc-lab-questions" class="nav-link" data-scroll-target="#lab-questions">Lab Questions</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">LearnR 6</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="zero-inflation" class="level1">
+<h1>Zero-Inflation</h1>
+<p>Please load these libraries that you’ll need for this lab:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this lab, we’ll cover some more details about zero-inflated and hurdle models. We will discuss why zero-inflated models are sometimes needed, the difference between zero-inflated models and hurdle models, how to compare various types of fitted models, and how to check residuals to assess model assumptions.</p>
+</section>
+<section id="quine-data" class="level1">
+<h1>Quine Data</h1>
+<p>We will use data from schools in Australia about the number of days that children are absent from a particular school in the <code>MASS</code> library.</p>
+<section id="some-data-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="some-data-exploration">Some data exploration</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?quine</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> quine</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(schools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Eth</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: left;">Age</th>
+<th style="text-align: left;">Lrn</th>
+<th style="text-align: right;">Days</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">SL</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">SL</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">SL</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: right;">13</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>For each child in the data set, we have information on the child’s Ethnicity, Sex, Age, Learning Disability Status, and Days absent from school (which we will treat as the response variable). All of the explanatory variables are categorical with two categories each, except for Age which has four categories.</p>
+<p>We’ll start with some exploration of the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Days Absent from School"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>You can see from the histogram above that most of the children only missed between 5 and 10 days of school. However, there are perhaps more 0’s than we would expect from a standard Poisson or Negative Binomial Model. It’s rather difficult to tell what will be the best model for these data just based on this simple histogram, but we will investigate the various models proposed in lecture throughout the rest of the lab.</p>
+<p>Next, let’s next create some side-by-side boxplots to explore how each of the categorical explanatory variables is associated with the response.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Eth, <span class="at">y =</span> Days)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Days Absent vs. Ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Aboriginal"</span>, <span class="st">"Not Aboriginal"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Here is looks like there are generally higher numbers of days absent among the Aboriginal students, and there’s also more variability in that group.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Sex, <span class="at">y =</span> Days)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Days Absent vs. Gender"</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>It’s difficult to detect large differences here, though there is some indication of more variation in the distribution of male students.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> Days)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Days Absent vs. Age"</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Primary"</span>, <span class="st">"F1"</span>, <span class="st">"F2"</span>, <span class="st">"F3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>There seems to be some skewness in the F1 distribution, and you could investigate that further by cross-tabulating <code>Age</code> with some of the other explanatory variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Lrn, <span class="at">y =</span> Days)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Days Absent vs. Learning"</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Average Learner"</span>, <span class="st">"Slow Learner"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Finally, there are not clear differences in these two distributions, but we should investigate some more by fitting some models.</p>
+<p>One thing to notice about many of the boxplots is that there are (at least what R is declaring to be) outliers on the upper end of all of the boxplots. But remember that count distributions tend to be right skewed (just revisit the histogram above!), and so these may not really be outliers, but rather just large counts that we can expect from some count distributions.</p>
+<p>An as aside, take a look at the help file for the <code>geom_boxplot()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?geom_boxplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you scroll down in the help file to where it describes the “Computed Variables,” you’ll see that <code>after_stat(ymax)</code> is defined as “upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR” (“upper hinge” is the 75th percentile). This is a rather standard, though arbitrary rule for declaring something an outlier. Also remember that with Poisson count data, as the counts increase, so does the variance. Therefore, when looking at boxplots of count data, an “outlier” may simply be an indication of large variance, or it may be an indication of over dispersion.</p>
+</section>
+</section>
+<section id="zero-inflation-1" class="level1">
+<h1>Zero Inflation</h1>
+<p>As discussed in the narrated lectures this week, the 0’s in the <code>quine</code> dataset might be divided into two categories: true 0’s and excess 0’s (though we will never be able to tell definitively which are true and which are excess based on the data alone). In this particular example, some of the excess 0’s might be present if parents of the children force them to go to school every day while the true 0’s might be present for those children that truly never got sick or had to miss school for another reason. This is purely speculative, but, for count data, it can be helpful to think about <em>why</em> there might be zero-inflated data.</p>
+<section id="zero-inflated-models" class="level2">
+<h2 class="anchored" data-anchor-id="zero-inflated-models">Zero-Inflated Models</h2>
+<p>Recall from the Module 6 lectures that the zero-inflated Poisson regression model is a two part model with:</p>
+<p><span class="math inline">\(logit(\pi_i) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + \beta_4 X_{4i} + \beta_5 X_{5i} + \beta_6 X_{6i}\)</span></p>
+<p>and</p>
+<p><span class="math inline">\(log(\lambda_i) = \gamma_0 + \gamma_1 X_{1i} + \gamma_2 X_{2i} + \gamma_3 X_{3i} + \gamma_4 X_{4i} + \gamma_5 X_{5i} + \gamma_6 X_{6i}\)</span></p>
+<p>with <span class="math inline">\(X_1\)</span> as the indicator for Ethnicity, <span class="math inline">\(X_2\)</span> as the indicator for Sex, <span class="math inline">\(X_3\)</span>, <span class="math inline">\(X_4\)</span>, <span class="math inline">\(X_5\)</span> as the three indicator variables for Age, and <span class="math inline">\(X_6\)</span> as the indicator variable for Learning Status.</p>
+<p><em>Note 1</em>: As usual, for categorical variables, we need <span class="math inline">\(k - 1\)</span> indicator variables in the model for each explanatory variable, where <span class="math inline">\(k\)</span> is the number of categories for a particular explanatory variable.</p>
+<p>If we expect there to be over dispersion in the counts, we might also consider fitting a zero-inflated negative binomial model. This is really quite similar to the idea of the zero-inflated Poisson model (we even have the same link function, the log-link). The only difference is that the negative binomial model has an extra parameter to estimate and allows for the possibility of over dispersion in the counts.</p>
+</section>
+<section id="hurdle-models" class="level2">
+<h2 class="anchored" data-anchor-id="hurdle-models">Hurdle Models</h2>
+<p>The purpose of hurdle models is the same as the purpose of zero-inflated models: to account for excess 0’s. As discussed in the Sarul and Sahin reading, the results of the models can actually give quite different results sometimes.</p>
+<p><em>Note 2</em>: As with the previous lab, fitting all of the different models we are about to fit does actually qualify as data snooping. In reality, we would want to think about whether a hurdle model or a zero-inflated Poisson model or a zero-inflated negative binomial model, etc., is most reasonable for the particular data we have <strong>before</strong> doing any model fitting.</p>
+</section>
+<section id="model-evaluation-comparison-and-information-criteria" class="level2">
+<h2 class="anchored" data-anchor-id="model-evaluation-comparison-and-information-criteria">Model Evaluation, Comparison, and Information Criteria</h2>
+<p>Let’s first fit a zero-inflated Poisson model using all four covariates, and compare it to the usual poisson regression model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mod.pois0 <span class="ot">&lt;-</span> <span class="fu">zeroinfl</span>(Days <span class="sc">~</span> Eth <span class="sc">+</span> Sex <span class="sc">+</span> Age <span class="sc">+</span> Lrn,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> schools)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.pois0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+zeroinfl(formula = Days ~ Eth + Sex + Age + Lrn, data = schools, dist = "poisson")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-4.3969 -1.8974 -0.7468  1.4181  9.4340 
+
+Count model coefficients (poisson with log link):
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.71883    0.06480  41.956  &lt; 2e-16 ***
+EthN        -0.44061    0.04190 -10.517  &lt; 2e-16 ***
+SexM         0.18904    0.04253   4.445 8.77e-06 ***
+AgeF1       -0.32048    0.06968  -4.599 4.24e-06 ***
+AgeF2        0.24602    0.06212   3.960 7.49e-05 ***
+AgeF3        0.43720    0.06781   6.447 1.14e-10 ***
+LrnSL        0.34400    0.05155   6.674 2.50e-11 ***
+
+Zero-inflation model coefficients (binomial with logit link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -4.799218   1.398261  -3.432 0.000599 ***
+EthN         2.061952   1.079103   1.911 0.056030 .  
+SexM         1.010530   0.759919   1.330 0.183588    
+AgeF1       -0.005473   1.050231  -0.005 0.995842    
+AgeF2       -0.326430   1.074230  -0.304 0.761224    
+AgeF3        0.061397   1.119582   0.055 0.956266    
+LrnSL        0.213368   0.862528   0.247 0.804618    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Number of iterations in BFGS optimization: 14 
+Log-likelihood: -1047 on 14 Df</code></pre>
+</div>
+</div>
+<p>Recall that when we run the zero-inflated model, we get estimated regression coefficients for the zero-inflated part of the model and separate estimated regression coefficients for the Poisson part of the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mod.pois <span class="ot">&lt;-</span> <span class="fu">glm</span>(Days <span class="sc">~</span> Eth <span class="sc">+</span> Sex <span class="sc">+</span> Age <span class="sc">+</span> Lrn,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> schools)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.pois)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Days ~ Eth + Sex + Age + Lrn, family = "poisson", 
+    data = schools)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.71538    0.06468  41.980  &lt; 2e-16 ***
+EthN        -0.53360    0.04188 -12.740  &lt; 2e-16 ***
+SexM         0.16160    0.04253   3.799 0.000145 ***
+AgeF1       -0.33390    0.07009  -4.764 1.90e-06 ***
+AgeF2        0.25783    0.06242   4.131 3.62e-05 ***
+AgeF3        0.42769    0.06769   6.319 2.64e-10 ***
+LrnSL        0.34894    0.05204   6.705 2.02e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 2073.5  on 145  degrees of freedom
+Residual deviance: 1696.7  on 139  degrees of freedom
+AIC: 2299.2
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<p>We see that the zero-inflated model has a much lower AIC than the usual Poisson model; also, as expected, the zero-inflated model uses twice as many degrees of freedom as the usual Poisson model since we have twice as many parameters to estimate in the zero-inflated model.</p>
+<p>We can also repeat what we did above using a negative binomial model to account for the (possible) overdispersion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod.nb0 <span class="ot">&lt;-</span> <span class="fu">zeroinfl</span>(Days <span class="sc">~</span> Eth <span class="sc">+</span> Sex <span class="sc">+</span> Age <span class="sc">+</span> Lrn,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist =</span> <span class="st">"negbin"</span>, <span class="at">data =</span> schools)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+zeroinfl(formula = Days ~ Eth + Sex + Age + Lrn, data = schools, dist = "negbin")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1836 -0.7060 -0.2712  0.5118  3.5941 
+
+Count model coefficients (negbin with log link):
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.88387    0.21756  13.256  &lt; 2e-16 ***
+EthN        -0.50956    0.14979  -3.402  0.00067 ***
+SexM         0.16743    0.15760   1.062  0.28808    
+AgeF1       -0.44161    0.22856  -1.932  0.05335 .  
+AgeF2        0.05128    0.23216   0.221  0.82519    
+AgeF3        0.30937    0.23604   1.311  0.18996    
+LrnSL        0.28252    0.17544   1.610  0.10732    
+Log(theta)   0.39640    0.13171   3.010  0.00262 ** 
+
+Zero-inflation model coefficients (binomial with logit link):
+            Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept) -26.6848   484.4629  -0.055    0.956
+EthN         13.7292   424.5594   0.032    0.974
+SexM         11.7614   233.3545   0.050    0.960
+AgeF1         0.1852     1.4154   0.131    0.896
+AgeF2        -1.1579     1.6862  -0.687    0.492
+AgeF3        -0.7733     1.5920  -0.486    0.627
+LrnSL        -0.6861     1.3114  -0.523    0.601
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Theta = 1.4865 
+Number of iterations in BFGS optimization: 33 
+Log-likelihood: -542.1 on 15 Df</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to the negative binomial model without zero-inflation</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mod.nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(Days <span class="sc">~</span> Eth <span class="sc">+</span> Sex <span class="sc">+</span> Age <span class="sc">+</span> Lrn, <span class="at">data =</span> schools)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = Days ~ Eth + Sex + Age + Lrn, data = schools, 
+    init.theta = 1.274892646, link = log)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.89458    0.22842  12.672  &lt; 2e-16 ***
+EthN        -0.56937    0.15333  -3.713 0.000205 ***
+SexM         0.08232    0.15992   0.515 0.606710    
+AgeF1       -0.44843    0.23975  -1.870 0.061425 .  
+AgeF2        0.08808    0.23619   0.373 0.709211    
+AgeF3        0.35690    0.24832   1.437 0.150651    
+LrnSL        0.29211    0.18647   1.566 0.117236    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(1.2749) family taken to be 1)
+
+    Null deviance: 195.29  on 145  degrees of freedom
+Residual deviance: 167.95  on 139  degrees of freedom
+AIC: 1109.2
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  1.275 
+          Std. Err.:  0.161 
+
+ 2 x log-likelihood:  -1093.151 </code></pre>
+</div>
+</div>
+<p>The structure of the output for these two models looks very similar to the structure of output for the Poisson regression models, except one additional parameter is estimate in each model (as compared to the analogous Poisson model): <span class="math inline">\(\theta\)</span>, the dispersion parameter. In both models, <span class="math inline">\(\hat\theta\)</span> is larger than 1, indicating that there is some over dispersion of the counts. We will test this more formally using a drop-in-deviance test in a moment, but for completeness, let’s also fit the Poisson hurdle model and the negative binomial hurdle model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mod.pois.hurdle <span class="ot">&lt;-</span> <span class="fu">hurdle</span>(Days <span class="sc">~</span> Eth <span class="sc">+</span> Sex <span class="sc">+</span> Age <span class="sc">+</span> Lrn,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> schools)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.pois.hurdle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+hurdle(formula = Days ~ Eth + Sex + Age + Lrn, data = schools, dist = "poisson")
+
+Pearson residuals:
+   Min     1Q Median     3Q    Max 
+-4.397 -1.897 -0.747  1.418  9.434 
+
+Count model coefficients (truncated poisson with log link):
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.71879    0.06481  41.953  &lt; 2e-16 ***
+EthN        -0.44065    0.04190 -10.517  &lt; 2e-16 ***
+SexM         0.18907    0.04253   4.446 8.76e-06 ***
+AgeF1       -0.32057    0.06969  -4.600 4.23e-06 ***
+AgeF2        0.24600    0.06212   3.960 7.50e-05 ***
+AgeF3        0.43725    0.06782   6.448 1.14e-10 ***
+LrnSL        0.34408    0.05156   6.674 2.49e-11 ***
+Zero hurdle model coefficients (binomial with logit link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  4.799162   1.398219   3.432 0.000598 ***
+EthN        -2.062031   1.079091  -1.911 0.056018 .  
+SexM        -1.010397   0.759840  -1.330 0.183601    
+AgeF1        0.005372   1.050158   0.005 0.995918    
+AgeF2        0.326481   1.074203   0.304 0.761182    
+AgeF3       -0.061336   1.119559  -0.055 0.956309    
+LrnSL       -0.213461   0.862480  -0.247 0.804524    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Number of iterations in BFGS optimization: 12 
+Log-likelihood: -1047 on 14 Df</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mod.nb.hurdle <span class="ot">&lt;-</span> <span class="fu">hurdle</span>(Days <span class="sc">~</span> Eth <span class="sc">+</span> Sex <span class="sc">+</span> Age <span class="sc">+</span> Lrn,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist =</span> <span class="st">"negbin"</span>, <span class="at">data =</span> schools)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb.hurdle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+hurdle(formula = Days ~ Eth + Sex + Age + Lrn, data = schools, dist = "negbin")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1934 -0.7283 -0.2897  0.4978  3.6377 
+
+Count model coefficients (truncated negbin with log link):
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.85794    0.21858  13.075  &lt; 2e-16 ***
+EthN        -0.49846    0.15231  -3.273  0.00107 ** 
+SexM         0.14525    0.15953   0.910  0.36257    
+AgeF1       -0.45409    0.23094  -1.966  0.04927 *  
+AgeF2        0.07481    0.23408   0.320  0.74926    
+AgeF3        0.35777    0.23801   1.503  0.13280    
+LrnSL        0.31736    0.17734   1.790  0.07352 .  
+Log(theta)   0.39929    0.15466   2.582  0.00983 ** 
+Zero hurdle model coefficients (binomial with logit link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  4.799162   1.398219   3.432 0.000598 ***
+EthN        -2.062031   1.079091  -1.911 0.056018 .  
+SexM        -1.010397   0.759840  -1.330 0.183601    
+AgeF1        0.005372   1.050158   0.005 0.995918    
+AgeF2        0.326481   1.074203   0.304 0.761182    
+AgeF3       -0.061336   1.119559  -0.055 0.956309    
+LrnSL       -0.213461   0.862480  -0.247 0.804524    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Theta: count = 1.4908
+Number of iterations in BFGS optimization: 14 
+Log-likelihood: -542.5 on 15 Df</code></pre>
+</div>
+</div>
+<p>We can now compare all six of these models using AIC or BIC to see if any of the models are preferable. Based on intuition, we would expect the negative binomial models to be better than the Poisson models since, from the exploratory analysis, we expected there to be over dispersion in the counts of days missed from school.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod.pois0, mod.pois, mod.pois.hurdle, mod.nb0, mod.nb, mod.nb.hurdle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">mod.pois0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2121.462</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod.pois</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2299.184</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mod.pois.hurdle</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2121.451</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod.nb0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1114.118</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mod.nb</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1109.151</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod.nb.hurdle</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1115.070</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>As expected, the negative binomial models all have much lower AIC than the Poisson models. However, after we account for this over dispersion, the three negative binomial models are relatively similar in terms of AIC. Therefore, we would probably prefer the simplest model (the model that does not incorporate zero-inflation) here.</p>
+<p>We mentioned above that, sometimes the hurdle model gives very similar estimates and results as the zero-inflated model, but sometimes the results are quite different. We can compare the zero-inflated negative binomial model to the negative binomial hurdle model here to see if there are any major differences in the coefficient estimates and/or their standard errors. Again, this is just an academic exercise, because based on the AIC analysis above, we’d recommend using the model without zero-inflation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">round</span>(<span class="fu">summary</span>(mod.nb0)<span class="sc">$</span>coefficients[[<span class="dv">1</span>]][, <span class="dv">1</span>], <span class="dv">3</span>),</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">summary</span>(mod.nb.hurdle)<span class="sc">$</span>coefficients[[<span class="dv">1</span>]][, <span class="dv">1</span>], <span class="dv">3</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tab1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Zero-Inf Coefs"</span>, <span class="st">"Hurdle Coefs"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>tab1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Zero-Inf Coefs Hurdle Coefs
+(Intercept)          2.884        2.858
+EthN                -0.510       -0.498
+SexM                 0.167        0.145
+AgeF1               -0.442       -0.454
+AgeF2                0.051        0.075
+AgeF3                0.309        0.358
+LrnSL                0.283        0.317
+Log(theta)           0.396        0.399</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">round</span>(<span class="fu">summary</span>(mod.nb0)<span class="sc">$</span>coefficients[[<span class="dv">1</span>]][, <span class="dv">2</span>], <span class="dv">3</span>),</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">summary</span>(mod.nb.hurdle)<span class="sc">$</span>coefficients[[<span class="dv">1</span>]][, <span class="dv">2</span>], <span class="dv">3</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tab2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Zero-Inf SEs"</span>, <span class="st">"Hurdle SEs"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>tab2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Zero-Inf SEs Hurdle SEs
+(Intercept)        0.218      0.219
+EthN               0.150      0.152
+SexM               0.158      0.160
+AgeF1              0.229      0.231
+AgeF2              0.232      0.234
+AgeF3              0.236      0.238
+LrnSL              0.175      0.177
+Log(theta)         0.132      0.155</code></pre>
+</div>
+</div>
+<p>In this particular instance, the coefficients for the negative binomial part of the model and their standard errors are quite similar. You are asked to compare the coefficients and their standard errors for the “extra zero” part of these two models at the end of the lab.</p>
+<p>Let’s next carry out a more formal Vuong test to compare the zero-inflated negative binomial model to the usual negative binomial model.</p>
+<section id="vuong-test" class="level3">
+<h3 class="anchored" data-anchor-id="vuong-test">Vuong test</h3>
+<p>Because the zero-inflated poisson model and the usual Poisson model do not nest, we can’t use a drop in deviance test to compare the models (and same goes for the negative binomial model vs.&nbsp;the zero-inflated negative binomial model).</p>
+<p>The Vuong test has a null hypothesis that the models are indistinguishable with a large positive test statistic indicating that the first model that is input into the function is better (below, we put the zero-inflated model first) and a large negative test statistic indicating that the second model is better.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vuong</span>(mod.nb0, mod.nb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A    p-value
+Raw                    1.315020 model1 &gt; model2   0.094252
+AIC-corrected         -0.723184 model2 &gt; model1   0.234783
+BIC-corrected         -3.763784 model2 &gt; model1 8.3681e-05</code></pre>
+</div>
+</div>
+<p><em>Note 1</em>: The Vuong test is asymptotic so, if the sample size of the data set is not very large, then the test is unreliable and should not be used.</p>
+<p><em>Note 2</em>: We can also use the test to compare the Poisson models just for fun.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vuong</span>(mod.pois0, mod.pois)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A   p-value
+Raw                    2.667898 model1 &gt; model2 0.0038164
+AIC-corrected          2.473082 model1 &gt; model2 0.0066977
+BIC-corrected          2.182454 model1 &gt; model2 0.0145380</code></pre>
+</div>
+</div>
+<p>Here, there is fairly strong evidence that the zero-inflated Poisson model is better than the non-zero inflated Poisson model. However, as discussed above, neither seem appropriate since there is over dispersion in the counts of days absent from school.</p>
+<p>To conclude, it seems evident that there is over dispersion in the days absent variable, but that these counts are <em>not</em> zero-inflated. In this instance the appropriate model to use for interpretation and inference is the negative binomial regression model.</p>
+</section>
+<section id="coefficient-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="coefficient-interpretation">Coefficient Interpretation</h3>
+<p>Even though zero-inflation is not apparent in the days absent counts, we’re going to proceed with interpreting the estimated regression coefficients for the zero-inflated negative binomial model just so you can see one approach. Recall that the coefficient estimates for this model are:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb0)<span class="sc">$</span>coefficients[[<span class="dv">1</span>]][, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)        EthN        SexM       AgeF1       AgeF2       AgeF3 
+  2.8838678  -0.5095556   0.1674285  -0.4416084   0.0512790   0.3093699 
+      LrnSL  Log(theta) 
+  0.2825202   0.3964049 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb0)<span class="sc">$</span>coefficients[[<span class="dv">2</span>]][, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)        EthN        SexM       AgeF1       AgeF2       AgeF3 
+-26.6847779  13.7291994  11.7614329   0.1852184  -1.1578503  -0.7732624 
+      LrnSL 
+ -0.6861468 </code></pre>
+</div>
+</div>
+<p>The first set of coefficients is from the negative binomial part of the model and the second set of coefficients is from the zero-inflation part of the model. If we think in the framework of some of the zeros as true zeros and some of the zeros as excess zeros, then we might interpret the <code>Ethnicity</code> coefficient estimate in the negative binomial model, -0.5096, in the following way:</p>
+<p>“A person of non-Aboriginal descent is predicted to be absent from school <span class="math inline">\(1 - exp(-0.5096) = 39.93%\)</span> less than a person of Aboriginal descent at this particular school <em>among all of those with a risk of being absent (i.e., among all of those that are not the excess zeroes), provided these two people are of the same gender, age and learner status</em>.</p>
+<p>That’s rather a mouthful of an interpretation, but we have to be careful when interpreting regression coefficient estimates from a model with multiple explanatory variables – the interpretation of a single coefficient estimate has to be made while holding the values of the other explanatory variables fixed.</p>
+<p>Notice that this interpretation is exactly the same as the interpretation in the usual negative binomial model except for the extra parenthetical we added about the excess zeroes.</p>
+<p>Similarly, we interpret regression coefficient estimates from the zero-inflated part of the model in the same way that we would interpret estimates from a logistic regression model.</p>
+</section>
+<section id="looking-at-residuals" class="level3">
+<h3 class="anchored" data-anchor-id="looking-at-residuals">Looking at Residuals</h3>
+<p>Let’s new consider a few residual plots from the zero-inflated negative binomial model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>schools<span class="sc">$</span>residuals.pearson <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod.nb0, <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>schools<span class="sc">$</span>fitted.vals <span class="ot">&lt;-</span> mod.nb0<span class="sc">$</span>fitted.values</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Eth, <span class="at">y =</span> residuals.pearson)) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Sex, <span class="at">y =</span> residuals.pearson)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> residuals.pearson)) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-18-3.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> Lrn, <span class="at">y =</span> residuals.pearson)) <span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-18-4.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> schools, <span class="fu">aes</span>(<span class="at">x =</span> fitted.vals, <span class="at">y =</span> residuals.pearson)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z6_learnR_files/figure-html/unnamed-chunk-18-5.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>We see from these residual plots that there are a few residuals that are larger than 3. However, given such a large sample, it is not too surprising that a few points have large residuals. We also see in the residuals vs.&nbsp;fitted values plot, that the spread of the residuals is relatively constant across all fitted values. Overall, there is no cause for concern in using the zero-inflated negative binomial model for this data. As discussed above, however, since the zero-inflated model has a similar AIC (actually a slightly larger AIC) than the non-zero-inflated model, we would probably prefer the simpler non-zero-inflated model.</p>
+</section>
+</section>
+</section>
+<section id="lab-questions" class="level1">
+<h1>Lab Questions</h1>
+<ol start="0" type="1">
+<li>Compare the coefficients and their standard errors for the “extra zero” parts of the <code>mod.nb0</code> and <code>mod.nb.hurdle</code> models. Are the coefficients and standard errors similar or different? Explain.</li>
+</ol>
+<p>We saw above that, after accounting for over dispersion, there wasn’t really any evidence of zero-inflation in the <code>quine</code> data set. From looking at exploratory plots of the data, however, it can be somewhat difficult to tell whether there is over dispersion, zero-inflation or both. Let’s run the following code to simulate what counts would look like under a Poisson model (no zero-inflation, no over dispersion), a zero-inflated Poisson model (zero-inflation, no over dispersion), and a negative binomial model (over dispersion, no zero-inflation). We will need to install and load the <code>VGAM</code> package to easily simulate from a zero-inflated Poisson model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VGAM)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">150</span> <span class="do">## set the sample size</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>pois <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="dv">5</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>negbin <span class="ot">&lt;-</span> <span class="fu">rnbinom</span>(n, <span class="at">mu =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="fl">1.4</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>pois0 <span class="ot">&lt;-</span> <span class="fu">rzipois</span>(n, <span class="at">lambda =</span> <span class="fl">6.25</span>, <span class="at">pstr0 =</span> <span class="fl">0.2</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>sim.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(pois, negbin, pois0))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><p>Run the above code and then make three histograms of the three sets of simulated data. Also, get summary statistics for each of the three sets of simulations.</p></li>
+<li><p>What are some of the differences between the three histograms? Also, what do you notice about the negative binomial simulated data? (which applies to our data analysis above)</p></li>
+<li><p>Repeat the simulation of the negative binomial data, but try changing the <code>size</code> parameter to a few different values. What does the size parameter seem to control?</p></li>
+<li><p>Finally, simulate some data from a zero-inflated negative binomial distribution using the <code>rzinegbin</code> function in the <code>VGAM</code> package.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>?rzinegbin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>starting httpd help server ... done</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>sim.df<span class="sc">$</span>negbin0 <span class="ot">&lt;-</span> <span class="fu">rzinegbin</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="fl">1.4</span>, <span class="at">munb =</span> <span class="dv">5</span>, <span class="at">pstr0 =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Try plotting a histogram of the zero-inflated negative binomial data. Is it easy or difficult to tell based on these histograms whether data come from the poisson, negative binomial, zero-inflated poisson, or zero-inflated negative binomial models?</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

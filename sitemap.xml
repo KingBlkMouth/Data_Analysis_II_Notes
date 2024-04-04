@@ -1,51 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/index.html</loc>
-    <lastmod>2024-04-04T19:38:01.712Z</lastmod>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z8_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:32.970Z</lastmod>
   </url>
   <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/8_Evaluating_Models.html</loc>
-    <lastmod>2024-04-04T19:38:01.015Z</lastmod>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z6_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:30.196Z</lastmod>
   </url>
   <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/6_Dispersion_Zero_Inflation.html</loc>
-    <lastmod>2024-04-04T19:38:00.422Z</lastmod>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z4_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:23.150Z</lastmod>
   </url>
   <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/4_Logistic_Regression_II.html</loc>
-    <lastmod>2024-04-04T19:37:59.826Z</lastmod>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z2_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:19.952Z</lastmod>
   </url>
   <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/2_Props_Risks_Odds.html</loc>
-    <lastmod>2024-04-04T19:37:59.226Z</lastmod>
-  </url>
-  <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/1_learnR.html</loc>
-    <lastmod>2024-04-04T19:37:58.616Z</lastmod>
-  </url>
-  <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/10_Final_Project.html</loc>
-    <lastmod>2024-04-04T19:37:58.304Z</lastmod>
-  </url>
-  <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/1_Types_of_Categoricals.html</loc>
-    <lastmod>2024-04-04T19:37:58.931Z</lastmod>
-  </url>
-  <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/3_Logistic_Regression_I.html</loc>
-    <lastmod>2024-04-04T19:37:59.532Z</lastmod>
-  </url>
-  <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/5_Log_linear_Regression.html</loc>
-    <lastmod>2024-04-04T19:38:00.127Z</lastmod>
-  </url>
-  <url>
-    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/7_Random_Effects.html</loc>
-    <lastmod>2024-04-04T19:38:00.727Z</lastmod>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z0_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:13.022Z</lastmod>
   </url>
   <url>
     <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/9_Imp_Pred_Validate.html</loc>
-    <lastmod>2024-04-04T19:38:01.296Z</lastmod>
+    <lastmod>2024-04-04T21:13:07.318Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/7_Random_Effects.html</loc>
+    <lastmod>2024-04-04T21:13:06.686Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/5_Log_linear_Regression.html</loc>
+    <lastmod>2024-04-04T21:13:06.105Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/3_Logistic_Regression_I.html</loc>
+    <lastmod>2024-04-04T21:13:05.513Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/1_Types_of_Categoricals.html</loc>
+    <lastmod>2024-04-04T21:13:04.896Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/10_Final_Project.html</loc>
+    <lastmod>2024-04-04T21:13:04.585Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/2_Props_Risks_Odds.html</loc>
+    <lastmod>2024-04-04T21:13:05.213Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/4_Logistic_Regression_II.html</loc>
+    <lastmod>2024-04-04T21:13:05.811Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/6_Dispersion_Zero_Inflation.html</loc>
+    <lastmod>2024-04-04T21:13:06.400Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/8_Evaluating_Models.html</loc>
+    <lastmod>2024-04-04T21:13:07.006Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/index.html</loc>
+    <lastmod>2024-04-04T21:13:07.735Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z1_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:18.415Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z3_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:21.368Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z5_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:24.170Z</lastmod>
+  </url>
+  <url>
+    <loc>https://KingBlkMouth.github.io/Data_Analysis_II_Notes/z7_learnR.html</loc>
+    <lastmod>2024-04-04T21:13:31.739Z</lastmod>
   </url>
 </urlset>

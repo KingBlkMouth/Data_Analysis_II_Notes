@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data_Analysis_II_Notes - 1 Types of Categoricals</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data_Analysis_II_Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./1_Types_of_Categoricals.html" rel="" target="">
+ <span class="menu-text">1 Types of Categoricals</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./2_Props_Risks_Odds.html" rel="" target="">
+ <span class="menu-text">2 Props, Risk &amp; Odds</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./3_Logistic_Regression_I.html" rel="" target="">
+ <span class="menu-text">3 Log Reg I</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./4_Logistic_Regression_II.html" rel="" target="">
+ <span class="menu-text">4 Log-Reg II</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./5_Log_linear_Regression.html" rel="" target="">
+ <span class="menu-text">5 Log-lin-Reg</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./6_Dispersion_Zero_Inflation.html" rel="" target="">
+ <span class="menu-text">6 Disp &amp; 0 Inflation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./7_Random_Effects.html" rel="" target="">
+ <span class="menu-text">7 Random_Effects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./8_Evaluating_Models.html" rel="" target="">
+ <span class="menu-text">8 Model Eval</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./9_Imp_Pred_Validate.html" rel="" target="">
+ <span class="menu-text">9 Imp, Pred, Validate</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./10_Final_Project.html" rel="" target="">
+ <span class="menu-text">10 Final Project</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="./z0_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 0</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z1_learnR.html" rel="" target="">
+ <span class="dropdown-text">1 Types of Categoricals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z7_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./z8_learnR.html" rel="" target="">
+ <span class="dropdown-text">LearnR 8</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reminders-about-notebook-navigation" id="toc-reminders-about-notebook-navigation" class="nav-link active" data-scroll-target="#reminders-about-notebook-navigation">Reminders about Notebook Navigation</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#the-big-idea" id="toc-the-big-idea" class="nav-link" data-scroll-target="#the-big-idea">The Big Idea</a></li>
+  <li><a href="#factors-and-levels" id="toc-factors-and-levels" class="nav-link" data-scroll-target="#factors-and-levels">Factors and Levels</a></li>
+  <li><a href="#categorical-data-formats" id="toc-categorical-data-formats" class="nav-link" data-scroll-target="#categorical-data-formats">Categorical Data Formats</a>
+  <ul class="collapse">
+  <li><a href="#case-format" id="toc-case-format" class="nav-link" data-scroll-target="#case-format">Case Format</a></li>
+  <li><a href="#frequency-format" id="toc-frequency-format" class="nav-link" data-scroll-target="#frequency-format">Frequency Format</a></li>
+  <li><a href="#tabular-format" id="toc-tabular-format" class="nav-link" data-scroll-target="#tabular-format">Tabular Format</a></li>
+  </ul></li>
+  <li><a href="#converting-between-formats" id="toc-converting-between-formats" class="nav-link" data-scroll-target="#converting-between-formats">Converting Between Formats</a></li>
+  <li><a href="#dataset-race-and-the-death-penalty" id="toc-dataset-race-and-the-death-penalty" class="nav-link" data-scroll-target="#dataset-race-and-the-death-penalty">Dataset: Race and the Death Penalty</a></li>
+  <li><a href="#example-reformatting-the-penalty-dataset" id="toc-example-reformatting-the-penalty-dataset" class="nav-link" data-scroll-target="#example-reformatting-the-penalty-dataset">Example: Reformatting the <code>penalty</code> Dataset</a>
+  <ul class="collapse">
+  <li><a href="#frequency-format-1" id="toc-frequency-format-1" class="nav-link" data-scroll-target="#frequency-format-1">Frequency Format</a></li>
+  <li><a href="#case-format-1" id="toc-case-format-1" class="nav-link" data-scroll-target="#case-format-1">Case Format</a></li>
+  <li><a href="#tabular-format-1" id="toc-tabular-format-1" class="nav-link" data-scroll-target="#tabular-format-1">Tabular Format</a></li>
+  </ul></li>
+  <li><a href="#working-with-tabular-data" id="toc-working-with-tabular-data" class="nav-link" data-scroll-target="#working-with-tabular-data">Working with Tabular Data</a>
+  <ul class="collapse">
+  <li><a href="#conditioning" id="toc-conditioning" class="nav-link" data-scroll-target="#conditioning">Conditioning</a></li>
+  <li><a href="#marginalizing" id="toc-marginalizing" class="nav-link" data-scroll-target="#marginalizing">Marginalizing</a></li>
+  <li><a href="#tables-of-proportions" id="toc-tables-of-proportions" class="nav-link" data-scroll-target="#tables-of-proportions">Tables of Proportions</a></li>
+  </ul></li>
+  <li><a href="#visualizing-categorical-data" id="toc-visualizing-categorical-data" class="nav-link" data-scroll-target="#visualizing-categorical-data">Visualizing Categorical Data</a></li>
+  <li><a href="#recap-of-important-r-functions-for-working-with-categorical-data" id="toc-recap-of-important-r-functions-for-working-with-categorical-data" class="nav-link" data-scroll-target="#recap-of-important-r-functions-for-working-with-categorical-data">Recap of Important R Functions for Working with Categorical Data</a>
+  <ul class="collapse">
+  <li><a href="#basic-functions-for-one-categorical-variable" id="toc-basic-functions-for-one-categorical-variable" class="nav-link" data-scroll-target="#basic-functions-for-one-categorical-variable">Basic Functions for One Categorical Variable</a></li>
+  <li><a href="#functions-for-creatingtransforming-tables" id="toc-functions-for-creatingtransforming-tables" class="nav-link" data-scroll-target="#functions-for-creatingtransforming-tables">Functions for Creating/Transforming Tables</a></li>
+  <li><a href="#functions-for-plotting-tabular-data" id="toc-functions-for-plotting-tabular-data" class="nav-link" data-scroll-target="#functions-for-plotting-tabular-data">Functions for Plotting Tabular Data</a></li>
+  </ul></li>
+  <li><a href="#module-1-lab-assignment-instructions" id="toc-module-1-lab-assignment-instructions" class="nav-link" data-scroll-target="#module-1-lab-assignment-instructions">Module 1 Lab Assignment Instructions</a>
+  <ul class="collapse">
+  <li><a href="#r-markdown-for-submission" id="toc-r-markdown-for-submission" class="nav-link" data-scroll-target="#r-markdown-for-submission">R Markdown for submission</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions:</a>
+  <ul class="collapse">
+  <li><a href="#q1." id="toc-q1." class="nav-link" data-scroll-target="#q1.">Q1.</a></li>
+  <li><a href="#q2." id="toc-q2." class="nav-link" data-scroll-target="#q2.">Q2.</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">1 Types of Categoricals</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>LearnR 1</p>
+<section id="reminders-about-notebook-navigation" class="level1">
+<h1>Reminders about Notebook Navigation</h1>
+<ul>
+<li><p>From the RMarkdown file within RStudio, you can generate an HTML version of this notebook by clicking the “Preview” icon from the menu for the current tab. The HTML preview should then appear in the RStudio Viewer pane. If it does not, check the preview settings in the dropdown menu from the gear icon adjacent to the “Preview” icon. If you prefer your HTML preview to contain code output up front, choose “Run All” from the “Run” menu in the current tab before generating the preview – otherwise you are encouraged to run each chunk as you go.</p></li>
+<li><p>Within a code chunk, you can run the whole chunk at once using <em>Ctrl+Shift+Enter</em> or by clicking the green arrow icon in the upper right corner of the chunk. You can run one line at a time using <em>Ctrl+Enter</em> with your cursor on the specific line.</p></li>
+<li><p>Also recall that you can fold/hide any section or subsection of the RMarkdown document using the arrow icon to the left of the section heading, or by pressing <em>Alt+L</em> with your cursor inside the section to be hidden. <em>Alt+O</em> will collapse all sections, if you prefer to open them one at a time as you work through the lab.</p></li>
+<li><p>Keyboard shortcuts may be platform-dependent. You can check the keyboard shortcuts for your current setup through “Tools” -&gt; “Keyboard Shortcuts Help” from the RStudio main menu bar.</p></li>
+<li><p>If you need more reminders, please refer back to M1Lab0.Rmd.</p></li>
+</ul>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<p>For this lab, we’ll use the following packages, so you can go ahead and run this chunk of code (unless of course you decided to “Run All” already).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gnm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'gnm' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'vcdExtra' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
+</div>
+</div>
+</section>
+<section id="the-big-idea" class="level1">
+<h1>The Big Idea</h1>
+<p>In the prerequisites to this course, you have covered some versatile methods for relating a continuous response variable to continuous or categorical predictors (i.e., linear models and ANOVA). The methods for modeling a categorical <em>response</em>, or exploring the relationships between multiple categorical variables, have not been similarly developed. In this course, you will move beyond basic categorical-variable techniques like the tests for one or two proportions and the chi-squared methods, and learn to build and evaluate statistical models for discrete outcomes.</p>
+<p>This first lab does not contain any new statistical methods per se, but it will help you get comfortable with viewing and manipulating categorical data in R. At the end of this lab, you’ll apply some of the functions you have learned to answer some questions, and you’ll see how to submit your work in the form of an R Markdown document.</p>
+</section>
+<section id="factors-and-levels" class="level1">
+<h1>Factors and Levels</h1>
+<p>As you have seen in Data Analytics I, R represents categorical variables using <code>factor</code>s. A factor is a vector equipped with a set of <code>level</code>s, which describes the possible values the variable can potentially take (including, but not limited to, the unique values the vector actually contains). Henceforth, we will make no distinction between the terms “categorical variable” and “factor”, or the terms “category” and “level”. The <code>order</code> of levels in a factor can be important in some situations – especially when making graphical displays.</p>
+</section>
+<section id="categorical-data-formats" class="level1">
+<h1>Categorical Data Formats</h1>
+<p>Compared with the labs for previous courses in this sequence, these labs put somewhat more emphasis on the pre-processing stages of data analysis – the stretching and squeezing and rearranging that goes into getting a data set into the right “shape” to begin an analysis. There are two reasons for this. First, now that you have seen more data and gained more experience with R, you can move on to more realistic data analysis problems. Second, such reshaping is unavoidable when working with categorical data. Often categorical data arrives pre-aggregated. The number of variables, number of levels, or number of observations may be implicit or obscure. The analyses you want to perform may require that the data be arranged differently from how they arrived.</p>
+<p>Manipulating categorical data sometimes appears trivial – right up until the point where you give up in frustration! Familiarizing yourself with the formats described in this section should help. We’ll first illustrate each format in the context of a toy data set, then practice manipulating some real data.</p>
+<section id="case-format" class="level2">
+<h2 class="anchored" data-anchor-id="case-format">Case Format</h2>
+<p>This familiar format, applicable to both continuous and categorical data, is what <em>R for Data Science</em> calls “tidy data” (see <code>vignette('tidy-data')</code> for much more on this idea). The data are arranged in an <em>n</em> x <em>p</em> rectangular array (e.g.&nbsp;a data frame), where <em>n</em> is the number of observations and <em>p</em> the number of variables. That is, there is <em>one observation per row and one variable per column</em>. This is a good starting point for most analyses.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">V1 =</span> <span class="fu">c</span>(<span class="st">'Up'</span>, <span class="st">'Up'</span>, <span class="st">'Down'</span>, <span class="st">'Down'</span>, <span class="st">'Up'</span>, <span class="st">'Up'</span>), </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">V2 =</span> <span class="fu">c</span>(<span class="st">'Left'</span>, <span class="st">'Left'</span>, <span class="st">'Right'</span>, <span class="st">'Right'</span>, <span class="st">'Left'</span>, <span class="st">'Right'</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">V3 =</span> <span class="fu">c</span>(<span class="st">'B'</span>,<span class="st">'B'</span>,<span class="st">'A'</span>,<span class="st">'B'</span>, <span class="st">'A'</span>, <span class="st">'B'</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">V1</th>
+<th style="text-align: left;">V2</th>
+<th style="text-align: left;">V3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Left</td>
+<td style="text-align: left;">B</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Left</td>
+<td style="text-align: left;">B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Down</td>
+<td style="text-align: left;">Right</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Down</td>
+<td style="text-align: left;">Right</td>
+<td style="text-align: left;">B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Left</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Right</td>
+<td style="text-align: left;">B</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>How many variables are in <code>X</code>? How many observations?</em></p>
+</blockquote>
+<p>The case or “tidy” format is fully general – it’s applicable to data sets consisting of (complete) observations on any combination of continuous and/or categorical variables. In contrast, the next two formats are specific to data sets where all the variables are categorical (or where any continuous variables can be ignored or discretized).</p>
+</section>
+<section id="frequency-format" class="level2">
+<h2 class="anchored" data-anchor-id="frequency-format">Frequency Format</h2>
+<p>In this format, the data are still arranged in a 2-D rectangular array, but with the number of rows equal to the number of <em>combinations of factor levels</em>, and the number of columns is <em>p</em> + 1. The extra column (typically the last) contains the counts, or <em>frequencies</em>, observed at each of the possible combinations of factor levels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>X <span class="sc">%&gt;%</span> table <span class="sc">%&gt;%</span> as.data.frame <span class="co"># don't worry about this code for now</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">V1</th>
+<th style="text-align: left;">V2</th>
+<th style="text-align: left;">V3</th>
+<th style="text-align: right;">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Down</td>
+<td style="text-align: left;">Left</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Left</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Down</td>
+<td style="text-align: left;">Right</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Right</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Down</td>
+<td style="text-align: left;">Left</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Left</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Down</td>
+<td style="text-align: left;">Right</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Up</td>
+<td style="text-align: left;">Right</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice that I used the pipe operator in this last R chunk to first perform the <code>table()</code> function on X and then perform the <code>as.data.frame()</code> function on that. The equivalent, nested functions are shown in the table below. Please refer back to M1Lab0.Rmd to learn more about the pipe operator.</p>
+<blockquote class="blockquote">
+<p><em>Can you see why there are 8 rows in this display? Think about the number of levels for each of the three categorical variables.</em></p>
+</blockquote>
+</section>
+<section id="tabular-format" class="level2">
+<h2 class="anchored" data-anchor-id="tabular-format">Tabular Format</h2>
+<p>In this format, the data are arranged in a <em>p</em>-dimensional array of frequencies, where <em>p</em> is the number of variables. The dimensions of the array are the number of factor levels for each variable. The elements in the array are the observed frequencies at each of the possible combinations of factor levels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>X_tab <span class="ot">&lt;-</span> <span class="fu">table</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Observe that since there are a 3 variables in <code>X</code>, the table object is a 3-dimensional array.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(dims <span class="ot">&lt;-</span> <span class="fu">dim</span>(X_tab))  <span class="co"># Dimensions of the 3-dimensional array that contains the frequencies of the factor-level combinations of the 3 variables in `X`.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is why there are 8 rows in the frequency table </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(dims)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2-D slices of 3-D table</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , V3 = A
+
+      V2
+V1     Left Right
+  Down    0     1
+  Up      1     0
+
+, , V3 = B
+
+      V2
+V1     Left Right
+  Down    0     1
+  Up      2     1</code></pre>
+</div>
+</div>
+<p>Since this table is a 3-D object, trying to print it to the 2-D screen disassembles it. You’ll see much more on this issue in later sections. The R terminology makes no distinction between the multidimensional table and its 2-D representation – both are “tables”. When confusion may arise between these concepts later on, I will generally refer to the higher-dimensional object as a (tabular) <em>array</em> and a 2-D view of it as a (tabular) <em>display</em>.</p>
+</section>
+</section>
+<section id="converting-between-formats" class="level1">
+<h1>Converting Between Formats</h1>
+<p>The table below lists some functions you can use to convert between each of these three standard categorical data formats. In practice, there are other possible formats – this does not cover every possible arrangement – but many categorical data sets will resemble one of these forms. You are not expected to be familiar with these functions already – this table is just a reference. In the next section, we will illustrate some of these transformations using a real data set, one which begins in a less-standard format (i.e., not one of case, frequency, or tabular format).</p>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 20%">
+<col style="width: 31%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Convert: Row to column</th>
+<th>Case form</th>
+<th>Frequency form</th>
+<th>Tabular form</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Case form</strong></td>
+<td>N/A</td>
+<td>as.data.frame(table(X))</td>
+<td>table(X) or xtabs( ~ V1 + V2 +…+ Vp, X)</td>
+</tr>
+<tr class="even">
+<td><strong>Frequency form</strong></td>
+<td>expand.dft(X)</td>
+<td>N/A</td>
+<td>xtabs(Freq ~ V1 + V2 +…+ Vp, X)</td>
+</tr>
+<tr class="odd">
+<td><strong>Tabular form</strong></td>
+<td>expand.dft(X)</td>
+<td>as.data.frame(X)</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>In the table above, X is a data frame/table, V1,…,Vp are variable columns, and Freq is a column of counts.</p>
+<p>Note: when considering a <em>single</em> factor, frequency format and table format are the same. When there are no other variables to combine, the counts at each “combination” of levels of every variable (frequency format) is simply the count at each level of the one variable (table format).</p>
+</section>
+<section id="dataset-race-and-the-death-penalty" class="level1">
+<h1>Dataset: Race and the Death Penalty</h1>
+<p>For the remainder of this lab, we will work with the death penalty data in <code>case1902</code> from the <em>Sleuth3</em> package. These data come from a study embedded in an extensive literature on racial patterns in death sentencing. Other studies have examined whether black felons are more likely to receive the death penalty than white felons for comparable crimes. This study restricted attention to black murderers, asking whether blacks were more likely to be sentenced to death for murdering whites than for murdering other blacks, even when the crimes were otherwise comparable. Take a look at the data, and read the documentation in the help file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penalty <span class="ot">&lt;-</span> case1902</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>penalty</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Aggravation</th>
+<th style="text-align: left;">Victim</th>
+<th style="text-align: right;">Death</th>
+<th style="text-align: right;">NoDeath</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">181</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(penalty)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   12 obs. of  4 variables:
+ $ Aggravation: int  1 1 2 2 3 3 4 4 5 5 ...
+ $ Victim     : Factor w/ 2 levels "Black","White": 2 1 2 1 2 1 2 1 2 1 ...
+ $ Death      : int  2 1 2 1 6 2 9 2 9 4 ...
+ $ NoDeath    : int  60 181 15 21 7 9 3 4 0 3 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="example-reformatting-the-penalty-dataset" class="level1">
+<h1>Example: Reformatting the <code>penalty</code> Dataset</h1>
+<p>The format of the <code>penalty</code> data does not quite fit into any of the three categories described above – this is something like a “flat table”. The biggest difference here is that the levels of one of the factors, let’s call it “Sentence”, have been split into two columns – “Death” and “NoDeath.” Later we will see how to produce a flat table from a tabular array, but for now we will see how to transform these data into one of the standard formats.</p>
+<section id="frequency-format-1" class="level2">
+<h2 class="anchored" data-anchor-id="frequency-format-1">Frequency Format</h2>
+<p>Let’s see if we can first get these data into frequency format. This means figuring out what the variables are, and putting each variable into its own column. The key thing to notice is that the actual unit of observation is the post-conviction sentencing decision for a single murder trial, and the outcome of sentencing from a single conviction can be either <code>Death</code> or <code>NoDeath</code>. That is, as we mentioned above, <code>Death</code> and <code>NoDeath</code> are not separate, logically-independent variables, when measured at the level of individual murder trials, but are two levels of the <em>same</em> (as yet unnamed) variable.</p>
+<p><em>tidyr</em> to the rescue:</p>
+<blockquote class="blockquote">
+<p><em>You use pivot_longer() when you notice that you have columns that are not variables, but rather levels of a single variable.</em></p>
+</blockquote>
+<p>We’ll use <code>pivot_longer()</code> to collapse the <code>Death</code> and <code>NoDeath</code> columns into a new column named <code>Sentence</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>penalty_freq <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> penalty, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"Death"</span>, <span class="st">"NoDeath"</span>), <span class="at">names_to =</span> <span class="st">"Sentence"</span>, <span class="at">values_to =</span> <span class="st">"Freq"</span>, <span class="at">cols_vary =</span> <span class="st">"slowest"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cols_vary = "slowest" keeps individual columns from cols close together in the output. Here, this keeps the data ordered by Aggravation.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Observe how the data in each row of <code>penalty</code> takes up two rows in <code>penalty_freq</code> (namely, rows 1 and 13).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>penalty[<span class="dv">1</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Aggravation</th>
+<th style="text-align: left;">Victim</th>
+<th style="text-align: right;">Death</th>
+<th style="text-align: right;">NoDeath</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">60</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>penalty_freq[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">13</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Aggravation</th>
+<th style="text-align: left;">Victim</th>
+<th style="text-align: left;">Sentence</th>
+<th style="text-align: right;">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Death</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">NoDeath</td>
+<td style="text-align: right;">60</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>You can <code>View()</code> <code>penalty_freq</code> to check that it looks like it should.</p>
+</section>
+<section id="case-format-1" class="level2">
+<h2 class="anchored" data-anchor-id="case-format-1">Case Format</h2>
+<p>Now suppose we want to see all the individual observations – each trial on a separate row. Referring to the table of conversion functions, we can use <code>expand.dft()</code> to get from a frequency format to a case format.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the other functions in that table are available in base R, but expand.dft() is from vcdExtra.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>penalty_case <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(penalty_freq)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penalty_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Aggravation</th>
+<th style="text-align: left;">Victim</th>
+<th style="text-align: left;">Sentence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Death</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Death</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: left;">Death</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Death</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Death</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: left;">Death</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<pre><code># Add {r} after backticks to make executable, or just type this command in the console.
+View(penalty_case)</code></pre>
+<p>When expanded to case format, there are 362 rows (observations) and 3 columns (variables). Note that from case format, we could encode the categorical variables using binary indicators. Each categorical variable takes two possible values, so we only need one binary indicator for each.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penalty_indicators<span class="ot">&lt;-</span> <span class="fu">mutate</span>(penalty_case, <span class="at">.keep =</span> <span class="st">"none"</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Aggravation =</span> Aggravation,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">White =</span> <span class="fu">ifelse</span>(Victim <span class="sc">==</span> <span class="st">"White"</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Death =</span> <span class="fu">ifelse</span>(Sentence <span class="sc">==</span> <span class="st">"Death"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># another binary encoding: model.matrix( ~ Sentence + Victim + Aggravation, data = penalty_case)</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penalty_indicators)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Aggravation</th>
+<th style="text-align: right;">White</th>
+<th style="text-align: right;">Death</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Typically we will leave the indicator variables behind the scenes, where they will be created as needed by modeling functions. If you want to see what this looks like, you can produce an explicit indicator-encoding for a whole data frame at once, without writing out a page of if-else statements, using the <code>model.matrix()</code> function.</p>
+</section>
+<section id="tabular-format-1" class="level2">
+<h2 class="anchored" data-anchor-id="tabular-format-1">Tabular Format</h2>
+<p>Starting from either the frequency or case format, we can create a variety of tabular structures using <code>table()</code> or <code>xtabs()</code>. I find the <code>xtabs()</code> interface more convenient. With a minor change in the formula specification, <code>xtabs()</code> can tabulate either case form or frequency form data.</p>
+<blockquote class="blockquote">
+<p>To tabulate frequency-format data, write the name of the frequency column on the left-hand side of the formula, and the other variables on the right-hand side. For case-format data, leave the left-hand side of the formula empty.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The following are equivalent:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>penalty_tab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="sc">~</span> Sentence <span class="sc">+</span> Victim <span class="sc">+</span> Aggravation, penalty_case)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># penalty_tab &lt;- xtabs(Freq ~ Sentence + Victim + Aggravation, penalty_freq)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Understanding the tabular form is very important when dealing with categorical data. The next section treats tabular data with more depth.</p>
+</section>
+</section>
+<section id="working-with-tabular-data" class="level1">
+<h1>Working with Tabular Data</h1>
+<p>The <code>penalty</code> data has 3 variables, so a complete tabulation produces a 3-D array. The “spatial orientation” of this array depends on the order of the variables on the right-hand side of the <code>xtabs()</code> formula:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span> Sentence <span class="sc">+</span> Victim <span class="sc">+</span> Aggravation, penalty_case) <span class="sc">%&gt;%</span> dim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2 6</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span> Sentence <span class="sc">+</span> Aggravation <span class="sc">+</span> Victim, penalty_case) <span class="sc">%&gt;%</span> dim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 6 2</code></pre>
+</div>
+</div>
+<p>Instead of rearranging the formula, we can “rotate” the array using <code>aperm()</code> (“array permutation”).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aperm</span>(penalty_tab, <span class="at">perm =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> dim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2 6</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aperm</span>(penalty_tab, <span class="at">perm =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> dim  <span class="co"># the 2nd and 3rd dimensions switched places -- we've turned the array on its end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 6 2</code></pre>
+</div>
+</div>
+<p>So far we still haven’t shown the tabular array we’ve built! Displaying a table with three or more dimensions on a 2-D computer screen (or page) takes a little thought. There are two main ways to reduce the dimension of an array – we can <strong>condition</strong> (“slice”) or <strong>marginalize</strong> (“squash”).</p>
+<section id="conditioning" class="level2">
+<h2 class="anchored" data-anchor-id="conditioning">Conditioning</h2>
+<p>In general, to slice an <em>n</em>-dimensional array into <em>m</em>-dimensional pieces, we must fix – “condition on” – each of the possible values of the other <em>n - m</em> variables. For <code>penalty_tab</code>, we can get 2-D slices by conditoning on just one other variable. Let’s try this with <code>Sentence</code> as the conditioning variable – the relevant function is <code>co_table()</code> (“condition table”). Based on the table dimensions we just saw, this should create two 2-D (2x6) slices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>(penalty_given_sentence <span class="ot">&lt;-</span> <span class="fu">co_table</span>(penalty_tab,<span class="st">'Sentence'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Death
+       Aggravation
+Victim   1  2  3  4  5  6
+  Black  1  1  2  2  4  4
+  White  2  2  6  9  9 17
+
+$NoDeath
+       Aggravation
+Victim    1   2   3   4   5   6
+  Black 181  21   9   4   3   0
+  White  60  15   7   3   0   0</code></pre>
+</div>
+</div>
+<p>Conditioning preserves all of the information in the array – we can display the whole tabular array by laying out each slice end to end. The slices are named by the levels of the conditioning variable, and naming a particular level returns that slice:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>penalty_given_sentence<span class="sc">$</span>Death</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Aggravation
+Victim   1  2  3  4  5  6
+  Black  1  1  2  2  4  4
+  White  2  2  6  9  9 17</code></pre>
+</div>
+</div>
+<p>Of course, if you condition on two out of three variables at once (using a <em>vector</em> of conditioning variables) you’ll get 1-D slices, and conditioning on all three variables cuts up the table into all of its individual frequency components. In higher-dimensional tables this will be different – for instance, if we started with a 6-D table, conditioning on three variables would return 3-D slices. You are welcome to play around with using the death penalty data and see what weirdness you can produce!</p>
+<p>We can arrange 2D array slices into a single tabular display by using <code>ftable()</code> (“flat table”) or <code>structable()</code>. Both of these functions can take an existing table object as input, or create new tables directly from data using a formula interface.</p>
+<p>Here’s an example with pre-tabulated data from above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>penalty_tab <span class="sc">%&gt;%</span> <span class="fu">aperm</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> ftable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     Victim Black White
+Aggravation Sentence                   
+1           Death               1     2
+            NoDeath           181    60
+2           Death               1     2
+            NoDeath            21    15
+3           Death               2     6
+            NoDeath             9     7
+4           Death               2     9
+            NoDeath             4     3
+5           Death               4     9
+            NoDeath             3     0
+6           Death               4    17
+            NoDeath             0     0</code></pre>
+</div>
+</div>
+<p>And here’s an example of the formula interface for <code>structable()</code> and <code>ftable()</code>, which is somewhat different from the <code>xtabs()</code> formula interface (because it’s intended to produce a different kind of object), but still quite intuitive.</p>
+<p>The following tables are fairly wide, so to view them in the R Markdown file, you’ll have to expand the width of the source pane (or, you could click Preview and see the table in the Viewer pane, which you may also have to widen!).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(Aggravation <span class="sc">+</span> Victim <span class="sc">~</span> Sentence, penalty_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Aggravation     1           2           3           4           5           6      
+         Victim      Black White Black White Black White Black White Black White Black White
+Sentence                                                                                    
+Death                    1     2     1     2     2     6     2     9     4     9     4    17
+NoDeath                181    60    21    15     9     7     4     3     3     0     0     0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">structable</span>(Sentence <span class="sc">+</span> Aggravation <span class="sc">~</span> Victim, penalty_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Sentence    Death                     NoDeath                    
+       Aggravation     1   2   3   4   5   6       1   2   3   4   5   6
+Victim                                                                  
+Black                  1   1   2   2   4   4     181  21   9   4   3   0
+White                  2   2   6   9   9  17      60  15   7   3   0   0</code></pre>
+</div>
+</div>
+<p>You can see that the variables on right hand side of the formula control the recursive column splits, and the variables on the left hand side control the recursive row splits (variable order matters on both sides).</p>
+<p>Analogous to the way that the table orientation defined by the order of an <code>xtabs()</code> formula can be “rearranged” with <code>aperm()</code>, a <code>structable()</code>’s split orientation can be “rearranged” using the <code>direction</code> argument:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>penalty_tab <span class="sc">%&gt;%</span> <span class="fu">aperm</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> <span class="fu">structable</span>(<span class="at">direction =</span> <span class="fu">c</span>(<span class="st">"v"</span>, <span class="st">"v"</span>, <span class="st">"h"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Victim   Black         White        
+            Sentence Death NoDeath Death NoDeath
+Aggravation                                     
+1                        1     181     2      60
+2                        1      21     2      15
+3                        2       9     6       7
+4                        2       4     9       3
+5                        4       3     9       0
+6                        4       0    17       0</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Try playing with the order of dimensions and/or directions of table splits in the <code>structable()</code> call until you get a flat display arranged like the original <code>case1902</code> data frame.</p>
+</blockquote>
+</section>
+<section id="marginalizing" class="level2">
+<h2 class="anchored" data-anchor-id="marginalizing">Marginalizing</h2>
+<p>In addition to slicing the tabular array, we can also squash it by summing across one or more dimension(s). We can do this simply by omitting from the <code>xtabs()</code> formula specification the variables we wish to collapse along.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span> Victim <span class="sc">+</span> Sentence, penalty_case) <span class="co"># collapse along Aggravation axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Sentence
+Victim  Death NoDeath
+  Black    14     218
+  White    45      85</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span> Sentence, penalty_case) <span class="co"># collapse along Aggravation and Victim axes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sentence
+  Death NoDeath 
+     59     303 </code></pre>
+</div>
+</div>
+<p>Alternatively, starting with a complete array, we can collapse it using <code>margin.table()</code>. As with the formula specification above, omitted variables get collapsed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">margin.table</span>(penalty_tab, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Victim
+Sentence  Black White
+  Death      14    45
+  NoDeath   218    85</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># penalty_tab was defined with the formula ~ Sentence + Victim + Aggravation.  Sentence and Victim, as the first two variables in the formula, will be retained, while Aggravation will get squashed. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggravation is the 3rd variable in the formula, so here it will be retained while `Victim` and `Sentence` get squashed.</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">margin.table</span>(penalty_tab, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Aggravation
+  1   2   3   4   5   6 
+244  39  24  18  16  21 </code></pre>
+</div>
+</div>
+<p><code>margin.table(penalty_tab)</code> with no other arguments predictably returns the table total – all variables are omitted, so all dimensions are collapsed.</p>
+<p>We’ve been talking about “collapsing” tables, and somewhat confusingly there is a function <em>named</em> <code>collapse.table()</code>, that behaves slightly differently. Instead of squashing omitted dimensions flat, it shortens a specified dimension by reducing the number of factor levels along that axis. Say we want a table where <code>Aggravation</code> levels 1-3 are grouped together as “Low” and levels 4-6 “High”. Without editing the original data, we could use <code>collapse.table()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>penalty_tab <span class="sc">%&gt;%</span> <span class="fu">collapse.table</span>(<span class="st">'Aggravation'</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Low"</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"High"</span>, <span class="dv">3</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , Aggravation = Low
+
+         Victim
+Sentence  Black White
+  Death       4    10
+  NoDeath   211    82
+
+, , Aggravation = High
+
+         Victim
+Sentence  Black White
+  Death      10    35
+  NoDeath     7     3</code></pre>
+</div>
+</div>
+</section>
+<section id="tables-of-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="tables-of-proportions">Tables of Proportions</h2>
+<p>From a table of counts, we often wish to make a table of proportions or percentages, where the proportions may be taken with respect to rows, columns, tables, etc.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table of counts</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>(sentence_victim_tab <span class="ot">&lt;-</span> <span class="fu">margin.table</span>(penalty_tab, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Victim
+Sentence  Black White
+  Death      14    45
+  NoDeath   218    85</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table of proportions</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(sentence_victim_tab) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>) <span class="co"># rounding all proportions to 2 decimal points to avoid visual clutter</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Victim
+Sentence  Black White
+  Death    0.04  0.12
+  NoDeath  0.60  0.23</code></pre>
+</div>
+</div>
+<p>The proportions above are taken with respect to the whole table. We’re actually more interested in the proportions of <code>Death</code> <code>Sentences</code> <em>within</em> each <code>Victim</code> level:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table of column proportions</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>col_prop_tab <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(sentence_victim_tab, <span class="at">margin =</span> <span class="dv">2</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>col_prop_tab <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Victim
+Sentence  Black White
+  Death    0.06  0.35
+  NoDeath  0.94  0.65</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table of column percents</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> col_prop_tab <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Victim
+Sentence  Black White
+  Death     6.0  34.6
+  NoDeath  94.0  65.4</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="visualizing-categorical-data" class="level1">
+<h1>Visualizing Categorical Data</h1>
+<p>In earlier stats courses, you’ve no doubt seen barcharts for categorical data. You can get regular or stacked barcharts for 1 or 2 variables respectively using <code>barplot()</code> on a table object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">xtabs</span>(<span class="sc">~</span>Sentence <span class="sc">+</span> Aggravation, penalty_case))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z1_learnR_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>or with <code>qplot(geom = "bar")</code> on a data frame of cases.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">data =</span> penalty_case, <span class="at">x =</span> Aggravation, <span class="at">fill =</span> Sentence, <span class="at">geom =</span> <span class="st">"bar"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `qplot()` was deprecated in ggplot2 3.4.0.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="z1_learnR_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Another very useful graphic is the <code>mosaic</code> plot, which can take as input either a table, or the <code>xtabs()</code> formula that would produce a table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(<span class="sc">~</span> Victim <span class="sc">+</span> Sentence, penalty_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z1_learnR_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In this plot, the proportion in each cell of the table is represented by the area of the corresponding rectangle. The proportion of <code>Victim</code>s who were black vs white is represented by the relative heights of the upper vs.&nbsp;lower sets of rectangles, and the widths of each rectangle represent the proportions of <code>Sentence</code>s within each victim category. This plot makes clear that death sentences were more likely to be given for murders of whites, when not accounting for <code>Aggravation</code>.</p>
+<p>We can actually extend the mosaic plot to show the third dimension as well, using a conditioning approach. Consider the flat table produced by the following R chunk (widen panes as needed for full view):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>flat_table <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="sc">~</span> Sentence <span class="sc">+</span> Victim <span class="sc">+</span> Aggravation, penalty_case)<span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prop.table</span>(<span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> <span class="fu">aperm</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span> <span class="fu">structable</span>(<span class="at">direction =</span> <span class="fu">c</span>(<span class="st">"v"</span>,<span class="st">"v"</span>,<span class="st">"h"</span>))</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>flat_table <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Aggravation     1           2           3           4           5           6      
+         Victim      Black White Black White Black White Black White Black White Black White
+Sentence                                                                                    
+Death                 0.01  0.03  0.05  0.12  0.18  0.46  0.33  0.75  0.57  1.00  1.00  1.00
+NoDeath               0.99  0.97  0.95  0.88  0.82  0.54  0.67  0.25  0.43  0.00  0.00  0.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You may want to make a new chunk wherein you can unpack this code a bit, and take a look at some of the intermediate objects. I find this particular code it somewhat obnoxiously convoluted, because prop.table() doesn't operate correctly on flat tables.  This requires the marginal proportions to be calculated from the regular table, *then* passed as such into structable()/ftable() to be flattened for display.  </span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If you can find a nicer way to make this flat table, I'd like to see it!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And now, you can look at a mosaic plot of that flat table. This is a visual representation of the proportions in the flat table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(flat_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z1_learnR_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From this plot, there’s evidence that across levels of <code>Aggravation</code>, the racial disparity in sentencing remains – at least in this sample of murder trials. You can see this by considering the two vertical bars that correspond to each aggravation level – if sentencing did not differ based on race (given aggravation level), then the splits between <code>Death</code> and <code>NoDeath</code> should be at the same height for both <code>Black</code> and <code>White</code> victims. You might wonder if this disparity that we see is larger than we could reasonably expect to observe by chance in a sample of 362 murder trials. We will begin to address these types of questions in the following lab, where we will explore statistical tests of association for categorical variables.</p>
+<blockquote class="blockquote">
+<p>Open question: It is not obvious that prop.table(margin = c(2,3)) represents the only “correct” set of proportions for answering looking at whether the racial effect on sentencing persists after accounting for aggravation. Can you think of a different set of proportions that might also address this?</p>
+</blockquote>
+</section>
+<section id="recap-of-important-r-functions-for-working-with-categorical-data" class="level1">
+<h1>Recap of Important R Functions for Working with Categorical Data</h1>
+<section id="basic-functions-for-one-categorical-variable" class="level3">
+<h3 class="anchored" data-anchor-id="basic-functions-for-one-categorical-variable">Basic Functions for One Categorical Variable</h3>
+<ul>
+<li>factor() creates a factor from a vector.</li>
+<li>levels() accesses the possible values of a factor.</li>
+</ul>
+</section>
+<section id="functions-for-creatingtransforming-tables" class="level3">
+<h3 class="anchored" data-anchor-id="functions-for-creatingtransforming-tables">Functions for Creating/Transforming Tables</h3>
+<ul>
+<li>table() creates a table of counts from a factor (or collection of factors).<br>
+</li>
+<li><strong>xtabs() creates a contingency table out of factors in a data frame, using a formula interface.</strong></li>
+<li><strong>ftable() creates a flat table by adjoining separate slices of a high-dimensional tabular array.</strong></li>
+<li><strong>aperm() “rotates” a tabular array by permuting its dimensions</strong></li>
+<li>structable() is like ftable() but with more more control of the orientation of the table displayed.</li>
+<li><strong>prop.table() turns a table of counts into a table of proportions (with respect to rows, columns, tables, etc.).</strong></li>
+<li><strong>margin.table() collapses a table by aggregating over every level of one (or more) of the factors.</strong></li>
+<li>collapse.table() lumps together some levels of one (or more) factors in a table, reducing “resolution” of that factor.</li>
+<li>co_table() makes slices of a table conditional on one or more factors.</li>
+</ul>
+</section>
+<section id="functions-for-plotting-tabular-data" class="level3">
+<h3 class="anchored" data-anchor-id="functions-for-plotting-tabular-data">Functions for Plotting Tabular Data</h3>
+<ul>
+<li>barplot() creates a (stacked) bar chart from a 1- or 2-dimensional table.</li>
+<li><strong>mosaic() creates an area-plot from a table or flat table.</strong></li>
+</ul>
+</section>
+</section>
+<section id="module-1-lab-assignment-instructions" class="level1">
+<h1>Module 1 Lab Assignment Instructions</h1>
+<p>For this assignment, you are asked to create a <strong>self-contained</strong> R Markdown script that can generate a document which answers the questions below. You will submit the .Rmd script, and you will be graded based on the HTML document that it generates.</p>
+<section id="r-markdown-for-submission" class="level2">
+<h2 class="anchored" data-anchor-id="r-markdown-for-submission">R Markdown for submission</h2>
+<p>The following describes the process of creating and submitting .Rmd and .pdf files as your lab assignment. You will follow this procedure after each lab in this course.</p>
+<p><strong>NOTE:</strong> <em>If you are reading these instructions from the HTML preview in the Viewer pane, they will be overwritten in the following steps. You can avoid this by “popping out” the current HTML preview into an external browser window, by clicking the the “Show in new window” icon (to the right of the broom icon in the Viewer pane). </em></p>
+<p><em>Alternatively, you can read the instructions right from the .Rmd script, keeping in mind that you will need to switch back to the lab script tab to view the rest of the instructions once you create a new script. You could also copy and paste the whole Lab 1 Assignment Instructions section into your new document while you’re working on it, and then delete the instructions before you submit it.</em></p>
+<p>Click “File” -&gt; “New File” -&gt; “R Markdown”, and dialog box will pop up. Change the title to “Lab Assignment 1” and name yourself as author. Select PDF as the Default Output Format, then click OK. The header of your new file should look something like this:</p>
+<pre><code>---
+title: "Lab Assignment 1"
+author: "Ronald Fisher"
+date: "2024-04-04"
+output: pdf_document
+---
+</code></pre>
+<p>The file will initially contain some examples to get you started with RMarkdown, which you should replace with your lab content. Save the notebook as something like “Lab_Assignment_1” using “File” –&gt; “Save As…”</p>
+<p>In your new .Rmd script, answer the questions in the “Questions” section below. Include all the code you need to produce the requested outputs. Your script should include a top-level section heading for each question, for example:</p>
+<pre><code># Question 1
+
+stuff here
+
+# Question 2
+
+other stuff</code></pre>
+<p>Whether or not you include the text of the questions in your script is up to you.</p>
+<blockquote class="blockquote">
+<p>Do be sure to include, near the top of your script, a code chunk that loads any non-default packages you use (such as <em>vcdExtra</em> or <em>Sleuth3</em>).</p>
+</blockquote>
+<p>Within the question sections, you can chunk your code in whatever way seems reasonable. Incorporate any written answers outside the code chunks using Markdown formatting as needed (see “Help” -&gt; “RMarkdown Quick Reference” for text formatting help).</p>
+<p>To ensure that your .Rmd script will be fully self-contained (i.e.&nbsp;it will not depend on objects that were defined during the lab, and could be run as-is if you sent it to someone else), you should <strong>clear the workspace</strong> before you begin.</p>
+<blockquote class="blockquote">
+<p>To clear the workspace, click the broom icon in the Environment pane.</p>
+</blockquote>
+<p>Once you’ve answered the questions in your new .Rmd script and you have verified your code is self contained, you should Run -&gt; Run All Chunks and generate a .pdf file of your document, to check that everything looks like you want it to. Having concluded that your .Rmd script produces a pdf document that includes all the output you want, submit <strong>both the Lab_Assignment_1.Rmd file and the pdf document</strong> on Canvas as your Lab Assignment 1.</p>
+<p>Feel free to post on the discussion board if you have any questions or encounter any difficulties with this process.</p>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions:</h2>
+<section id="q1." class="level3">
+<h3 class="anchored" data-anchor-id="q1.">Q1.</h3>
+<p>Starting from the <code>case1902</code> data file in the <em>Sleuth3</em> package, produce a flat table With Aggravation level as the rows, with Death/NoDeath as the two wide columns that contain Black/White within them. That is, the skeleton of your table should look like (you should look at this in Preview):</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>.</th>
+<th>Death</th>
+<th></th>
+<th>NoDeath</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>.</td>
+<td>Black</td>
+<td>White</td>
+<td>Black</td>
+<td>White</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+<td>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="q2." class="level3">
+<h3 class="anchored" data-anchor-id="q2.">Q2.</h3>
+<p>Create a mosaic plot of the flat table you produced in question 1. Are there problems with your plot? Is it easy to understand? You are welcome to play around with making it more interpretable and/or visually appealing, but that’s optional for this assignment.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
