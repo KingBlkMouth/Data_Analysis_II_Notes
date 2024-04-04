@@ -1,0 +1,28 @@
+---
+title: "2 Props, Risk & Odds"
+---
+
+## Learning Objectives
+
+At the end of this week you should be able to:
+
+- Identify potential issues with small sample sizes in tables of counts.
+- Describe the situations in which a comparison of odds ratios is more appropriate than a comparison of proportions.
+- Indicate the one-to-one relationship between proportions and odds.
+- Describe the multinomial and Poisson distributions and the connection between them.
+
+In R:
+
+- Perform tests for a difference in proportions and an odds ratio.
+- Use simulations to understand the performance of statistical tests for count data when the sample sizes are small.
+- Prepare and submit an R markdown script.
+
+## Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 2 Readings and Lectures
+- Submit Module 2 Homework
+- Submit Module 2 Lab
+- Take the Module 2 Content Quiz and R Quiz
+- Participate in the Module 2 Discussion

@@ -1,0 +1,6 @@
+---
+title: "1 Types of Categoricals"
+---
+
+Learn R
+

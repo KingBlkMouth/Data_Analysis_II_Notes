@@ -2,4 +2,30 @@
 title: "1 Types of Categoricals"
 ---
 
-Test
+## Learning Objectives
+
+At the end of this week you should be able to:
+
+- Describe the different types of categorical data that you can encounter.
+- Describe the Bernoulli probability distribution.
+- Describe the mathematical representation of categorical data with more than two categories.
+- Identify a key feature of the variances of categorical and count random variables.
+- Explain the perils of aggregation and give an example.
+
+In R:
+
+- In Lab Zero: Familiarize yourself with the new lab format, R markdown.
+- In Lab Zero: Familiarize yourself with some new R packages and functions (e.g., dplyr, the ggplot function in the ggplot2 package).
+- In Lab One: Be able to create different tabulations of categorical data, either for summary purposes or for more efficient data analysis.
+- In Lab One: Prepare and submit your first R markdown script.
+
+
+### Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 1 Readings and Lectures
+- Submit Module 1 Homework
+- Submit Module 1 Labs Zero and One
+- Take the Module 1 Content Quiz and R Quiz
+- Participate in the Module 1 Discussion

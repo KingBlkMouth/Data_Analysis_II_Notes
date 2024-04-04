@@ -1,0 +1,31 @@
+---
+title: "5 Log-lin-Reg"
+---
+
+## Learning Objectives
+
+After successful completion of this module, you will be able to:
+
+- Write out the expression of a Poisson regression model, including the response distribution and the model equation.
+- Interpret the results of a Poisson regression.
+- Identify potential problems with the fit of a Poisson regression model.
+- Describe models for over dispersion of Poisson counts in the regression setting.
+- Evaluate and compare models in the Poisson regression setting.
+- Describe how log linear models can be used for general contingency table data.
+
+In R:
+
+- Fit Poisson, quasi-Poisson and negative binomial regression models, and make comparisons among them.
+- Fit log linear models to general contingency table data.
+- Use simulations to understand problems that can arise when the sample size is small and/or the counts are small.
+- Prepare and submit an R markdown script.
+
+Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 5 Readings and Lectures
+- Submit Module 5 Homework
+- Submit Module 5 Lab
+- Take the Module 5 Content Quiz and R Quiz
+- Participate in the Module 5 Discussion

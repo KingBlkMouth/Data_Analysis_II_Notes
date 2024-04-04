@@ -4,10 +4,23 @@ project:
 website:
   title: "Data_Analysis_II_Notes"
   navbar:
+    search: true
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - 1_Types_of_Categoricals.qmd
+      - 2_Props_Risks_Odds.qmd
+      - 3_Logistic_Regression_I.qmd
+      - 4_Logistic_Regression_II.qmd
+      - 5_Log_linear_Regression.qmd
+      - 6_Dispersion_Zero_Inflation.qmd
+      - 7_Random_Effects.qmd
+      - 8_Evaluating_Models.qmd
+      - 9_Imp_Pred_Validate.qmd
+      - 10_Final_Project.qmd
+      - text: "Labs"
+        menu: 
+          - 1_learnR.qmd
 
 format:
   html:

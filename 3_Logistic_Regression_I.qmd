@@ -1,0 +1,28 @@
+---
+title: "3 Log Reg I"
+---
+
+## Learning Objectives
+
+After successful completion of this module, you will be able to:
+
+- Describe the logistic regression model, which includes a probability model for the responses and the model equation.
+- Write a few sentences in non-technical language that explain the results of a logistic regression model fit.
+- Describe how to compare two logistic regression models.
+- Explain the need for the link function in logistic regression.
+
+In R:
+
+- Fit logistic regression models and interpret the output.
+- Create exploratory plots for logistic regression, and be able to explain any limitations of these plots.
+- Prepare and submit an R markdown script.
+
+## Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 3 Readings and Lectures
+- Submit Module 3 Homework
+- Submit Module 3 Lab
+- Take the Module 3 Content Quiz and R Quiz
+- Participate in the Module 3 Discussion

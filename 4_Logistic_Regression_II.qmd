@@ -1,0 +1,30 @@
+---
+title: "4 Log-Reg II"
+---
+
+## Learning Objectives
+
+After successful completion of this module, you will be able to:
+
+- Describe how to examine the goodness of fit of a logistic regression model.
+- Explain what an empirical logit is, why it’s useful and how to calculate it.
+- Describe how to compare two logistic regression models.
+- Define over dispersion (or extra-binomial variation), and indicate why it can cause problems for inference in logistic regression.
+- List some reasons that counts may exhibit extra-binomial variation.
+
+In R:
+
+- Estimate and interpret the dispersion parameter.
+- Create exploratory plots for logistic regression using the empirical logit.
+- Use the deviance residuals to examine goodness of fit of the logistic regression model.
+- Prepare and submit an R markdown script.
+
+Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 4 Readings and Lectures
+- Submit Module 4 Homework
+- Submit Module 4 Lab
+- Take the Module 4 Content Quiz and R Quiz
+- Participate in the Module 4 Discussion

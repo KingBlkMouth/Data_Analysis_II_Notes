@@ -1,6 +1,36 @@
 ---
-title: Git
+title: Reference
 ---
+
+## GradeScope
+
+[Gradescope](https:\\www.gradescope.com)
+
+
+## Reading
+
+[Cat Data Anal](C:\\Users\\cmeck\\Desktop\\Books and References\\Categorical_data_analysis_ed3.pdf)
+
+[Stat. Meth](https:\\\\ebookcentral.proquest.com\\lib\\osu\\detail.action?docID=802390)
+
+[Open Stats 4th ed](C:\\Users\\cmeck\\Desktop\\Books and References\\_Open_Intro_Stats.pdf)
+
+[R4DS](https:\\\\r4ds.had.co.nz\\index.html)
+
+
+### Extra Reading
+
+[Mathmatical Stats 8th](C:\\Users\\cmeck\\Desktop\\Books and References\\Mathematical Statistics eigth ed.pdf)
+
+[Practical Stats for DS](C:\\Users\\cmeck\\Desktop\\Books and References\\PracticalStatisticsforDataScientists.pdf)
+
+
+## Lectures
+
+[Lectures](C:\\Users\\cmeck\\Desktop\\D_Anal\\Anal_II\\_Data_Analysis_II_All_Lectures.pdf)
+
+
+## Git stuff
 
 Here are some git commands I never remember:
 
@@ -12,7 +42,7 @@ Here are some git commands I never remember:
 
 **Set the location of the github repo**
 
-1. git remote set-url origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git
+1. git remote set-url origin *url*
 2. git remote -v
 3. git remote show origin
 
@@ -22,6 +52,7 @@ Here are some quarto commands:
     
 1. quarto publish gh-pages
 2. quarto publish gh-pages document.qmd
+3. quarto publish gh-pages --no-prompt
 
 ___
 
@@ -30,18 +61,20 @@ ___
 
 Push an existing repository from the command line:
     
-1. git remote add origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git
+1. git remote add origin *url*
 2. git branch -M main
 3. git push -u origin main
 
 ___
     
+## Website
+    
 **Setting up the website:**
 
 1. Create a new git repository
-2. Create a quarto project/website
+2. Create a quarto project website
 3. Render the project
-4. Add /_site/ & /.quarto/ to the .gitignore file
+4. Add _site & .quarto to the .gitignore file
 5. git remote add origin
 6. git branch -M main
 7. git add .

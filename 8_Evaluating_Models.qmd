@@ -1,0 +1,28 @@
+---
+title: "8 Model Eval"
+---
+
+
+Learning Objectives
+
+At the end of this week you should be able to:
+
+- Discuss issues having to with making predictions of binary outcomes
+- Describe methods for prediction of categorical and count data
+- Describe the statistical concerns to be aware of in the big data setting
+
+In R:
+
+- Make predictions from generalized linear models
+- Evaluate different models using cross validation methods
+- Prepare and submit an R markdown script.
+
+Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 8 Readings and Lectures
+- Submit Module 8 Homework
+- Submit Module 8 Lab 
+- Take the Module 8 Content Quiz and R Quiz
+- Participate in the Module 8 Discussion

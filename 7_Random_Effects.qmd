@@ -1,0 +1,28 @@
+---
+title: "7 Random_Effects"
+---
+
+
+Learning Objectives
+
+After successful completion of this module, you will be able to:
+
+- Write out the expression of a generalized linear mixed model.
+- Describe the situation in which adding a random effect is important
+- Describe the correct method for interpreting fixed effect coefficient estimates from GLMM and be able to give an example.
+
+In R:
+
+- Fit GLMM in R, and perform model selection for both the random and fixed parts.
+- Use some examples to understand the issue involved with interpreting fixed effect estimates from GLMM.
+- Prepare and submit an R markdown script.
+
+Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 7 Readings and Lectures
+- Submit Module 7 Homework
+- Submit Module 7 Lab 
+- Take the Module 7 Content Quiz and R Quiz
+- Participate in the Module 7 Discussion

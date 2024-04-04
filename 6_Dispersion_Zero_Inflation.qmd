@@ -1,0 +1,28 @@
+---
+title: "6 Disp & 0 Inflation"
+---
+
+Learning Objectives
+
+After successful completion of this module, you will be able to:
+
+- Write out the expression of a zero-inflated Poisson regression model, including the response distribution and the model equations.
+- Describe the distinctions between over dispersion and zero-inflation.
+- Describe the distinction between “true zeroes” and “excess zeroes” and provide some examples.
+- Describe the key difference between zero-inflated models and hurdle models.
+
+In R:
+
+- Fit ZIP and ZINB regression models, and Poisson and negative binomial hurdle regression models, and make comparisons among these models.
+- Use simulations to understand what zero-inflation and over dispersion look like in certain situations.
+- Prepare and submit an R markdown script.
+
+Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review Module 6 Readings and Lectures
+- Submit Module 6 Homework
+- Submit Module 6 Lab
+- Take the Module 6 Content Quiz and R Quiz
+- Participate in the Module 6 Discussion

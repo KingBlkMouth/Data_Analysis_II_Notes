@@ -1,0 +1,23 @@
+---
+title: "9 Imp, Pred, Validate"
+---
+
+
+Learning Objectives
+
+After successful completion of this module, you will be able to:
+
+- Perform a complete analysis of a dataset involving categorical or count responses.
+- Specifically articulate the question(s) of interest that you will explore using the data you chose for your final project.
+
+Task list
+
+In order to achieve these learning outcomes, please make sure to complete the following:
+
+- Review/work through [Birdkeeping.Rmd](C:\\Users\\cmeck\\Desktop\\D_Anal\\Anal_II\\Scripts\\Birdkeeping.Rmd)
+- Review/work through [Badgers.Rmd](C:\\Users\\cmeck\\Desktop\\D_Anal\\Anal_II\\Scripts\\Badgers.Rmd) with accompanying 
+data Badgers.csv 
+- Review/work through [Respiratory.Rmd](C:\\Users\\cmeck\\Desktop\\D_Anal\\Anal_II\\Scripts\\Respiratory.Rmd) with 
+accompanying data respiratory.csv
+- Read through the [Final Project.pdf](C:\\Users\\cmeck\\Desktop\\D_Anal\\Anal_II\\Final Project.pdf) assignment and 
+complete the tasks for Week 9.
