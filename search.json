@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Data_Analysis_II_Notes",
     "section": "",
-    "text": "Here are some git commands I never remember: 1. git add . 2. git commit -m “comment” 3. git push origin main 4. git remote set-url origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git 5. git remote -v 6. git remote show origin\nHere are some quarto commands: 1. quarto publish gh-pages 2. 3."
+    "text": "Here are some git commands I never remember:\n\ngit add .\ngit commit -m “comment”\ngit push origin main\ngit remote set-url origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git\ngit remote -v\ngit remote show origin\n\nHere are some quarto commands:\n\nquarto publish gh-pages\n\n\n\nPush an existing repository from the command line:\n\ngit remote add origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git\ngit branch -M main\ngit push -u origin main\n\nSetting up the website:\n\nCreate a new git repository\nIn that repo, view all branches -&gt; New branch name it gh-pages.\nName the Quarto website the same as the repo\nrender the website\nadd the ignore paths to .gitignore\ngit remote add origin\ngit branch -M main\ngit add .\ngit commit\ngit push.\nquarto publish\nQuarto publish is all that needs to be done afterwards."
   },
   {
     "objectID": "about.html",
