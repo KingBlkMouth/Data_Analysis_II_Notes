@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data_Analysis_II_Notes",
+    "section": "",
+    "text": "Here are some git commands I never remember: 1. git add . 2. git commit -m “comment” 3. git push origin main 4. git remote set-url origin https://github.com/KingBlkMouth/Data_Analysis_II_Notes.git 5. git remote -v 6. git remote show origin\nHere are some quarto commands: 1. quarto publish gh-pages 2. 3."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  }
+]
