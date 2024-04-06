@@ -361,49 +361,119 @@
     "href": "9_Imp_Pred_Validate.html",
     "title": "9 Imp, Pred, Validate",
     "section": "",
-    "text": "Learning Objectives\nAfter successful completion of this module, you will be able to:\n\nPerform a complete analysis of a dataset involving categorical or count responses.\nSpecifically articulate the question(s) of interest that you will explore using the data you chose for your final project.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview/work through Birdkeeping.Rmd\nReview/work through Badgers.Rmd with accompanying data Badgers.csv\nReview/work through Respiratory.Rmd with accompanying data respiratory.csv\nRead through the Final Project.pdf assignment and complete the tasks for Week 9."
+    "text": "Learning Objectives\n\n\n\n\n\nAfter successful completion of this module, you will be able to:\n\nPerform a complete analysis of a dataset involving categorical or count responses.\nSpecifically articulate the question(s) of interest that you will explore using the data you chose for your final project.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview/work through Birdkeeping.Rmd\nReview/work through Badgers.Rmd with accompanying data Badgers.csv\nReview/work through Respiratory.Rmd with accompanying data respiratory.csv\nRead through the Final Project.pdf assignment and complete the tasks for Week 9.\n\n\n\n\n\nlibrary(tidyverse)\n\nbadgers &lt;- read.csv(\"../../Data/Badgers.csv\")\nrespiration &lt;- read.csv(\"../../Data/respiratory.csv\")"
   },
   {
     "objectID": "7_Random_Effects.html",
     "href": "7_Random_Effects.html",
     "title": "7 Random_Effects",
     "section": "",
-    "text": "Learning Objectives\nAfter successful completion of this module, you will be able to:\n\nWrite out the expression of a generalized linear mixed model.\nDescribe the situation in which adding a random effect is important\nDescribe the correct method for interpreting fixed effect coefficient estimates from GLMM and be able to give an example.\n\nIn R:\n\nFit GLMM in R, and perform model selection for both the random and fixed parts.\nUse some examples to understand the issue involved with interpreting fixed effect estimates from GLMM.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 7 Readings and Lectures\nSubmit Module 7 Homework\nSubmit Module 7 Lab\nTake the Module 7 Content Quiz and R Quiz\nParticipate in the Module 7 Discussion"
+    "text": "Learning Objectives\n\n\n\n\n\nAfter successful completion of this module, you will be able to:\n\nWrite out the expression of a generalized linear mixed model.\nDescribe the situation in which adding a random effect is important\nDescribe the correct method for interpreting fixed effect coefficient estimates from GLMM and be able to give an example.\n\nIn R:\n\nFit GLMM in R, and perform model selection for both the random and fixed parts.\nUse some examples to understand the issue involved with interpreting fixed effect estimates from GLMM.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 7 Readings and Lectures\nSubmit Module 7 Homework\nSubmit Module 7 Lab\nTake the Module 7 Content Quiz and R Quiz\nParticipate in the Module 7 Discussion\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "7_Random_Effects.html#lectures",
+    "href": "7_Random_Effects.html#lectures",
+    "title": "7 Random_Effects",
+    "section": "Lectures",
+    "text": "Lectures\n\n\nCode\n#\n# Aflatoxicol example -- dealing with tank\n#\n\nlibrary(Sleuth3)\nlibrary(tidyverse)\nlibrary(vcdExtra)\nlibrary(magrittr)\nlibrary(lme4)     # access the mixed functions\n\n# create additional variables in tumors file\ndata(ex2116)\ntumors &lt;- ex2116\ntumors %&lt;&gt;% mutate(Dose = Dose, Tumor = Tumor, NoTumor = Total - Tumor, TankID = factor(1:nrow(tumors)),logDose = log(Dose), logDose2 = log(Dose)^2)\n# fit fixed effects logisitic regression\n\nglm1 &lt;- glm(cbind(Tumor,NoTumor) ~ logDose + logDose2, data = tumors, family=binomial)\nsummary(glm1)\n\n# fit fixed effects logistic regression with quasi-binomial likelihood\n\nglm2 &lt;- glm(cbind(Tumor,NoTumor) ~ logDose + logDose2, data = tumors, family=quasibinomial)\nsummary(glm2)\n\n# fit mixed effects logistic regression, using Tank as random effect\nglm3 &lt;- glmer(cbind(Tumor,NoTumor) ~ logDose + logDose2 + (1|TankID), data = tumors,family=binomial)\n\n# oops, it looks like theres' a convergence problems. Let's re-run the glmer algorithm\n# using the values from the model we just fit as starting points:\n\n(init &lt;- getME(glm3, name =c (\"theta\",\"fixef\")))\nglm3 &lt;- glmer(cbind(Tumor,NoTumor) ~ logDose + logDose2 + (1|TankID), data=tumors, start=init, family=binomial)\nsummary(glm3)\n\nsummary(glm1)$coefficients\nsummary(glm2)$coefficients\nsummary(glm3)$coefficients\n\n# compare using AIC\n\nAIC(glm1,glm3)\n\n\n\nClustered Data\n\n\nMixed Effects\n\n\nMixed Example\n\n\nModeling Strategies\n\n\nModel Interpretation"
+  },
+  {
+    "objectID": "7_Random_Effects.html#lab",
+    "href": "7_Random_Effects.html#lab",
+    "title": "7 Random_Effects",
+    "section": "Lab",
+    "text": "Lab"
+  },
+  {
+    "objectID": "7_Random_Effects.html#hw",
+    "href": "7_Random_Effects.html#hw",
+    "title": "7 Random_Effects",
+    "section": "HW",
+    "text": "HW"
+  },
+  {
+    "objectID": "7_Random_Effects.html#quizzes",
+    "href": "7_Random_Effects.html#quizzes",
+    "title": "7 Random_Effects",
+    "section": "Quizzes",
+    "text": "Quizzes"
   },
   {
     "objectID": "5_Log_linear_Regression.html",
     "href": "5_Log_linear_Regression.html",
     "title": "5 Log-lin-Reg",
     "section": "",
-    "text": "After successful completion of this module, you will be able to:\n\nWrite out the expression of a Poisson regression model, including the response distribution and the model equation.\nInterpret the results of a Poisson regression.\nIdentify potential problems with the fit of a Poisson regression model.\nDescribe models for over dispersion of Poisson counts in the regression setting.\nEvaluate and compare models in the Poisson regression setting.\nDescribe how log linear models can be used for general contingency table data.\n\nIn R:\n\nFit Poisson, quasi-Poisson and negative binomial regression models, and make comparisons among them.\nFit log linear models to general contingency table data.\nUse simulations to understand problems that can arise when the sample size is small and/or the counts are small.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 5 Readings and Lectures\nSubmit Module 5 Homework\nSubmit Module 5 Lab\nTake the Module 5 Content Quiz and R Quiz\nParticipate in the Module 5 Discussion"
+    "text": "Learning Objectives\n\n\n\n\n\nAfter successful completion of this module, you will be able to:\n\nWrite out the expression of a Poisson regression model, including the response distribution and the model equation.\nInterpret the results of a Poisson regression.\nIdentify potential problems with the fit of a Poisson regression model.\nDescribe models for over dispersion of Poisson counts in the regression setting.\nEvaluate and compare models in the Poisson regression setting.\nDescribe how log linear models can be used for general contingency table data.\n\nIn R:\n\nFit Poisson, quasi-Poisson and negative binomial regression models, and make comparisons among them.\nFit log linear models to general contingency table data.\nUse simulations to understand problems that can arise when the sample size is small and/or the counts are small.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 5 Readings and Lectures\nSubmit Module 5 Homework\nSubmit Module 5 Lab\nTake the Module 5 Content Quiz and R Quiz\nParticipate in the Module 5 Discussion\nlibrary(tidyverse)"
   },
   {
-    "objectID": "5_Log_linear_Regression.html#learning-objectives",
-    "href": "5_Log_linear_Regression.html#learning-objectives",
+    "objectID": "5_Log_linear_Regression.html#lectures",
+    "href": "5_Log_linear_Regression.html#lectures",
     "title": "5 Log-lin-Reg",
-    "section": "",
-    "text": "After successful completion of this module, you will be able to:\n\nWrite out the expression of a Poisson regression model, including the response distribution and the model equation.\nInterpret the results of a Poisson regression.\nIdentify potential problems with the fit of a Poisson regression model.\nDescribe models for over dispersion of Poisson counts in the regression setting.\nEvaluate and compare models in the Poisson regression setting.\nDescribe how log linear models can be used for general contingency table data.\n\nIn R:\n\nFit Poisson, quasi-Poisson and negative binomial regression models, and make comparisons among them.\nFit log linear models to general contingency table data.\nUse simulations to understand problems that can arise when the sample size is small and/or the counts are small.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 5 Readings and Lectures\nSubmit Module 5 Homework\nSubmit Module 5 Lab\nTake the Module 5 Content Quiz and R Quiz\nParticipate in the Module 5 Discussion"
+    "section": "Lectures",
+    "text": "Lectures\n\n\nCode\n#\n# Example using Agresti's crab data\n#\n\nlibrary(ggplot2)\n#install.packages(\"glm2\")\nlibrary(glm2)\nhelp(crabs, package = \"glm2\")\ndata(crabs, package = \"glm2\")\n\n#\n# Take a look at the number of satellites (males) vs Width\n#\n\nwork = crabs\nggplot(work,aes(Width,Satellites)) + geom_point()\n\n#\n# There are some zeroes, let's adjust for log transformation\n# and re-plot\n#\n\nwork$lSat = log(ifelse(work$Satellites==0,0.1,work$Satellites))\nggplot(work,aes(Width,lSat)) + geom_point() + ylab(\"log(Satellites)\")\n\nggplot(work,aes(Dark,lSat)) + geom_point() + ylab(\"log(Satellites)\")\nggplot(work,aes(GoodSpine,lSat)) + geom_point() + ylab(\"log(Satellites)\")\nggplot(work,aes(Width,lSat)) + geom_point()  + facet_wrap(~Dark+GoodSpine)+ ylab(\"log(Satellites)\")\n\n\n#\n# Fit a rich model with all interactions\n#\n\nmod1 = glm(Satellites~Width*Dark*GoodSpine,data=work,family=poisson)\nsummary(mod1)\n\n#\n# Look at residuals and fitted values\n#\n\nwork$res = residuals(mod1)\nwork$fits = predict.glm(mod1,type=\"response\")\n\nggplot(work,aes(Width,res)) + geom_point()\nggplot(work,aes(Satellites,fits)) + geom_point()\n\n\n\n\nCode\n#\n# Fit and compare quasi-Poisson and negative binomial models to the Crab\n# data\n# \n\nlibrary(ggplot2)\nlibrary(MASS)     # access the glm.nb function\nlibrary(glm2)     # access the crab data\n\ndata(crabs, package = \"glm2\")\n\nwork = crabs\n\n# fit the Poisson, quasi-Poisson and negative binomial models\n\nmod1 = glm(Satellites~Width*Dark*GoodSpine,data=work,family=poisson)\nmod2 = glm(Satellites~Width*Dark*GoodSpine,data=work,family=quasipoisson)\nmod3 = glm.nb(Satellites~Width*Dark*GoodSpine,data=work)\n\n# compare coefficient estimates\n\ncbind(coef(mod1),coef(mod2),coef(mod3))\n\n# compare output from the two models that account for over dispersion\n\nsummary(mod2)\nsummary(mod3)\n\n# look at some residual plots\n\nwork$res2 = resid(mod2)\nwork$res3 = resid(mod3)\n\nggplot(work,aes(Width,res2)) + geom_point()\nggplot(work,aes(Width,res3)) + geom_point()\n\n# conclusion: favor the negative binomial approach over the quasi-poisson\n# approach (likelihood-based, we get AIC)\n\n# more to come: almost 36% of the satellite counts are zero...another\n# modeling approach is to use a zero-inflated model...module 6\n\n\n\n\nCode\n#\n# Example using Sleuth exercise 22.26\n#\n\nlibrary(Sleuth3)\nlibrary(MASS)\nlibrary(ggplot2)\n\nhelp(ex2226)\nwork = ex2226\nnames(work)\n\n# exploratory analysis\n\n# are there zeroes?\n\nsummary(work$Moons)\nwork$Moons1 = ifelse(work$Moons==0,0.1,work$Moons)\n\n# log moons versus distance\n\nggplot(work,aes(Distance,log(Moons1))) + geom_point()\n\n# log moons versus diameter\n\nggplot(work,aes(Diameter,log(Moons1))) + geom_point()\nggplot(work,aes(log(Diameter),log(Moons1))) + geom_point()\n\n# log moons versus mass\n\nggplot(work,aes(Mass,log(Moons1))) + geom_point()\nggplot(work,aes(log(Mass),log(Moons1))) + geom_point()\n\n# log diameter versus log mass\n\nggplot(work,aes(log(Diameter),log(Mass))) + geom_point()\n\ncor(log(work$Diameter),log(work$Mass))      \n\n# fit a rich model--with n = 13, I won't include interaction\n# terms \n\nmod1 = glm(Moons~Distance+log(Diameter)+log(Mass),data=work,family=poisson)\nsummary(mod1)\n\n# look at residuals, dispersion, goodness of fit\n\nwork$res1 = residuals(mod1)\nggplot(work,aes(Distance,res1)) + geom_point()\nggplot(work,aes(Diameter,res1)) + geom_point()\nggplot(work,aes(Mass,res1)) + geom_point()\n41.897/9\n1-pchisq(41.897,9)\n\n# there is evidence of over dispersion, fit a NB model:\n \nmod2 = glm.nb(Moons~Distance+log(Diameter)+log(Mass),data=work)\nsummary(mod2)\n\n\n# look at residuals again\n\nwork$res2 = residuals(mod2)\nggplot(work,aes(Distance,res2)) + geom_point()\n\n# It appears that the diameter of the planet and its mass are associated\n# with the number of moons the planet has.\n\n\n\nLog Linear Regression\n\n\nCrab Example\n\n\nModel Fit\n\n\nOver Dispersion in R\n\n\nData Analysis Strategy\n\n\nLog Linear Models"
+  },
+  {
+    "objectID": "5_Log_linear_Regression.html#lab",
+    "href": "5_Log_linear_Regression.html#lab",
+    "title": "5 Log-lin-Reg",
+    "section": "Lab",
+    "text": "Lab"
+  },
+  {
+    "objectID": "5_Log_linear_Regression.html#hw",
+    "href": "5_Log_linear_Regression.html#hw",
+    "title": "5 Log-lin-Reg",
+    "section": "HW",
+    "text": "HW"
+  },
+  {
+    "objectID": "5_Log_linear_Regression.html#quizzes",
+    "href": "5_Log_linear_Regression.html#quizzes",
+    "title": "5 Log-lin-Reg",
+    "section": "Quizzes",
+    "text": "Quizzes"
   },
   {
     "objectID": "3_Logistic_Regression_I.html",
     "href": "3_Logistic_Regression_I.html",
     "title": "3 Log Reg I",
     "section": "",
-    "text": "After successful completion of this module, you will be able to:\n\nDescribe the logistic regression model, which includes a probability model for the responses and the model equation.\nWrite a few sentences in non-technical language that explain the results of a logistic regression model fit.\nDescribe how to compare two logistic regression models.\nExplain the need for the link function in logistic regression.\n\nIn R:\n\nFit logistic regression models and interpret the output.\nCreate exploratory plots for logistic regression, and be able to explain any limitations of these plots.\nPrepare and submit an R markdown script."
-  },
-  {
-    "objectID": "3_Logistic_Regression_I.html#learning-objectives",
-    "href": "3_Logistic_Regression_I.html#learning-objectives",
-    "title": "3 Log Reg I",
-    "section": "",
-    "text": "After successful completion of this module, you will be able to:\n\nDescribe the logistic regression model, which includes a probability model for the responses and the model equation.\nWrite a few sentences in non-technical language that explain the results of a logistic regression model fit.\nDescribe how to compare two logistic regression models.\nExplain the need for the link function in logistic regression.\n\nIn R:\n\nFit logistic regression models and interpret the output.\nCreate exploratory plots for logistic regression, and be able to explain any limitations of these plots.\nPrepare and submit an R markdown script."
+    "text": "Learning Objectives\n\n\n\n\n\nAfter successful completion of this module, you will be able to:\n\nDescribe the logistic regression model, which includes a probability model for the responses and the model equation.\nWrite a few sentences in non-technical language that explain the results of a logistic regression model fit.\nDescribe how to compare two logistic regression models.\nExplain the need for the link function in logistic regression.\n\nIn R:\n\nFit logistic regression models and interpret the output.\nCreate exploratory plots for logistic regression, and be able to explain any limitations of these plots.\nPrepare and submit an R markdown script.\n\n\n\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 3 Readings and Lectures\nSubmit Module 3 Homework\nSubmit Module 3 Lab\nTake the Module 3 Content Quiz and R Quiz\nParticipate in the Module 3 Discussion\nlibrary(tidyverse)\nCode\n#\n# R code to create a plot of the Donner party data and fit\n# a logistic regression model\n#\n\n# install.packages(\"Sleuth3)\n\nlibrary(Sleuth3)\nlibrary(ggplot2)\n\n#\n# I like to create a \"work\" file for the current data file that\n# I'm using; then I take a quick look at the data and create the \n# Female indicator variable:\n#\n\nwork = case2001   \nhead(work)\nwork$Female = ifelse(work$Sex==\"Female\",1,0)\n\n#\n# Now, just a quick plot to look at the data (you'll do this\n# in this module's lab too)\n#\n\nggplot(work,aes(Age,Status,color=Sex)) + geom_point()\n\n#\n# Here's the code to fit a logistic regression model:\n#\n\nLRM = glm(Status~Age+Female,data=work,family=binomial(link=\"logit\"))\nsummary(LRM)\n\n#\n# And approximate confidence intervals for the Beta's:\n#\n\ncis = confint.default(LRM)\ncis\nexp(cis)"
   },
   {
     "objectID": "3_Logistic_Regression_I.html#task-list",
     "href": "3_Logistic_Regression_I.html#task-list",
     "title": "3 Log Reg I",
-    "section": "Task list",
-    "text": "Task list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 3 Readings and Lectures\nSubmit Module 3 Homework\nSubmit Module 3 Lab\nTake the Module 3 Content Quiz and R Quiz\nParticipate in the Module 3 Discussion"
+    "section": "",
+    "text": "In order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 3 Readings and Lectures\nSubmit Module 3 Homework\nSubmit Module 3 Lab\nTake the Module 3 Content Quiz and R Quiz\nParticipate in the Module 3 Discussion"
+  },
+  {
+    "objectID": "3_Logistic_Regression_I.html#lectures",
+    "href": "3_Logistic_Regression_I.html#lectures",
+    "title": "3 Log Reg I",
+    "section": "Lectures",
+    "text": "Lectures\n\nIntroduction to Logistic Regression\n\n\nModel Interpretation\n\n\nEstimation in Logistic Regression\n\n\nFitting Models\n\n\nDrop in Deviance"
+  },
+  {
+    "objectID": "3_Logistic_Regression_I.html#lab",
+    "href": "3_Logistic_Regression_I.html#lab",
+    "title": "3 Log Reg I",
+    "section": "Lab",
+    "text": "Lab"
+  },
+  {
+    "objectID": "3_Logistic_Regression_I.html#hw",
+    "href": "3_Logistic_Regression_I.html#hw",
+    "title": "3 Log Reg I",
+    "section": "HW",
+    "text": "HW"
+  },
+  {
+    "objectID": "3_Logistic_Regression_I.html#quizzes",
+    "href": "3_Logistic_Regression_I.html#quizzes",
+    "title": "3 Log Reg I",
+    "section": "Quizzes",
+    "text": "Quizzes"
   },
   {
     "objectID": "1_Types_of_Categoricals.html",
@@ -445,60 +515,158 @@
     "href": "10_Final_Project.html",
     "title": "10 Final Project",
     "section": "",
-    "text": "Data Analysis Writing\nFinal Project.pdf\nThis isn’t publishing?"
+    "text": "Ruberic\nThere is no ruberic up yet.\nData Analysis Writing\nFinal Project.pdf\n\n\nInstructions\nChoose a dataset, even a personal one with instructor approval.\n\nCensus income\nForest Cover Type\nCrash Data, 3 from crashi in VGAM\nor one with instructor approval\n\nProgress Report is two questions and a description of the data:\n\n2 Substantive questions\n\nAt least 1 explanatory, to understand variation in a response on the basis of several explanatory variables.\nDescribe the data in your own words\nClear indications of the response variables you will use and the methods you will use to address your questions.\nAt least one and no more than three exploratory data plot relevant to your analysis.\n\n\nFinal Project is a cohesive report that explains:\n\nthe data,\nyour questions,\nyour approach,\nany problems you encounter\nadditional assumptions you have to make\na summary of your findings.\n\nMore info on reports in the week 10 reading, Data Analysis Writing.\n\n\n\n\n\n\nFull Instructions\n\n\n\n\n\nOverview\nFor this project, you must work on your own. You may interact by email with the course TA and/or the course instructor, and you may ask questions on the Project Canvas Discussion, but you may not interact with any of your fellow students outside of the Project Canvas Discussion. You may choose one of the following datasets for your project. You may also use a dataset of your own choosing, but if that’s what you want to do, you must get the instructor’s approval first. Datasets\n\nCensus income: https://archive.ics.uci.edu/ml/datasets/Adult Potential responses: whether or not making more than 50k; whether or not completed college; etc.\nForest cover type: https://archive.ics.uci.edu/ml/datasets/Covertype Potential responses: cover type (combine categories somehow); whether or not it is a wilderness area; etc.\nCrash data: there are eight different data files in the VGAM package in R (after loading the VGAM package, type crashi to learn about them). We looked at the crashi data in Lab 8, but you take any combination of 3 or more of these data files to construct a new dataset and address some interesting questions about crashes. Potential responses: number of crashes involving motorcycles; number of crashes involving alcohol; etc. Deadlines and Deliverables There are two deadlines:\n\n\nDeadline 1: due end of week 9. This is a progress report. This progress report should be in the form of a pdf report that you generated using an R markdown file. The progress report should include the following:\n\n\nA brief description of the data you are using for your project and the questions that you will address—you must address at least two substantive questions about the data you choose. We expect that at least one of the questions you address will be explanatory in nature—that is, you’ll use the data to understand variation in a response on the basis of several explanatory variables. Also, your description of the data should go beyond saying which of the three options above that you chose—you should describe the data in your own words.\nClear indications of (a) the response variable(s) you will use and (b) the methods (e.g., logistic regression) you will use to address your questions of interest.\nAt least one and no more than three exploratory data plot relevant to your analysis.\n\n\nDeadline 2: due end of week 10. This is the completed project report. The deliverable is a pdf report that you created from an R markdown file. It is your responsibility to verify that your code is well-documented and completely self-contained.\n\nPlease note that your report should not be a sequential list of what you did. Rather, it should be a cohesive report that explains the data, your questions, your approach, any problems you encounter or additional assumptions you have to make, and a summary of your findings.\nWe have uploaded a document titled DataAnalysisReports.pdf that provides some guidance about the anatomy of your report.\n\n\n\n\n\n\n\n\n\nData Analysis Writing Summary\n\n\n\n\n\n\nAudience is my supervisor\n\n\nOutline\n\n\nExec. Summary\n\nSummary of study\nAnswer to questions\n\nBody\n\nData\nAnalysis\nResults\n\nDiscussion\n\nReprise the questions and results of the Executive Summary\nNew Questions, Going forward\n\nAppendices\n\nIt’s not a report, it’s a convo between you and your supervisor.\nStatistical Summary Example:\nThere is convincing evidence of a difference in the mean response between two treatment groups, A and B (p &lt; 0.0001 from a Welch’s t-test on 32.4 df). The 95% confidence interval for this difference runs from 1.34 to 3.51 units, with the mean for treatment A being higher than the mean for treatment B.\nStatistically significant as a term in writing:\nUse the p-value to convey strength of evidence, in the sense that a p-value in the range of p &lt; 0.0001 provides convincing evidence against the null hypothesis, where as a p-value around p = 0.05 only provides marginal evidence against the null hypothesis.\nDon’t use “I am 95% confident that…”\n\n\n\n\n\n_____END_______"
   },
   {
     "objectID": "2_Props_Risks_Odds.html",
     "href": "2_Props_Risks_Odds.html",
     "title": "2 Props, Risk & Odds",
     "section": "",
-    "text": "At the end of this week you should be able to:\n\nIdentify potential issues with small sample sizes in tables of counts.\nDescribe the situations in which a comparison of odds ratios is more appropriate than a comparison of proportions.\nIndicate the one-to-one relationship between proportions and odds.\nDescribe the multinomial and Poisson distributions and the connection between them.\n\nIn R:\n\nPerform tests for a difference in proportions and an odds ratio.\nUse simulations to understand the performance of statistical tests for count data when the sample sizes are small.\nPrepare and submit an R markdown script."
-  },
-  {
-    "objectID": "2_Props_Risks_Odds.html#learning-objectives",
-    "href": "2_Props_Risks_Odds.html#learning-objectives",
-    "title": "2 Props, Risk & Odds",
-    "section": "",
-    "text": "At the end of this week you should be able to:\n\nIdentify potential issues with small sample sizes in tables of counts.\nDescribe the situations in which a comparison of odds ratios is more appropriate than a comparison of proportions.\nIndicate the one-to-one relationship between proportions and odds.\nDescribe the multinomial and Poisson distributions and the connection between them.\n\nIn R:\n\nPerform tests for a difference in proportions and an odds ratio.\nUse simulations to understand the performance of statistical tests for count data when the sample sizes are small.\nPrepare and submit an R markdown script."
+    "text": "Learning Objectives\n\n\n\n\n\nAt the end of this week you should be able to:\n\nIdentify potential issues with small sample sizes in tables of counts.\nDescribe the situations in which a comparison of odds ratios is more appropriate than a comparison of proportions.\nIndicate the one-to-one relationship between proportions and odds.\nDescribe the multinomial and Poisson distributions and the connection between them.\n\nIn R:\n\nPerform tests for a difference in proportions and an odds ratio.\nUse simulations to understand the performance of statistical tests for count data when the sample sizes are small.\nPrepare and submit an R markdown script.\n\n\n\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 2 Readings and Lectures\nSubmit Module 2 Homework\nSubmit Module 2 Lab\nTake the Module 2 Content Quiz and R Quiz\nParticipate in the Module 2 Discussion\nlibrary(tidyverse)\nlibrary(Sleuth3)\ndata(case1802)\ndf &lt;- case1802"
   },
   {
     "objectID": "2_Props_Risks_Odds.html#task-list",
     "href": "2_Props_Risks_Odds.html#task-list",
     "title": "2 Props, Risk & Odds",
-    "section": "Task list",
-    "text": "Task list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 2 Readings and Lectures\nSubmit Module 2 Homework\nSubmit Module 2 Lab\nTake the Module 2 Content Quiz and R Quiz\nParticipate in the Module 2 Discussion"
+    "section": "",
+    "text": "In order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 2 Readings and Lectures\nSubmit Module 2 Homework\nSubmit Module 2 Lab\nTake the Module 2 Content Quiz and R Quiz\nParticipate in the Module 2 Discussion"
+  },
+  {
+    "objectID": "2_Props_Risks_Odds.html#lectures",
+    "href": "2_Props_Risks_Odds.html#lectures",
+    "title": "2 Props, Risk & Odds",
+    "section": "Lectures",
+    "text": "Lectures\n\nBionomials\nA binomial random variable is a count of the number of times E occurs in the n trials.\nExamples\n\nMedicine: The number of patients in a clinical trial that showed improvement on a new treatment.\nPolitics: The number of voters in an exit poll sample who said they voted for Hillary Clinton.\nEcology: The number of wetlands that have seen an increase in the number of bird species.\nBusiness: The number of $5 off coupons redeemed on a customer appreciation day.\nHealth: The number of women with heart disease among a sample of obese women\n\nA binomial random variable is defined as the sum of n independent Bernoulli random variables, all with probability p. \nYou can use R to calculate binomial coefficients (see the function choose)\ncalculate properties of binomial random variables—for instance their probability and/or their cumulative probability (see the functions pbinom and qbinom)\nVit C and colds example “Sleuth3”, case1802\nIn 411 placebos, 335 colds\nZ ∼ Bernoulli(p).\nIf we think about this as a binomial count random variable\nn is 411, X is 335. p is X/n\n\n\nProportions\nComparing two pops on the basis of a binary outcome.\nVit C example:\n818 Volunteers in placebo or not. Did the Vit C folks get less colds.\nThe estimate for p_1 is 335/411, for p_2 it’s 302/407, based on the cont. table.\nAre these differences reflected in the general population?\n\\(H_0: p_1 = p_2\\)\nWe need to know the sampling distribution of p1-p2. That is the the hist from repeat samples from the pop of interest. (or bootstrapped?)\nX ∼ bin(n,p) and for large n, the sampling distribution of pˆ = X/n is Normal with mean p and variance np(1−p).\nA good metric is np&gt;5 and n(1-p)&gt;5.\nIf n1 and n2 are large, the sampling dist for p1 - p2 is normal and there’s an exp for the VAR\ntest for diff in props with prop.test. Compare with chi.test.\n\nVitC = matrix(c(335,76,302,105),2,2,byrow = T)\nprop.test(VitC)\n\n\n    2-sample test for equality of proportions with continuity correction\n\ndata:  VitC\nX-squared = 5.9196, df = 1, p-value = 0.01497\nalternative hypothesis: two.sided\n95 percent confidence interval:\n 0.01391972 0.13222111\nsample estimates:\n   prop 1    prop 2 \n0.8150852 0.7420147 \n\n\nFor large sample sizes the continuity correction is less important.\nConfidence interval is for the difference in proportion. There is a difference here.\n\nchisq.test(VitC)\n\n\n    Pearson's Chi-squared test with Yates' continuity correction\n\ndata:  VitC\nX-squared = 5.9196, df = 1, p-value = 0.01497\n\n\nA chi^2 test for homogeneity tests if the prop of success is the same in two or more groups.\n\n\nOdds and Odds Ratios\nFor the VitC case, the diff in prop estimates is large at 7%. That indicates the prop of gettng a cold is about 7% lower than placebo.\nBut if the difference is small.\nIf p1 is 4 times p2, then you can talk about odds to talk about the multiplicative difference.\nodds are p over 1-p. The odds in the Vit c ex are 2.876 or 23 colds for every 8 not, 23 to 8 odds.\nThere is a stat for the ratio of two odds called phi. An odds ratio can be interpreted as a multipliicative difference between two odds.\nThe odds of success are twice that of pop 1.\nShe talks about the polio vaccine example. The odds of infant paralysis with and without a polio vacccine. Placebo was 2.5 times as likely to be paralyzed.\n\nFor rare events, use odds.\nuse odds for retrospective studies.\n\nRetrospective studies are like taking groups for cancer and not, then looking back to see if they smoke.\n\n\nMultinomial\nThe vit c and polio examples are both cross-classification of two binary variables.\n\n\nPoisson Counts"
+  },
+  {
+    "objectID": "2_Props_Risks_Odds.html#lab",
+    "href": "2_Props_Risks_Odds.html#lab",
+    "title": "2 Props, Risk & Odds",
+    "section": "Lab",
+    "text": "Lab"
+  },
+  {
+    "objectID": "2_Props_Risks_Odds.html#hw",
+    "href": "2_Props_Risks_Odds.html#hw",
+    "title": "2 Props, Risk & Odds",
+    "section": "HW",
+    "text": "HW"
+  },
+  {
+    "objectID": "2_Props_Risks_Odds.html#quizzes",
+    "href": "2_Props_Risks_Odds.html#quizzes",
+    "title": "2 Props, Risk & Odds",
+    "section": "Quizzes",
+    "text": "Quizzes"
   },
   {
     "objectID": "4_Logistic_Regression_II.html",
     "href": "4_Logistic_Regression_II.html",
     "title": "4 Log-Reg II",
     "section": "",
-    "text": "After successful completion of this module, you will be able to:\n\nDescribe how to examine the goodness of fit of a logistic regression model.\nExplain what an empirical logit is, why it’s useful and how to calculate it.\nDescribe how to compare two logistic regression models.\nDefine over dispersion (or extra-binomial variation), and indicate why it can cause problems for inference in logistic regression.\nList some reasons that counts may exhibit extra-binomial variation.\n\nIn R:\n\nEstimate and interpret the dispersion parameter.\nCreate exploratory plots for logistic regression using the empirical logit.\nUse the deviance residuals to examine goodness of fit of the logistic regression model.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 4 Readings and Lectures\nSubmit Module 4 Homework\nSubmit Module 4 Lab\nTake the Module 4 Content Quiz and R Quiz\nParticipate in the Module 4 Discussion"
+    "text": "Learning Objectives\n\n\n\n\n\nAfter successful completion of this module, you will be able to:\n\nDescribe how to examine the goodness of fit of a logistic regression model.\nExplain what an empirical logit is, why it’s useful and how to calculate it.\nDescribe how to compare two logistic regression models.\nDefine over dispersion (or extra-binomial variation), and indicate why it can cause problems for inference in logistic regression.\nList some reasons that counts may exhibit extra-binomial variation.\n\nIn R:\n\nEstimate and interpret the dispersion parameter.\nCreate exploratory plots for logistic regression using the empirical logit.\nUse the deviance residuals to examine goodness of fit of the logistic regression model.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 4 Readings and Lectures\nSubmit Module 4 Homework\nSubmit Module 4 Lab\nTake the Module 4 Content Quiz and R Quiz\nParticipate in the Module 4 Discussion\nlibrary(tidyverse)"
   },
   {
-    "objectID": "4_Logistic_Regression_II.html#learning-objectives",
-    "href": "4_Logistic_Regression_II.html#learning-objectives",
+    "objectID": "4_Logistic_Regression_II.html#lectures",
+    "href": "4_Logistic_Regression_II.html#lectures",
     "title": "4 Log-Reg II",
-    "section": "",
-    "text": "After successful completion of this module, you will be able to:\n\nDescribe how to examine the goodness of fit of a logistic regression model.\nExplain what an empirical logit is, why it’s useful and how to calculate it.\nDescribe how to compare two logistic regression models.\nDefine over dispersion (or extra-binomial variation), and indicate why it can cause problems for inference in logistic regression.\nList some reasons that counts may exhibit extra-binomial variation.\n\nIn R:\n\nEstimate and interpret the dispersion parameter.\nCreate exploratory plots for logistic regression using the empirical logit.\nUse the deviance residuals to examine goodness of fit of the logistic regression model.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 4 Readings and Lectures\nSubmit Module 4 Homework\nSubmit Module 4 Lab\nTake the Module 4 Content Quiz and R Quiz\nParticipate in the Module 4 Discussion"
+    "section": "Lectures",
+    "text": "Lectures\n\n\nCode\n#\n# Email dataset: logisitic regression example\n#\n\n#library(devtools)\n#install_github(\"OpenIntroOrg/openintro-r-package\", subdir = \"openintro\")\nlibrary(openintro)\nlibrary(ggplot2)\nlibrary(MASS)\n\n?email\nnames(email)\n\nxtabs(~to_multiple+spam,data=email)\nxtabs(~winner+spam,data=email)\n\nfull1 = glm(spam~to_multiple+from+cc+sent_email+time+image+attach+dollar+winner+inherit+viagra+password+num_char+format+re_subj+exclaim_subj+urgent_subj+exclaim_mess+number,data=email,family=binomial(link=\"logit\"))\nsummary(full1)\n\nfull2 = update(full1,~.-from-cc-sent_email-viagra-exclaim_subj)\nsummary(full2)\n\nanova(full2,full1)\n1-pchisq(162,5)\n\n#\n# fitted values\n# \n\nfits1 = fitted(full1)\nfits2 = predict.glm(full1)\nfits3 = predict.glm(full1,type=\"response\")\n\nhead(cbind(fits1,fits2,fits3))\n\nfits4 = exp(fits2)/(1+exp(fits2))\nhead(cbind(fits1,fits2,fits3,fits4))\n\n\n\nAnother Example in R - More Logistic Regression\n\n\nDose Response Relationships\n\n\nDeviance Goodness-of-fit\n\n\nOver Dispersion\n\n\nMore on Over Dispersion"
+  },
+  {
+    "objectID": "4_Logistic_Regression_II.html#lab",
+    "href": "4_Logistic_Regression_II.html#lab",
+    "title": "4 Log-Reg II",
+    "section": "Lab",
+    "text": "Lab"
+  },
+  {
+    "objectID": "4_Logistic_Regression_II.html#hw",
+    "href": "4_Logistic_Regression_II.html#hw",
+    "title": "4 Log-Reg II",
+    "section": "HW",
+    "text": "HW"
+  },
+  {
+    "objectID": "4_Logistic_Regression_II.html#quizzes",
+    "href": "4_Logistic_Regression_II.html#quizzes",
+    "title": "4 Log-Reg II",
+    "section": "Quizzes",
+    "text": "Quizzes"
   },
   {
     "objectID": "6_Dispersion_Zero_Inflation.html",
     "href": "6_Dispersion_Zero_Inflation.html",
     "title": "6 Disp & 0 Inflation",
     "section": "",
-    "text": "Learning Objectives\nAfter successful completion of this module, you will be able to:\n\nWrite out the expression of a zero-inflated Poisson regression model, including the response distribution and the model equations.\nDescribe the distinctions between over dispersion and zero-inflation.\nDescribe the distinction between “true zeroes” and “excess zeroes” and provide some examples.\nDescribe the key difference between zero-inflated models and hurdle models.\n\nIn R:\n\nFit ZIP and ZINB regression models, and Poisson and negative binomial hurdle regression models, and make comparisons among these models.\nUse simulations to understand what zero-inflation and over dispersion look like in certain situations.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 6 Readings and Lectures\nSubmit Module 6 Homework\nSubmit Module 6 Lab\nTake the Module 6 Content Quiz and R Quiz\nParticipate in the Module 6 Discussion"
+    "text": "Learning Objectives\n\n\n\n\n\nAfter successful completion of this module, you will be able to:\n\nWrite out the expression of a zero-inflated Poisson regression model, including the response distribution and the model equations.\nDescribe the distinctions between over dispersion and zero-inflation.\nDescribe the distinction between “true zeroes” and “excess zeroes” and provide some examples.\nDescribe the key difference between zero-inflated models and hurdle models.\n\nIn R:\n\nFit ZIP and ZINB regression models, and Poisson and negative binomial hurdle regression models, and make comparisons among these models.\nUse simulations to understand what zero-inflation and over dispersion look like in certain situations.\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 6 Readings and Lectures\nSubmit Module 6 Homework\nSubmit Module 6 Lab\nTake the Module 6 Content Quiz and R Quiz\nParticipate in the Module 6 Discussion\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "6_Dispersion_Zero_Inflation.html#lectures",
+    "href": "6_Dispersion_Zero_Inflation.html#lectures",
+    "title": "6 Disp & 0 Inflation",
+    "section": "Lectures",
+    "text": "Lectures\n\n\nCode\n#\n# Fit and compare ZIP and and ZINB models to the Crab data\n# \n\nlibrary(ggplot2)\n#install.packages(\"pscl\")\nlibrary(pscl)     # access the zeroinfl function\nlibrary(MASS)     # access the glm.nb function\nlibrary(glm2)     # access the crab data ***order of accessing these\n                  #         libraries is important for getting the \n                  #         appropriate crabs dataset\n\ndata(crabs, package = \"glm2\")\nwork = crabs\nhead(work)\nggplot(work,aes(Width,Satellites)) + geom_point()\n\n# fit the ZIP model\n\nmod1 = zeroinfl(Satellites~Width+Dark+GoodSpine,dist=\"poisson\",data=work)\nsummary(mod1)\n\n# compare to Poisson model\n\nmod0 = glm(Satellites~Width+Dark+GoodSpine,family=poisson,data=work)\nsummary(mod0)\n\nAIC(mod0,mod1)\n\n# fit the ZINB model\n\nmod2 = zeroinfl(Satellites~Width+Dark+GoodSpine,dist=\"negbin\",data=work)\nsummary(mod2)\n\n# compare to the negative binomial model\n\nmod0 = glm.nb(Satellites~Width+Dark+GoodSpine,data=work)\nsummary(mod0)\n\nAIC(mod0,mod2)\n\nmod3 = hurdle(Satellites~Width+Dark+GoodSpine,dist=\"poisson\",data=work)\nsummary(mod3)\n\nmod4 = hurdle(Satellites~Width+Dark+GoodSpine,dist=\"negbin\",data=work)\nsummary(mod4)\n\nAIC(mod0,mod1,mod2,mod3,mod4)\n\n\n\nZero Inflation\n\n\nZIP ZINB in R\n\n\nHurdle Models\n\n\nStrategies"
+  },
+  {
+    "objectID": "6_Dispersion_Zero_Inflation.html#lab",
+    "href": "6_Dispersion_Zero_Inflation.html#lab",
+    "title": "6 Disp & 0 Inflation",
+    "section": "Lab",
+    "text": "Lab"
+  },
+  {
+    "objectID": "6_Dispersion_Zero_Inflation.html#hw",
+    "href": "6_Dispersion_Zero_Inflation.html#hw",
+    "title": "6 Disp & 0 Inflation",
+    "section": "HW",
+    "text": "HW"
+  },
+  {
+    "objectID": "6_Dispersion_Zero_Inflation.html#quizzes",
+    "href": "6_Dispersion_Zero_Inflation.html#quizzes",
+    "title": "6 Disp & 0 Inflation",
+    "section": "Quizzes",
+    "text": "Quizzes"
   },
   {
     "objectID": "8_Evaluating_Models.html",
     "href": "8_Evaluating_Models.html",
     "title": "8 Model Eval",
     "section": "",
-    "text": "Learning Objectives\nAt the end of this week you should be able to:\nIn R:\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:"
+    "text": "Learning Objectives\n\n\n\n\n\nAt the end of this week you should be able to:\n\nDiscuss issues having to with making predictions of binary outcomes\nDescribe methods for prediction of categorical and count data\nDescribe the statistical concerns to be aware of in the big data setting\n\nIn R:\n\nMake predictions from generalized linear models\nEvaluate different models using cross validation methods\nPrepare and submit an R markdown script.\n\nTask list\nIn order to achieve these learning outcomes, please make sure to complete the following:\n\nReview Module 8 Readings and Lectures\nSubmit Module 8 Homework\nSubmit Module 8 Lab\nTake the Module 8 Content Quiz and R Quiz\nParticipate in the Module 8 Discussion\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "8_Evaluating_Models.html#lectures",
+    "href": "8_Evaluating_Models.html#lectures",
+    "title": "8 Model Eval",
+    "section": "Lectures",
+    "text": "Lectures\n\nBinary Classification\n(Binary Classification.pdf)\n\n\nComparing Predictions\n(Comparing Predictions.pdf)\n\n\nClassifier Example\n(Classifier Example.pdf)\n\n\nClassifier.Rmd\n\n\nCross Validation\n(Cross Validation.pdf)\n\n\nBig Data Issues\n(Big Data Issues.pdf)"
+  },
+  {
+    "objectID": "8_Evaluating_Models.html#lab",
+    "href": "8_Evaluating_Models.html#lab",
+    "title": "8 Model Eval",
+    "section": "Lab",
+    "text": "Lab"
+  },
+  {
+    "objectID": "8_Evaluating_Models.html#hw",
+    "href": "8_Evaluating_Models.html#hw",
+    "title": "8 Model Eval",
+    "section": "HW",
+    "text": "HW"
   },
   {
     "objectID": "8_Evaluating_Models.html#quizzes",
     "href": "8_Evaluating_Models.html#quizzes",
+    "title": "8 Model Eval",
+    "section": "Quizzes",
+    "text": "Quizzes"
+  },
+  {
+    "objectID": "8_Evaluating_Models.html#quizzes-1",
+    "href": "8_Evaluating_Models.html#quizzes-1",
     "title": "8 Model Eval",
     "section": "Quizzes",
     "text": "Quizzes\n\n# Set the number of simulations (and different random seeds)\n# to try. Don't pick a number that is much bigger than 10,000\n# or it will take quite a long time and possibly crash your \n# computer.\n\nnSim &lt;- 1000\n\n# Create an empty vector (just a vector of zeroes) that will\n# be used to store the p-values from each new simulation.\n\npvals &lt;- rep(0, nSim)\n\n# Set the sample size n.\n\nn &lt;- 1000000\n\nfor(i in 1:nSim){\n    # The lines below ('print(i)', etc.) are just to tell us how far \n    # through the nSim iterations we have gotten. This is \n    # slow with a large sample size because of the iterative\n    # nature of the glm solution. \n    \n    if(i %% 20 == 0) print(i)\n    \n    # For the ith simulation, we are using 'i' as the random seed,\n    # so the first simulation will use 1 as the random seed, the second\n    # will use 2, and so on.  We could instead randomly generate new \n    # random seeds, but I wanted to keep this simple and easily\n    # reproducible.  \n            \n    set.seed(i)\n    \n    # Generate the data Y and X as in the quiz question, with\n    # the designated sample size n.\n    \n    Y &lt;- rbinom(n, 1, 0.3)\n    X &lt;- rnorm(n, 0, 1)\n    out &lt;- glm(Y~X, family = binomial) \n    \n    # Store the p-value resulting from the estimated logistic\n    # regression model.  This can be found as the element in row 2,\n    # column 4 of the 'coefficients' object of the summary output.\n    \n    pvals[i] &lt;- summary(out)$coeff[2,4]\n}\n\n# Count how many of the resulting p-values are less than \n# 0.05.  Here we show several ways to do that.  First, we\n# use the 'table' function to tabulate how many of the p-values\n# were &lt;= 0.05, and how many were &gt; 0.05.  A 'TRUE' value means\n# the p-value was &lt;= 0.05, while a 'FALSE' value means the p-value\n# was &gt; 0.05.\n\ntable(pvals &lt;= 0.05)\n\n### Output:\n### -------\n### FALSE  TRUE \n###  952    48 \n\n\n# Another way of counting how many p-values are &lt;= 0.05.  Note that\n# R treats 'TRUE' as a 1 and 'FALSE' as a 0, so when we add up a \n# vector of 'TRUE's and 'FALSE's, we are just counting how many 'TRUE's \n# there were.\n\nsum(pvals &lt;= 0.05)\n\n### Output:\n### -------\n### [1] 48\n\n# Now to calculate the proportion of p-values &lt;= 0.05, we just divide\n# the number that were &lt;= 0.05 by the total number of simulations we \n# did:\n\nsum(pvals &lt;= 0.05)/nSim\n\n### Output:\n### -------\n### [1] 0.048\n\n# Or we could do that in one step using the 'mean' function, since\n# the mean of a vector of 1's and 0's is just the proportion of 1's:\n\nmean(pvals &lt;= 0.05)\n\n### Output:\n### -------\n### [1] 0.048\n\n# Same thing, but for a smaller significance level (0.006 instead of\n# 0.05)\n\ntable(pvals &lt;= 0.006)\n\n### Output:\n### -------\n### FALSE  TRUE \n###  994     6 \n\nmean(pvals &lt;= 0.006)\n\n### Output:\n### -------\n### [1] 0.006\n\n##################################################\n\n# Repeat all of the above, but with n = 50 instead of n = 1000000\n\nnSim &lt;- 1000\npvals &lt;- rep(0, nSim)\nn &lt;- 50\n\nfor(i in 1:nSim){\n    if(i %% 20 == 0) print(i)\n    set.seed(i)\n    Y &lt;- rbinom(n, 1, 0.3)\n    X &lt;- rnorm(n, 0, 1)\n    out &lt;- glm(Y~X, family = binomial) \n    pvals[i] &lt;- summary(out)$coeff[2,4]\n}\n\ntable(pvals &lt;= 0.05)\nmean(pvals &lt;= 0.05)\n\ntable(pvals &lt;= 0.006)\nmean(pvals &lt;= 0.006)\n\n##################################################\n\n# Consider a single example with n = 50:\n\nset.seed(304)\nY &lt;- rbinom(50, 1, 0.3)\nX &lt;- rnorm(50, 0, 1)\nout &lt;- glm(Y~X, family = binomial) \nsummary(out)"
@@ -676,7 +844,7 @@
     "href": "z1_learnR.html#instructions",
     "title": "1 Types of Categoricals",
     "section": "Instructions",
-    "text": "Instructions\nFor this assignment, you are asked to create a self-contained R Markdown script that can generate a document which answers the questions below. You will submit the .Rmd script, and you will be graded based on the HTML document that it generates.\n\n\n\n\n\n\nR Markdown for submission\n\n\n\n\n\nThe following describes the process of creating and submitting .Rmd and .pdf files as your lab assignment. You will follow this procedure after each lab in this course.\nNOTE: If you are reading these instructions from the HTML preview in the Viewer pane, they will be overwritten in the following steps. You can avoid this by “popping out” the current HTML preview into an external browser window, by clicking the the “Show in new window” icon (to the right of the broom icon in the Viewer pane).\nAlternatively, you can read the instructions right from the .Rmd script, keeping in mind that you will need to switch back to the lab script tab to view the rest of the instructions once you create a new script. You could also copy and paste the whole Lab 1 Assignment Instructions section into your new document while you’re working on it, and then delete the instructions before you submit it.\nClick “File” -&gt; “New File” -&gt; “R Markdown”, and dialog box will pop up. Change the title to “Lab Assignment 1” and name yourself as author. Select PDF as the Default Output Format, then click OK. The header of your new file should look something like this:\n---\ntitle: \"Lab Assignment 1\"\nauthor: \"Ronald Fisher\"\ndate: \"2024-04-05\"\noutput: pdf_document\n---\n\n\nThe file will initially contain some examples to get you started with RMarkdown, which you should replace with your lab content. Save the notebook as something like “Lab_Assignment_1” using “File” –&gt; “Save As…”\nIn your new .Rmd script, answer the questions in the “Questions” section below. Include all the code you need to produce the requested outputs. Your script should include a top-level section heading for each question, for example:\n# Question 1\n\nstuff here\n\n# Question 2\n\nother stuff\nWhether or not you include the text of the questions in your script is up to you.\n\nDo be sure to include, near the top of your script, a code chunk that loads any non-default packages you use (such as vcdExtra or Sleuth3).\n\nWithin the question sections, you can chunk your code in whatever way seems reasonable. Incorporate any written answers outside the code chunks using Markdown formatting as needed (see “Help” -&gt; “RMarkdown Quick Reference” for text formatting help).\nTo ensure that your .Rmd script will be fully self-contained (i.e. it will not depend on objects that were defined during the lab, and could be run as-is if you sent it to someone else), you should clear the workspace before you begin.\n\nTo clear the workspace, click the broom icon in the Environment pane.\n\nOnce you’ve answered the questions in your new .Rmd script and you have verified your code is self contained, you should Run -&gt; Run All Chunks and generate a .pdf file of your document, to check that everything looks like you want it to. Having concluded that your .Rmd script produces a pdf document that includes all the output you want, submit both the Lab_Assignment_1.Rmd file and the pdf document on Canvas as your Lab Assignment 1.\nFeel free to post on the discussion board if you have any questions or encounter any difficulties with this process."
+    "text": "Instructions\nFor this assignment, you are asked to create a self-contained R Markdown script that can generate a document which answers the questions below. You will submit the .Rmd script, and you will be graded based on the HTML document that it generates.\n\n\n\n\n\n\nR Markdown for submission\n\n\n\n\n\nThe following describes the process of creating and submitting .Rmd and .pdf files as your lab assignment. You will follow this procedure after each lab in this course.\nNOTE: If you are reading these instructions from the HTML preview in the Viewer pane, they will be overwritten in the following steps. You can avoid this by “popping out” the current HTML preview into an external browser window, by clicking the the “Show in new window” icon (to the right of the broom icon in the Viewer pane).\nAlternatively, you can read the instructions right from the .Rmd script, keeping in mind that you will need to switch back to the lab script tab to view the rest of the instructions once you create a new script. You could also copy and paste the whole Lab 1 Assignment Instructions section into your new document while you’re working on it, and then delete the instructions before you submit it.\nClick “File” -&gt; “New File” -&gt; “R Markdown”, and dialog box will pop up. Change the title to “Lab Assignment 1” and name yourself as author. Select PDF as the Default Output Format, then click OK. The header of your new file should look something like this:\n---\ntitle: \"Lab Assignment 1\"\nauthor: \"Ronald Fisher\"\ndate: \"2024-04-06\"\noutput: pdf_document\n---\n\n\nThe file will initially contain some examples to get you started with RMarkdown, which you should replace with your lab content. Save the notebook as something like “Lab_Assignment_1” using “File” –&gt; “Save As…”\nIn your new .Rmd script, answer the questions in the “Questions” section below. Include all the code you need to produce the requested outputs. Your script should include a top-level section heading for each question, for example:\n# Question 1\n\nstuff here\n\n# Question 2\n\nother stuff\nWhether or not you include the text of the questions in your script is up to you.\n\nDo be sure to include, near the top of your script, a code chunk that loads any non-default packages you use (such as vcdExtra or Sleuth3).\n\nWithin the question sections, you can chunk your code in whatever way seems reasonable. Incorporate any written answers outside the code chunks using Markdown formatting as needed (see “Help” -&gt; “RMarkdown Quick Reference” for text formatting help).\nTo ensure that your .Rmd script will be fully self-contained (i.e. it will not depend on objects that were defined during the lab, and could be run as-is if you sent it to someone else), you should clear the workspace before you begin.\n\nTo clear the workspace, click the broom icon in the Environment pane.\n\nOnce you’ve answered the questions in your new .Rmd script and you have verified your code is self contained, you should Run -&gt; Run All Chunks and generate a .pdf file of your document, to check that everything looks like you want it to. Having concluded that your .Rmd script produces a pdf document that includes all the output you want, submit both the Lab_Assignment_1.Rmd file and the pdf document on Canvas as your Lab Assignment 1.\nFeel free to post on the discussion board if you have any questions or encounter any difficulties with this process."
   },
   {
     "objectID": "z1_learnR.html#questions",

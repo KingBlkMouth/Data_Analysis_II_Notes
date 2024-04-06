@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -60,6 +94,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -230,8 +266,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#task-list" id="toc-task-list" class="nav-link" data-scroll-target="#task-list">Task list</a></li>
+  <li><a href="#lectures" id="toc-lectures" class="nav-link active" data-scroll-target="#lectures">Lectures</a>
+  <ul class="collapse">
+  <li><a href="#bionomials" id="toc-bionomials" class="nav-link" data-scroll-target="#bionomials">Bionomials</a></li>
+  <li><a href="#proportions" id="toc-proportions" class="nav-link" data-scroll-target="#proportions">Proportions</a></li>
+  <li><a href="#odds-and-odds-ratios" id="toc-odds-and-odds-ratios" class="nav-link" data-scroll-target="#odds-and-odds-ratios">Odds and Odds Ratios</a></li>
+  <li><a href="#multinomial" id="toc-multinomial" class="nav-link" data-scroll-target="#multinomial">Multinomial</a></li>
+  <li><a href="#poisson-counts" id="toc-poisson-counts" class="nav-link" data-scroll-target="#poisson-counts">Poisson Counts</a></li>
+  </ul></li>
+  <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
+  <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
+  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
     </div>
@@ -255,8 +301,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning Objectives
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>At the end of this week you should be able to:</p>
 <ul>
 <li>Identify potential issues with small sample sizes in tables of counts.</li>
@@ -270,7 +326,6 @@ ul.task-list li input[type="checkbox"] {
 <li>Use simulations to understand the performance of statistical tests for count data when the sample sizes are small.</li>
 <li>Prepare and submit an R markdown script.</li>
 </ul>
-</section>
 <section id="task-list" class="level2">
 <h2 class="anchored" data-anchor-id="task-list">Task list</h2>
 <p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
@@ -281,6 +336,116 @@ ul.task-list li input[type="checkbox"] {
 <li>Take the Module 2 Content Quiz and R Quiz</li>
 <li>Participate in the Module 2 Discussion</li>
 </ul>
+</section>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(case1802)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> case1802</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="lectures" class="level2">
+<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<section id="bionomials" class="level3">
+<h3 class="anchored" data-anchor-id="bionomials">Bionomials</h3>
+<p>A binomial random variable is a count of the number of times E occurs in the n trials.</p>
+<p>Examples</p>
+<ul>
+<li>Medicine: The number of patients in a clinical trial that showed improvement on a new treatment.</li>
+<li>Politics: The number of voters in an exit poll sample who said they voted for Hillary Clinton.</li>
+<li>Ecology: The number of wetlands that have seen an increase in the number of bird species.</li>
+<li>Business: The number of $5 off coupons redeemed on a customer appreciation day.</li>
+<li>Health: The number of women with heart disease among a sample of obese women</li>
+</ul>
+<p>A binomial random variable is defined as the sum of n independent Bernoulli random variables, all with probability p.&nbsp;</p>
+<p>You can use R to calculate binomial coefficients (see the function choose)</p>
+<p>calculate properties of binomial random variables—for instance their probability and/or their cumulative probability (see the functions pbinom and qbinom)</p>
+<p><strong>Vit C and colds example</strong> “Sleuth3”, case1802</p>
+<p>In 411 placebos, 335 colds</p>
+<p>Z ∼ Bernoulli(p).</p>
+<p>If we think about this as a binomial count random variable</p>
+<p>n is 411, X is 335. p is X/n</p>
+</section>
+<section id="proportions" class="level3">
+<h3 class="anchored" data-anchor-id="proportions">Proportions</h3>
+<p>Comparing two pops on the basis of a binary outcome.</p>
+<p>Vit C example:</p>
+<p>818 Volunteers in placebo or not. Did the Vit C folks get less colds.</p>
+<p>The estimate for p_1 is 335/411, for p_2 it’s 302/407, based on the cont. table.</p>
+<p>Are these differences reflected in the general population?</p>
+<p><span class="math inline">\(H_0: p_1 = p_2\)</span></p>
+<p>We need to know the sampling distribution of p1-p2. That is the the hist from repeat samples from the pop of interest. (or bootstrapped?)</p>
+<p>X ∼ bin(n,p) and for large n, the sampling distribution of pˆ = X/n is Normal with mean p and variance np(1−p).</p>
+<p>A good metric is np&gt;5 and n(1-p)&gt;5.</p>
+<p><strong>If n1 and n2 are large, the sampling dist for p1 - p2 is normal and there’s an exp for the VAR</strong></p>
+<p>test for diff in props with prop.test. Compare with chi.test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>VitC <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">335</span>,<span class="dv">76</span>,<span class="dv">302</span>,<span class="dv">105</span>),<span class="dv">2</span>,<span class="dv">2</span>,<span class="at">byrow =</span> T)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(VitC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  VitC
+X-squared = 5.9196, df = 1, p-value = 0.01497
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.01391972 0.13222111
+sample estimates:
+   prop 1    prop 2 
+0.8150852 0.7420147 </code></pre>
+</div>
+</div>
+<p>For large sample sizes the continuity correction is less important.</p>
+<p>Confidence interval is for the difference in proportion. There is a difference here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(VitC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  VitC
+X-squared = 5.9196, df = 1, p-value = 0.01497</code></pre>
+</div>
+</div>
+<p>A chi^2 test for homogeneity tests if the prop of success is the same in two or more groups.</p>
+</section>
+<section id="odds-and-odds-ratios" class="level3">
+<h3 class="anchored" data-anchor-id="odds-and-odds-ratios">Odds and Odds Ratios</h3>
+<p>For the VitC case, the diff in prop estimates is large at 7%. That indicates the prop of gettng a cold is about 7% lower than placebo.</p>
+<p>But if the difference is small.</p>
+<p>If p1 is 4 times p2, then you can talk about odds to talk about the multiplicative difference.</p>
+<p>odds are p over 1-p.&nbsp;The odds in the Vit c ex are 2.876 or 23 colds for every 8 not, 23 to 8 odds.</p>
+<p>There is a stat for the ratio of two odds called phi. An odds ratio can be interpreted as a multipliicative difference between two odds.</p>
+<p>The odds of success are twice that of pop 1.</p>
+<p>She talks about the polio vaccine example. The odds of infant paralysis with and without a polio vacccine. Placebo was 2.5 times as likely to be paralyzed.</p>
+<ul>
+<li>For rare events, use odds.</li>
+<li>use odds for retrospective studies.</li>
+</ul>
+<p>Retrospective studies are like taking groups for cancer and not, then looking back to see if they smoke.</p>
+</section>
+<section id="multinomial" class="level3">
+<h3 class="anchored" data-anchor-id="multinomial">Multinomial</h3>
+<p>The vit c and polio examples are both cross-classification of two binary variables.</p>
+</section>
+<section id="poisson-counts" class="level3">
+<h3 class="anchored" data-anchor-id="poisson-counts">Poisson Counts</h3>
+</section>
+</section>
+<section id="lab" class="level2">
+<h2 class="anchored" data-anchor-id="lab">Lab</h2>
+</section>
+<section id="hw" class="level2">
+<h2 class="anchored" data-anchor-id="hw">HW</h2>
+</section>
+<section id="quizzes" class="level2">
+<h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+</section>
+<section id="end____" class="level1">
+<h1>____END____</h1>
 
 
 </section>
