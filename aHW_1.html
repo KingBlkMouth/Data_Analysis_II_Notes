@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-04-04">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 1</title>
 <style>
@@ -218,7 +217,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">HW</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hw">    
-        <li class="dropdown-header">aHW_0.qmd</li>
         <li>
     <a class="dropdown-item" href="./aHW_1.html" rel="" target="">
  <span class="dropdown-text">ST-518 HW 1</span></a>
@@ -269,8 +267,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link active" data-scroll-target="#conceptual-questions">Conceptual Questions</a></li>
-  <li><a href="#r-question" id="toc-r-question" class="nav-link" data-scroll-target="#r-question">R Question</a></li>
+  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link active" data-scroll-target="#conceptual-questions">Conceptual Questions</a>
+  <ul class="collapse">
+  <li><a href="#numerical-or-categorical" id="toc-numerical-or-categorical" class="nav-link" data-scroll-target="#numerical-or-categorical">1. Numerical or categorical</a></li>
+  <li><a href="#multiple-choice-exam" id="toc-multiple-choice-exam" class="nav-link" data-scroll-target="#multiple-choice-exam">2. Multiple-choice exam</a></li>
+  <li><a href="#online-on-campus-or-a-hybrid" id="toc-online-on-campus-or-a-hybrid" class="nav-link" data-scroll-target="#online-on-campus-or-a-hybrid">3. Online, on campus, or a hybrid</a></li>
+  </ul></li>
+  <li><a href="#r-question" id="toc-r-question" class="nav-link" data-scroll-target="#r-question">R Question</a>
+  <ul class="collapse">
+  <li><a href="#consider-ex2117" id="toc-consider-ex2117" class="nav-link" data-scroll-target="#consider-ex2117">4. Consider ex2117</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -293,12 +299,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -306,86 +306,461 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><code>output: pdf_document</code></p>
-<section id="conceptual-questions" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-questions">Conceptual Questions</h2>
-<ol type="1">
-<li><p>For each of the following, determine whether the response variable numerical or categorical. If the response variable is categorical, is it binary? If it is not binary, list possible categories for the response variable.</p>
+<section id="conceptual-questions" class="level1">
+<h1>Conceptual Questions</h1>
+<section id="numerical-or-categorical" class="level2">
+<h2 class="anchored" data-anchor-id="numerical-or-categorical">1. Numerical or categorical</h2>
+<p>For each of the following, determine whether the response variable is numerical or categorical. If the response variable is categorical, is it binary? If it is not binary, list possible categories for the response variable.</p>
+<p><em>The first one is confusing because it isn’t a response variable. I am going to ignore the “response” part.</em></p>
 <ol type="a">
-<li>In a survey, college students were asked how many hours per week they spend on the internet.</li>
+<li>In a survey, college students were asked how many hours per week they spend on the internet.
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>I’d treat Hours as categorical, They will be estimating not measuring, nominally they spend x hours.</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>No</li>
+</ul></li>
+<li><strong>List possible categories</strong></li>
+<li>0-4, 4-8, 8-12, … or 1, 2, 3, 4,…</li>
+</ul></li>
+<li>In a survey, college students were asked, “What percentage of the time that you spend on the internet is not for course work?”
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>Again, they aren’t measuring the time, they are estimating. I’d treat it as Categorical.</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>No</li>
+</ul></li>
+<li><strong>List possible categories</strong>
+<ul>
+<li>0-10%, 10-20% etc.</li>
+</ul></li>
+</ul></li>
+<li>In a survey, college students were asked, “What is your primary mode of transportation when traveling between campus and home?”
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>Categorical</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>No</li>
+</ul></li>
+<li><strong>List possible categories</strong>
+<ul>
+<li>personal vehicle, foot, bike, metro, cab, other.</li>
+</ul></li>
+</ul></li>
+<li>In a survey, college students were asked whether or not they live on campus.
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>Catergorical</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>Yes</li>
+</ul></li>
+<li><strong>List possible categories</strong>
+<ul>
+<li>Yes or No</li>
+</ul></li>
+</ul></li>
+<li>In a survey, college students were asked how many of their meals they prepare at home per week.
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>Either, they could actually count this. How to treat it in a model depends on what you are trying to get.</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>No</li>
+</ul></li>
+<li><strong>List possible categories</strong>
+<ul>
+<li>1, 2, 3,… or 1-5, 6-10, …</li>
+</ul></li>
+</ul></li>
+<li>In a survey, college students were asked, “Which of the five main food groups constitutes the majority of your diet?”
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>Categorical</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>No</li>
+</ul></li>
+<li><strong>List possible categories</strong>
+<ul>
+<li>Grain, Fruit, Veg, Dairy, …</li>
+</ul></li>
+</ul></li>
+<li>In a survey, smart phone users were asked whether or not they have used a web-based taxi service like Uber or Lyft.
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>Categorical</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>Yes</li>
+</ul></li>
+<li><strong>List possible categories</strong>
+<ul>
+<li>Yes or No</li>
+</ul></li>
+</ul></li>
+<li>In a survey, smart phone users were asked how many times they used a web-based taxi service in the past three months.
+<ul>
+<li><strong>Numerical or categorical</strong>
+<ul>
+<li>Either, that data could be pulled from the phone. If you wanted to use it quantitatively you could. If it’s an estimate, it’s better as a categorical.</li>
+</ul></li>
+<li><strong>Binary?</strong>
+<ul>
+<li>No</li>
+</ul></li>
+<li><strong>List possible categories</strong>
+<ul>
+<li>0, 1-10, …</li>
+</ul></li>
+</ul></li>
 </ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="2" type="a">
-<li>In a survey, college students were asked, “What percentage of the time that you spend on the internet is not for course work?”</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="3" type="a">
-<li>In a survey, college students were asked, “What is your primary mode of transportation when traveling between campus and home?”</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="4" type="a">
-<li>In a survey, college students were asked whether or not they live on campus.</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="5" type="a">
-<li>In a survey, college students were asked how many of their meals they prepare at home per week.</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="6" type="a">
-<li>In a survey, college students were asked, “Which of the five main food groups constitutes the majority of your diet?”</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="7" type="a">
-<li>In a survey, smart phone users were asked whether or not they have used a web-based taxi service like Uber or Lyft.</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="8" type="a">
-<li>In a survey, smart phone users were asked how many times they used a web-based taxi service in the past three months.</li>
-</ol>
-<p><strong>Put your answer here.</strong></p></li>
-<li><p>On a multiple-choice exam, each of the 20 questions has 2 possible answers and only one correct response. Suppose, for each question, one student selects his responses completely at random.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="multiple-choice-exam" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-choice-exam">2. Multiple-choice exam</h2>
+<p>On a multiple-choice exam, each of the 20 questions has 2 possible answers and only one correct response. Suppose, for each question, one student selects his responses completely at random.</p>
+<p><em>Re-write: On a multiple choice test there are 2 options and 1 correct answer. Bob selects his responses at random</em> <em>(a) For Bob, X’s 1 through 20 represent if he answered correctly.</em> <em>Y is the total number answered correctly</em> <em>What is the distribution of <span class="math inline">\(X_i\)</span>?</em> <em>What is the distribution of <span class="math inline">\(Y\)</span>?</em></p>
 <ol type="a">
 <li>Let <span class="math inline">\(X_i,\ i = 1,...,20\)</span> represent whether the student answered the <span class="math inline">\(i\)</span>th question correctly, and let <span class="math inline">\(Y\)</span> represent the total number of answers the student gets correct. What is the distribution of <span class="math inline">\(X_i\)</span>? What is the distribution of <span class="math inline">\(Y\)</span>?</li>
 </ol>
-<p><strong>Put your answer here.</strong></p>
+<p><strong>The question boils down to what are the proper distributions for binary data and count data. Bernoulli distributions are for binary data, Binomial for the sum of binary variables.</strong></p>
+<p><span class="math inline">\(Pr(Z = 1) = 0.5^1(1−0.5)^{1−1}\ = \ 0.5 \times 1 \ = \ .5\)</span></p>
+<p><span class="math inline">\(Pr(X = y) = \begin{pmatrix} n \\ 20 \end{pmatrix}0.5^{20}(1-0.5)^{n-20}\)</span></p>
 <ol start="2" type="a">
 <li>What is the probability that the student passes the test (i.e., scores at least 70%)? (You will learn more about this distribution in the next module, but you should be able to calculate this in R using the <code>pbinom</code> function.)</li>
 </ol>
-<p><strong>Put your answer here.</strong></p></li>
-<li><p>Do you prefer taking courses online, on campus, or a hybrid of the two? Suppose these preferences occur with probabilities (<span class="math inline">\(p_1, p_2, p_3\)</span>). For <span class="math inline">\(N = 3\)</span> independent subjects, let the observed frequencies be <span class="math inline">\((n_1, n_2, n_3)\)</span>. That is, we observe <span class="math inline">\(n_1\)</span> subjects who prefer taking courses online, etc.</p>
-<ol type="a">
-<li>Explain how you can determine <span class="math inline">\(n_3\)</span> from knowing <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span>.</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="2" type="a">
-<li>List all the possible observations <span class="math inline">\((n_1, n_2, n_3)\)</span>, with <span class="math inline">\(n = 3\)</span>.</li>
-</ol>
-<p><strong>Put your answer here.</strong></p></li>
-</ol>
+<p><span class="math inline">\(Pr(X = 14) = \begin{pmatrix} 14 \\ 20 \end{pmatrix}0.5^{20}(1-0.5)^{14-20}\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The probability of getting a 70 percent by guessing with 50 50 odds is"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pbinom</span>(<span class="at">q =</span> .<span class="dv">7</span><span class="sc">*</span>(<span class="dv">20</span>), <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> .<span class="dv">5</span>, <span class="at">lower.tail =</span> F) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The probability of getting a 70 percent by guessing with 50 50 odds is 0.0207"</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 </section>
-<section id="r-question" class="level2">
-<h2 class="anchored" data-anchor-id="r-question">R Question</h2>
-<ol start="4" type="1">
-<li><p>Consider the data in {} of the {} package.</p>
+<section id="online-on-campus-or-a-hybrid" class="level2">
+<h2 class="anchored" data-anchor-id="online-on-campus-or-a-hybrid">3. Online, on campus, or a hybrid</h2>
+<p>Do you prefer taking courses online, on campus, or a hybrid of the two? Suppose these preferences occur with probabilities (<span class="math inline">\(p_1, p_2, p_3\)</span>). For <span class="math inline">\(N = 3\)</span> independent subjects, let the observed frequencies be <span class="math inline">\((n_1, n_2, n_3)\)</span>. That is, we observe <span class="math inline">\(n_1\)</span> subjects who prefer taking courses online, etc.</p>
 <ol type="a">
-<li>In what format are these data (case, tabular, frequency, other)? Please explain.</li>
-</ol>
-<p><strong>Put your answer here.</strong></p>
-<ol start="2" type="a">
-<li>Create a new R data frame for the data, called <strong>HW1data</strong>. In that data frame, create a <code>NumBoys</code> column that represents the number of births that were boys (be sure to round to the nearest integer).</li>
-</ol></li>
+<li><p>Explain how you can determine <span class="math inline">\(n_3\)</span> from knowing <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span>.</p>
+<p>If there are three people and each gets to pick one preference, then 3 minus the number who prefer online or hybrid is the number left who like campus.</p></li>
+<li><p>List all the possible observations <span class="math inline">\((n_1, n_2, n_3)\)</span>, with <span class="math inline">\(n = 3\)</span>.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put your R code here.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">sums =</span> <span class="fu">rowSums</span>(x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sums <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Var1</th>
+<th style="text-align: right;">Var2</th>
+<th style="text-align: right;">Var3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="r-question" class="level1">
+<h1>R Question</h1>
+<section id="consider-ex2117" class="level2">
+<h2 class="anchored" data-anchor-id="consider-ex2117">4. Consider ex2117</h2>
+<p>Consider the data in ex2117 of the Sleuth3 package.</p>
+<ol type="a">
+<li><p>In what format are these data (case, tabular, frequency, other)? Please explain.</p>
+<p>ex2117 is the Effect of Stress During Conception on Odds of a Male Birth.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ex2117 <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Time</th>
+<th style="text-align: right;">Number</th>
+<th style="text-align: right;">PctBoys</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">13-16mo</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">52.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">12-7mo</td>
+<td style="text-align: right;">789</td>
+<td style="text-align: right;">49.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">0-6mo</td>
+<td style="text-align: right;">1922</td>
+<td style="text-align: right;">48.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">1st trimester</td>
+<td style="text-align: right;">290</td>
+<td style="text-align: right;">46.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>It’s pretty much a frequency table. I am not sure if a the two numerical columns change that. If one were to convert the numeric columns to the number of boys alone, that would be an ideal frequency table.</p>
+<ol start="2" type="a">
+<li>Create a new R data frame for the data, called <strong>HW1data</strong>. In that data frame, create a <code>NumBoys</code> column that represents the number of births that were boys (be sure to round to the nearest integer).</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>HW1data <span class="ot">&lt;-</span> ex2117 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">NumBoys =</span> (PctBoys<span class="sc">/</span><span class="dv">100</span>)<span class="sc">*</span>Number, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">NumBoys =</span> <span class="fu">round</span>(NumBoys)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>HW1data </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Time</th>
+<th style="text-align: right;">Number</th>
+<th style="text-align: right;">PctBoys</th>
+<th style="text-align: right;">NumBoys</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+<td style="text-align: right;">10413</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">13-16mo</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">52.1</td>
+<td style="text-align: right;">37</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">12-7mo</td>
+<td style="text-align: right;">789</td>
+<td style="text-align: right;">49.6</td>
+<td style="text-align: right;">391</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">0-6mo</td>
+<td style="text-align: right;">1922</td>
+<td style="text-align: right;">48.9</td>
+<td style="text-align: right;">940</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Exposed</td>
+<td style="text-align: left;">1st trimester</td>
+<td style="text-align: right;">290</td>
+<td style="text-align: right;">46.0</td>
+<td style="text-align: right;">133</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 <ol start="3" type="a">
 <li>Use an appropriate R command or commands to change the format to something else (you can pick what).</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put your R code here.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>HW1data <span class="sc">|&gt;</span> <span class="fu">expand.dft</span>(<span class="at">freq =</span> <span class="st">"NumBoys"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Time</th>
+<th style="text-align: right;">Number</th>
+<th style="text-align: right;">PctBoys</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">20337</td>
+<td style="text-align: right;">51.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(NumBoys <span class="sc">~</span> Group <span class="sc">+</span> Time <span class="sc">+</span> Number, HW1data)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , Number = 71
+
+         Time
+Group     0-6mo 12-7mo 13-16mo 1st trimester  none
+  Control     0      0       0             0     0
+  Exposed     0      0      37             0     0
+
+, , Number = 290
+
+         Time
+Group     0-6mo 12-7mo 13-16mo 1st trimester  none
+  Control     0      0       0             0     0
+  Exposed     0      0       0           133     0
+
+, , Number = 789
+
+         Time
+Group     0-6mo 12-7mo 13-16mo 1st trimester  none
+  Control     0      0       0             0     0
+  Exposed     0    391       0             0     0
+
+, , Number = 1922
+
+         Time
+Group     0-6mo 12-7mo 13-16mo 1st trimester  none
+  Control     0      0       0             0     0
+  Exposed   940      0       0             0     0
+
+, , Number = 20337
+
+         Time
+Group     0-6mo 12-7mo 13-16mo 1st trimester  none
+  Control     0      0       0             0 10413
+  Exposed     0      0       0             0     0</code></pre>
+</div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
