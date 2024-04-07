@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data_Analysis_II_Notes - LearnR 2</title>
+<title>Data_Analysis_II_Notes - 2 Odds and risks</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 2</span></a>
+ <span class="dropdown-text">2 Odds and risks</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
@@ -268,7 +268,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
-  <li><a href="#notation-for-i-x-j-tables" id="toc-notation-for-i-x-j-tables" class="nav-link" data-scroll-target="#notation-for-i-x-j-tables">Notation for I x J Tables</a></li>
   <li><a href="#load-packages-for-the-lab" id="toc-load-packages-for-the-lab" class="nav-link" data-scroll-target="#load-packages-for-the-lab">Load Packages for the Lab</a></li>
   </ul></li>
   <li><a href="#statistical-independence" id="toc-statistical-independence" class="nav-link" data-scroll-target="#statistical-independence">Statistical Independence</a>
@@ -296,16 +295,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#beyond-fixed-margins" id="toc-beyond-fixed-margins" class="nav-link" data-scroll-target="#beyond-fixed-margins">Beyond Fixed Margins</a></li>
   <li><a href="#beyond-2-x-2-tables" id="toc-beyond-2-x-2-tables" class="nav-link" data-scroll-target="#beyond-2-x-2-tables">Beyond 2 x 2 Tables</a></li>
   </ul></li>
-  <li><a href="#module-2-lab-assignment-instructions" id="toc-module-2-lab-assignment-instructions" class="nav-link" data-scroll-target="#module-2-lab-assignment-instructions">Module 2 Lab Assignment Instructions</a>
+  <li><a href="#lab-2" id="toc-lab-2" class="nav-link" data-scroll-target="#lab-2">Lab 2</a>
   <ul class="collapse">
-  <li><a href="#r-markdown-for-submission" id="toc-r-markdown-for-submission" class="nav-link" data-scroll-target="#r-markdown-for-submission">R Markdown for submission</a></li>
+  <li><a href="#module-2-lab-assignment-instructions" id="toc-module-2-lab-assignment-instructions" class="nav-link" data-scroll-target="#module-2-lab-assignment-instructions">Module 2 Lab Assignment Instructions</a></li>
+  </ul></li>
   <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions:</a>
   <ul class="collapse">
   <li><a href="#q1." id="toc-q1." class="nav-link" data-scroll-target="#q1.">Q1.</a></li>
   <li><a href="#q2." id="toc-q2." class="nav-link" data-scroll-target="#q2.">Q2.</a></li>
   <li><a href="#q3." id="toc-q3." class="nav-link" data-scroll-target="#q3.">Q3.</a></li>
   <li><a href="#q4." id="toc-q4." class="nav-link" data-scroll-target="#q4.">Q4.</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -315,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LearnR 2</h1>
+<h1 class="title">2 Odds and risks</h1>
 </div>
 
 
@@ -338,68 +337,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>These methods are not necessarily robust to extreme outliers or large quantities of missing data. Intending to do inference does not eliminate the need for exploratory checks on data quality.</p></li>
 <li><p>The probabilistic “guarantees” attached to these inferential methods do <em>not</em> hold in the context of using the same data to generate hypotheses and test them. See <a href="http://r4ds.had.co.nz/model-intro.html">R for Data Science, Chapter 22</a> for advice about using “holdout data” when you’re serious about formal inference.</p></li>
 </ol>
-<section id="notation-for-i-x-j-tables" class="level2">
-<h2 class="anchored" data-anchor-id="notation-for-i-x-j-tables">Notation for I x J Tables</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notation for I x J Tables
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Here is a glossary of terms and notation that we’ll use throughout the lab (and the course).</p>
 <p>Mathematical expressions are formatted with dollar signs for improved appearance in the HTML document. When reading the .Rmd script, in RStudio, moving your cursor over something between dollar signs “pops out” the formatted mathematical expression from that location on the screen.</p>
 <ul>
-<li><span class="math inline">\(I\)</span> denotes the number of rows in a 2-way table of counts, <span class="math inline">\(J\)</span> denotes the number of columns<br>
-</li>
+<li><span class="math inline">\(I\)</span> denotes the number of rows in a 2-way table of counts, <span class="math inline">\(J\)</span> denotes the number of columns</li>
 <li><span class="math inline">\(X\)</span> denotes the “row variable” – a categorical random variable (factor) taking on I possible values <span class="math inline">\(x_1, ..., x_I\)</span></li>
-<li><span class="math inline">\(Y\)</span> denotes the “column variable” – a categorical random variable taking on <span class="math inline">\(J\)</span> possible values <span class="math inline">\(y_1,...,y_J\)</span><br>
-</li>
-<li>The <strong>cells</strong> in a 2-way table are indexed by <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, where <span class="math inline">\(i\)</span> in <span class="math inline">\(1:I\)</span> is the row index and <span class="math inline">\(j\)</span> in <span class="math inline">\(1:J\)</span> is the column index<br>
-</li>
-<li><span class="math inline">\(N\)</span> is the total count over the whole table, and <span class="math inline">\(n_{ij}\)</span> is the count in the <span class="math inline">\(i,j\)</span> cell – that is, the number of observation for which <span class="math inline">\(X = x_i\)</span> and <span class="math inline">\(Y = y_j\)</span></li>
+<li><span class="math inline">\(Y\)</span> denotes the “column variable” – a categorical random variable taking on <span class="math inline">\(J\)</span> possible values <span class="math inline">\(y_1,...,y_J\)</span></li>
+<li>The <strong>cells</strong> in a 2-way table are indexed by <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, where <span class="math inline">\(i\)</span> in <span class="math inline">\(1:I\)</span> is the row index and <span class="math inline">\(j\)</span> in <span class="math inline">\(1:J\)</span> is the column index</li>
+<li><span class="math inline">\(N\)</span> is the total count over the whole table, and <span class="math inline">\(n_{ij}\)</span> is the count in the <span class="math inline">\(i,j\)</span> cell. That is, the number of observation for which <span class="math inline">\(X = x_i\)</span> and <span class="math inline">\(Y = y_j\)</span></li>
 <li><span class="math inline">\(p_{ij}\)</span> is the proportion, out of the N observations, which fall in the <span class="math inline">\(i,j\)</span> cell (so <span class="math inline">\(p_{ij} = n_{ij}/N\)</span>)</li>
 <li><span class="math inline">\(p_i.\)</span> is the ith row proportion, and <span class="math inline">\(p._j\)</span> the <span class="math inline">\(j\)</span>th column proportion – the . notation suggests that we’ve summed over/collapsed the index it replaces</li>
 </ul>
-</section>
+</div>
+</div>
+</div>
 <section id="load-packages-for-the-lab" class="level2">
 <h2 class="anchored" data-anchor-id="load-packages-for-the-lab">Load Packages for the Lab</h2>
 <p>We’ll use the following packages in this lab:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcdExtra' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: vcd</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: grid</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: gnm</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gnm' was built under R version 4.3.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::extract()   masks magrittr::extract()
-✖ dplyr::filter()    masks stats::filter()
-✖ dplyr::lag()       masks stats::lag()
-✖ purrr::set_names() masks magrittr::set_names()
-✖ dplyr::summarise() masks vcdExtra::summarise()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -426,31 +396,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You can use mosaic plots to get a sense for the independence or lack of independence in <span class="math inline">\(I \times J\)</span> tables. In general, when the two variables of an <span class="math inline">\(I \times J\)</span> table are independent, then the vertical splits in the mosaic plot of that table should (approximately) line up. Actually, depending on the complexity of the mosaic plot, it may be that you’re looking for the horizontal splits to line up, but in the examples here, it’s the vertical splits.</p>
 <p>Run the following chunk of R code to see some examples.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximately independent </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  tab1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">45</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">14</span>,<span class="dv">35</span>,<span class="dv">12</span>),<span class="dv">3</span>,<span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mosaic</span>(tab1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximately independent </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> tab1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">45</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">14</span>,<span class="dv">35</span>,<span class="dv">12</span>),<span class="dv">3</span>,<span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">mosaic</span>(tab1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z2_learnR_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probably not independent</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  tab2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">45</span>,<span class="dv">10</span>,<span class="dv">14</span>,<span class="dv">50</span>,<span class="dv">35</span>,<span class="dv">12</span>),<span class="dv">3</span>,<span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mosaic</span>(tab2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probably not independent</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> tab2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">45</span>,<span class="dv">10</span>,<span class="dv">14</span>,<span class="dv">50</span>,<span class="dv">35</span>,<span class="dv">12</span>),<span class="dv">3</span>,<span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">mosaic</span>(tab2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z2_learnR_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Intuitively, the closer the vertical splits are to being aligned, the closer the observed table of counts will be to the expected table of counts. You can play around with adjusting the cell counts in the code above give yourself a better understanding of the mosaic plot as a tool for evaluating statistical independence visually.</p>
 <p>A closely-related visualization is the sieve plot, which first draws the outline of the mosaic plot that we would expect to see under the assumption of independence (i.e., with the splits lined up). It then fills in each cell of this outline with a grid of squares, scaled so that <span class="math inline">\(n_{ij}\)</span> squares fit within the <span class="math inline">\(ij^{th}\)</span> cell. Thus, cells with bigger-than-expected counts are filled with denser grids, and cells with smaller-than-expected counts are filled with sparser grids. For extra clarity, the “underfilled” cells are shaded red and the “overfilled” cells shaded blue.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximately independent </span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sieve</span>(tab1, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximately independent </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">sieve</span>(tab1, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z2_learnR_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probably not independent</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sieve</span>(tab2, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probably not independent</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">sieve</span>(tab2, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z2_learnR_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The grid sizes on the first sieve plot are approximately the same, indicating independence; whereas the grid sizes on the second plot are different, indicating a departure from independence.</p>
@@ -467,15 +437,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <strong>chi-squared statistic</strong> sums the quantity <span class="math inline">\((O_{ij} - E_{ij})^2 / E_{ij}\)</span> over every cell of the table, where for the <span class="math inline">\(i,j\)</span>th cell, <span class="math inline">\(O_{ij} = n_{ij}\)</span> is the observed cell count, and <span class="math inline">\(E_{ij} = p_i.p._jN\)</span> is the expected count from the expected table (again, to re-emphasize: it’s the expected table <em>under</em> the hypothesized assumption of independence between the two variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>).</p>
 <p>The following chunk of R code builds a function, called <code>chisq_stat0()</code>, that calculates the chi-squared statistic. This function is almost superfluous, since the calculation of the chi-squared statistic is already built into a function in R that performs the chi-squared test. Nevertheless, we’re creating this function as illustrative of the relatively simple calculations, and because we’ll actually need this variation to perform a simulation later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>chisq_stat0 <span class="ot">&lt;-</span><span class="cf">function</span>(tbl, <span class="at">smooth =</span> <span class="fl">10e-8</span>){</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  O <span class="ot">&lt;-</span> tbl <span class="sc">+</span> smooth</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">sum</span>(tbl)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  E <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="fu">rowSums</span>(tbl), (<span class="fu">colSums</span>(tbl)))<span class="sc">%&gt;%</span> <span class="fu">divide_by</span>(N) <span class="co"># this is equivalent to (p_i.)*(p._j)*N</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  X2 <span class="ot">&lt;-</span> (O <span class="sc">-</span> E) <span class="sc">%&gt;%</span> <span class="fu">raise_to_power</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">divide_by</span>(E) <span class="sc">%&gt;%</span> <span class="fu">sum</span>() </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(X2)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chisq_stat0 <span class="ot">&lt;-</span><span class="cf">function</span>(tbl, <span class="at">smooth =</span> <span class="fl">10e-8</span>){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> O <span class="ot">&lt;-</span> tbl <span class="sc">+</span> smooth</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> N <span class="ot">&lt;-</span> <span class="fu">sum</span>(tbl)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> E <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="fu">rowSums</span>(tbl), (<span class="fu">colSums</span>(tbl)))<span class="sc">%&gt;%</span> <span class="fu">divide_by</span>(N) <span class="co"># this is equivalent to (p_i.)*(p._j)*N</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> X2 <span class="ot">&lt;-</span> (O <span class="sc">-</span> E) <span class="sc">%&gt;%</span> <span class="fu">raise_to_power</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">divide_by</span>(E) <span class="sc">%&gt;%</span> <span class="fu">sum</span>() </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(X2)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Unlike the built-in R function, this function has a “smooth” argument, which adds a tiny positive value to every cell in the table. For tables with all non-zero counts, this changes the chi-squared statistic barely at all. The smoothing is included to ensure that the chi-squared statistic can always be defined, even if one the rows or one of the columns of a table contains all zeroes. This is a somewhat pathological situation in practice – it can occur when we know that there was an additional possible level of a categorical variable, but we happened to not observe that level in the particular sample we have – but when we run a simulation that resamples thousands of times from a table of small counts, such a situation will not-infrequently arise.</p>
+<p>Unlike the built-in R function, this function has a “smooth” argument, which adds a tiny positive value to every cell in the table. For tables with all non-zero counts, this changes the chi-squared statistic barely at all. The smoothing is included to ensure that the chi-squared statistic can always be defined, even if one the rows or one of the columns of a table contains all zeroes. This is a somewhat pathological situation in practice It can occur when we know that there was an additional possible level of a categorical variable, but we happened to not observe that level in the particular sample we have. But when we run a simulation that resamples thousands of times from a table of small counts, such a situation will not-infrequently arise.</p>
 <blockquote class="blockquote">
 <p>Please note that you should NOT do this smoothing in practice. We are only doing it here so that our simulation will run without interruption. If you ever do encounter a table with one row or column that is all zeroes, you should think carefully about how to proceed.</p>
 </blockquote>
@@ -483,22 +453,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="chi-squared-test-of-association" class="level1">
 <h1>Chi-squared Test (of association)</h1>
 <p>Now we move into a formal statistical test of independence. Depending on the context of the problem, the <span class="math inline">\(\chi^2\)</span> test is also referred to as a test of association or a test of homogeneity. By calculating the <span class="math inline">\(\chi^2\)</span> statistic, we have a number associated with the deviation from independence for an observed table.</p>
-<p>But, you should now ask—how big does that statistic have to be for us to say that we have enough evidence against the independence hypothesis? Could we have obtained a number this large or larger if the row and column variables really were independent? If we’re going to interpret this value statistically, to test the hypothesis of independence, we need a <em>reference distribution</em>.</p>
+<p>But, how big does that statistic have to be for us to say that we have enough evidence against the independence hypothesis? Could we have obtained a number this large or larger if the row and column variables really were independent? If we’re going to interpret this value statistically, to test the hypothesis of independence, we need a <em>reference distribution</em>.</p>
 <p>In what follows, we’ll go through several different cases that depend upon sample size. For large samples (one rule of thumb on samples size holds that “large” means that all cell counts are 5 or larger and the table total is at least 30), the reference distribution is a <span class="math inline">\(\chi^2\)</span> distribution. When the sample size is not large, there is another option for evaluating statistical independence.</p>
 <section id="standard-case-large-sample-size" class="level2">
 <h2 class="anchored" data-anchor-id="standard-case-large-sample-size">Standard Case (large sample size)</h2>
 <p>When the sample size is large, the reference distribution for the chi-squared statistic is a Chi-squared distribution with <span class="math inline">\((I-1) \times (J-1)\)</span> degrees of freedom.</p>
-<p>You saw the Berkeley Admissions data in the M1L4 narrated lecture. These data are available in R as the object <code>UCBAdmissions</code>. We’ll use the <code>UCBAdmissions</code> data collapsed over department to consider the independence of admission and gender (this is a perilous aggregation – we know that department matters here, but using the aggregated table is useful as an illustration).</p>
+<p>You saw the Berkeley Admissions data in the M1L4 narrated lecture. These data are available in R as the object <code>UCBAdmissions</code>. We’ll use the <code>UCBAdmissions</code> data collapsed over department to consider the independence of admission and gender (we know that department matters here, but using the aggregated table is useful as an illustration).</p>
 <p><code>UCBAdmissions</code> stores the data in a 2 x 2 x 6 array, so we’ll first collapse over the third dimension (department) using the <code>margin.table()</code> function, and then perform the <span class="math inline">\(\chi^2\)</span> test. Please run this chunk of R code (if you haven’t already).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>  (UCBA_sum <span class="ot">&lt;-</span> <span class="fu">margin.table</span>(UCBAdmissions,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(UCBA_sum <span class="ot">&lt;-</span> <span class="fu">margin.table</span>(UCBAdmissions,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Gender
 Admit      Male Female
   Admitted 1198    557
   Rejected 1493   1278</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test with Yates' continuity correction
@@ -511,18 +481,18 @@ X-squared = 91.61, df = 1, p-value &lt; 2.2e-16</code></pre>
 <ol type="1">
 <li><p>The R output for the test is titled <code>Pearson's Chi-squared test with Yates' continuity correction</code>. We’ll have some comments about the continuity correction below.</p></li>
 <li><p>Notice that the value of <code>X-squared</code>, which is the chi-squared statistic is 91.61, <code>df = 1</code> since <code>UCBA_sum</code> is a 2 x 2 table.</p></li>
-<li><p>The p-value associated with this test statistic is very small – we can report it as p &lt; 0.0001. This provides convincing evidence that admission and gender are not independent. Let’s also take a quick look at the mosaic plot:</p></li>
+<li><p>The p-value associated with this test statistic is very small. We can report it as p &lt; 0.0001. This provides convincing evidence that admission and gender are not independent. Let’s also take a quick look at the mosaic plot:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mosaic</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z2_learnR_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The vertical split between Male and Female in the Admitted group is substantially farther to the right than the vertical split between Male and Female in the Rejected group – evidence that the two variables, Admit and Gender, are <em>not</em> independent.</p>
+<p>The vertical split between Male and Female in the Admitted group is substantially farther to the right than the vertical split between Male and Female in the Rejected group. Evidence that the two variables, Admit and Gender, are <em>not</em> independent.</p>
 <p>What about the continuity correction? There’s actually quite a bit of data in the <code>UCBAdmissions</code> dataset, with <code>N = 4526</code>. In this case, the continuity correction doesn’t make that much difference. In fact, run the following code and compare the <code>X-squared</code> values and the p-values when <code>correct = TRUE</code> (the default) and when <code>correct = FALSE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test with Yates' continuity correction
@@ -530,7 +500,7 @@ X-squared = 91.61, df = 1, p-value &lt; 2.2e-16</code></pre>
 data:  UCBA_sum
 X-squared = 91.61, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(UCBA_sum,<span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(UCBA_sum,<span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -539,20 +509,20 @@ data:  UCBA_sum
 X-squared = 92.205, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>You should notice that the <code>X-squared</code> value changed a little bit without the continuity correction, but the p-value didn’t change at all. This is fairly typical with <em>really</em> large sample sizes like we have here. The continuity correction doesn’t really make any difference for our inference – we still have really strong evidence that admission and gender are not independent.</p>
+<p>You should notice that the <code>X-squared</code> value changed a little bit without the continuity correction, but the p-value didn’t change at all. This is fairly typical with <em>really</em> large sample sizes like we have here. The continuity correction doesn’t really make any difference for our inference we still have really strong evidence that admission and gender are not independent.</p>
 <p>The continuity correction was introduced to accommodate the use of a continuous probability distribution (the <span class="math inline">\(\chi^2\)</span> distribution) as the reference distribution for a statistic calculated from non-continuous (i.e., categorical) data. Simply put, it makes the performance of the <span class="math inline">\(\chi^2\)</span> statistic better (in terms of type II error) when the sample size is of moderate size. We recommend that you simply use the default, <code>correct = TRUE</code>.</p>
 <p>The <span class="math inline">\(\chi^2\)</span> test is also called a test for homogeneity in some situations, and the <code>UCBAdmissions</code> dataset provides a good example. Another way that we could consider the independence (or lack of association) between admission and gender is to ask whether the proportion of males admitted is the same as the proportion of females admitted. Put another way, we ask whether the proportions of admits are the same (homogeneous) between the two groups, males and females:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transpose the UCBA_sum matrix, so Gender is row the variable:</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  (UCBA_sum2 <span class="ot">&lt;-</span> <span class="fu">t</span>(UCBA_sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transpose the UCBA_sum matrix, so Gender is row the variable:</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>(UCBA_sum2 <span class="ot">&lt;-</span> <span class="fu">t</span>(UCBA_sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Admit
 Gender   Admitted Rejected
   Male       1198     1493
   Female      557     1278</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># perform the test for a difference in two proportions:  </span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prop.test</span>(UCBA_sum2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># perform the test for a difference in two proportions: </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(UCBA_sum2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -568,17 +538,17 @@ sample estimates:
 </div>
 </div>
 <p>When you run this R chunk, you see the identical <code>X-squared</code> statistic to what we got from running <code>chisq.test(UCBA_sum)</code>.</p>
-<p>You’ll also get some output that tells you about the difference between the two admit proportions. That the 95% confidence interval for the difference in the two proportions, 0.113 to 0.170, does not contain zero is another way for us to communicate that we have strong evidence that the two admit proportions are not the same – i.e., that the two genders are not homogeneous in terms of admissions.</p>
-<p>Recall again: simply summarizing this particular dataset using this 2 x 2 table is perilous – we know there’s more to the story here. Indeed, if we collapsed over the admission decision to see the total numbers of applicants within each department, we could use the chi-squared test on this table to see that gender-specific application rates are not homogeneous, which suggests that collapsing over the departments could be a problem.</p>
+<p>You’ll also get some output that tells you about the difference between the two admit proportions. That the 95% confidence interval for the difference in the two proportions, 0.113 to 0.170, does not contain zero is another way for us to communicate that we have strong evidence that the two admit proportions are not the same, i.e.&nbsp;that the two genders are not homogeneous in terms of admissions.</p>
+<p>Recall again: simply summarizing this particular dataset using this 2 x 2 table is perilous we know there’s more to the story here. Indeed, if we collapsed over the admission decision to see the total numbers of applicants within each department, we could use the chi-squared test on this table to see that gender-specific application rates are not homogeneous, which suggests that collapsing over the departments could be a problem.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(UCBApplicants <span class="ot">&lt;-</span> <span class="fu">margin.table</span>(UCBAdmissions, <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(UCBApplicants <span class="ot">&lt;-</span> <span class="fu">margin.table</span>(UCBAdmissions, <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Dept
 Gender     A   B   C   D   E   F
   Male   825 560 325 417 191 373
   Female 108  25 593 375 393 341</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(UCBApplicants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(UCBApplicants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -595,19 +565,19 @@ X-squared = 1068.4, df = 5, p-value &lt; 2.2e-16</code></pre>
 <p>When some (or all) of the cell counts are sufficiently small, the distribution of the chi-squared statistic does <em>not</em> follow a Chi-squared distribution very closely at all. We’ll explore this phenomenon in a fairly extreme case, where the cell counts are extremely small.</p>
 <section id="data-lady-tasting-tea" class="level2">
 <h2 class="anchored" data-anchor-id="data-lady-tasting-tea">Data: Lady Tasting Tea</h2>
-<p>The Lady Tasting Tea is a classic (and classically British) example given by Sir Ronald Fisher to motivate the “exact test” which now bears his name. Briefly, in the tea-tasting experiment, a woman was presented with eight cups of tea – four of which she knew to have had the tea poured first, and four of which she knew to have had the milk poured first – and she was asked to distinguish which cups had tea first and which had milk first.</p>
+<p>The Lady Tasting Tea is a classic (and classically British) example given by Sir Ronald Fisher to motivate the “exact test” which now bears his name. Briefly, in the tea-tasting experiment, a woman was presented with eight cups of tea four of which she knew to have had the tea poured first, and four of which she knew to have had the milk poured first, and she was asked to distinguish which cups had tea first and which had milk first.</p>
 <p>The data from this experiment naturally fall into a 2x2 table where one dimension represents the lady’s guesses and the other dimension represents the truth. See the <strong>Examples</strong> in the help file for <code>fisher.test()</code> for a full description of these data.</p>
 <blockquote class="blockquote">
 <p>There’s also a good book called, not surprisingly, “The Lady Tasting Tea,” by David Salsburg that gives an entertaining early history of Statistics.</p>
 </blockquote>
 <p>The following R chunk recreates the Lady Tasting Tea data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>TeaTasting <span class="ot">&lt;-</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Guess =</span> <span class="fu">c</span>(<span class="st">"Milk"</span>, <span class="st">"Tea"</span>),</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Truth =</span> <span class="fu">c</span>(<span class="st">"Milk"</span>, <span class="st">"Tea"</span>)))</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>TeaTasting</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>TeaTasting <span class="ot">&lt;-</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Guess =</span> <span class="fu">c</span>(<span class="st">"Milk"</span>, <span class="st">"Tea"</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Truth =</span> <span class="fu">c</span>(<span class="st">"Milk"</span>, <span class="st">"Tea"</span>)))</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>TeaTasting</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Truth
 Guess  Milk Tea
@@ -617,7 +587,7 @@ Guess  Milk Tea
 </div>
 <p>There’s nothing to prevent us from applying the <code>chisq.test()</code> function to the TeaTasting data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(TeaTasting, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(TeaTasting, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in chisq.test(TeaTasting, correct = FALSE): Chi-squared approximation
 may be incorrect</code></pre>
@@ -630,7 +600,7 @@ data:  TeaTasting
 X-squared = 2, df = 1, p-value = 0.1573</code></pre>
 </div>
 </div>
-<p>We do get an answer, but also the helpful warning that “Chi-squared approximation may be incorrect.” Why so? (It’s not because we said <code>correct = FALSE</code> – the same warning will appear either way).</p>
+<p>We do get an answer, but also the helpful warning that “Chi-squared approximation may be incorrect.” Why so? (It’s not because we said <code>correct = FALSE</code> the same warning will appear either way).</p>
 <p>We now present a simulation that should give you some insight into the problem here.</p>
 </section>
 <section id="parametric-bootstrapping" class="level2">
@@ -641,63 +611,69 @@ X-squared = 2, df = 1, p-value = 0.1573</code></pre>
 <p>There are some other tricky details here, because there are multiple probability distributions over cell counts that are consistent with the verbal statement “rows and columns are independent.” For now we’ll just take the simulation script below as given. If you’re interested in some of these details, please see the optional “Sampling Models” section below.</p>
 <p>Once the re-sampling script computes a lot of chi-squared statistics (stored in resamp$stats) for tables drawn under the hypothesis of independence, we see where we stand by plotting the distribution of those re-sampled chi-squared statistics, and comparing it to the theoretical Chi-squared distribution on a plot.</p>
 <blockquote class="blockquote">
-<p>Please note: this script is dense and a little complicated. You are not responsible for figuring out how it all works. Running this R chunk just creates the function we need for re-sampling. We’ll use the function further down in the lab.</p>
+<p>Running this R chunk just creates the function we need for re-sampling.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>two_way_resample <span class="ot">&lt;-</span> <span class="cf">function</span>(tab, <span class="at">nsim =</span> <span class="dv">2000</span>, <span class="at">fixed_margins =</span> <span class="st">"none"</span>){</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(fixed_margins <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"none"</span>, <span class="st">"columns"</span>, <span class="st">"rows"</span>, <span class="st">"both"</span>))</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  new_two_way <span class="ot">&lt;-</span> <span class="cf">function</span>(tab, <span class="at">fixed_margins =</span> <span class="st">"none"</span>){</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    I <span class="ot">&lt;-</span> <span class="fu">nrow</span>(tab)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    J <span class="ot">&lt;-</span> <span class="fu">ncol</span>(tab) </span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    n_i. <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(tab)  </span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    n._j <span class="ot">&lt;-</span> <span class="fu">colSums</span>(tab)</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    N <span class="ot">&lt;-</span> <span class="fu">sum</span>(tab)</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    null_probs <span class="ot">&lt;-</span> (n_i. <span class="sc">%*%</span> <span class="fu">t</span>(n._j))<span class="sc">/</span>(N<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    new_table <span class="ot">&lt;-</span>  <span class="fu">matrix</span>(<span class="dv">0</span>, I, J)</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table as SINGLE multinomial sample of size N, preserving neither row nor column margins.</span></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"none"</span>){</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>      new_table <span class="ot">&lt;-</span> <span class="fu">rmultinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> N, <span class="fu">as.vector</span>(null_probs)) <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> I, <span class="at">ncol =</span> J)</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    } </span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table as independent multinomial samples in each ROW, preserving original row margins.</span></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"rows"</span>){</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>I){</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>        new_table[i, ] <span class="ot">&lt;-</span> <span class="fu">rmultinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> n_i.[i], <span class="at">prob =</span> null_probs[i ,]) <span class="co"># rmultinom automatically renormalizes the row i probs.</span></span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>      new_table <span class="sc">%&lt;&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> I, <span class="at">ncol =</span> J)</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>    } </span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table as independent multinomial samples in each COLUMN, preserving original column margins.</span></span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"columns"</span>){</span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>J){</span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>        new_table[, j] <span class="ot">&lt;-</span> <span class="fu">rmultinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> n._j[j], <span class="at">prob =</span> null_probs[, j]) <span class="co"># rmultinom automatically renormalizing the column j probs.</span></span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>      new_table <span class="sc">%&lt;&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> I, <span class="at">ncol =</span> J)</span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table by sampling from among all possible I x J tables with the given row and column margins.</span></span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"both"</span>){</span>
-<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>      new_table <span class="ot">&lt;-</span> <span class="fu">r2dtable</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">r =</span> n_i., <span class="at">c =</span> n._j)[[<span class="dv">1</span>]]</span>
-<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(new_table)</span>
-<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>  chisqs <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim)</span>
-<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim){</span>
-<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>    chisqs[j] <span class="ot">&lt;-</span> <span class="fu">new_two_way</span>(tab, fixed_margins) <span class="sc">%&gt;%</span> chisq_stat0</span>
-<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>  obs_chisq <span class="ot">&lt;-</span> <span class="fu">chisq_stat0</span>(tab)</span>
-<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>  pval <span class="ot">&lt;-</span> <span class="fu">sum</span>(chisqs <span class="sc">&gt;=</span> obs_chisq)<span class="sc">/</span>nsim  <span class="co"># One-sided</span></span>
-<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">stats =</span> chisqs, <span class="at">obs_chisq =</span> obs_chisq, <span class="at">pval =</span> pval))</span>
-<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>two_way_resample <span class="ot">&lt;-</span> <span class="cf">function</span>(tab, <span class="at">nsim =</span> <span class="dv">2000</span>, <span class="at">fixed_margins =</span> <span class="st">"none"</span>) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(fixed_margins <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"none"</span>, <span class="st">"columns"</span>, <span class="st">"rows"</span>, <span class="st">"both"</span>))</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  new_two_way <span class="ot">&lt;-</span> <span class="cf">function</span>(tab, <span class="at">fixed_margins =</span> <span class="st">"none"</span>){</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    I <span class="ot">&lt;-</span> <span class="fu">nrow</span>(tab)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    J <span class="ot">&lt;-</span> <span class="fu">ncol</span>(tab) </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    n_i. <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(tab) </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    n._j <span class="ot">&lt;-</span> <span class="fu">colSums</span>(tab)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    N <span class="ot">&lt;-</span> <span class="fu">sum</span>(tab)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    null_probs <span class="ot">&lt;-</span> (n_i. <span class="sc">%*%</span> <span class="fu">t</span>(n._j))<span class="sc">/</span>(N<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    new_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, I, J)</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table as SINGLE multinomial sample of size N, preserving neither row nor column margins.</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"none"</span>){</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>      new_table <span class="ot">&lt;-</span> <span class="fu">rmultinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> N, <span class="fu">as.vector</span>(null_probs)) <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> I, <span class="at">ncol =</span> J)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>      } </span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table as independent multinomial samples in each ROW, preserving original row margins.</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"rows"</span>){</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>I){</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>        new_table[i, ] <span class="ot">&lt;-</span> <span class="fu">rmultinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> n_i.[i], <span class="at">prob =</span> null_probs[i ,]) <span class="co"># rmultinom automatically renormalizes the row i probs.</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>      new_table <span class="sc">%&lt;&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> I, <span class="at">ncol =</span> J)</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table as independent multinomial samples in each COLUMN, preserving original column margins.</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"columns"</span>){</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>J){</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>        new_table[, j] <span class="ot">&lt;-</span> <span class="fu">rmultinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> n._j[j], <span class="at">prob =</span> null_probs[, j]) <span class="co"># rmultinom automatically renormalizing the column j probs.</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>      new_table <span class="sc">%&lt;&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> I, <span class="at">ncol =</span> J)</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate random table by sampling from among all possible I x J tables with the given row and column margins.</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(fixed_margins <span class="sc">==</span> <span class="st">"both"</span>){</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>      new_table <span class="ot">&lt;-</span> <span class="fu">r2dtable</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">r =</span> n_i., <span class="at">c =</span> n._j)[[<span class="dv">1</span>]]</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(new_table)</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>  chisqs <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim) </span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim){</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>    chisqs[j] <span class="ot">&lt;-</span> <span class="fu">new_two_way</span>(tab, fixed_margins) <span class="sc">%&gt;%</span> chisq_stat0</span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>  obs_chisq <span class="ot">&lt;-</span> <span class="fu">chisq_stat0</span>(tab)</span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>  pval <span class="ot">&lt;-</span> <span class="fu">sum</span>(chisqs <span class="sc">&gt;=</span> obs_chisq)<span class="sc">/</span>nsim <span class="co"># One-sided</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">stats =</span> chisqs, <span class="at">obs_chisq =</span> obs_chisq, <span class="at">pval =</span> pval))</span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="sampling-models-optional" class="level2">
 <h2 class="anchored" data-anchor-id="sampling-models-optional">Sampling Models (Optional)</h2>
 <p>In this section, we describe some of the details of the code for re-sampling, in particular the different types of probability distributions from which we can draw the re-samples. In the example of running the code below for the Lady Tasting Tea data, we perform the re-sampling only based on the method imposed by the experimental design in the actual Lady Tasting Tea experiment.</p>
-<p>As mentioned above, to use the re-sampling function, we need to make the verbal statement “sample a new 2-way table under the hypothesis of independence” precise enough to do some computing. There are several different ways that the Lady Tasting Tea experiment <em>could have been</em> carried out. Each possible sampling model below corresponds to a different way the tea-tasting experiment could have been designed and performed – statistical analysis depends on the experiment design (as it should!). We’ll also point out which way the experiment <em>was actually performed</em>.</p>
+<p>As mentioned above, to use the re-sampling function, we need to make the verbal statement “sample a new 2-way table under the hypothesis of independence” precise enough to do some computing. There are several different ways that the Lady Tasting Tea experiment <em>could have been</em> carried out. Each possible sampling model below corresponds to a different way the tea-tasting experiment could have been designed and performed statistical analysis depends on the experiment design (as it should!). We’ll also point out which way the experiment <em>was actually performed</em>.</p>
 <section id="unrestricted-sampling" class="level3">
 <h3 class="anchored" data-anchor-id="unrestricted-sampling">Unrestricted Sampling</h3>
-<p>Consider this scenario: we give the lady however many cups of tea she feels like tasting, and we don’t tell her anything about how many of each type (milk-first or tea-first) there are. This “unrestricted” sampling can be modeled using a Poisson distribution. [This case is included for sake of completeness – in the context of inference, this and the next situation, where the total sample size is fixed can be treated the same.]</p>
+<p>Consider this scenario: we give the lady however many cups of tea she feels like tasting, and we don’t tell her anything about how many of each type (milk-first or tea-first) there are. This “unrestricted” sampling can be modeled using a Poisson distribution.</p>
+<p>[This case is included for sake of completeness, in the context of inference, this and the next situation, where the total sample size is fixed can be treated the same.]</p>
 </section>
 <section id="total-sample-size-fixed" class="level3">
 <h3 class="anchored" data-anchor-id="total-sample-size-fixed">Total Sample Size Fixed</h3>
@@ -718,29 +694,33 @@ X-squared = 2, df = 1, p-value = 0.1573</code></pre>
 <h2 class="anchored" data-anchor-id="examples-of-re-sampling-lady-tasting-tea">Examples of Re-sampling: Lady Tasting Tea</h2>
 <p>In the following R chunk, we re-sample the Lady Tasting Tea data, based on the sampling design imposed by the original experimental setup (both margins fixed). Go ahead and run the R chunk and take a look at the resulting plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>resamp_tea <span class="ot">&lt;-</span> <span class="fu">two_way_resample</span>(TeaTasting, <span class="at">nsim =</span> <span class="dv">2000</span>, <span class="at">fixed_margins =</span> <span class="st">"both"</span>) </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>chisq_val <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,<span class="at">length=</span><span class="dv">2000</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>chisq_theory <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(chisq_val,<span class="dv">1</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fix both row and column margins</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Re-sampling distribution of chi-squared stat vs </span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="st">        theoretical chi-squared distribution"</span>) <span class="sc">+</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">expression</span>(X<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> chisq_val, <span class="at">y =</span> chisq_theory), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> resamp_tea<span class="sc">$</span>stats), <span class="at">bw =</span> <span class="fl">0.05</span>) <span class="sc">+</span> </span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">chisq_stat0</span>(TeaTasting)), <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>resamp_tea <span class="ot">&lt;-</span> <span class="fu">two_way_resample</span>(TeaTasting, <span class="at">nsim =</span> <span class="dv">2000</span>, <span class="at">fixed_margins =</span> <span class="st">"both"</span>) </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>chisq_val <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,<span class="at">length=</span><span class="dv">2000</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>chisq_theory <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(chisq_val,<span class="dv">1</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fix both row and column margins</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Re-sampling distribution of chi-squared stat vs </span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="st">    theoretical chi-squared distribution"</span>) <span class="sc">+</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="fu">expression</span>(X<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> chisq_val, <span class="at">y =</span> chisq_theory), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_density</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> resamp_tea<span class="sc">$</span>stats), <span class="at">bw =</span> <span class="fl">0.05</span>) <span class="sc">+</span> </span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">chisq_stat0</span>(TeaTasting)), <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z2_learnR_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>In this plot, the smooth blue line is the theoretical Chi-squared (df = 1) reference distribution. The black line with a few spikes is the reference distribution we get by running the re-sampling code. There are actually only a few values of the chi-squared statistic that are possible with such a sparse table. Finally, the vertical red line is the value of the chi-squared statistic calculated from the observed table.</p>
 <p>The problem here is that with such small counts in the table, there are only a small number of rearranged (re-sampled) tables possible. There just aren’t that many ways to rearrange eight cups of tea into a 2x2 table of counts, especially if we <em>also</em> fix both column and row totals! Therefore, only a limited number of tables, and an even more limited number of chi-squared statistics, can possibly be obtained.</p>
 <p>This is precisely why using the large sample reference distribution (blue line) isn’t such a good idea here, because is does a really poor job of approximating the resampled reference distribution (black line).</p>
-<p>It might seem like it was overkill to simulate 2000 samples and calculate the chi-squared statistic for each one, when there were actually only three possible chi-squared statistics for this situation! That is, maybe there is some way we could have have worked this out by hand. Indeed, working it out “exactly” by hand is what Fisher did – his test involves (essentially) listing every possible way that the chi-squared statistic could have been bigger than it was, and calculating the probability of each of those ways.</p>
+<p>It might seem like it was overkill to simulate 2000 samples and calculate the chi-squared statistic for each one, when there were actually only three possible chi-squared statistics for this situation! That is, maybe there is some way we could have have worked this out by hand. Indeed, working it out “exactly” by hand is what Fisher did. His test involves (essentially) listing every way that the chi-squared statistic could have been bigger than it was, and calculating the probability of each of those ways.</p>
 <p>Execute the following R chunk, which applies Fisher’s Exact Test to the Lady Tasting Tea data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(TeaTasting)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(TeaTasting)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Fisher's Exact Test for Count Data
@@ -755,7 +735,7 @@ odds ratio
   6.408309 </code></pre>
 </div>
 </div>
-<p>Fisher’s Exact Test agrees pretty closely with the final simulation above – because Fisher’s exact test supposes that both rows and columns of the tables are fixed by design. Restricting it in this way, as we see above, reduces the number of possible tables to deal with, which makes it easier to calculate the p-value “by hand.” And in the tea-tasting example, these restrictions actually do make sense – there are 4 cups of each kind of tea, the lady <em>knows</em> there are 4 of each, there are only a few ways this thing can go.</p>
+<p>Fisher’s Exact Test agrees pretty closely with the final simulation above because Fisher’s exact test supposes that both rows and columns of the tables are fixed by design. Restricting it in this way, as we see above, reduces the number of possible tables to deal with, which makes it easier to calculate the p-value “by hand.” And in the tea-tasting example, these restrictions actually do make sense. There are 4 cups of each kind of tea, the lady <em>knows</em> there are 4 of each, there are only a few ways this thing can go.</p>
 <p>We’d also like to call your attention to the odds ratio and 95% confidence interval estimates that appear in the <code>fisher.test()</code> output. Rather than using a chi-squared statistic for making inference, the <code>fisher.test()</code> function uses an odds ratio test.</p>
 <blockquote class="blockquote">
 <p>Important note: tests for equal odds ratios, equal proportions and homogeneity will yield similar inferences in the case of 2x2 tables. You just have to sort out which procedure makes the most sense for the data you are dealing with.</p>
@@ -763,17 +743,31 @@ odds ratio
 </section>
 <section id="beyond-fixed-margins" class="level2">
 <h2 class="anchored" data-anchor-id="beyond-fixed-margins">Beyond Fixed Margins</h2>
-<p>In many (most) cases, the assumption that all the row and column totals are fixed doesn’t make sense and isn’t needed. For example, in a medical study, we might recruit 30 people with a disease; give treatment A to half of them and treatment B to the other half; and record whether or not they were cured after some period of time. In this case, we’ve fixed the row totals by design, because we put 15 patients in each group, but we haven’t fixed the column totals – we can’t say in advance know how many patients will be cured under either treatment. And, in this case, we still have the potential problem of small cell counts.</p>
+<p>In many (most) cases, the assumption that all the row and column totals are fixed doesn’t make sense and isn’t needed. For example, in a medical study, we might recruit 30 people with a disease; give treatment A to half of them and treatment B to the other half; and record whether or not they were cured after some period of time. In this case, we’ve fixed the row totals by design, because we put 15 patients in each group, but we haven’t fixed the column totals, we can’t say in advance know how many patients will be cured under either treatment. And, in this case, we still have the potential problem of small cell counts.</p>
 <p>Fisher’s exact test was designed for precisely the situation of the Lady Tasting Tea (statistically, both margins are fixed). Nevertheless, it is used in many cases to test independence when the cell counts are small, as in the hypothetical medical study just described.</p>
 <p>You are welcome to replicate the call to the <code>two_way_resample()</code> function, changing the <code>fixed_margins = "both"</code> argument to any of <code>"none"</code>, <code>"rows"</code> or <code>"columns"</code>. Using the Lady Tasting Tea data, you’ll see that the Chi-squared (df = 1) distribution gives a poor approximation to the re-sampled distribution, <em>because the cell counts are so small!</em></p>
 </section>
 <section id="beyond-2-x-2-tables" class="level2">
 <h2 class="anchored" data-anchor-id="beyond-2-x-2-tables">Beyond 2 x 2 Tables</h2>
-<p>You can apply <code>chisq.test()</code> and <code>fisher.test()</code> to general <span class="math inline">\(I \times J\)</span> tables, but you will only learn about the independence hypothesis. That is, you will not get any estimates. For estimates proportions and odds ratios from <span class="math inline">\(I \times J\)</span> tables, we have to turn to more sophisticated statistical models such as generalized linear models – the topic of upcoming course modules.</p>
+<p>You can apply <code>chisq.test()</code> and <code>fisher.test()</code> to general <span class="math inline">\(I \times J\)</span> tables, but you will only learn about the independence hypothesis. That is, you will not get any estimates. For estimates proportions and odds ratios from <span class="math inline">\(I \times J\)</span> tables, we have to turn to more sophisticated statistical models such as generalized linear models.</p>
 </section>
 </section>
-<section id="module-2-lab-assignment-instructions" class="level1">
-<h1>Module 2 Lab Assignment Instructions</h1>
+<section id="lab-2" class="level1">
+<h1>Lab 2</h1>
+<section id="module-2-lab-assignment-instructions" class="level3">
+<h3 class="anchored">Module 2 Lab Assignment Instructions</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Repeat instructions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Like for Lab 1, you are asked to create a <strong>self-contained</strong> R Markdown script that can generate a document which answers the questions below. You will submit the .Rmd script, and you will be graded (complete/incomplete) based on whether or not the script generates a reasonable HTML document.</p>
 <section id="r-markdown-for-submission" class="level2">
 <h2 class="anchored" data-anchor-id="r-markdown-for-submission">R Markdown for submission</h2>
@@ -784,7 +778,7 @@ odds ratio
 <pre><code>---
 title: "Lab Assignment 2"
 author: "Ronald Fisher"
-date: "2024-04-04"
+date: "2024-04-07"
 output: pdf_document
 ---
 </code></pre>
@@ -809,22 +803,27 @@ other stuff</code></pre>
 <p>Once you’ve answered the questions in your new .Rmd script and you have verified your code is self contained, you should Run -&gt; Run All Chunks and generate a .pdf file of your document, to check that everything looks like you want it to. Having concluded that your .Rmd script produces a pdf document that includes all the output you want, submit <strong>both the Lab_Assignment_2.Rmd file and the pdf document</strong> on Canvas as your Lab Assignment 2.</p>
 <p>Feel free to post on the discussion board if you have any questions or encounter any difficulties with this process.</p>
 </section>
-<section id="questions" class="level2">
-<h2 class="anchored" data-anchor-id="questions">Questions:</h2>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="questions" class="level1">
+<h1>Questions:</h1>
 <blockquote class="blockquote">
 <p>NOTE: The first two questions are for credit. The next two are optional/for fun.</p>
 </blockquote>
-<section id="q1." class="level3">
-<h3 class="anchored" data-anchor-id="q1.">Q1.</h3>
+<section id="q1." class="level2">
+<h2 class="anchored" data-anchor-id="q1.">Q1.</h2>
 <p>The following data come from one of Gregor Mendel’s famous experiments with pea plants. In this particular experiment, Mendel examined two categorical traits in pea seeds, each with two possible values: seed color – yellow or green – and seed shape – round or angular. According to Mendel’s hypothesis, the inheritance pattern of these traits was characterized by “independent assortment” – that is, there was no “genetic linkage” between these traits.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="ot">&lt;-</span> <span class="fu">as.table</span>(</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">315</span>, <span class="dv">108</span>, <span class="dv">101</span>, <span class="dv">32</span>),</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">dimnames =</span> </span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">list</span>(<span class="at">Color=</span> <span class="fu">c</span>(<span class="st">"Yellow"</span>, <span class="st">"Green"</span>),</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">Shape =</span> <span class="fu">c</span>(<span class="st">"Round"</span>, <span class="st">"Angular"</span>))))</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>mendel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="ot">&lt;-</span> <span class="fu">as.table</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">315</span>, <span class="dv">108</span>, <span class="dv">101</span>, <span class="dv">32</span>),</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">dimnames =</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">Color=</span> <span class="fu">c</span>(<span class="st">"Yellow"</span>, <span class="st">"Green"</span>),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">Shape =</span> <span class="fu">c</span>(<span class="st">"Round"</span>, <span class="st">"Angular"</span>))))</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>mendel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Shape
 Color    Round Angular
@@ -834,11 +833,11 @@ Color    Round Angular
 </div>
 <p>How consistent are these data with Mendel’s hypothesis of independence? Notice that in this particular case, we’re not interested in a <em>departure</em> from independence, but rather a <em>confirmation</em> of independence. Is a Chi-squared test appropriate here? Why or why not?</p>
 </section>
-<section id="q2." class="level3">
-<h3 class="anchored" data-anchor-id="q2.">Q2.</h3>
+<section id="q2." class="level2">
+<h2 class="anchored" data-anchor-id="q2.">Q2.</h2>
 <p>We mentioned previously, and it’s mentioned in the narrated lecture materials that there’s an equivalence between the Chi-squared test and the difference in proportions test in the case of 2x2 tables. Take a look for the Mendel data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -848,7 +847,7 @@ X-squared = 0.11634, df = 1, p-value = 0.733</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions without continuity correction
@@ -875,12 +874,12 @@ sample estimates:
 <p>The next two questions are optional – you do not need to submit anything about them for your assignment.</p>
 </blockquote>
 </section>
-<section id="q3." class="level3">
-<h3 class="anchored" data-anchor-id="q3.">Q3.</h3>
+<section id="q3." class="level2">
+<h2 class="anchored" data-anchor-id="q3.">Q3.</h2>
 <p>This isn’t actually a question, just some reading and code to work through. It’s an interesting continuation of Mendel’s independence hypothesis, and a slightly different application of <code>chisq.test()</code> in R.</p>
 <p>Mendel actually had a more sophisticated hypothesis than “seed color and seed shape are independent” – he knew <em>how</em> they should be independent based on his mechanistic understanding of the process of inheritance of dominant and recessive traits. On these grounds, Mendel hypothesized <em>specific proportions</em> for each cell in this particular table. He knew that if his ideas were correct, the cell proportions for his experiment should have been, specifically:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>(mendel_expect <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>)))<span class="sc">/</span><span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>(mendel_expect <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>)))<span class="sc">/</span><span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       [,1]   [,2]
 [1,] 0.5625 0.1875
@@ -891,14 +890,14 @@ sample estimates:
 <p>Here, we need a different approach than the chi-squared test of independence – we want to test an entire proposed distribution over the 4 cells. The tool for this job is the <em>chi-squared test of goodness of fit</em>, which in R is also performed by <code>chisq.test().</code></p>
 <p>The goodness of fit test is supposed to test the distribution of a single variable, so <code>chisq.test()</code> will perform the goodness of fit test if the data are provided as a single vector, rather than as a 2 x 2 table. Since we have particular distribution in mind, we’ll need to provide those hypothesized probabilities as well:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>(mendel_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(mendel)) <span class="co"># stretch out the table and make sure we know HOW it was stretched out, in order to get the hypothesized probabilities associated with the correct table cells.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>(mendel_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(mendel)) <span class="co"># stretch out the table and make sure we know HOW it was stretched out, in order to get the hypothesized probabilities associated with the correct table cells.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 315 108 101  32</code></pre>
 </div>
 </div>
 <p>And now preform the Chi-squared test passing in the <em>vector</em> of observed counts and the vector of specific proportions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel_vec, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel_vec, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Chi-squared test for given probabilities
@@ -910,13 +909,12 @@ X-squared = 0.47002, df = 3, p-value = 0.9254</code></pre>
 <p>Note that the degrees of freedom are different – 4-1 = 3 instead of (2-1)(2-1) = 1. A very rough idea of why this should be is that with a more specific hypothesis (“each cell probability should be exactly so”) there are more ways the data could deviate from it.</p>
 <p>An interesting historical note: R.A. Fisher, when reviewing Mendel’s original data, applied the chi-squared test to some data like these, and reached the conclusion that deviations were <em>too small</em> to have arisen by chance. He thought that the independence model fit so closely that Mendel’s data must have been deliberately doctored – though in his great respect for Mendel, Fisher laid the blame on “some gardening assistant” who must have known too well what his supervisor hoped to see.</p>
 </section>
-<section id="q4." class="level3">
-<h3 class="anchored" data-anchor-id="q4.">Q4.</h3>
+<section id="q4." class="level2">
+<h2 class="anchored" data-anchor-id="q4.">Q4.</h2>
 <p>Suppose we performed the tea-tasting experiment, and produced a table with 4’s in the diagonal and 0’s in the off-diagonal cells – that is, suppose the lady performed as well as the experiment allowed. If we had observed this (best possible) performance under the <strong>fixed-columns design</strong> (where the lady didn’t know the number of cups of each type), what p-value would she score? (use resampling script). What if we observed this same performance under the <strong>fixed-rows and fixed-columns design</strong> (where she knew there were 4 cups of each)?</p>
 <p>Does it make sense that the best-possible performance earns a smaller p-value under the more “challenging” experimental setup than under the “easier” one? What does this say about which design we might prefer to use?</p>
 
 
-</section>
 </section>
 </section>
 
