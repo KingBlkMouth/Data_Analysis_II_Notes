@@ -802,7 +802,7 @@
     "href": "index.html#git-stuff",
     "title": "Reference",
     "section": "Git stuff",
-    "text": "Git stuff\nAdd, commit, and publish the folder to the github repo\n\ngit add .\ngit commit -m “comment”\ngit push origin main\n\nSet the location of the github repo\n\ngit remote set-url origin url\ngit remote -v\ngit remote show origin\n\n\nHere are some quarto commands:\n\nquarto publish gh-pages\nquarto publish gh-pages document.qmd\nquarto publish gh-pages –no-prompt\nquarto render .qmd –to pdf"
+    "text": "Git stuff\nAdd, commit, and publish the folder to the github repo\n\ngit add .\ngit commit -m “comment”\ngit push origin main\n\nSet the location of the github repo\n\ngit remote set-url origin url\ngit remote -v\ngit remote show origin\n\n\nHere are some quarto commands:\n\nquarto publish gh-pages\nquarto publish gh-pages document.qmd\nquarto publish gh-pages - -no-prompt\nquarto render .qmd - -to pdf"
   },
   {
     "objectID": "index.html#reading-list",
