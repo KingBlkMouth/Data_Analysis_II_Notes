@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 3</span></a>
+ <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
@@ -273,13 +273,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#odds-and-odds-ratios" id="toc-odds-and-odds-ratios" class="nav-link" data-scroll-target="#odds-and-odds-ratios">Odds and Odds Ratios</a></li>
   <li><a href="#multinomial" id="toc-multinomial" class="nav-link" data-scroll-target="#multinomial">Multinomial</a></li>
   <li><a href="#poisson-counts" id="toc-poisson-counts" class="nav-link" data-scroll-target="#poisson-counts">Poisson Counts</a></li>
-  </ul></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a>
   <ul class="collapse">
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  <li><a href="#prop-vs-chi2" id="toc-prop-vs-chi2" class="nav-link" data-scroll-target="#prop-vs-chi2">Prop vs <span class="math inline">\(\chi^2\)</span></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">Reading</a>
+  <ul class="collapse">
+  <li><a href="#open-stats-ch-6." id="toc-open-stats-ch-6." class="nav-link" data-scroll-target="#open-stats-ch-6.">open stats ch 6.</a></li>
+  <li><a href="#categoical-data-analysis" id="toc-categoical-data-analysis" class="nav-link" data-scroll-target="#categoical-data-analysis">Categoical data Analysis</a></li>
   </ul></li>
   <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
-  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
+  <ul class="collapse">
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
+  </ul></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
@@ -333,11 +344,13 @@ Learning Objectives
 <h2 class="anchored" data-anchor-id="task-list">Task list</h2>
 <p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
 <ul>
-<li>Review Module 2 Readings and Lectures</li>
-<li>Submit Module 2 Homework</li>
-<li>Submit Module 2 Lab</li>
-<li>Take the Module 2 Content Quiz and R Quiz</li>
-<li>Participate in the Module 2 Discussion</li>
+<li>Review Module 2 Readings and</li>
+<li><del>Lectures</del></li>
+<li><del>Submit Module 2 Homework</del></li>
+<li><del>Submit Module 2 Lab</del></li>
+<li>Take the Module 2 Content Quiz and</li>
+<li><del>R Quiz</del></li>
+<li><del>Participate in the Module 2 Discussion</del></li>
 </ul>
 </section>
 </div>
@@ -349,8 +362,8 @@ Learning Objectives
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(case1802)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> case1802</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="lectures" class="level2">
-<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<section id="lectures" class="level1">
+<h1>Lectures</h1>
 <section id="bionomials" class="level3">
 <h3 class="anchored" data-anchor-id="bionomials">Bionomials</h3>
 <p>A binomial random variable is a count of the number of times E occurs in the n trials.</p>
@@ -468,9 +481,27 @@ X-squared = 5.9196, df = 1, p-value = 0.01497</code></pre>
 <p>(Y1,Y2,Y3)|M ∼ multinomial(p1,p2,p3)</p>
 <p>Inferences will be the same whether we consider the counts to be Poisson distributed and then condition on the total, or multinomial distributed from the start. Convenient for modeling in the next several models.</p>
 </section>
-</section>
 <section id="lab" class="level2">
 <h2 class="anchored" data-anchor-id="lab">Lab</h2>
+<section id="notes" class="level3">
+<h3 class="anchored" data-anchor-id="notes">Notes</h3>
+<p>Methods for making inference about the association between two categorical variables in a larger population of interest.</p>
+<p>X and Y, are independent if they are uninformative about one another in terms of the probability of occurrence of specific outcomes.</p>
+<p>In a cont table, The cell probability for the i,j cell is equal to the marginal probability of the ith row times the marginal probability of the jth column.</p>
+<p>We say that a contingency table is the most consistent with statistical independence if P_ij = p_i p_j, for all i, j. The extent to which the observed counts in a table deviate from P_ij = p_i p_j for all i, j provides us with evidence against the statistical independence hypothesis.</p>
+<p>Use the mosaic or sieve plot as a tool for evaluating statistical independence visually.</p>
+<p><strong>Chi-Squared Statistic</strong></p>
+<p>Comparing the observed table to an expected table where we expect them to be independent.</p>
+<p><em>you should NOT do this smoothing in practice.</em></p>
+<p>Chi squared test of independence, test of association, or a test of homogeneity.</p>
+<p>“large” means that all cell counts are 5 or larger and the table total is at least 30.</p>
+<p>continuity correction is less important with large N.</p>
+<p>For small sample sizes, re-sample. Our re-sampling technique is closer to the true reference distribution of the Chi-sq statistic than is the distribution when the sample size is small.</p>
+<p>Once the re-sampling script computes a lot of chi-squared statistics (stored in resamp$stats) for tables drawn under the hypothesis of independence, we see where we stand by plotting the distribution of those re-sampled chi-squared statistics, and comparing it to the theoretical Chi-squared distribution on a plot.</p>
+<p>Fisher’s exact test was designed for precisely the situation of the Lady Tasting Tea (statistically, both margins are fixed).</p>
+<p>chisq.test() and fisher.test() only test for independece.</p>
+<p>I am not certain I understand fixed margins.</p>
+</section>
 <section id="functions" class="level3">
 <h3 class="anchored" data-anchor-id="functions">Functions</h3>
 <ul>
@@ -479,15 +510,370 @@ X-squared = 5.9196, df = 1, p-value = 0.01497</code></pre>
 <li><strong>chisq.test</strong></li>
 </ul>
 </section>
+<section id="prop-vs-chi2" class="level3">
+<h3 class="anchored" data-anchor-id="prop-vs-chi2">Prop vs <span class="math inline">\(\chi^2\)</span></h3>
+<p>prop.test can be used for testing the null that the proportions (prob of success) in several groups are the same, or that they equal certain given values.</p>
+<p>Test of equal proportions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_1 = pop proportion</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># n_1 = sample size</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># x_1 = number of successes</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># phat_1 = sample proportions</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># qhat_1 = (1 -  phat_1) the compliment of phat_1</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># pooled sample prop, pbar = (x_1 + x_2) / (n_1 + n_2)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># qbar = compliment of pbar</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># z = ( (phat_1 - phat_2) - (p_1 - P_2) ) / sqrt( (pbar*qbar/n_1) + (pbar*qbar/n_2) )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>violent <span class="ot">&lt;-</span> <span class="fu">as.table</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">102</span>, <span class="dv">53</span>, <span class="dv">806</span>, <span class="dv">614</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">dimnames =</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">vict =</span> <span class="fu">c</span>(<span class="st">"victim"</span>, <span class="st">"control"</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">inCrime=</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        )))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>violent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         inCrime
+vict      Yes  No
+  victim  102 806
+  control  53 614</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_1 = pop proportion, unknown</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># n_1 = sample size</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>n_1 <span class="ot">&lt;-</span>  <span class="dv">102</span> <span class="sc">+</span> <span class="dv">806</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>n_2 <span class="ot">&lt;-</span>  <span class="dv">53</span> <span class="sc">+</span> <span class="dv">614</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># x_1 = number of successes</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>x_1 <span class="ot">&lt;-</span>  <span class="dv">102</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>x_2 <span class="ot">&lt;-</span>  <span class="dv">53</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># phat_1 = sample proportions</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>phat_1 <span class="ot">&lt;-</span>  x_1<span class="sc">/</span>n_1</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>phat_2 <span class="ot">&lt;-</span>  x_2<span class="sc">/</span>n_2</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># qhat_1 = (1 -  phat_1) the compliment of phat_1</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>qh1 <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> phat_1)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>qh2 <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> phat_2)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># pooled sample prop, pbar = (x_1 + x_2) / (n_1 + n_2)</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>pbar <span class="ot">&lt;-</span> (x_1 <span class="sc">+</span> x_2) <span class="sc">/</span> (n_1 <span class="sc">+</span> n_2)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># qbar = compliment of pbar</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>qbar <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>pbar)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># z = ( (phat_1 - phat_2) - (p_1 - P_2) ) / sqrt( (pbar*qbar/n_1) + (pbar*qbar/n_2) ), where (p_1 - P_2 = 0)</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> ( (phat_1 <span class="sc">-</span> phat_2) <span class="sc">-</span> (<span class="dv">0</span>) ) <span class="sc">/</span> <span class="fu">sqrt</span>( ((pbar<span class="sc">*</span>qbar)<span class="sc">/</span>n_1) <span class="sc">+</span> ((pbar<span class="sc">*</span>qbar)<span class="sc">/</span>n_2) )</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.164191</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>normdist <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(normdist) <span class="sc">+</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fu">qnorm</span>(.<span class="dv">975</span>), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span>z, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> z, <span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="2_Props_Risks_Odds_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03835767</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01522483</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(violent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  violent
+X-squared = 4.3205, df = 1, p-value = 0.03765
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.002537413 0.063211651
+sample estimates:
+    prop 1     prop 2 
+0.11233480 0.07946027 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(violent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  violent
+X-squared = 4.3205, df = 1, p-value = 0.03765</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(violent, <span class="at">correct =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions without continuity correction
+
+data:  violent
+X-squared = 4.6837, df = 1, p-value = 0.03045
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.003837699 0.061911365
+sample estimates:
+    prop 1     prop 2 
+0.11233480 0.07946027 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.164191</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">4.6837</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.164186</code></pre>
+</div>
+</div>
+<p>The the z-test for equal proportions is equivelent to prop.test with the yates correction set to false. From there, prop.test is equal to the chi square test and the z stat is the square root of the chi2 stat.</p>
+<p>chisq.test performs chi-squared contingency table tests and goodness-of-fit tests.</p>
+<p>Use the chi-square test of independence when you have two nominal variables and you want to see whether the proportions of one variable are different for different values of the other variable. Use it when the sample size is large.</p>
+<p>The null hypothesis is that the relative proportions of one variable are independent of the second variable; in other words, the proportions at one variable are the same for different values of the second variable.</p>
+<p>Fisher’s exact test is more accurate than the chi-square test of independence when the expected numbers are small,</p>
 </section>
-<section id="hw" class="level2">
-<h2 class="anchored" data-anchor-id="hw">HW</h2>
 </section>
-<section id="quizzes" class="level2">
-<h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+</section>
+<section id="reading" class="level1">
+<h1>Reading</h1>
+<section id="open-stats-ch-6." class="level3">
+<h3 class="anchored" data-anchor-id="open-stats-ch-6.">open stats ch 6.</h3>
+<p>The sampling distribution for p hat based on a sample of size n from a population with a true proportion p is nearly normal when:</p>
+<ol type="1">
+<li>The sample’s observations are independent, e.g.&nbsp;are from a simple random sample.</li>
+<li>We expected to see at least 10 successes and 10 failures in the sample, i.e.&nbsp;np ≥ 10 and n(1 − p) ≥ 10. This is called the success-failure condition.</li>
+</ol>
+<p>When these conditions are met, then the sampling distribution of p hat is nearly normal with mean p and standard error SE = sqrt(p(1−p)/n).</p>
+</section>
+<section id="categoical-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="categoical-data-analysis">Categoical data Analysis</h3>
+<p>Starts on page 19 of the pdf.</p>
+<p>Book focuses on methods for categorical response variables.</p>
+<p>Variables without a natural order are nominal variables, order is irrelevant. Ordinal variables are ordered, but distances are unknown. Interval variables do have distance. They’re comparable by their ratio.</p>
+<p>It’s commmon to treat discrete data with lots of options as continuous.</p>
+<section id="dists-for-categories." class="level4">
+<h4 class="anchored" data-anchor-id="dists-for-categories.">Dists for categories.</h4>
+<p>The total number of successes y has binomial distribution with bin(n, pi)</p>
+<p>Skewness is described by E(Y-mu)<sup>3/sigma</sup>3 = (1-2pi)/ sqrt(npi(1-pi).</p>
+<p>It’s symmetric at pi = .5. and as n grows above 5 it gets more normal.</p>
+<p>For multinomial,</p>
+<p>E(n_j) = npi_j, var(n_j) = npi_j(1-pi_j), cov(n_k, n_k) = -npi_jpi_k.</p>
+<p>Poisson’s skewness is E(Y-mu)<sup>3/sigma</sup>3 = 1 / sqrt(mu). It approaches normality at mu increases above 10.</p>
+<p>Counts exhibit variability exceeding that predicted by the binomail or Poisson. This is overdispersion. There is a negative binomial dist for dispersed data. Chs 4, 13 and 14 for overdisp.</p>
+<p>Chi2 skewness is sqrt(8/df). var = 2df(). Approaches normal above 50.</p>
+</section>
+</section>
+</section>
+<section id="hw" class="level1">
+<h1>HW</h1>
+</section>
+<section id="quizzes" class="level1">
+<h1>Quizzes</h1>
+<section id="r" class="level2">
+<h2 class="anchored" data-anchor-id="r">R</h2>
+<p>Which of the following returns the 99th percentile (0.99 quantile) of the standard normal distribution?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">qchisq</span>(<span class="fl">0.98</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.326348</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(.<span class="dv">99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.326348</code></pre>
+</div>
+</div>
+<p>The p-value that you get from a chi-square test without a continuity correction is:</p>
+<p>The same as you get from a proportions test without continuity correction.</p>
+<p>The R command mosaic(matrix(c(30,30,30,30),2,2,byrow=T)) produces a mosaic plot that suggests independence between two variables. Which of the following produces a mosaic plot that suggests the two variables are farthest from independence?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'vcdExtra' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: vcd</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: grid</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: gnm</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'gnm' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'vcdExtra'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    summarise</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">30</span>,<span class="dv">30</span>,<span class="dv">30</span>),<span class="dv">2</span>,<span class="dv">2</span>,<span class="at">byrow=</span>T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="2_Props_Risks_Odds_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mosaic(matrix(c(40,50,20,10),2,2,byrow=T))</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">30</span>,<span class="dv">10</span>,<span class="dv">30</span>),<span class="dv">2</span>,<span class="dv">2</span>,<span class="at">byrow=</span>T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="2_Props_Risks_Odds_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mosaic(matrix(c(45,25,25,45),2,2,byrow=T))</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mosaic(matrix(c(45,25,25,45),2,2,byrow=T))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c" class="level2">
+<h2 class="anchored" data-anchor-id="c">C</h2>
+<p>For the following questions, refer to the following study:</p>
+<p>In a 1962 social experiment, 123 3-and 4-year old children from poverty-level families in Ypsilant, Michigan were randomly assigned either to a treatment group receiving 2 years of preschool instruction or to a control group receiving no preschool. The participants were followed into their adult years. The following table shows how many in each group were arrested for some crime by the time they were 19 years old.</p>
+<p>Arrested for some crime?</p>
+<p>Yes No Preschool 19 42 Control 32 30</p>
+<p>Is it possible to use these data to see whether preschool instruction can cause a lower rate of criminal arrest for some populations? Explain your reasoning.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">19</span><span class="sc">+</span><span class="dv">42</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span><span class="sc">/</span>n1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3114754</code></pre>
+</div>
+</div>
+<p>Arrested for some crime?</p>
+<p>Yes No Preschool 19 42 Control 32 30</p>
+<ol start="3" type="1">
+<li></li>
+</ol>
+<p>What is the estimated odds ratio of being arrested for a crime by the age of 19 for the group that didn’t go to preschool versus the group that did go to preschool?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>py <span class="ot">&lt;-</span> <span class="dv">19</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>pn <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> pn <span class="sc">+</span> py</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>cy <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>cn <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> cy <span class="sc">+</span> cn</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>ppy <span class="ot">&lt;-</span> py<span class="sc">/</span>n1</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>pcy <span class="ot">&lt;-</span> cy<span class="sc">/</span>n2</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>opy <span class="ot">&lt;-</span> ppy<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>ppy)</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>ocy <span class="ot">&lt;-</span> pcy<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>pcy)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>opy<span class="sc">/</span>ocy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4241071</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>ocy<span class="sc">/</span>opy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.357895</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<p>Give a one-sentence interpretation of the estimated odds ratio from the previous question in the context of the problem.</p>
+<p>The odds of going to jail before 19 were about 2.4 times higher in the control group compared to the preschool group.&nbsp;</p>
+</section>
 </section>
 <section id="end____" class="level1">
 <h1>____END____</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For X~bin(n, p)</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>bw <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n<span class="sc">*</span>p <span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">&amp;</span> (n<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">&gt;</span> <span class="dv">5</span>)) {</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"p hat = X/n is Normal with mean "</span>, p, </span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">" and variance "</span>, (n<span class="sc">*</span>p<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p))))</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "p hat = X/n is Normal with mean 0.5 and variance 7.5"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n<span class="sc">*</span>p <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">|</span> (n<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">&lt;=</span> <span class="dv">5</span>)) {</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">paste0</span>(</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"p hat = X/n is NOT Normal with mean "</span>, p, </span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">" and variance "</span>, (n<span class="sc">*</span>p<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p))))</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100000</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x<span class="sc">/</span>n, <span class="at">bw =</span> p<span class="sc">/</span>bw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="2_Props_Risks_Odds_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n<span class="sc">*</span>p <span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">&amp;</span> (n<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">&gt;</span> <span class="dv">5</span>)) {</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"p hat = X/n is Normal with mean "</span>, p, </span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">" and variance "</span>, (n<span class="sc">*</span>p<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p))))</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n<span class="sc">*</span>p <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">|</span> (n<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">&lt;=</span> <span class="dv">5</span>)) {</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">paste0</span>(</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"p hat = X/n is NOT Normal with mean "</span>, p, </span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">" and variance "</span>, (n<span class="sc">*</span>p<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p))))</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "p hat = X/n is NOT Normal with mean 0.5 and variance 1.25"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100000</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x<span class="sc">/</span>n, <span class="at">bw =</span> p<span class="sc">/</span>bw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="2_Props_Risks_Odds_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Consider making the odds and odds ratio calculations into a function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>py <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>pn <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> pn <span class="sc">+</span> py</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>cy <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>cn <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> cy <span class="sc">+</span> cn</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>ppy <span class="ot">&lt;-</span> py<span class="sc">/</span>n1</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>pcy <span class="ot">&lt;-</span> cy<span class="sc">/</span>n2</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>opy <span class="ot">&lt;-</span> ppy<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>ppy)</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>ocy <span class="ot">&lt;-</span> pcy<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>pcy)</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>opy<span class="sc">/</span>ocy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3333333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>ocy<span class="sc">/</span>opy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
 
 
 </section>

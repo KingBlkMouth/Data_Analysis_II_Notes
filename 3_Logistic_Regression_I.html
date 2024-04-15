@@ -94,6 +94,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -185,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 3</span></a>
+ <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
@@ -264,7 +266,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lectures" id="toc-lectures" class="nav-link active" data-scroll-target="#lectures">Lectures</a>
+  <li><a href="#donner.r-lecture-4-fitting-models." id="toc-donner.r-lecture-4-fitting-models." class="nav-link active" data-scroll-target="#donner.r-lecture-4-fitting-models.">Donner.R, Lecture 4 Fitting Models.</a>
+  <ul class="collapse">
+  <li><a href="#lectures" id="toc-lectures" class="nav-link" data-scroll-target="#lectures">Lectures</a>
   <ul class="collapse">
   <li><a href="#introduction-to-logistic-regression" id="toc-introduction-to-logistic-regression" class="nav-link" data-scroll-target="#introduction-to-logistic-regression">Introduction to Logistic Regression</a></li>
   <li><a href="#model-interpretation" id="toc-model-interpretation" class="nav-link" data-scroll-target="#model-interpretation">Model Interpretation</a></li>
@@ -275,6 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
   <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  </ul></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
@@ -341,6 +346,8 @@ Learning Objectives
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="donner.r-lecture-4-fitting-models." class="level1">
+<h1>Donner.R, Lecture 4 Fitting Models.</h1>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -361,48 +368,415 @@ Learning Objectives
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>work <span class="ot">=</span> case2001   </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(work)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>work<span class="sc">$</span>Female <span class="ot">=</span> <span class="fu">ifelse</span>(work<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">"Female"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, just a quick plot to look at the data (you'll do this</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># in this module's lab too)</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(work,<span class="fu">aes</span>(Age,Status,<span class="at">color=</span>Sex)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's the code to fit a logistic regression model:</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>LRM <span class="ot">=</span> <span class="fu">glm</span>(Status<span class="sc">~</span>Age<span class="sc">+</span>Female,<span class="at">data=</span>work,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>))</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(LRM)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># And approximate confidence intervals for the Beta's:</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>cis <span class="ot">=</span> <span class="fu">confint.default</span>(LRM)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>cis</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(cis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(work)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Age</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>work<span class="sc">$</span>Female <span class="ot">=</span> <span class="fu">ifelse</span>(work<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">"Female"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, just a quick plot to look at the data (you'll do this</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># in this module's lab too)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(work,<span class="fu">aes</span>(Age,Status,<span class="at">color=</span>Sex)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="3_Logistic_Regression_I_files/figure-html/Donner.R-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's the code to fit a logistic regression model:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>LRM <span class="ot">=</span> <span class="fu">glm</span>(Status<span class="sc">~</span>Age<span class="sc">+</span>Female,<span class="at">data=</span>work,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(LRM)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># And approximate confidence intervals for the Beta's:</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>cis <span class="ot">=</span> <span class="fu">confint.default</span>(LRM)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># cis</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># exp(cis)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="lectures" class="level2">
 <h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
 <section id="introduction-to-logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-to-logistic-regression">Introduction to Logistic Regression</h3>
+<p>Donner party survival by sex and age, interested in sex.</p>
+<p>MLR won’t work, Binary responses are not Normally Distributed.</p>
+<p>MLR was y = B + B1X1 + …</p>
+<p>In Log-Reg:</p>
+<p>g(u) = B + B1X1 + …</p>
+<p>g(u) is the link function. Some function of the mean of y given the explanatory variables. For normally distributed responses, the link fct is the identity function.</p>
+<p>For binary responses we use the logit link, g(p) = log(p/(1-p)). The log(odds) of success.</p>
+<p>We’ll be able to interpret regression coefficient estimates from a logistic regression as changes in the odds of success corresponding to unit increases in an explanatory variable, with other variables held fixed. Or we can transform it back with:</p>
+<p><span class="math inline">\(p = f(\eta) = \frac{e^{\eta}}{1 + e^{\eta}}\)</span></p>
+<p>eta is the greek letter</p>
+<p>The Logistic regression model is:</p>
+<p><span class="math inline">\(logit(p) = \beta_0 + \beta_1X_1 + ...\)</span></p>
+<p>It is classed as a general linear model with MLR.</p>
 </section>
 <section id="model-interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="model-interpretation">Model Interpretation</h3>
+<p>Logit is log odd, if we exp(logit) we get odds.</p>
+<p><span class="math inline">\(\frac{p}{1-p} = exp(\beta_0 + \beta_1X_1 + ...)\)</span></p>
+<p><span class="math inline">\(\hat{logit (p)} = 1.63−0.078Age +1.60Female\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>LRM <span class="ot">=</span> <span class="fu">glm</span>(Status<span class="sc">~</span>Age<span class="sc">+</span>Female,<span class="at">data=</span>work,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(LRM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Status ~ Age + Female, family = binomial(link = "logit"), 
+    data = work)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept)  1.63312    1.11018   1.471   0.1413  
+Age         -0.07820    0.03728  -2.097   0.0359 *
+Female       1.59729    0.75547   2.114   0.0345 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 61.827  on 44  degrees of freedom
+Residual deviance: 51.256  on 42  degrees of freedom
+AIC: 57.256
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>From the equation above we can get odds by specifying values for age and sex.</p>
+<ul>
+<li>The estimated odds of survival for a 50 year old female were: <span class="math inline">\(exp(1.63−0.078×50+1.60) = 0.52\)</span></li>
+<li>the odds of survival for a 50 year old male were: <span class="math inline">\(exp(1.63−0.078×50) = 0.10\)</span></li>
+</ul>
+<p>The odds for a women were 5 times that of men.</p>
+<p>The coefficient for age of men and women is the same in the equation/model, so odds are the same for all ages.</p>
 </section>
 <section id="estimation-in-logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="estimation-in-logistic-regression">Estimation in Logistic Regression</h3>
+<ul>
+<li><p>Maximum Likelihood Estimation</p></li>
+<li><p>The Bernoulli Likelihood</p></li>
+<li><p>MLE in Logistic Regression</p></li>
+<li><p>Inference</p></li>
+<li><p>For MLR we use least squares for estimating coefficients.</p></li>
+<li><p>For LogIts we use Maximum Likelihood Estimation</p></li>
+</ul>
+<p>After specifying a statistical model for the response, we can write a Liklihood fct.</p>
+<p>Some probability models for response variables—the Normal distribution, the Bernoulli distribution, the Binomial distribution, etc.</p>
+<ul>
+<li><p>For each of these distributions, and given a sample of data, we can then construct a Likelihood function.</p></li>
+<li><p>The maximum likelihood estimate (MLE), is the estimated value of our parameter(s) that maximize(s) the Likelihood function.</p></li>
+</ul>
+<pre><code>\prod_{i=1}^{\infty} a_{i}</code></pre>
+<p><span class="math inline">\(\prod_{i=1}^{\infty} a_{i}\)</span></p>
+<p>For n independent Bernoulli (binary) random variables, each with it’s own prob of success p_i:</p>
+<p><span class="math inline">\(P(Y_i = y_i) = p_i^{y_i}(1-p_i)^{1-y_i}\)</span></p>
+<p>The joint probability distribution of Y 1 to n is called the Likelihood Fucntion. It is the product of these n Bernoulli prob dists:</p>
+<p><span class="math inline">\(L(Y) = (Y_1 = y_1, Y_2 = y_2 + ...) = \prod_{i=1}^{n} p_i^{y_i}(1-p_i)^{1-y_i}\)</span></p>
+<p><span class="math inline">\(p_1^{y_1}(1-p_1)^{1-y_1} \times p_2^{y_2}(1-p_2)^{1-y_2} \times ...\)</span></p>
+<p>for each pi, we’ll use its connection to the explanatory information using the logistic regression model.</p>
+<section id="the-bernoulli-likelihood-funtion." class="level4">
+<h4 class="anchored" data-anchor-id="the-bernoulli-likelihood-funtion.">The Bernoulli Likelihood Funtion.</h4>
+<p><span class="math inline">\(L(Y) = \prod_{i=1}^{n} p_i^{y_i}(1-p_i)^{1-y_i}\)</span></p>
+<p>where p_i is:</p>
+<p><span class="math inline">\(pi = \frac{exp(\beta_0 +\beta_1Age_i +\beta_2Female_i)}{1+exp(\beta_0 +\beta_1Age_i +\beta_2Female_i)}\)</span></p>
+<p>So we sub in the expression for p_i into g(u):</p>
+<p><span class="math display">\[
+L(Y) =  
+\prod_{i=1}^{n} (
+\frac{exp(\beta_0 +\beta_1Age_i +\beta_2Female_i)}{1+exp(\beta_0 +\beta_1Age_i +\beta_2Female_i)}
+)^{y_i}(
+\frac{1}{1+exp(\beta_0 +\beta_1Age_i +\beta_2Female_i)}
+)^{1-y_i}
+\]</span> This is the expression for the Bernoulli likelihood of the betas.</p>
+<p>The Maximum Likelihood Estimates (MLE) can, in general, be found by using calculus in this example, the function we’re trying to maximize has three unknowns (the three Betas)</p>
+<p>In the case of the Logistic Regression Model, expressions for the MLE cannot be written down, but rather the estimates are obtained using an iterative numerical algorithm (an optimization).</p>
+<p>If our logistic regression model is correct and the sample size is large enough, then:</p>
+<ol type="1">
+<li>The MLE are essentially unbiased.</li>
+<li>There are known formulae for estimating the standard deviations of the sampling distributions of MLE (these will be different under different models, but they exist).</li>
+<li>The MLE’s are about as precise (i.e., have roughly the smallest variance) as nearly any other unbiased estimates.</li>
+<li>The shapes of the sampling distributions of the MLE are approximately Normal.</li>
+</ol>
+<p>We can build approximate confidence intervals and perform approximate hypothesis tests for the logistic regression coefficients.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(LRM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Status ~ Age + Female, family = binomial(link = "logit"), 
+    data = work)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept)  1.63312    1.11018   1.471   0.1413  
+Age         -0.07820    0.03728  -2.097   0.0359 *
+Female       1.59729    0.75547   2.114   0.0345 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 61.827  on 44  degrees of freedom
+Residual deviance: 51.256  on 42  degrees of freedom
+AIC: 57.256
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Std.Error comes from the MLE procedure, z values can be evaluated against an standard normal dist. P is against standard normal.</p>
+</section>
 </section>
 <section id="fitting-models" class="level3">
 <h3 class="anchored" data-anchor-id="fitting-models">Fitting Models</h3>
+<p>Use glm and set the family and link appropriately.</p>
+<p>Resids are called deviance resids. More later.</p>
+<p>Dispersion Parameter: later</p>
+<p>Number of Fischer scoring iterations: 4 is from the iteration of the Fischer scoring algorithm. Makes sure you reach convergence to the MLE.</p>
+<p>confint.default gets conf ints for glm object. In this case, the response is log odds, so exp is there to report odds.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I like to create a "work" file for the current data file that</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># I'm using; then I take a quick look at the data and create the </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Female indicator variable:</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>work <span class="ot">=</span> case2001   </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(work)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Age</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Died</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>work<span class="sc">$</span>Female <span class="ot">=</span> <span class="fu">ifelse</span>(work<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">"Female"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, just a quick plot to look at the data (you'll do this</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># in this module's lab too)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(work,<span class="fu">aes</span>(Age,Status,<span class="at">color=</span>Sex)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="3_Logistic_Regression_I_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's the code to fit a logistic regression model:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Response ~ explanatory, data = data, family is new. </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>LRM <span class="ot">=</span> <span class="fu">glm</span>(Status<span class="sc">~</span>Age<span class="sc">+</span>Female,<span class="at">data=</span>work,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(LRM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Status ~ Age + Female, family = binomial(link = "logit"), 
+    data = work)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept)  1.63312    1.11018   1.471   0.1413  
+Age         -0.07820    0.03728  -2.097   0.0359 *
+Female       1.59729    0.75547   2.114   0.0345 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 61.827  on 44  degrees of freedom
+Residual deviance: 51.256  on 42  degrees of freedom
+AIC: 57.256
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And approximate confidence intervals for the Beta's:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cis <span class="ot">=</span> <span class="fu">confint.default</span>(LRM)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>cis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %       97.5 %
+(Intercept) -0.5428002  3.809040837
+Age         -0.1512803 -0.005127799
+Female       0.1166015  3.077985503</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(cis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                2.5 %     97.5 %
+(Intercept) 0.5811187 45.1071530
+Age         0.8596067  0.9948853
+Female      1.1236716 21.7146143</code></pre>
+</div>
+</div>
 </section>
 <section id="drop-in-deviance" class="level3">
 <h3 class="anchored" data-anchor-id="drop-in-deviance">Drop in Deviance</h3>
+<p>The Drop in Deviance Test, analogous to extra sum of squares test in MLR. Drop in Deviance Using R</p>
+<p>Use the drop in dev test to make inference about multiple regression coefficients.</p>
+<p>This one includes a term for the interaction between Age and Female</p>
+<pre><code>Coefficients:
+                Estimate    Std. Error    z value Pr(&gt;|z|)
+(Intercept)     0.31834     1.13103     0.281     0.7784
+Age             -0.03248    0.03527     -0.921    0.3571
+Female          6.92805     3.39887     2.038     0.0415
+Age:Female      -0.16160    0.09426     -1.714    0.0865</code></pre>
+<p>The interaction term has no evidence, it’s different from zero. If we dropped age and interactions?</p>
+<p>when you fit multiple linear regression models, you used the Extra sum of squares F test to compare models that differed by more than one explanatory variable. In logistic regression (and generalized linear modeling) we use the drop in deviance test</p>
+<p>The drop in deviance test aka the likelihood ratio test:</p>
+<p>Compare the max value of the likelihood fct in one model to another.</p>
+<p><span class="math inline">\(LRT = 2log(LMAX_{full} - 2log(LMAX_{reduced}))\)</span></p>
+<p>When the reduced model is correct (i.e., under the null hypothesis), the LRT follows (approximately) a Chi-squared distribution with degrees of freedom equal to the difference in the number of parameters between the full and reduced models.</p>
+<p>Most computer packages (including R) don’t report the</p>
+<p>LMAX, but instead report a quantity called the deviance:</p>
+<p>deviance = constant−2log(LMAX).</p>
+<ul>
+<li>Fortunately, the constant is the same for both the full and reduced models, so that:</li>
+</ul>
+<p><span class="math inline">\(LRT = deviance_{reduced} −deviance_{full}\)</span></p>
+<p>Pass anove two models to do the test.</p>
+<p>For the models:</p>
+<ol type="1">
+<li>logit(pi) = β0 +β1Agei +β2Femalei +β3Agei : Femalei</li>
+<li>logit(pi) = β0 +β2Femalei</li>
+</ol>
+<p>When using the anova function to compare models, the reduced (smaller) model goes first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mod.full <span class="ot">=</span> <span class="fu">glm</span>(Status <span class="sc">~</span> Age<span class="sc">*</span>Female, <span class="at">data =</span> work, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mod.red <span class="ot">=</span> <span class="fu">glm</span>(Status <span class="sc">~</span> Female, <span class="at">data =</span> work, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod.red,mod.full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Resid. Df</th>
+<th style="text-align: right;">Resid. Dev</th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Deviance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">57.28628</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">47.34637</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9.939909</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Compare that drop in deviance statistic to a Chi-squrare distribution with 2 degrees of freedom</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pchisq</span>(<span class="fl">9.93399</span>,<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.006964044</code></pre>
+</div>
+</div>
+<p>p-value = 0.006964044, suggests there’s evidence to reject the reduced model in favor of the full model in this case.</p>
+<p>Comparing this output to:</p>
+<pre><code>Coefficients:
+                Estimate    Std. Error    z value Pr(&gt;|z|)
+(Intercept)     0.31834     1.13103     0.281     0.7784
+Age             -0.03248    0.03527     -0.921    0.3571
+Female          6.92805     3.39887     2.038     0.0415
+Age:Female      -0.16160    0.09426     -1.714    0.0865</code></pre>
+<p>Shows that the interaction and age terms</p>
+<p>Looking at the p-value for the int term, there isn’t evidence it’s different from zero, but the anova let’s us see that it is important.</p>
 </section>
 </section>
 <section id="lab" class="level2">
@@ -413,6 +787,7 @@ Learning Objectives
 </section>
 <section id="quizzes" class="level2">
 <h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+</section>
 </section>
 <section id="end____" class="level1">
 <h1>____END____</h1>

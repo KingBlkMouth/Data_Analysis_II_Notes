@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 3</span></a>
+ <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
@@ -270,7 +270,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link active" data-scroll-target="#conceptual-questions">Conceptual Questions</a>
   <ul class="collapse">
   <li><a href="#numerical-or-categorical" id="toc-numerical-or-categorical" class="nav-link" data-scroll-target="#numerical-or-categorical">1. Numerical or categorical</a></li>
-  <li><a href="#multiple-choice-exam" id="toc-multiple-choice-exam" class="nav-link" data-scroll-target="#multiple-choice-exam">2. Multiple-choice exam</a></li>
+  <li><a href="#multiple-choice-exam" id="toc-multiple-choice-exam" class="nav-link" data-scroll-target="#multiple-choice-exam">2. Multiple-choice exam</a>
+  <ul class="collapse">
+  <li><a href="#correction" id="toc-correction" class="nav-link" data-scroll-target="#correction">Correction</a></li>
+  </ul></li>
   <li><a href="#online-on-campus-or-a-hybrid" id="toc-online-on-campus-or-a-hybrid" class="nav-link" data-scroll-target="#online-on-campus-or-a-hybrid">3. Online, on campus, or a hybrid</a></li>
   </ul></li>
   <li><a href="#r-question" id="toc-r-question" class="nav-link" data-scroll-target="#r-question">R Question</a>
@@ -455,7 +458,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] "The probability of getting a 70 percent by guessing with 50 50 odds is 0.0207"</code></pre>
 </div>
 </div>
+<section id="correction" class="level3">
+<h3 class="anchored" data-anchor-id="correction">Correction</h3>
+<p><strong>Answer to Part b) is incorrect. We want <span class="math inline">\(P(Y ≥ 14) = 1 - P(Y ≤ 13) = 1 - pbinom(x=13, n=20, p=0.5)=.058\)</span></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">13</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> .<span class="dv">5</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0577</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># same as</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">13</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> .<span class="dv">5</span>, <span class="at">lower.tail =</span> F) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0577</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>success <span class="ot">&lt;-</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>)<span class="sc">/</span><span class="dv">20</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">20</span>, .<span class="dv">5</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(success, nums)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(success, nums) <span class="sc">+</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> .<span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aHW_1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Looking for the area on the right of the line</strong> That is</p>
 <div style="page-break-after: always;"></div>
+</section>
 </section>
 <section id="online-on-campus-or-a-hybrid" class="level2">
 <h2 class="anchored" data-anchor-id="online-on-campus-or-a-hybrid">3. Online, on campus, or a hybrid</h2>
@@ -466,10 +500,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>List all the possible observations <span class="math inline">\((n_1, n_2, n_3)\)</span>, with <span class="math inline">\(n = 3\)</span>.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">sums =</span> <span class="fu">rowSums</span>(x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])) <span class="sc">|&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sums <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">sums =</span> <span class="fu">rowSums</span>(x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sums <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -549,7 +583,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>ex2117 is the Effect of Stress During Conception on Odds of a Male Birth.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ex2117 <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ex2117 <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -602,12 +636,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Create a new R data frame for the data, called <strong>HW1data</strong>. In that data frame, create a <code>NumBoys</code> column that represents the number of births that were boys (be sure to round to the nearest integer).</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>HW1data <span class="ot">&lt;-</span> ex2117 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">NumBoys =</span> (PctBoys<span class="sc">/</span><span class="dv">100</span>)<span class="sc">*</span>Number, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">NumBoys =</span> <span class="fu">round</span>(NumBoys)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>HW1data </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>HW1data <span class="ot">&lt;-</span> ex2117 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">NumBoys =</span> (PctBoys<span class="sc">/</span><span class="dv">100</span>)<span class="sc">*</span>Number, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">NumBoys =</span> <span class="fu">round</span>(NumBoys)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>HW1data </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -666,7 +700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Use an appropriate R command or commands to change the format to something else (you can pick what).</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>HW1data <span class="sc">|&gt;</span> <span class="fu">expand.dft</span>(<span class="at">freq =</span> <span class="st">"NumBoys"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>HW1data <span class="sc">|&gt;</span> <span class="fu">expand.dft</span>(<span class="at">freq =</span> <span class="st">"NumBoys"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -719,8 +753,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(NumBoys <span class="sc">~</span> Group <span class="sc">+</span> Time <span class="sc">+</span> Number, HW1data)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(NumBoys <span class="sc">~</span> Group <span class="sc">+</span> Time <span class="sc">+</span> Number, HW1data)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>, , Number = 71
 

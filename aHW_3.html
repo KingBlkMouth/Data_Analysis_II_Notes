@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-04-05">
+<meta name="dcterms.date" content="2024-04-15">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 3</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -155,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 3</span></a>
+ <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
@@ -235,7 +269,24 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a></li>
+  <li><a href="#gre-gpa-prestige-vs-admissions" id="toc-gre-gpa-prestige-vs-admissions" class="nav-link" data-scroll-target="#gre-gpa-prestige-vs-admissions">1) GRE, GPA, &amp; Prestige vs Admissions</a>
+  <ul class="collapse">
+  <li><a href="#a-fit-models" id="toc-a-fit-models" class="nav-link" data-scroll-target="#a-fit-models">a Fit models</a></li>
+  <li><a href="#b.-scatter-plot" id="toc-b.-scatter-plot" class="nav-link" data-scroll-target="#b.-scatter-plot">b. Scatter plot</a></li>
+  <li><a href="#c.-summary" id="toc-c.-summary" class="nav-link" data-scroll-target="#c.-summary">c.&nbsp;Summary</a></li>
+  </ul></li>
   <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link" data-scroll-target="#conceptual-questions">Conceptual Questions</a></li>
+  <li><a href="#donner" id="toc-donner" class="nav-link" data-scroll-target="#donner">2. Donner</a>
+  <ul class="collapse">
+  <li><a href="#a.-independence" id="toc-a.-independence" class="nav-link" data-scroll-target="#a.-independence">a. independence</a></li>
+  <li><a href="#b.-the-over-50s" id="toc-b.-the-over-50s" class="nav-link" data-scroll-target="#b.-the-over-50s">b. The over 50’s</a></li>
+  <li><a href="#c.-survival-is-50" id="toc-c.-survival-is-50" class="nav-link" data-scroll-target="#c.-survival-is-50">c.&nbsp;Survival is 50%</a></li>
+  </ul></li>
+  <li><a href="#the-common-brushtail-possum" id="toc-the-common-brushtail-possum" class="nav-link" data-scroll-target="#the-common-brushtail-possum">3. The common brushtail possum</a>
+  <ul class="collapse">
+  <li><a href="#a.-the-remaining-estimates" id="toc-a.-the-remaining-estimates" class="nav-link" data-scroll-target="#a.-the-remaining-estimates">a. The remaining estimates</a></li>
+  <li><a href="#b.-probability-its-from-victoria" id="toc-b.-probability-its-from-victoria" class="nav-link" data-scroll-target="#b.-probability-its-from-victoria">b. Probability it’s from Victoria?</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -261,7 +312,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 5, 2024</p>
+      <p class="date">April 15, 2024</p>
     </div>
   </div>
   
@@ -271,48 +322,350 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>output: pdf_document</p>
-<section id="r-question" class="level2">
-<h2 class="anchored" data-anchor-id="r-question">R Question</h2>
-<ol type="1">
-<li><p>(4 points) A researcher is interested in studying how (if?) GRE (Graduate Record Exam scores), GPA (grade point average) and prestige of undergraduate institution are associated with admission into graduate school. The response variable, Admit, is a binary variable (1 == admit). This dataset can be found in admissions.csv available for download right underneath where you downloaded/opened this homework assignment. Treat the variables GRE and GPA as continuous, and treat RANK, which takes values 1 through 4, as a factor variable. A rank of 1 indicates that the student’s undergraduate institution has the highest prestige, while a rank of 4 indicates that it has the lowest prestige.</p>
-<ol type="a">
-<li><p>Fit a logistic regression model to these data, with the variable admit as the response and gpa, gre, and rank as explanatory variables. Fit another model without gre. Comment on how these models are different.</p></li>
-<li><p>Produce a scatterplot of admit against GPA and overlay 4 separate fitted lines, one for each rank, from the regression with gpa and rank as explanatory variables.</p></li>
-<li><p>Write a short paragraph discussing your findings.</p></li>
-</ol></li>
-</ol>
+<section id="r-question" class="level1">
+<h1>R Question</h1>
 </section>
-<section id="conceptual-questions" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-questions">Conceptual Questions</h2>
-<ol start="2" type="1">
-<li><p>(3 points) In 1846, the Donner and Reed families left Springfield, Illinois, for California by covered wagon. Along the way, more families and individuals joined the Donner Party, as it came to be known, until it reached its full size of 87 people. The group become stranded in the eastern Sierra Nevada mountains when the region was hit by heavy snows in late October. By the time the last survivor was rescued in April 1847, 40 of the 87 members had died from famine and exposure to extreme cold.</p>
+<section id="gre-gpa-prestige-vs-admissions" class="level1">
+<h1>1) GRE, GPA, &amp; Prestige vs Admissions</h1>
+<p>(4 points) A researcher is interested in studying how (if?) GRE (Graduate Record Exam scores), GPA (grade point average) and prestige of undergraduate institution are associated with admission into graduate school. The response variable, Admit, is a binary variable (1 == admit). This dataset can be found in admissions.csv available for download right underneath where you downloaded/opened this homework assignment. Treat the variables GRE and GPA as continuous, and treat RANK, which takes values 1 through 4, as a factor variable. A rank of 1 indicates that the student’s undergraduate institution has the highest prestige, while a rank of 4 indicates that it has the lowest prestige.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Admit = log, gre &amp; gpa = num, rank = factor w 1 = best. </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>admissions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../Data/admissions.csv"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col_types =</span> <span class="st">"innf"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ad <span class="ot">&lt;-</span> admissions <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">rank =</span> <span class="fu">factor</span>(rank, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="co">#, levels = c(4,3,2,1))</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># str(admissions)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [400 × 4] (S3: tbl_df/tbl/data.frame)
+ $ admit: int [1:400] 0 1 1 1 0 1 1 0 1 0 ...
+ $ gre  : num [1:400] 380 660 800 640 520 760 560 400 540 700 ...
+ $ gpa  : num [1:400] 3.61 3.67 4 3.19 2.93 ...
+ $ rank : Factor w/ 4 levels "1","2","3","4": 3 3 1 4 4 2 1 2 3 2 ...</code></pre>
+</div>
+</div>
+<section id="a-fit-models" class="level3">
+<h3 class="anchored" data-anchor-id="a-fit-models">a Fit models</h3>
 <ol type="a">
-<li><p>One assumption underlying the correct use of logistic regression is that observations are independent of each other. Is there some basis for thinking this assumption might be violated in the Donner Party data?</p></li>
-<li><p>Why should one be reluctant to draw conclusions about the ratio of male and female odds of survival for Donner Party members over 50? (Hint: Look again the graph of the Donner Party data from lecture, where status is plotted against age.)</p></li>
-<li><p>In this week’s lecture, it was found that the estimated logisitic regression equation is:</p>
+<li>Fit a logistic regression model to these data, with the variable admit as the response and gpa, gre, and rank as explanatory variables. Fit another model without gre. Comment on how these models are different.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mod_full <span class="ot">&lt;-</span> <span class="fu">glm</span>(admit <span class="sc">~</span> gpa <span class="sc">+</span> gre <span class="sc">+</span> rank,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> ad)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mod_red <span class="ot">&lt;-</span> <span class="fu">glm</span>(admit <span class="sc">~</span> gpa <span class="sc">+</span> rank,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> ad)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>s_red <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod_red)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>s_full <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod_full)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>s_red</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = admit ~ gpa + rank, family = binomial(link = "logit"), 
+    data = ad)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -3.4636     1.1003  -3.148 0.001645 ** 
+gpa           1.0521     0.3102   3.392 0.000694 ***
+rank2        -0.6810     0.3141  -2.168 0.030181 *  
+rank3        -1.3919     0.3419  -4.071 4.68e-05 ***
+rank4        -1.5943     0.4152  -3.840 0.000123 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 499.98  on 399  degrees of freedom
+Residual deviance: 462.88  on 395  degrees of freedom
+AIC: 472.88
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>s_full</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = admit ~ gpa + gre + rank, family = binomial(link = "logit"), 
+    data = ad)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -3.989979   1.139951  -3.500 0.000465 ***
+gpa          0.804038   0.331819   2.423 0.015388 *  
+gre          0.002264   0.001094   2.070 0.038465 *  
+rank2       -0.675443   0.316490  -2.134 0.032829 *  
+rank3       -1.340204   0.345306  -3.881 0.000104 ***
+rank4       -1.551464   0.417832  -3.713 0.000205 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 499.98  on 399  degrees of freedom
+Residual deviance: 458.52  on 394  degrees of freedom
+AIC: 470.52
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Smaller mod first. </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod_red, mod_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Resid. Df</th>
+<th style="text-align: right;">Resid. Dev</th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Deviance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">395</td>
+<td style="text-align: right;">462.8752</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">394</td>
+<td style="text-align: right;">458.5175</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.357759</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>s_red<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error     z value Pr(&gt;|z|)
+(Intercept) 0.03131623   3.005111  0.04294460 1.001646
+gpa         2.86352334   1.363657 29.72120143 1.000694
+rank2       0.50612454   1.369087  0.11443972 1.030641
+rank3       0.24860056   1.407620  0.01705876 1.000047
+rank4       0.20306061   1.514682  0.02150075 1.000123</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># s_red$coefficients[1:5] |&gt; exp()</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>s_full<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Estimate Std. Error     z value Pr(&gt;|z|)
+(Intercept) 0.0185001   3.126615  0.03019338 1.000465
+gpa         2.2345451   1.393501 11.28099028 1.015507
+gre         1.0022670   1.001095  7.92374081 1.039214
+rank2       0.5089309   1.372302  0.11834270 1.033374
+rank3       0.2617923   1.412423  0.02062602 1.000104
+rank4       0.2119375   1.518665  0.02440100 1.000205</code></pre>
+</div>
+</div>
+<p>The reduced model doesn’t have GRE, the reduced model’s intercept is higher, gpa estimate is higher, and ranks are lower.</p>
+<p>GPA, GRE, and all Ranks are significant in the full model, the same for the reduced except it doesn’t have GRE.</p>
+<p>Drop in deviance is 4.3578. Indicating the full model may be better (p-val = 0.0368, drop in deviance test, df = 1).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 - pchisq(4.3578, 1) #lower.tail = F</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">4.3578</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03683985</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-scatter-plot" class="level3">
+<h3 class="anchored" data-anchor-id="b.-scatter-plot">b. Scatter plot</h3>
+<ol start="2" type="a">
+<li>Produce a scatter plot of admit against GPA and overlay 4 separate fitted lines, one for each rank, from the regression with gpa and rank as explanatory variables.</li>
+</ol>
+<div class="cell" data-fig.asp="0.618">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))}</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain 95% pointnwise confidence bands from predict.glm()</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>glm_pred <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(mod_red, <span class="at">type=</span><span class="st">"link"</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>low <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>upp <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># back-transform everything to the data scale</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="ot">&lt;-</span> <span class="fu">logistic</span>(glm_pred<span class="sc">$</span>fit)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>glm_lower <span class="ot">&lt;-</span> <span class="fu">logistic</span>(low)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>glm_upper <span class="ot">&lt;-</span> <span class="fu">logistic</span>(upp)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># augment the Donner data frame</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>augment_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(ad, glm_fit, glm_lower, glm_upper))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>augment_df <span class="sc">|&gt;</span>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> admit, <span class="at">x =</span> gpa, <span class="at">color =</span> rank) <span class="sc">+</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> gpa, </span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> glm_fit, </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> rank)) <span class="sc">+</span> </span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> gpa, </span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> rank, </span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymin =</span> glm_lower, </span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymax =</span> glm_upper), </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> .<span class="dv">2</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span><span class="st">"Dark2"</span>)<span class="sc">+</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">cols =</span> <span class="fu">vars</span>(rank)</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>      ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aHW_3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+<section id="c.-summary" class="level3">
+<h3 class="anchored" data-anchor-id="c.-summary">c.&nbsp;Summary</h3>
+<ol start="3" type="a">
+<li>Write a short paragraph discussing your findings</li>
+</ol>
+<p>It looks like the prestige of one’s undergraduate institution has an effect on admissions to grad school. With a 4.0 GPA, someone from a prestigious school has between 53% &amp; 80% probability of getting admitted. Whereas someone with the same gpa from a low ranked school has between 17% &amp; 47% probability of getting admitted.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># augment_df |&gt; filter(rank == 1 &amp; gpa == 4.0)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># augment_df |&gt; filter(rank == 4 &amp; gpa == 4.0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="conceptual-questions" class="level1">
+<h1>Conceptual Questions</h1>
+</section>
+<section id="donner" class="level1">
+<h1>2. Donner</h1>
+<p>(3 points) In 1846, the Donner and Reed families left Springfield, Illinois, for California by covered wagon. Along the way, more families and individuals joined the Donner Party, as it came to be known, until it reached its full size of 87 people. The group become stranded in the eastern Sierra Nevada mountains when the region was hit by heavy snows in late October. By the time the last survivor was rescued in April 1847, 40 of the 87 members had died from famine and exposure to extreme cold.</p>
+<section id="a.-independence" class="level3">
+<h3 class="anchored" data-anchor-id="a.-independence">a. independence</h3>
+<ol type="a">
+<li>One assumption underlying the correct use of logistic regression is that observations are independent of each other. Is there some basis for thinking this assumption might be violated in the Donner Party data?</li>
+</ol>
+<p>There may be some violations of this assumption. The party was composed of families and groups that traveled together. Those groups are not independent. Families will share similar genetics. Their health may be affected as a group by their diets before the incident. Groups that travel together would share a similar effect.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>donner <span class="ot">=</span> case2001 </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># donner |&gt; head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-the-over-50s" class="level3">
+<h3 class="anchored" data-anchor-id="b.-the-over-50s">b. The over 50’s</h3>
+<ol start="2" type="a">
+<li>Why should one be reluctant to draw conclusions about the ratio of male and female odds of survival for Donner Party members over 50? (Hint: Look again the graph of the Donner Party data from lecture, where status is plotted against age.)</li>
+</ol>
+<p>There are fewer observations in the over 50 crowd, especially among the female group. This makes inference outside the bounds of the data precarious.</p>
+</section>
+<section id="c.-survival-is-50" class="level3">
+<h3 class="anchored" data-anchor-id="c.-survival-is-50">c.&nbsp;Survival is 50%</h3>
+<ol start="3" type="a">
+<li>In this week’s lecture, it was found that the estimated logistic regression equation is:
 <ul>
-<li><span class="math inline">\(\hat{logit(p)} = 1.63 − 0.078Age + 1.60Female\)</span></li>
-</ul></li>
+<li><span class="math inline">\(\hat{logit(p)} = 1.63 − 0.078Age + 1.60Female\)</span>, where Female is an indicator variable equal to one for females and zero for males.</li>
+</ul>
+What is the age at which the estimated probability of survival is 50% for women? What about for men?</li>
 </ol>
-<p>where F emale is an indicator variable equal to one for females and zero for males. What is the age at which the estimated probability of survival is 50% for women? What about for men?</p></li>
-<li><p>(3 points) The common brushtail possum of the Australia region is a bit cuter than its distant cousin, the American opossum. We consider 104 brushtail possums from two regions in Australia, where the possums may be considered a random sample from a larger population. The first region is Victoria, and the second region consists of New South Wales and Queensland.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># logOdds = 1.63 - 0.078*a + 1.60*f</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>agef <span class="ot">=</span> (<span class="fl">1.63</span> <span class="sc">+</span> <span class="fl">1.60</span><span class="sc">*</span>f <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span>)) <span class="sc">/</span> (<span class="fl">0.078</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>agem <span class="ot">=</span> (<span class="fl">1.63</span> <span class="sc">+</span> <span class="fl">1.60</span><span class="sc">*</span>f <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span>)) <span class="sc">/</span> (<span class="fl">0.078</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>agef <span class="sc">|&gt;</span> <span class="fu">round</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 41</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>agem <span class="sc">|&gt;</span> <span class="fu">round</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
+</div>
+<p>For the Donner party, at 41 years old the estimated probability of survival for women is 50%. It’s 21 for men.</p>
+</section>
+</section>
+<section id="the-common-brushtail-possum" class="level1">
+<h1>3. The common brushtail possum</h1>
+<p>(3 points) The common brushtail possum of the Australia region is a bit cuter than its distant cousin, the American opossum. We consider 104 brushtail possums from two regions in Australia, where the possums may be considered a random sample from a larger population. The first region is Victoria, and the second region consists of New South Wales and Queensland.</p>
 <p>We use logistic regression to differentiate between possums in these two regions. The outcome variable population takes value 1 if the possum is from Victoria and 0 if it is from New South Wales and Queensland. Five predictors are considered: sex_male, an indicator for a possum being male, head_length, skull_width, total_length, and tail_length. A full and reduced logistic model are summarized in the following table:</p>
-<pre><code>            Full Model                            Reduced Model
-            Estimate  SE      Z     Pr(&gt; |Z|)  Estimate    SE         Z        Pr(&gt; |Z|)
-(Intercept)  39.2349  11.5368 3.40  0.0007     33.5095     9.9053    3.38      0.0007
-sex_male    -1.2376   0.6662  -1.86 0.0632     -1.4207     0.6457    -2.20     0.0278
-head_length -0.1601   0.1386  -1.16 0.2480
-skull_width -0.2012   0.1327  -1.52 0.1294     -0.2787     0.1226    -2.27     0.0231
-total_length 0.6488   0.1531  4.24  0.0000     0.5687      0.1322    4.30      0.0000
-tail_length -1.8708   0.3741  -5.00 0.0000     -1.8057     0.3599    -5.02     0.0000</code></pre>
+<pre><code>----------  Full Model -----------------------|--- Reduced Model--------------------------
+            Estimate  SE      Z     Pr(&gt; |Z|) | Estimate      SE          Z        Pr(&gt; |Z|)
+(Intercept)  39.2349   11.5368 3.40   0.0007    |  33.5095    9.9053     3.38     0.0007
+sex_male     -1.2376   0.6662  -1.86  0.0632    | -1.4207     0.6457    -2.20     0.0278
+head_length  -0.1601   0.1386  -1.16  0.2480    |
+skull_width  -0.2012   0.1327  -1.52  0.1294    | -0.2787     0.1226    -2.27     0.0231
+total_length 0.6488    0.1531   4.24  0.0000    |  0.5687     0.1322     4.30     0.0000
+tail_length  -1.8708   0.3741  -5.00  0.0000    | -1.8057     0.3599    -5.02     0.0000</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>full_m <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">39.2349</span>, <span class="sc">-</span><span class="fl">1.2376</span>, <span class="sc">-</span><span class="fl">0.1601</span>, <span class="sc">-</span><span class="fl">0.2012</span>, <span class="fl">0.6488</span>, <span class="sc">-</span><span class="fl">1.8708</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>red_m <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">33.5095</span>, <span class="sc">-</span><span class="fl">1.4207</span>, <span class="sc">-</span><span class="fl">0.2787</span>, <span class="fl">0.5687</span>, <span class="sc">-</span><span class="fl">1.8057</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="a.-the-remaining-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="a.-the-remaining-estimates">a. The remaining estimates</h3>
 <ol type="a">
-<li><p>The variable head_length was taken out for the reduced model based on its p-value in the full model. Why did the remaining estimates change between the two models?</p></li>
-<li><p>Suppose we see a male possum with a 65 mm wide skull, a 32 cm long tail, and a total length of 80 cm. If we know this possum was captured in the wild in Australia, what is the probability that this possum is from Victoria (using the reduced model)?</p></li>
-</ol></li>
+<li>The variable head_length was taken out for the reduced model based on its p-value in the full model. Why did the remaining estimates change between the two models?</li>
 </ol>
+<p>There was less information available to use in the equation. While head length may have been essentially useless, it was still being used in the full model. Without it in there, whatever effect it was estimated to have had to be taken up by the other variables.</p>
+</section>
+<section id="b.-probability-its-from-victoria" class="level3">
+<h3 class="anchored" data-anchor-id="b.-probability-its-from-victoria">b. Probability it’s from Victoria?</h3>
+<ol start="2" type="a">
+<li>Suppose we see a male possum with a 65 mm wide skull, a 32 cm long tail, and a total length of 80 cm. If we know this possum was captured in the wild in Australia, what is the probability that this possum is from Victoria (using the reduced model)?</li>
+</ol>
+<p>a male possum<br>
+65 mm wide skull 32 cm long tail of 80 cm total length</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>red_m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 33.5095 -1.4207 -0.2787  0.5687 -1.8057</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sw <span class="ot">&lt;-</span> <span class="dv">65</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>len <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ln(odds) &lt;- 33.5095 -1.4207*M -0.2787*sw + 0.5687*len - 1.8057*t</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fl">33.5095</span>) <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.4207</span><span class="sc">*</span>M) <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.2787</span><span class="sc">*</span>sw) <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.5687</span><span class="sc">*</span>len) <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.8057</span><span class="sc">*</span>t)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>odds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.736731e+19</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> odds<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> odds)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>prob<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+</div>
+<p>The probability of this possum being from Victoria is estimated to be 100%. I am assuming that these were all given in the correct dimensions. If they were all supposed to be in mm or cm, then it could be different.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sw <span class="ot">&lt;-</span> <span class="dv">65</span><span class="sc">/</span><span class="dv">1000</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">32</span><span class="sc">/</span><span class="dv">100</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>len <span class="ot">&lt;-</span> <span class="dv">80</span><span class="sc">/</span><span class="dv">100</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fl">33.5095</span>) <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.4207</span><span class="sc">*</span>M) <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.2787</span><span class="sc">*</span>sw) <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.5687</span><span class="sc">*</span>len) <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.8057</span><span class="sc">*</span>t)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>odds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.572654e+14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> odds<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> odds)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>prob<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+</div>
+<p>Making all of the measurements in meters, didn’t change it.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

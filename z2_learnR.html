@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 3</span></a>
+ <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
@@ -778,7 +778,7 @@ Repeat instructions
 <pre><code>---
 title: "Lab Assignment 2"
 author: "Ronald Fisher"
-date: "2024-04-07"
+date: "2024-04-08"
 output: pdf_document
 ---
 </code></pre>
@@ -815,7 +815,8 @@ other stuff</code></pre>
 </blockquote>
 <section id="q1." class="level2">
 <h2 class="anchored" data-anchor-id="q1.">Q1.</h2>
-<p>The following data come from one of Gregor Mendel’s famous experiments with pea plants. In this particular experiment, Mendel examined two categorical traits in pea seeds, each with two possible values: seed color – yellow or green – and seed shape – round or angular. According to Mendel’s hypothesis, the inheritance pattern of these traits was characterized by “independent assortment” – that is, there was no “genetic linkage” between these traits.</p>
+<p>The following data come from one of Gregor Mendel’s famous experiments with pea plants. In this particular experiment, Mendel examined two categorical traits in pea seeds, each with two possible values: seed color, yellow or green, and seed shape, round or angular.</p>
+<p>According to Mendel’s hypothesis, the inheritance pattern of these traits was characterized by “independent assortment”, that is, there was no “genetic linkage” between these traits.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="ot">&lt;-</span> <span class="fu">as.table</span>(</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">315</span>, <span class="dv">108</span>, <span class="dv">101</span>, <span class="dv">32</span>),</span>
@@ -831,13 +832,71 @@ Color    Round Angular
   Green    108      32</code></pre>
 </div>
 </div>
-<p>How consistent are these data with Mendel’s hypothesis of independence? Notice that in this particular case, we’re not interested in a <em>departure</em> from independence, but rather a <em>confirmation</em> of independence. Is a Chi-squared test appropriate here? Why or why not?</p>
+<p><em>How consistent are these data with Mendel’s hypothesis of independence? </em></p>
+<p><em>Is a Chi-squared test appropriate here? Why or why not?</em></p>
+<p>Notice that in this particular case, we’re not interested in a <em>departure</em> from independence, but rather a <em>confirmation</em> of independence.</p>
+<p>Cells are at least 5, the chi-squared test should be adequate, but I’ll confirm with Fisher.</p>
+<p>The null is that the proportions at each shape are the same for both colors, The proportion of round and yellow is the same as round and green.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(mendel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>They look independent based on the alignment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  mendel
+X-squared = 0.051332, df = 1, p-value = 0.8208</code></pre>
+</div>
+</div>
+<p>p-value = 0.8208 indicates that there’s evidence of independence of color and shape.</p>
+<p>chisq.test() and fisher.test()</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">t</span>(mendel))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  t(mendel)
+X-squared = 0.051332, df = 1, p-value = 0.8208
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.10334886  0.07391357
+sample estimates:
+   prop 1    prop 2 
+0.7446809 0.7593985 </code></pre>
+</div>
+</div>
+<p>prop test confidence interval contains zero, that is further evidence these groups are the same. Shape is homogeneous in terms of color.</p>
+<p>For Fisher, the null is the proportions at one variable are the same for different values of the second variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(mendel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Fisher's Exact Test for Count Data
+
+data:  mendel
+p-value = 0.819
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.5667874 1.4806148
+sample estimates:
+odds ratio 
+ 0.9242126 </code></pre>
+</div>
+</div>
+<p>Fisher agrees that the proportions are the same.</p>
 </section>
 <section id="q2." class="level2">
 <h2 class="anchored" data-anchor-id="q2.">Q2.</h2>
 <p>We mentioned previously, and it’s mentioned in the narrated lecture materials that there’s an equivalence between the Chi-squared test and the difference in proportions test in the case of 2x2 tables. Take a look for the Mendel data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -847,7 +906,7 @@ X-squared = 0.11634, df = 1, p-value = 0.733</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(mendel, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions without continuity correction
@@ -862,24 +921,89 @@ sample estimates:
 0.7572115 0.7714286 </code></pre>
 </div>
 </div>
-<p>The output from the second chunk refers to a <code>two.sided</code> test, with an interpretation in terms of a signed difference between two proportions, whereas the <code>chisq.test()</code> is a one-sided test, with an interpretation involving deviation from the hypothesis of independent rows and columns. It’s not <em>entirely</em> obvious why these results should be the same. The following exercise can help you see what’s going on.</p>
+<p>The output from the prop.test chunk refers to a <code>two.sided</code> test, with an interpretation in terms of a signed difference between two proportions, whereas the <code>chisq.test()</code> is a one-sided test, with an interpretation involving deviation from the hypothesis of independent rows and columns.</p>
+<p>It’s not <em>entirely</em> obvious why these results should be the same. The following exercise can help you see what’s going on.</p>
 <p>Use <code>rnorm()</code> and <code>rchisq()</code> to produce and store the following vectors:</p>
 <p>1000 draws from the standard normal distribution, 1000 draws from the Chi-squared distribution with 1 degree of freedom.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>norm <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>chi <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">10000</span>, <span class="at">df =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ol type="a">
-<li><p>Construct separate histograms/density plots of the raw chi-squared values and the <em>squares</em> of the standard normal values. What do you observe?</p></li>
-<li><p>Recall (or obtain from <code>qnorm(0.975)</code> that the <em>2-sided 95%</em> critical values for the standard normal distribution are ± 1.96. Use <code>qchisq()</code> to compare the <em>square</em> of these 2-sided 95% critical values from the standard normal to the <em>one-sided</em> 95% critical value for the Chi-squared(1). What does this suggest about tests based on these two reference distributions?</p></li>
+<li>Construct separate histograms/density plots of the raw chi-squared values and the <em>squares</em> of the standard normal values.</li>
 </ol>
+<p>What do you observe?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>squared <span class="ot">&lt;-</span> norm<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(density(norm),</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co">#      xlim = c(-10,10),</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co">#      ylim = c(0,1), </span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co">#      main = "Normal")</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(chi, <span class="at">bw =</span> <span class="fl">0.1354</span>),</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>),</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Chi^2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(squared, <span class="at">bw =</span> <span class="fl">0.1354</span>),</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>),</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Norm^2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>They are very similar. The chi squared graph is a little more left and taller.</p>
+<ol start="2" type="a">
+<li>Recall (or obtain from <code>qnorm(0.975)</code> that the <em>2-sided 95%</em> critical values for the standard normal distribution are ± 1.96.</li>
+</ol>
+<p>Use <code>qchisq()</code> to compare the <em>square</em> of these 2-sided 95% critical values from the standard normal to the <em>one-sided</em> 95% critical value for the Chi-squared(1).</p>
+<p>What does this suggest about tests based on these two reference distributions?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>crit_z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>crit_chi <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">1</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>crit_z<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.841459</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>crit_chi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.841459</code></pre>
+</div>
+</div>
+<p>At least at where chi-squared has one degree of freedom, these two tests are equivilent.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(norm<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">^</span><span class="dv">2</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(chi) <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">1</span>), <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="z2_learnR_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>END REQUIRED QUESTIONS</strong></p>
 <blockquote class="blockquote">
-<p>The next two questions are optional – you do not need to submit anything about them for your assignment.</p>
+<p>The next two questions are optional, you do not need to submit anything about them for your assignment.</p>
 </blockquote>
 </section>
 <section id="q3." class="level2">
 <h2 class="anchored" data-anchor-id="q3.">Q3.</h2>
 <p>This isn’t actually a question, just some reading and code to work through. It’s an interesting continuation of Mendel’s independence hypothesis, and a slightly different application of <code>chisq.test()</code> in R.</p>
-<p>Mendel actually had a more sophisticated hypothesis than “seed color and seed shape are independent” – he knew <em>how</em> they should be independent based on his mechanistic understanding of the process of inheritance of dominant and recessive traits. On these grounds, Mendel hypothesized <em>specific proportions</em> for each cell in this particular table. He knew that if his ideas were correct, the cell proportions for his experiment should have been, specifically:</p>
+<p>Mendel actually had a more sophisticated hypothesis than “seed color and seed shape are independent”, he knew <em>how</em> they should be independent based on his mechanistic understanding of the process of inheritance of dominant and recessive traits. On these grounds, Mendel hypothesized <em>specific proportions</em> for each cell in this particular table. He knew that if his ideas were correct, the cell proportions for his experiment should have been, specifically:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>(mendel_expect <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>)))<span class="sc">/</span><span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>(mendel_expect <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>)))<span class="sc">/</span><span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       [,1]   [,2]
 [1,] 0.5625 0.1875
@@ -887,17 +1011,17 @@ sample estimates:
 </div>
 </div>
 <p>This is a more stringent requirement than row/column independence, since there would be many possible tables consistent with some kind of independence relationship, but radically inconsistent with Mendel’s <em>scientific</em> understanding. For instance, if the upper right and lower left cell counts had been reversed, we would get the same chi-squared statistic for the table (check!) but seeing this would have suggested that Mendel was somehow seriously mistaken.</p>
-<p>Here, we need a different approach than the chi-squared test of independence – we want to test an entire proposed distribution over the 4 cells. The tool for this job is the <em>chi-squared test of goodness of fit</em>, which in R is also performed by <code>chisq.test().</code></p>
+<p>Here, we need a different approach than the chi-squared test of independence. We want to test an entire proposed distribution over the 4 cells. The tool for this job is the <em>chi-squared test of goodness of fit</em>, which in R is also performed by <code>chisq.test().</code></p>
 <p>The goodness of fit test is supposed to test the distribution of a single variable, so <code>chisq.test()</code> will perform the goodness of fit test if the data are provided as a single vector, rather than as a 2 x 2 table. Since we have particular distribution in mind, we’ll need to provide those hypothesized probabilities as well:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>(mendel_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(mendel)) <span class="co"># stretch out the table and make sure we know HOW it was stretched out, in order to get the hypothesized probabilities associated with the correct table cells.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>(mendel_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(mendel)) <span class="co"># stretch out the table and make sure we know HOW it was stretched out, in order to get the hypothesized probabilities associated with the correct table cells.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 315 108 101  32</code></pre>
 </div>
 </div>
 <p>And now preform the Chi-squared test passing in the <em>vector</em> of observed counts and the vector of specific proportions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel_vec, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(mendel_vec, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Chi-squared test for given probabilities
@@ -907,7 +1031,7 @@ X-squared = 0.47002, df = 3, p-value = 0.9254</code></pre>
 </div>
 </div>
 <p>Note that the degrees of freedom are different – 4-1 = 3 instead of (2-1)(2-1) = 1. A very rough idea of why this should be is that with a more specific hypothesis (“each cell probability should be exactly so”) there are more ways the data could deviate from it.</p>
-<p>An interesting historical note: R.A. Fisher, when reviewing Mendel’s original data, applied the chi-squared test to some data like these, and reached the conclusion that deviations were <em>too small</em> to have arisen by chance. He thought that the independence model fit so closely that Mendel’s data must have been deliberately doctored – though in his great respect for Mendel, Fisher laid the blame on “some gardening assistant” who must have known too well what his supervisor hoped to see.</p>
+<p>An interesting historical note: R.A. Fisher, when reviewing Mendel’s original data, applied the chi-squared test to some data like these, and reached the conclusion that deviations were <em>too small</em> to have arisen by chance. He thought that the independence model fit so closely that Mendel’s data must have been deliberately doctored though in his great respect for Mendel, Fisher laid the blame on “some gardening assistant” who must have known too well what his supervisor hoped to see.</p>
 </section>
 <section id="q4." class="level2">
 <h2 class="anchored" data-anchor-id="q4.">Q4.</h2>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data_Analysis_II_Notes - LearnR 3</title>
+<title>Data_Analysis_II_Notes - 3 Log-Reg</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 3</span></a>
+ <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
@@ -274,8 +274,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#looking-at-the-data" id="toc-looking-at-the-data" class="nav-link" data-scroll-target="#looking-at-the-data">Looking at the Data</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#whats-wrong-with-multiple-linear-regression-here" id="toc-whats-wrong-with-multiple-linear-regression-here" class="nav-link" data-scroll-target="#whats-wrong-with-multiple-linear-regression-here">What’s Wrong with Multiple Linear Regression Here?</a></li>
-  <li><a href="#the-logistic-regression-model" id="toc-the-logistic-regression-model" class="nav-link" data-scroll-target="#the-logistic-regression-model">The Logistic Regression Model</a>
+  <li><a href="#whats-wrong-with-mlr-here" id="toc-whats-wrong-with-mlr-here" class="nav-link" data-scroll-target="#whats-wrong-with-mlr-here">What’s Wrong with MLR Here?</a></li>
+  <li><a href="#the-log-reg-model" id="toc-the-log-reg-model" class="nav-link" data-scroll-target="#the-log-reg-model">The Log-Reg Model</a>
   <ul class="collapse">
   <li><a href="#the-logit-transformation" id="toc-the-logit-transformation" class="nav-link" data-scroll-target="#the-logit-transformation">The Logit Transformation</a></li>
   <li><a href="#fitting-the-binary-logistic-regression-model" id="toc-fitting-the-binary-logistic-regression-model" class="nav-link" data-scroll-target="#fitting-the-binary-logistic-regression-model">Fitting the Binary Logistic Regression Model</a></li>
@@ -283,10 +283,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#interpreting-the-fitted-model" id="toc-interpreting-the-fitted-model" class="nav-link" data-scroll-target="#interpreting-the-fitted-model">Interpreting The Fitted Model</a></li>
   <li><a href="#data-scale-vs-model-scale-back-transformation" id="toc-data-scale-vs-model-scale-back-transformation" class="nav-link" data-scroll-target="#data-scale-vs-model-scale-back-transformation">Data Scale vs Model Scale, Back-transformation</a></li>
   </ul></li>
-  <li><a href="#module-3-lab-assignment-instructions" id="toc-module-3-lab-assignment-instructions" class="nav-link" data-scroll-target="#module-3-lab-assignment-instructions">Module 3 Lab Assignment Instructions</a>
+  <li><a href="#lab-instructions" id="toc-lab-instructions" class="nav-link" data-scroll-target="#lab-instructions">Lab Instructions</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a>
   <ul class="collapse">
-  <li><a href="#r-markdown-for-submission" id="toc-r-markdown-for-submission" class="nav-link" data-scroll-target="#r-markdown-for-submission">R Markdown for submission</a></li>
-  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  <li><a href="#load-the-aer-package" id="toc-load-the-aer-package" class="nav-link" data-scroll-target="#load-the-aer-package">1. Load the <em>AER</em> package</a></li>
+  <li><a href="#probability-of-callback" id="toc-probability-of-callback" class="nav-link" data-scroll-target="#probability-of-callback">2. Probability of <code>callback</code></a></li>
+  <li><a href="#address-the-question" id="toc-address-the-question" class="nav-link" data-scroll-target="#address-the-question">3. Address the question</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a></li>
+  <li><a href="#interpretting" id="toc-interpretting" class="nav-link" data-scroll-target="#interpretting">Interpretting</a></li>
+  <li><a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds">Odds</a></li>
+  </ul></li>
+  <li><a href="#odds-w-equal-experience" id="toc-odds-w-equal-experience" class="nav-link" data-scroll-target="#odds-w-equal-experience">Odds w/ equal experience</a>
+  <ul class="collapse">
+  <li><a href="#plotting-the-odds-by-experience" id="toc-plotting-the-odds-by-experience" class="nav-link" data-scroll-target="#plotting-the-odds-by-experience">Plotting the odds by experience</a></li>
+  <li><a href="#plotting-probability-by-experience." id="toc-plotting-probability-by-experience." class="nav-link" data-scroll-target="#plotting-probability-by-experience.">Plotting Probability by experience.</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -296,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LearnR 3</h1>
+<h1 class="title">3 Log-Reg</h1>
 </div>
 
 
@@ -315,32 +325,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Overview</h1>
 <p>In the previous lab, we introduced some simple statistical inference procedures for analyzing data in contingency tables. These procedures were “randomization-based,” in that they involved either directly constructing a randomization distribution of the data under a hypothesis of complete independence between two variables or approximating such a randomization distribution.</p>
 <p>In most real data analysis situations, we will want to ask and answer more sophisticated questions than “are any variables related to any others.” We may have research questions like “how does the relationship between X and Y depend on the changing level of Z?” Or, “How do the odds of success change when we increase the value of a certain explanatory variable?” In these situations, we will need to move beyond randomization methods and begin using statistical models for categorical responses.</p>
-<p>As you will see in this lab, modeling categorical responses with statistical methods designed for continuous ones can go sideways almost immediately, so we will use new approaches – such as generalized linear models, of which logistic regression is a special case.</p>
+<p>As you will see in this lab, modeling categorical responses with statistical methods designed for continuous ones can go sideways almost immediately, so we will use new approaches Such as generalized linear models, of which logistic regression is a special case.</p>
 <p>Please run the following chunk of R code to load the packages we will use for this lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcdExtra' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gnm' was built under R version 4.3.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="donner-data" class="level1">
 <h1>Donner Data</h1>
 <p>You have already seen a version of the Donner Party data in the narrated lectures for Module 3. That version of the dataset was the one found in the <em>Sleuth3</em> package, and it included data only about adult members of the Donner Party. The version we will use here is from the <em>vcdExtra</em> package, and it includes data about <em>all</em> members of the Party, including children.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Donner)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Donner)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Donner)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Donner)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -414,10 +418,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 <p>Since we will be concerned only with how <code>age</code> and <code>sex</code> explain whether Donner Party members <code>survived</code>, we will drop the other variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Donner <span class="sc">%&lt;&gt;%</span> <span class="fu">select</span>(.,sex, age, survived)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a factor version of survival, with named levels, for use in subsequent plotting</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Donner <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">survival_labeled =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(survived <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"survived"</span>, <span class="st">"died"</span>)))</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Donner <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>survived) <span class="sc">%&gt;%</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Donner <span class="sc">%&lt;&gt;%</span> <span class="fu">select</span>(.,sex, age, survived)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a factor version of survival, with named levels, for use in subsequent plotting</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Donner <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">survival_labeled =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(survived <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"survived"</span>, <span class="st">"died"</span>)))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Donner <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>survived) <span class="sc">%&gt;%</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     sex          age        survival_labeled
  Female:35   Min.   : 1.00   died    :42     
@@ -429,12 +436,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Throughout the remainder of this lab, we will treat the <code>Donner</code> data as a representative sample from some population, and practice performing statistical inference about it as such. However, given the extreme (and frankly bizarre) circumstances that produced these data, it’s unclear what that population might be (hopefully one to which we never belong!). Therefore, the results of inferential procedures we employ may not have any obvious population-level interpretations. Nevertheless, we can use these inferences to make some statements/conclusions about the Donner Party itself.</p>
-<p>You might also think of this lab as an exercise in modeling-as-data-exploration for this data set, or simply as general practice with using the modeling methods. In any real data-analysis situation, you should carefully consider the <strong>scope of inference</strong> – given the available data, the range of circumstances to which your statistical conclusions from that data can be reasonably applied.</p>
+<p>You might also think of this lab as an exercise in modeling-as-data-exploration for this data set, or simply as general practice with using the modeling methods. In any real data-analysis situation, you should carefully consider the <strong>scope of inference</strong> given the available data, the range of circumstances to which your statistical conclusions from that data can be reasonably applied.</p>
 <section id="exploration" class="level2">
 <h2 class="anchored" data-anchor-id="exploration">Exploration</h2>
 <p>The variable <code>age</code> is continuous, the response <code>survived</code> is binary, and so far, we don’t have any tools for that situation. When all you have is a chi-square test, everything looks like a contingency table, and if we just collapse <code>age</code> away, we can produce a familiar 2x2 table of counts:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(tbl1 <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="at">data =</span> Donner, <span class="sc">~</span> sex <span class="sc">+</span> survived))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(tbl1 <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="at">data =</span> Donner, <span class="sc">~</span> sex <span class="sc">+</span> survived))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        survived
 sex       0  1
@@ -444,7 +454,10 @@ sex       0  1
 </div>
 <p>And see the proportions surviving in each <code>sex</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tbl1, <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tbl1, <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        survived
 sex         0    1
@@ -454,7 +467,10 @@ sex         0    1
 </div>
 <p>Of the original 55 males, 42% survived, and of the original 35 females, 71% survived,</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tbl1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tbl1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test with Yates' continuity correction
@@ -466,42 +482,57 @@ X-squared = 6.392, df = 1, p-value = 0.01146</code></pre>
 <p>and the p-value for the difference in survival by sex is fairly small (but remember that a p-value doesn’t really make sense here without a population to point to).</p>
 <p>From the proportions, we can get the odds of survival for males and females, respectively:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(male_odds <span class="ot">&lt;-</span> <span class="fl">0.42</span><span class="sc">/</span><span class="fl">0.58</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(male_odds <span class="ot">&lt;-</span> <span class="fl">0.42</span><span class="sc">/</span><span class="fl">0.58</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7241379</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(female_odds <span class="ot">&lt;-</span> <span class="fl">0.71</span><span class="sc">/</span><span class="fl">0.29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(female_odds <span class="ot">&lt;-</span> <span class="fl">0.71</span><span class="sc">/</span><span class="fl">0.29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.448276</code></pre>
 </div>
 </div>
 <p>And the odds ratio for survival by sex:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(mf_odds_ratio <span class="ot">&lt;-</span> male_odds<span class="sc">/</span>female_odds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(mf_odds_ratio <span class="ot">&lt;-</span> male_odds<span class="sc">/</span>female_odds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2957746</code></pre>
 </div>
 </div>
 <p>Ignoring age, the odds of survival for males is 30% of the odds of survival for females.</p>
-<p>We really don’t want to base any conclusions on this simple aggregation, however – we actually do want to use the information about the continuous variable <code>age</code>, and the relationship between <code>sex</code> and <code>survival</code> may be different at different <code>age</code> values. Let’s see how we might proceed treating <code>age</code> as continuous.</p>
+<p>We really don’t want to base any conclusions on this simple aggregation, however we actually do want to use the information about the continuous variable <code>age</code>, and the relationship between <code>sex</code> and <code>survival</code> may be different at different <code>age</code> values. Let’s see how we might proceed treating <code>age</code> as continuous.</p>
 <section id="looking-at-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="looking-at-the-data">Looking at the Data</h3>
 <p>If you looked at Module 1 Lab 0, you already saw a plot of the Donner Party data. Let’s look at a similar plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data=</span>Donner,<span class="fu">aes</span>(age,survived,<span class="at">color=</span>sex,<span class="at">shape=</span>sex)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>Donner,<span class="fu">aes</span>(age,survived,<span class="at">color=</span>sex,<span class="at">shape=</span>sex)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="z3_learnR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Also, remember that in Lab 0, we showed you these data with some jitter added so that the overlapping points are given a little separation. Here is the plot with jitter:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Donner) <span class="sc">+</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot jittered data</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> survived,</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex,</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> sex),</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Donner) <span class="sc">+</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot jittered data</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> survived,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">shape =</span> sex),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="z3_learnR_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -510,8 +541,8 @@ X-squared = 6.392, df = 1, p-value = 0.01146</code></pre>
 </section>
 </section>
 </section>
-<section id="whats-wrong-with-multiple-linear-regression-here" class="level1">
-<h1>What’s Wrong with Multiple Linear Regression Here?</h1>
+<section id="whats-wrong-with-mlr-here" class="level1">
+<h1>What’s Wrong with MLR Here?</h1>
 <p>The multiple linear regression model equates the mean of a response variable to a linear combination of explanatory variables, often called the “linear predictor”:</p>
 <p><span class="math display">\[Mean(Y|X_1,...X_p) = \beta_0 + \beta_1X_1 + ... + \beta_{p}X_p\]</span></p>
 <p>In the Donner Party data, <span class="math inline">\(Y\)</span> is the 0/1 (binary) survival outcome, and we have <span class="math inline">\(X_1\)</span> = <code>age</code> and <span class="math inline">\(X_2\)</span> = <code>sex</code>. The mean of a binary random variable is just the probability of a 1, so this model says the probability of <code>survival</code> is a linear function of <code>age</code> and <code>sex</code> (and possibly the interaction between them). We could call this the “linear probability model”</p>
@@ -523,8 +554,11 @@ X-squared = 6.392, df = 1, p-value = 0.01146</code></pre>
 </blockquote>
 <p>Here’s our linear model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> Donner, survived <span class="sc">~</span> sex <span class="sc">*</span> age) <span class="co"># don't try this at work</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> Donner, survived <span class="sc">~</span> sex <span class="sc">*</span> age) <span class="co"># don't try this at work</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -548,81 +582,93 @@ Multiple R-squared:  0.1415,    Adjusted R-squared:  0.1115
 F-statistic: 4.724 on 3 and 86 DF,  p-value: 0.004236</code></pre>
 </div>
 </div>
-<p>Well that didn’t explode (unfortunately, R will typically allow us to fit any goofy model we want – it’s up to us to realize it’s a goofy model!) The R-Squared isn’t that high, but it’s not terribly low. So what’s wrong with this model? Let’s examine the fit of the model and its predictions more closely.</p>
-<p>The following R chunk obtains 95% confidence and prediction bands, and then plots those bands, along with the linear fit, to the Donner Party data:</p>
+<p>Well that didn’t explode (unfortunately, R will typically allow us to fit any goofy model we want it’s up to us to realize it’s a goofy model!) The R-Squared isn’t that high, but it’s not terribly low. So what’s wrong with this model? Let’s examine the fit of the model and its predictions more closely.</p>
+<p>The following R chunk obtains 95% confidence and prediction bands, then plots those bands, along with the linear fit, to the Donner Party data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain confidence and prediction bounds from predict.lm()</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>linear_confidence_bands <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm1, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">lwr_conf =</span> lwr, <span class="at">upr_conf =</span> upr)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>linear_prediction_bands <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm1, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">lwr_pred =</span> lwr, <span class="at">upr_pred =</span> upr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain confidence and prediction bounds from predict.lm()</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>linear_confidence_bands <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  lm1, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">lwr_conf =</span> lwr, <span class="at">upr_conf =</span> upr)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>linear_prediction_bands <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  lm1, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span> data.frame <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">lwr_pred =</span> lwr, <span class="at">upr_pred =</span> upr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in predict.lm(lm1, interval = "prediction", level = 0.95): predictions on current data refer to _future_ responses</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>augment_Donner <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(Donner, linear_confidence_bands, linear_prediction_bands))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete duplicate 'fit' columns, since both linear_confidence_bands and linear_prediction_bands have 'fit'.</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>augment_Donner <span class="ot">&lt;-</span> augment_Donner[,<span class="sc">-</span><span class="dv">5</span>]</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Big plot</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> augment_Donner) <span class="sc">+</span> </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot jittered data</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> survived,</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex,</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> sex),</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot fitted lines</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> fit, </span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co"># plot 95% confidence bands</span></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> sex, </span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> lwr_conf, </span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> upr_conf),</span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co"># plot 95% prediction bands</span></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> sex, </span>
-<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> lwr_pred, </span>
-<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> upr_pred),</span>
-<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot reference lines at 0 and 1 (minimum and maximum possible probabilities)</span></span>
-<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span> </span>
-<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Linear model for Donner Party"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>augment_Donner <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(Donner, linear_confidence_bands, linear_prediction_bands))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete duplicate 'fit' columns, since both linear_confidence_bands and linear_prediction_bands have 'fit'.</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>augment_Donner <span class="ot">&lt;-</span> augment_Donner[,<span class="sc">-</span><span class="dv">5</span>]</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Big plot</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> augment_Donner) <span class="sc">+</span> </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot jittered data</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> survived,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">shape =</span> sex),</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot fitted lines</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> fit, </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co"># plot 95% confidence bands</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> sex, </span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymin =</span> lwr_conf, </span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymax =</span> upr_conf),</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co"># plot 95% prediction bands</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> sex, </span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymin =</span> lwr_pred, </span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymax =</span> upr_pred),</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot reference lines at 0 and 1 (minimum and maximum possible probabilities)</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a> <span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span> </span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Linear model for Donner Party"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="z3_learnR_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>In this plot, we’ve split the data for males and females into two side-by-side panels. In both panels, the horizontal dashed lines appear at y = 0 and y = 1, to demarcate the lower and upper bounds on probability. In each plot, you’ll see a solid, decreasing straight line – this is the model fit, or the estimated linear regression lines that we obtain from fitting the linear probability model.</p>
-<p>In each panel, the 95% confidence bands appear as the darker ribbons around the fitted model lines. The confidence bands show, at each value of <code>age</code> and <code>sex</code>, a 95% confidence interval for the probability of survival. The confidence bands are widest at age values further from the mean age – uncertainty about the intercept applies to the whole line equally, but uncertainty about the slope makes a bigger difference near the ends. Notice that for the higher ages, 95% confidence bands slip over the y = 0 line for both males and females – but <em>we know</em> that probability cannot be less than zero!</p>
-<p>The lightly-shaded and substantially wider ribbons around the fitted regression lines represent 95% <em>prediction</em> intervals. Remember that prediction intervals are <em>wider</em> than confidence intervals, because prediction intervals incorporate uncertainty in the regression estimates <em>and</em> uncertainty due to sampling (predicting) a new response value. These make sense when the response is continuous, but not when it’s binary. If we go to predict a new binary observation, the only possible values for the new response are 0 and 1 – there’s zero probability that a new observation falls anywhere but along the Y = 0 or Y = 1 lines, and uncertainty about <em>which one</em> of those two values it will take cannot be meaningfully quantified by <em>any</em> kind of interval. This is a critical difference between the binary response and continuous response situations, which the linear probability model cannot respect.</p>
-<p>In light of the disclaimer about scope of inference earlier in the lab, you might reasonably object to this nitpicking about confidence intervals in the Donner scenario – after all, it’s not like we can define the population from which this sample of individuals was drawn, so what do the intervals mean? Isn’t it enough that our fitted values make sense? Leaving aside the fact that in similar binary-response situations we would prefer sane confidence intervals, it’s easy to see that the fitted values themselves may NOT make sense when we use the linear probability model. Look what happens when we restrict our model to the adult members of the Donner Party:</p>
+<p>In this plot, we’ve split the data for males and females into two side-by-side panels. In both panels, the horizontal dashed lines appear at y = 0 and y = 1, to demarcate the lower and upper bounds on probability. In each plot, you’ll see a solid, decreasing straight line, this is the model fit, or the estimated linear regression lines that we obtain from fitting the linear probability model.</p>
+<p>In each panel, the 95% confidence bands appear as the darker ribbons around the fitted model lines. The confidence bands show, at each value of <code>age</code> and <code>sex</code>, a 95% confidence interval for the probability of survival. The confidence bands are widest at age values further from the mean age. Uncertainty about the intercept applies to the whole line equally, but uncertainty about the slope makes a bigger difference near the ends. <em>Notice that for the higher ages, 95% confidence bands slip over the y = 0 line for both males and females, but we know that probability cannot be less than zero!</em></p>
+<p>The lightly-shaded and substantially wider ribbons around the fitted regression lines represent 95% <em>prediction</em> intervals. Remember that prediction intervals are <em>wider</em> than confidence intervals, because prediction intervals incorporate uncertainty in the regression estimates <em>and</em> uncertainty due to sampling (predicting) a new response value. These make sense when the response is continuous, but not when it’s binary. If we go to predict a new binary observation, the only possible values for the new response are 0 and 1. There’s zero probability that a new observation falls anywhere but along the Y = 0 or Y = 1 lines, and uncertainty about <em>which one</em> of those two values it will take cannot be meaningfully quantified by <em>any</em> kind of interval. This is a critical difference between the binary response and continuous response situations, which the linear probability model cannot respect.</p>
+<p>In light of the disclaimer about scope of inference earlier in the lab, you might reasonably object to this nitpicking about confidence intervals in the Donner scenario. After all, it’s not like we can define the population from which this sample of individuals was drawn. So what do the intervals mean? Isn’t it enough that our fitted values make sense? Leaving aside the fact that in similar binary-response situations we would prefer sane confidence intervals, it’s easy to see that the fitted values themselves may NOT make sense when we use the linear probability model. Look what happens when we restrict our model to the adult members of the Donner Party:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to include only adults</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>Donner_adults <span class="ot">&lt;-</span> <span class="fu">filter</span>(Donner, age <span class="sc">&gt;</span> <span class="dv">18</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot just estimated probabilities, no uncertainty bands</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Donner_adults) <span class="sc">+</span> </span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># original data</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> survived,</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex,</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> sex),</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This is a shortcut, within ggplot, to fitting a linear model and plotting the fits</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> survived, <span class="at">color =</span> sex), </span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reference lines</span></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Linear model for Donner Adults"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to include only adults</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Donner_adults <span class="ot">&lt;-</span> <span class="fu">filter</span>(Donner, age <span class="sc">&gt;</span> <span class="dv">18</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot just estimated probabilities, no uncertainty bands</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Donner_adults) <span class="sc">+</span> </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a> <span class="co"># original data</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> survived,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">shape =</span> sex),</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a> <span class="co"># This is a shortcut, within ggplot, to fitting a linear model and plotting the fits</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> survived, <span class="at">color =</span> sex), </span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a> <span class="co"># reference lines</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a> <span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Linear model for Donner Adults"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -633,70 +679,82 @@ F-statistic: 4.724 on 3 and 86 DF,  p-value: 0.004236</code></pre>
 <p>Now we see that the estimated probability of survival for a female over age 60 is negative, which is absurd.</p>
 <p>The demonstrates that the linear probability model, when applied to binary data, can grossly violate the most basic constraints of the problem.</p>
 </section>
-<section id="the-logistic-regression-model" class="level1">
-<h1>The Logistic Regression Model</h1>
+<section id="the-log-reg-model" class="level1">
+<h1>The Log-Reg Model</h1>
 <p>The technique we will use for modeling probabilities of binary responses as a function of one or more (possibly continuous) explanatory variables is called logistic regression. This model is one instance of the <em>generalized linear model</em>, which we will rely on throughout the rest of the course. Whereas standard linear regression models suppose that the linear predictor is equal to the mean of the response variable, generalized linear models suppose that the linear predictor is equal to some <em>known function</em> of the mean response. By incorporating different functions (called “links”) that transform the mean response, generalized linear models let us extend the linear model idea to accommodate many different types of responses.</p>
-<p>In the binary response situation, our problem is that linear functions of numeric variables can, in general, take values from across the entire real line, <span class="math inline">\((-\infty,\infty)\)</span>, while the probabilities of success are necessarily restricted to the [0,1] interval. In this situation, a simple straight line fit can always go “out of bounds”, as shown above. However, if we find a function that stretches the probabilities from <span class="math inline">\([0,1]\)</span> to <span class="math inline">\((-\infty,\infty)\)</span>, then we can model the <em>transformed</em> probabilities as a linear function of numeric explanatory variables, without worrying about going out of bounds. Then we can back-transform the fitted values back onto the <span class="math inline">\([0,1]\)</span> interval using the inverse transformation, which will map <span class="math inline">\((-\infty,\infty)\)</span> back to <span class="math inline">\([0,1]\)</span>. This circumvents the problem we saw above with getting fitted probabilities outside of the [0,1] interval. If we choose a good transformation function, we can even keep much of the simplicity and interpretability of the linear regression model. Let’s make this concrete.</p>
+<p>In the binary response situation, our problem is that linear functions of numeric variables can, in general, take values from across the entire real line, <span class="math inline">\((-\infty,\infty)\)</span>, while the probabilities of success are necessarily restricted to the [0,1] interval. In this situation, a simple straight line fit can always go “out of bounds”, as shown above. However, if we find a function that stretches the probabilities from <span class="math inline">\([0,1]\)</span> to <span class="math inline">\((-\infty,\infty)\)</span>, then we can model the <em>transformed</em> probabilities as a linear function of numeric explanatory variables, without worrying about going out of bounds. Then we can back-transform the fitted values back onto the <span class="math inline">\([0,1]\)</span> interval using the inverse transformation, which will map <span class="math inline">\((-\infty,\infty)\)</span> back to <span class="math inline">\([0,1]\)</span>. This circumvents the problem we saw above with getting fitted probabilities outside of the [0,1] interval. If we choose a good transformation function, we can even keep much of the simplicity and interpretability of the linear regression model.</p>
+<p>Let’s make this concrete.</p>
 <section id="the-logit-transformation" class="level2">
 <h2 class="anchored" data-anchor-id="the-logit-transformation">The Logit Transformation</h2>
 <p>We will use the <strong>logit</strong> (or “log-odds”) function to link the probabilities to the linear combination of predictors. The logit function looks like this:</p>
 <p><span class="math display">\[\mathrm{logit}(p) = \log(p/(1-p))\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="cf">function</span>(p){<span class="fu">log</span>(p<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="cf">function</span>(p){<span class="fu">log</span>(p<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>This is a smooth, invertible function from the <span class="math inline">\([0,1]\)</span> interval to the whole real line, <span class="math inline">\((-\infty,\infty)\)</span>. Plug in a probability, get the (natural) log of the odds. You can see this transformation, as well as the probability to odds transformation, compared in the plot below. The probability to odds transformation takes us from <span class="math inline">\([0,1]\)</span> to <span class="math inline">\([0,\infty)\)</span>, and the log transformation of that takes us from <span class="math inline">\([0,\infty)\)</span> to <span class="math inline">\((-\infty,\infty)\)</span>.</p>
 <p>The y-axis on the plot below ranges only from <span class="math inline">\([-3, 3]\)</span>, but remember that the odds function is actually defined all the way from 0 to <span class="math inline">\(\infty\)</span>, and the logit ranges all the way from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(\infty\)</span>. The identity transformation, <span class="math inline">\(f(p) = p\)</span>, is included for reference.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="at">length =</span> <span class="dv">100</span>) <span class="co"># restricting the range of probabilities shown in order to keep the transformed values finite.   </span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>odds <span class="ot">&lt;-</span> prob<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>prob)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> <span class="fu">log</span>(odds)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>transformations <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">identity =</span> prob, odds, logits) <span class="sc">%&gt;%</span> <span class="fu">gather</span>() <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">transform_function =</span> key)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> transformations, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">rep</span>(prob, <span class="dv">3</span>), <span class="at">y =</span> value, <span class="at">color =</span> transform_function)) <span class="sc">+</span> </span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span>)) <span class="sc">+</span> </span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"original probabilities"</span>) <span class="sc">+</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"transformed values"</span>) <span class="sc">+</span> </span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Possible transformations</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="st">          from probability scale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="at">length =</span> <span class="dv">100</span>) <span class="co"># restricting the range of probabilities shown in order to keep the transformed values finite.  </span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>odds <span class="ot">&lt;-</span> prob<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>prob)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> <span class="fu">log</span>(odds)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>transformations <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">identity =</span> prob, odds, logits) <span class="sc">%&gt;%</span> <span class="fu">gather</span>() <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">transform_function =</span> key)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> transformations, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">rep</span>(prob, <span class="dv">3</span>), <span class="at">y =</span> value, <span class="at">color =</span> transform_function)) <span class="sc">+</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span>)) <span class="sc">+</span> </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">"original probabilities"</span>) <span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">"transformed values"</span>) <span class="sc">+</span> </span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Possible transformations</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="st">     from probability scale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="z3_learnR_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The logit is not the only invertible transformation from the probability interval to the entire real line, but it has several desirable properties.</p>
-<p>From this plot, we can see that probabilities greater than 1/2 are mapped to positive logits and probabilities less than 1/2 are mapped to negative logits (remember <span class="math inline">\(p = 1/2 =&gt; odds = 1 =&gt; \log(odds) = 0\)</span>) so the sign of the logit of a probability has a straightforward interpretation – if the log-odds is positive, the event is more likely than not to occur.</p>
+<p>From this plot, we can see that probabilities greater than 1/2 are mapped to positive logits and probabilities less than 1/2 are mapped to negative logits (remember <span class="math inline">\(p = 1/2 =&gt; odds = 1 =&gt; \log(odds) = 0\)</span>) so the sign of the logit of a probability has a straightforward interpretation <strong>if the log-odds is positive, the event is more likely than not to occur.</strong></p>
 <p>In the context of our Donner problem, we can apply the logit function to the survival probability to get a new <strong>logistic regression</strong> model that might work better than the linear probability model we tried before. We’ll write the new model as:</p>
-<p><span class="math display">\[\mathrm{logit}(P(Survived|Sex, Age)) = \beta_0 + \beta_1Age + \beta_2Sex + \beta_3Age \times Sex\]</span> That is, a non-linear function of survival probability is equal to the linear predictor.</p>
+<p><span class="math display">\[
+\mathrm{logit}(P(Survived|Sex, Age)) = \beta_0 + \beta_1Age + \beta_2Sex + \beta_3Age \times Sex
+\]</span></p>
+<p>That is, a non-linear function of survival probability is equal to the linear predictor.</p>
 <p>The inverse of the logit function is called the <strong>logistic</strong> function. It looks like this:</p>
-<p><span class="math display">\[f(x) = (e^x)/(1 + e^x)\]</span></p>
+<p><span class="math display">\[
+f(x) = (e^x)/(1 + e^x)
+\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>The logit and logistic function are inverses in the same way that the log and exponential functions are inverses:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="co"># Start with a probability p</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>(lp <span class="ot">&lt;-</span> <span class="fu">logit</span>(p))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8472979</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logistic</span>(lp) <span class="co"># Recover the original p</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">17</span> <span class="co"># Start with any real number</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>(lx <span class="ot">&lt;-</span> <span class="fu">logistic</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.139938e-08</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logit</span>(lx) <span class="co"># Recover the original x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -17</code></pre>
-</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="co"># Start with a probability p</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>(lp <span class="ot">&lt;-</span> <span class="fu">logit</span>(p))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.8472979</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">logistic</span>(lp) <span class="co"># Recover the original p</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.7</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">17</span> <span class="co"># Start with any real number</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>(lx <span class="ot">&lt;-</span> <span class="fu">logistic</span>(x))</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 4.139938e-08</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">logit</span>(lx) <span class="co"># Recover the original x</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -17</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Applying the logistic function to both sides of the model equation gives another equivalent way to write the model: <span class="math display">\[P(Survived|Sex, Age) = logistic(\beta_0 + \beta_1Age + \beta_2Sex + \beta_3Age \times Sex)\]</span> Hence the name “logistic regression”. Now we have survival probability on it’s own, but it’s equal to nonlinear function of the linear predictor.</p>
 <p>We could also pull out the log from the logit (log-odds), and write the model as</p>
-<p><span class="math display">\[odds(Survived|Sex, Age) = \exp{(\beta_0 + \beta_1Age + \beta_2Sex + \beta_3Age \times Sex)}\]</span> This leads to a useful interpretation. To see this, let’s drop back to a simpler logistic regression model with one predictor <span class="math inline">\(X\)</span> and a binary response <span class="math inline">\(Y\)</span>, where <span class="math inline">\(p = P(Y = 1)\)</span>. The equation for this simple model is</p>
+<p><span class="math display">\[odds(Survived|Sex, Age) = \exp{(\beta_0 + \beta_1Age + \beta_2Sex + \beta_3Age \times Sex)}\]</span></p>
+<p>This leads to a useful interpretation. To see this, let’s drop back to a simpler logistic regression model with one predictor <span class="math inline">\(X\)</span> and a binary response <span class="math inline">\(Y\)</span>, where <span class="math inline">\(p = P(Y = 1)\)</span>. The equation for this simple model is</p>
 <p><span class="math display">\[\log(p/(1 - p)) = \beta_0 + \beta_1X\]</span></p>
 <p>if we exponentiate both sides to get back to the odds scale, we have</p>
 <p><span class="math display">\[p/(1-p) = e^{\beta_0 + \beta_1X}\]</span></p>
@@ -708,8 +766,11 @@ F-statistic: 4.724 on 3 and 86 DF,  p-value: 0.004236</code></pre>
 <h2 class="anchored" data-anchor-id="fitting-the-binary-logistic-regression-model">Fitting the Binary Logistic Regression Model</h2>
 <p>You already saw an R demonstration of the logistic regression model fit to the Donner Party data from the <em>Sleuth3</em> package. Let’s look at the model fit to the full Donner Party dataset in R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>glm1 <span class="ot">=</span> <span class="fu">glm</span>(survived <span class="sc">~</span> sex <span class="sc">*</span> age, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), <span class="at">data =</span> Donner)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>glm1 <span class="ot">=</span> <span class="fu">glm</span>(survived <span class="sc">~</span> sex <span class="sc">*</span> age, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), <span class="at">data =</span> Donner)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -736,8 +797,11 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <p>It doesn’t look like the interaction term, <code>sexMale:age</code> is needed, so we’ll refit the model without it, and use that model to examine a few things and make interpretations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), <span class="at">data =</span> Donner)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), <span class="at">data =</span> Donner)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -763,84 +827,95 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <p>In the same way that we examined the (poor) fit of the multiple linear regression model above, let’s examine the (better) fit of this logistic regression model and see what we notice:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain 95% pointwise confidence bands from predict.glm()</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>glm_pred <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(glm2, <span class="at">type=</span><span class="st">"link"</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>low <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>upp <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co"># back-transform everything to the data scale</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="ot">&lt;-</span> <span class="fu">logistic</span>(glm_pred<span class="sc">$</span>fit)</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>glm_lower <span class="ot">&lt;-</span> <span class="fu">logistic</span>(low)</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>glm_upper <span class="ot">&lt;-</span> <span class="fu">logistic</span>(upp)</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="co"># augment the Donner data frame</span></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>augment_Donner <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(Donner, glm_fit, glm_lower, glm_upper))</span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Big plot</span></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> augment_Donner) <span class="sc">+</span> </span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot jittered data</span></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> survived,</span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex,</span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> sex),</span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot fitted lines</span></span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> glm_fit, </span>
-<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
-<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot 95% pointwise confidence bands</span></span>
-<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> sex, </span>
-<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> glm_lower, </span>
-<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> glm_upper),</span>
-<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot reference lines at 0 and 1 (minimum and maximum possible probabilities)</span></span>
-<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span> </span>
-<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Generalized linear model for Donner Party"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain 95% pointwise confidence bands from predict.glm()</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>glm_pred <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(glm2, <span class="at">type=</span><span class="st">"link"</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>low <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>upp <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># back-transform everything to the data scale</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="ot">&lt;-</span> <span class="fu">logistic</span>(glm_pred<span class="sc">$</span>fit)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>glm_lower <span class="ot">&lt;-</span> <span class="fu">logistic</span>(low)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>glm_upper <span class="ot">&lt;-</span> <span class="fu">logistic</span>(upp)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># augment the Donner data frame</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>augment_Donner <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(Donner, glm_fit, glm_lower, glm_upper))</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Big plot</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> augment_Donner) <span class="sc">+</span> </span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot jittered data</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> survived,</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">shape =</span> sex),</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot fitted lines</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> glm_fit, </span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot 95% pointwise confidence bands</span></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> sex, </span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymin =</span> glm_lower, </span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymax =</span> glm_upper),</span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot reference lines at 0 and 1 (minimum and maximum possible probabilities)</span></span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a> <span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span> </span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Generalized linear model for Donner Party"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="z3_learnR_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>In this plot, we show the fitted line for both males and females, and the 95% confidence bands for both. Just like our confidence bands from the linear model we fit before, these are <em>pointwise</em> confidence bands. They do not represent 95% confidence that the band contains the entire survival curve, only 95% confidence that the survival probability is within the band at each individual point. Simultaneous confidence bands for curves are much more theoretically challenging to construct than pointwise bands, but intuitively, a 95% simultaneous confidence band for the whole curve would be wider than the 95% pointwise band shown here. As explained above, prediction <em>intervals</em> do not make sense in principle for binary data, so we do not calculate any from this model.</p>
-<p>Binary logistic regression models <em>can</em> be used as classifiers – where a new combination of explanatory information is mapped to a 0 or a 1. Recall from Data Analytics I that a prediction from a multiple linear regression model is our best guess at a new observation from a Normal population distribution, conditioned on specific, known values for the explanatory variables. In the present case, a prediction should be our best guess at a new observation (i.e., survived or died) from a <em>binary</em> distribution, conditioned on an age and a sex for a new individual (supposing we didn’t already know the survival status of all the possible Donner Party members). The predictive distribution for a new observation at each point is Bernoulli(p), where p is the fitted probability at the specific values of the new combination of explanatory information. Obtaining a new prediction at a given setting of the predictor variables involves either drawing from this Bernoulli distribution, or setting a probability threshold (typically 1/2) and predicting a value of 1 if the fitted probability exceeds the threshold, 0 otherwise. For example, you could predict that a man like Jacob Donner, age 65, would not survive according to the 1/2 probability threshold:</p>
+<p>In this plot, we show the fitted line for both males and females, and the 95% confidence bands for both. Just like our confidence bands from the linear model we fit before, these are <em>pointwise</em> confidence bands. They do not represent 95% confidence that the band contains the entire survival curve, only 95% confidence that the survival probability is within the band at each individual point.</p>
+<p>Simultaneous confidence bands for curves are much more theoretically challenging to construct than pointwise bands, but intuitively, a 95% simultaneous confidence band for the whole curve would be wider than the 95% pointwise band shown here. As explained above, prediction <em>intervals</em> do not make sense in principle for binary data, so we do not calculate any from this model.</p>
+<p>Binary logistic regression models <em>can</em> be used as classifiers where a new combination of explanatory information is mapped to a 0 or a 1. Recall from Data Analytics I that a prediction from a multiple linear regression model is our best guess at a new observation from a Normal population distribution, conditioned on specific, known values for the explanatory variables.</p>
+<p>In the present case, a prediction should be our best guess at a new observation (i.e., survived or died) from a <em>binary</em> distribution, conditioned on an age and a sex for a new individual (supposing we didn’t already know the survival status of all the possible Donner Party members). The predictive distribution for a new observation at each point is Bernoulli(p), where p is the fitted probability at the specific values of the new combination of explanatory information. Obtaining a new prediction at a given setting of the predictor variables involves either drawing from this Bernoulli distribution, or setting a probability threshold (typically 1/2) and predicting a value of 1 if the fitted probability exceeds the threshold, 0 otherwise. For example, you could predict that a man like Jacob Donner, age 65, would not survive according to the 1/2 probability threshold:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>like_Jacob_Donner <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">age =</span> <span class="dv">65</span>, <span class="at">sex =</span> <span class="st">"Male"</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>like_Jacob_Donner<span class="sc">$</span>age <span class="sc">%&lt;&gt;%</span> <span class="fu">as.numeric</span>()</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fitted probability that a 65 year old man would survive</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(glm2, <span class="at">newdata =</span> like_Jacob_Donner, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>like_Jacob_Donner <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">age =</span> <span class="dv">65</span>, <span class="at">sex =</span> <span class="st">"Male"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>like_Jacob_Donner<span class="sc">$</span>age <span class="sc">%&lt;&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fitted probability that a 65 year old man would survive</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(glm2, <span class="at">newdata =</span> like_Jacob_Donner, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
 0.141301 </code></pre>
 </div>
 </div>
-<p>It’s really important to notice that neither the fitted lines nor the 95% pointwise confidence bands go outside the horizontal band given by the y = 0 and y = 1 lines. This is what we should expect – a much more satisfactory result from the logistic regression model than from the multiple linear regression model. Conceptually, this is because the logistic regression model is designed for modeling data such as those in the Donner Party example, where the response variable is binary. Mathematically, it is because the logistic function that maps the fitted values and confidence bounds back from the log-odds scale to the probability scale is only capable of outputting values between 0 and 1.</p>
+<p>It’s really important to notice that neither the fitted lines nor the 95% pointwise confidence bands go outside the horizontal band given by the y = 0 and y = 1 lines. This is what we should expect, a much more satisfactory result from the logistic regression model than from the multiple linear regression model. Conceptually, this is because the logistic regression model is designed for modeling data such as those in the Donner Party example, where the response variable is binary. Mathematically, it is because the logistic function that maps the fitted values and confidence bounds back from the log-odds scale to the probability scale is only capable of outputting values between 0 and 1.</p>
 </section>
 <section id="assessing-model-fit" class="level2">
 <h2 class="anchored" data-anchor-id="assessing-model-fit">Assessing Model Fit</h2>
 <p>In the case of binary responses, it’s not necessary or even all that meaningful to examine residuals. Since the only response values are 0’s and 1’s, and the fitted values (once we back transform to the data scale) are probabilities, there is not a wide range of possible values for the residuals and they tend to be not very informative.</p>
-<p>In the case of the Donner Party data, and as you can see from the plot above, the model fit is not terrific. For example, the model did not seem to pick up the “sweet spot” we noted earlier – females between the ages of about 5 and 25 seem to have all survived. Perhaps a more curvy or wiggly function would provide a better fit? Consider the following plot:</p>
+<p>In the case of the Donner Party data, and as you can see from the plot above, the model fit is not terrific. For example, the model did not seem to pick up the “sweet spot” we noted earlier, females between the ages of about 5 and 25 seem to have all survived. Perhaps a more curvy or wiggly function would provide a better fit? Consider the following plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> augment_Donner) <span class="sc">+</span> </span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot jittered data</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> survived,</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex,</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> sex),</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot loess smoother</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> survived,</span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span> </span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Loess Smooth for Donner Party"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> augment_Donner) <span class="sc">+</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot jittered data</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> survived,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">shape =</span> sex),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot loess smoother</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> survived,</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_grid</span>(.<span class="sc">~</span>sex) <span class="sc">+</span> </span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Loess Smooth for Donner Party"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -849,7 +924,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
 <p>The loess smoother that <code>ggplot()</code> used to fit a line and plot confidence bands is called a non-parametric scatterplot smoother. It does seem that these non-monotonic wiggly lines do a better job of modeling survival probability as a function of age, although both the fitted line and 95% confidence bands go outside of the 0 and 1 boundaries, which is troubling.</p>
-<p>Unfortunately, the details of loess and other non-parametric approaches are beyond the scope of this class. A <em>big drawback</em> to this non-parametric model fit, however, is that we can’t make any inferences about the relationships among age, sex and survival from it. That is, all we have is the plot above and a wiggly fitted line which we <em>could</em> use to make predictions. For all our talk about the process of making predictions from a logistic regression model, we can’t actually make much use of a purely predictive model for these particular data – whose survival are we to predict, anyway?!</p>
+<p>Unfortunately, the details of loess and other non-parametric approaches are beyond the scope of this class. A <em>big drawback</em> to this non-parametric model fit, however, is that we can’t make any inferences about the relationships among age, sex and survival from it. That is, all we have is the plot above and a wiggly fitted line which we <em>could</em> use to make predictions. For all our talk about the process of making predictions from a logistic regression model, we can’t actually make much use of a purely predictive model for these particular data whose survival are we to predict, anyway?!</p>
 <p>Instead, we’ll go back to our imperfect logistic regression model and make inferences about the relationships among sex, age and survival using that model. There’s a famous quote, attributed to George Box (1919-2013), a well-respected British statistician who spent a large part of his academic career in the US:</p>
 <blockquote class="blockquote">
 <p>“All models are wrong, but some are useful.”</p>
@@ -860,7 +935,10 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <h2 class="anchored" data-anchor-id="interpreting-the-fitted-model">Interpreting The Fitted Model</h2>
 <p>Let’s look again at the summary information from the logistic regression model we fit:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -885,17 +963,23 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
 <p>It appears that both age and sex are important for helping us to understand the odds of survival using this model. Since <code>sexMale</code> is an indicator function, we can write the fitted model in two parts, one for females:</p>
-<p>log(odds of survival) = 1.60 - 0.03age.</p>
+<p><span class="math inline">\(log(odds of survival) = 1.60 - 0.03age\)</span></p>
 <p>And one for males:</p>
-<p>log(odds of survival) = 0.39 - 0.03age.</p>
+<p><span class="math inline">\(log(odds of survival) = 0.39 - 0.03age\)</span></p>
 <p>In this second sub-model, 0.3924 = 1.5992 - 1.2068, and we rounded to the hundredths to get 0.39.</p>
 <p>It’s from these model fits that we can obtain some estimate of the relative odds of survival for men and women of the same age. As you saw in the narrated lecture materials, because there’s no interaction term in this model, we can just exponentiate the coefficient on sexMale (-1.2068) and obtain an estimate of the multiplicative difference in odds of survival for a male and female of the same age. We can also exponentiate the upper and lower bounds of the 95% confidence interval for the regression coefficient on sexMale.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.2068</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.2068</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.299153</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(glm2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(glm2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
@@ -909,21 +993,18 @@ age         0.9367677  0.9945734</code></pre>
 <p>The odds of survival for a male are estimated to be roughly 30% of the odds of survival for a female, when comparing individuals of the same age (remember this is exactly the result we got from the contingency table when we ignored <code>age</code>, because in our final logistic regression model we’ve decided not to include any interaction between <code>age</code> and <code>sex</code>). A 95% confidence interval for this multiplicative difference runs from 11% to 75%.</p>
 <p>You can also use the logistic back-transformation to make a comparison in terms of the probability of survival:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logistic</span>(<span class="sc">-</span><span class="fl">1.2068</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2302677</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> <span class="fu">confint</span>(glm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logistic</span>(ci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                2.5 %    97.5 %
-(Intercept) 0.6608625 0.9348748
-sexMale     0.1014191 0.4279571
-age         0.4836758 0.4986397</code></pre>
-</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logistic</span>(<span class="sc">-</span><span class="fl">1.2068</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2302677</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> <span class="fu">confint</span>(glm2)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Waiting for profiling to be done...</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logistic</span>(ci)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                 2.5 %    97.5 %</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 0.6608625 0.9348748</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="do">## sexMale     0.1014191 0.4279571</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="do">## age         0.4836758 0.4986397</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>The probability of survival for a male is estimated to be 0.23 lower than that of a female, when comparing two individuals of the same age. A 95% confidence interval for this (additive) difference runs from 0.10 to 0.43.</p>
 </section>
@@ -931,16 +1012,26 @@ age         0.4836758 0.4986397</code></pre>
 <h2 class="anchored" data-anchor-id="data-scale-vs-model-scale-back-transformation">Data Scale vs Model Scale, Back-transformation</h2>
 <p>Notice that the two interpretations just given are both on back-transformed scales. In general, people have a better appreciation for and understanding of probabilities and odds than they do (have) of log-odds.</p>
 <blockquote class="blockquote">
-<p>The logistic regression model is fit on the log-odds scale – we call this the model scale. When we back-transform to probabilities, we get back to the data scale (i.e., the same scale as the data).</p>
+<p>The logistic regression model is fit on the log-odds scale. We call this the model scale. When we back-transform to probabilities, we get back to the data scale (i.e., the same scale as the data).</p>
 </blockquote>
 <p>The odds scale is intermediate between the the data scale and the model scale, and it affords another option for how we interpret and communicate the results of a logistic regression model.</p>
 </section>
 </section>
-<section id="module-3-lab-assignment-instructions" class="level1">
-<h1>Module 3 Lab Assignment Instructions</h1>
+<section id="lab-instructions" class="level1">
+<h1>Lab Instructions</h1>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+R Markdown for submission
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>You are again asked to create a <strong>self-contained</strong> R Markdown script that can generate a document which answers the questions below. You will submit the .Rmd script, and the .pdf document produced by knitting the script.</p>
-<section id="r-markdown-for-submission" class="level2">
-<h2 class="anchored" data-anchor-id="r-markdown-for-submission">R Markdown for submission</h2>
 <p>Last week’s instructions are repeated here for your convenience.</p>
 <p><strong>NOTE:</strong> <em>If you are reading these instructions from the HTML preview in the Viewer pane, they will be overwritten in the following steps. You can avoid this by “popping out” the current HTML preview into an external browser window, by clicking the the “Show in new window” icon (to the right of the broom icon in the Viewer pane).</em></p>
 <p><em>Alternatively, you can read the instructions right from the .Rmd script, keeping in mind that you will need to switch back to the lab script tab to view the rest of the instructions once you create a new script. You could also copy and paste the whole Lab 3 Assignment Instructions section into your new document while you’re working on it, and then delete the instructions before you submit it.</em></p>
@@ -948,7 +1039,7 @@ age         0.4836758 0.4986397</code></pre>
 <pre><code>---
 title: "Lab Assignment 3"
 author: "Ronald Fisher"
-date: "2024-04-04"
+date: "2024-04-15"
 output: pdf_document
 ---</code></pre>
 <p>The file will initially contain some examples to get you started with RMarkdown, which you should replace with your lab content. Save the notebook as something like “Lab_Assignment_3” using “File” –&gt; “Save As…”</p>
@@ -971,26 +1062,491 @@ other stuff</code></pre>
 </blockquote>
 <p>Once you’ve answered the questions in your new .Rmd script and you have verified your code is self contained, you should Run -&gt; Run All Chunks and generate a .pdf file of your document, to check that everything looks like you want it to. Having concluded that your .Rmd script produces a pdf document that includes all the output you want, submit <strong>both the Lab_Assignment_3.Rmd file and the pdf document</strong> on Canvas as your Lab Assignment 3.</p>
 <p>Feel free to post on the discussion board if you have any questions or encounter any difficulties with this process.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="questions" class="level2">
-<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<section id="questions" class="level1">
+<h1>Questions</h1>
 <p>The data set <code>ResumeNames</code> in the <em>AER</em> package contains information about 4870 fictitious resumes, sent to real employers as part of an experiment about racial discrimination in hiring. The binary response for each resume is whether the employer called back. Although the original research question was about racial discrimination, there are many kinds of questions you might answer using these data.</p>
-<ol type="1">
-<li><p>Install and load the <em>AER</em> package, and read the help file for the <code>ResumeNames</code> data.</p></li>
-<li><p>Come up with a question about the probability of <code>callback</code> (the binary response) that can be answered using at least one (but no more than 5) of the 26 available predictor variables.</p></li>
-</ol>
-<p>Consider: - Restricting your analysis to an interesting subset of the data - Transforming and combining input variables - Exploring interactions</p>
+<section id="load-the-aer-package" class="level3">
+<h3 class="anchored" data-anchor-id="load-the-aer-package">1. Load the <em>AER</em> package</h3>
+<p>Install and load the <em>AER</em> package, and read the help file for the <code>ResumeNames</code> data.</p>
+<div class="cell">
+<details>
+<summary>setup</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("AER")</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ResumeNames)</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ResumeNames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>str()</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?ResumeNames</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 'data.frame':    4870 obs. of  27 variables:</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ name        : Factor w/ 36 levels "Allison","Anne",..: 1 7 23 24 3 15 5 22 24 36 ...</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ gender      : Factor w/ 2 levels "male","female": 2 2 2 2 2 1 2 2 2 1 ...</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ ethnicity   : Factor w/ 2 levels "cauc","afam": 1 1 2 2 1 1 1 2 2 2 ...</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ quality     : Factor w/ 2 levels "low","high": 1 2 1 2 2 1 2 2 1 2 ...</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ call        : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ city        : Factor w/ 2 levels "boston","chicago": 2 2 2 2 2 2 2 2 2 2 ...</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ jobs        : int  2 3 1 4 3 2 2 4 3 2 ...</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ experience  : int  6 6 6 6 22 6 5 21 3 6 ...</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ honors      : Factor w/ 2 levels "no","yes": 1 1 1 1 1 2 1 1 1 1 ...</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ volunteer   : Factor w/ 2 levels "no","yes": 1 2 1 2 1 1 2 2 1 2 ...</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ military    : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ holes       : Factor w/ 2 levels "no","yes": 2 1 1 2 1 1 1 2 1 1 ...</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ school      : Factor w/ 2 levels "no","yes": 1 2 2 1 2 1 2 1 1 2 ...</span></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ email       : Factor w/ 2 levels "no","yes": 1 2 1 2 2 1 2 2 1 2 ...</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ computer    : Factor w/ 2 levels "no","yes": 2 2 2 2 2 1 2 2 2 1 ...</span></span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ special     : Factor w/ 2 levels "no","yes": 1 1 1 2 1 2 2 2 2 2 ...</span></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ college     : Factor w/ 2 levels "no","yes": 2 1 2 1 1 2 2 1 2 2 ...</span></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ minimum     : Factor w/ 14 levels "none","0","0.5",..: 8 8 8 8 14 1 1 14 1 1 ...</span></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ equal       : Factor w/ 2 levels "no","yes": 2 2 2 2 2 2 2 2 2 2 ...</span></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ wanted      : Factor w/ 6 levels "manager","supervisor",..: 2 2 2 2 3 6 6 3 6 6 ...</span></span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ requirements: Factor w/ 2 levels "no","yes": 2 2 2 2 2 1 1 2 1 1 ...</span></span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ reqexp      : Factor w/ 2 levels "no","yes": 2 2 2 2 2 1 1 2 1 1 ...</span></span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ reqcomm     : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ reqeduc     : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ reqcomp     : Factor w/ 2 levels "no","yes": 2 2 2 2 2 1 1 2 1 1 ...</span></span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ reqorg      : Factor w/ 2 levels "no","yes": 1 1 1 1 2 1 1 2 1 1 ...</span></span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ industry    : Factor w/ 7 levels "manufacturing",..: 1 1 1 1 6 4 4 6 4 4 ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ResumeNames Help
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Format: A data frame containing 4,870 observations on 27 variables.</p>
+<ul>
+<li><strong>name</strong>: factor indicating applicant’s first name.</li>
+<li><strong>gender</strong>: factor indicating gender.</li>
+<li><strong>ethnicity</strong>: factor indicating ethnicity (i.e., Caucasian-sounding vs.&nbsp;African-American sounding first name).</li>
+<li><strong>quality</strong>: factor indicating quality of resume.</li>
+<li><strong>call</strong>: factor. Was the applicant called back?</li>
+<li><strong>city</strong>: factor indicating city: Boston or Chicago.</li>
+<li><strong>jobs</strong>: number of jobs listed on resume.</li>
+<li><strong>experience</strong>: number of years of work experience on the resume.</li>
+<li><strong>honors</strong>: factor. Did the resume mention some honors?</li>
+<li><strong>volunteer</strong>: factor. Did the resume mention some volunteering experience?</li>
+<li><strong>military</strong>: factor. Does the applicant have military experience?</li>
+<li><strong>holes</strong>: factor. Does the resume have some employment holes?</li>
+<li><strong>school</strong>: factor. Does the resume mention some work experience while at school?</li>
+<li><strong>email</strong>: factor. Was the e-mail address on the applicant’s resume?</li>
+<li><strong>computer</strong>: factor. Does the resume mention some computer skills?</li>
+<li><strong>special</strong>: factor. Does the resume mention some special skills?</li>
+<li><strong>college</strong>: factor. Does the applicant have a college degree or more?</li>
+<li><strong>minimum</strong>: factor indicating minimum experience requirement of the employer.</li>
+<li><strong>equal</strong>: factor. Is the employer EOE (equal opportunity employment)?</li>
+<li><strong>wanted</strong>: factor indicating type of position wanted by employer.</li>
+<li><strong>requirements</strong>: factor. Does the ad mention some requirement for the job?</li>
+<li><strong>reqexp</strong>: factor. Does the ad mention some experience requirement?</li>
+<li><strong>reqcomm</strong>: factor. Does the ad mention some communication skills requirement?</li>
+<li><strong>reqeduc</strong>: factor. Does the ad mention some educational requirement?</li>
+<li><strong>reqcomp</strong>: factor. Does the ad mention some computer skills requirement?</li>
+<li><strong>reqorg</strong>: factor. Does the ad mention some organizational skills requirement?</li>
+<li><strong>industry</strong>: factor indicating type of employer industry.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="probability-of-callback" class="level3">
+<h3 class="anchored" data-anchor-id="probability-of-callback">2. Probability of <code>callback</code></h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Considerations
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Consider:</p>
+<ul>
+<li>Restricting your analysis to an interesting subset of the data</li>
+<li>Transforming and combining input variables</li>
+<li>Exploring interactions</li>
+</ul>
 <p>Some example questions (which you may use or modify if you want)</p>
 <ul>
-<li><p>(How) does the relationship between callback probability and resume quality differ by applicant race?</p></li>
-<li><p>How many additional years of experience is having a white name vs a black name “worth” in terms of callback probability?</p></li>
-<li><p>Does callback probability differ between applicants who meet stated job requirements and applicants who don’t? For instance, you might compare applicants who do or not meet the stated minimum number of years of experience, or applicants who do or do not list computer skills when applying to jobs for which computer skills are ostensibly required.</p></li>
-<li><p>Does callback probability differ between male and female applicants by industry or position?</p></li>
+<li>(How) does the relationship between callback probability and resume quality differ by applicant race?</li>
+<li>How many additional years of experience is having a white name vs a black name “worth” in terms of callback probability?</li>
+<li>Does callback probability differ between applicants who meet stated job requirements and applicants who don’t? For instance, you might compare applicants who do or not meet the stated minimum number of years of experience, or applicants who do or do not list computer skills when applying to jobs for which computer skills are ostensibly required.</li>
+<li>Does callback probability differ between male and female applicants by industry or position?</li>
 </ul>
 <p>Be creative!</p>
-<ol start="3" type="1">
-<li>Use a logisitic regression model to address the question you posed in 2. Be sure to examine the fit of your model, and write a few sentences about your interpretation of the model as it addresses the question you posed.</li>
-</ol>
+</div>
+</div>
+</div>
+<p>Come up with a question about the probability of <code>callback</code> (the binary response) that can be answered using at least one (but no more than 5) of the 26 available predictor variables.</p>
+<p>Does the relationship between callback probability and experience differ by college degree?</p>
+</section>
+<section id="address-the-question" class="level3">
+<h3 class="anchored" data-anchor-id="address-the-question">3. Address the question</h3>
+<p>Use a logistic regression model to address the question you posed in 2. Be sure to examine the fit of your model, and write a few sentences about your interpretation of the model as it addresses the question you posed.</p>
+<hr>
+<p><strong>Does the relationship between experience and being called back change if you have a college degree?</strong></p>
+<p>Odds of a call back with no experience and no college, are 15:1 against getting a call back.<br>
+For no experience but with a degree, odds are 1.12:1 or ~9:8 for getting a call back. Those with a degree have about 17 times greater odds if neither have experience.</p>
+<p>That ratio falls to about 2 times greater odds of a call back with 1 year of experience, then 1.1 at 10 years, and 1.05 at 20.</p>
+<p>For those with equal experience, there is a major difference in the odds of getting a callback for those without experience, but after a year or two the odds of getting a call back even out. However, those with a degree still retain a slight advantage(1.05:1) at the later stages of a career.</p>
+<hr>
+<p><strong>Work Shown below</strong></p>
+</section>
+<section id="model" class="level2">
+<h2 class="anchored" data-anchor-id="model">Model</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ResumeNames <span class="sc">|&gt;</span> <span class="fu">select</span>(call, college, reqeduc, industry, experience) <span class="sc">|&gt;</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">call =</span> <span class="fu">as.integer</span>(<span class="fu">ifelse</span>(call <span class="sc">==</span> <span class="st">"yes"</span>, <span class="dv">1</span>, <span class="dv">0</span>)))</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(call <span class="sc">~</span> experience <span class="sc">+</span> college, </span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), </span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = call ~ experience + college, family = binomial(link = "logit"), 
+    data = df)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -2.720539   0.128876 -21.110  &lt; 2e-16 ***
+experience   0.038896   0.009182   4.236 2.27e-05 ***
+collegeyes  -0.052563   0.116189  -0.452    0.651    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2726.9  on 4869  degrees of freedom
+Residual deviance: 2710.0  on 4867  degrees of freedom
+AIC: 2716
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mod1<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  experience  collegeyes 
+ 0.06583927  1.03966205  0.94879423 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>CI <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(mod1)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>CI</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                  2.5 %      97.5 %</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) -2.9731304 -2.46794731</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="do">## experience   0.0208992  0.05689221</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="do">## collegeyes  -0.2802904  0.17516373</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(CI)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                  2.5 %     97.5 %</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 0.05114296 0.08475866</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="do">## experience  1.02111912 1.05854171</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="do">## collegeyes  0.75556430 1.19144128</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="interpretting" class="level2">
+<h2 class="anchored" data-anchor-id="interpretting">Interpretting</h2>
+<p>The model is:</p>
+<p><span class="math display">\[
+\hat{logit}(odds_{call}) = -2.72 + 0.039 Experience - 0.053 College
+\]</span></p>
+<p>Logit is log odds:</p>
+<p><span class="math display">\[
+logit(p) = log(\frac{p}{1-p}) = -2.72 + 0.039 Exp - 0.053 Col
+\]</span></p>
+<p>If we exp(logit) we get odds.</p>
+<p><span class="math display">\[
+Odds = e^{(-2.72 + 0.039 Exp - 0.053 Col)}
+\]</span> Odds are:</p>
+<p><span class="math display">\[
+Odds = \frac{p}{1-p}
+\]</span></p>
+<p>P is:</p>
+<p><span class="math display">\[
+p = Odds \times (1-p) = Odds- Odds\times p
+\]</span> <span class="math display">\[
+p + pOdds = Odds
+\]</span> <span class="math display">\[
+p = \frac{Odds}{1+Odds}
+\]</span></p>
+</section>
+<section id="odds" class="level2">
+<h2 class="anchored" data-anchor-id="odds">Odds</h2>
+<p>Setting up a function to compute the odds and probabilities.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>mod1<span class="sc">$</span>coefficients</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  experience  collegeyes </span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="do">## -2.72053887  0.03889571 -0.05256333</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">exp</span>(mod1<span class="sc">$</span>coefficients)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> o<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>o)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>o</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  experience  collegeyes </span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.06583927  1.03966205  0.94879423</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>p<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  experience  collegeyes </span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    6.177223   50.972270   48.686219</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking my math below. </span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.06583927</span> <span class="sc">+</span> <span class="fl">0.94879423</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.014633</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.720539</span>) <span class="sc">+</span> ex <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.038896</span>) <span class="sc">+</span> col <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.052563</span>)</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>odds</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.06583926</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.720539</span>) <span class="sc">+</span> ex <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.038896</span>) <span class="sc">+</span> col <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.052563</span>)</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>odds</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.014634</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="co"># exp(logt) != odds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>odds_call <span class="ot">&lt;-</span> <span class="cf">function</span>(col, ex) {</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.720539</span>) <span class="sc">+</span> ex <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.038896</span>) <span class="sc">+</span> col <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.052563</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  odds</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>prob_call <span class="ot">&lt;-</span> <span class="cf">function</span>(col, ex) { </span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">2.720539</span>) <span class="sc">+</span> ex <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.038896</span>) <span class="sc">+</span> col <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.052563</span>)</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> odds<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> odds)</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  p</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="odds-w-equal-experience" class="level1">
+<h1>Odds w/ equal experience</h1>
+<p>Exploring the differences.</p>
+<p><strong>Odds for zero exp, with and without college, and ratio</strong></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prob_call(col, ex)</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">odds_call</span>(<span class="dv">0</span>,<span class="dv">0</span>)<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 15.18851</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">odds_call</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.06583926</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">odds_call</span>(<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.119808</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>(<span class="fu">odds_call</span>(<span class="dv">0</span>,<span class="dv">0</span>)<span class="sc">/</span><span class="fu">odds_call</span>(<span class="dv">1</span>,<span class="dv">0</span>))<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 17.00821</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Odds of a call with no experience and no college, are 15:1 against getting a call back.<br>
+Odds of a call for no experience but with a degree are 1.12:1 or ~9:8 for getting a call back. Odds of getting called back are 17 times greater for those with a degree than without, for no experience.</p>
+<p><strong>Odds at one year</strong></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prob_call(col, ex)</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">odds_call</span>(<span class="dv">0</span>,ex)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.105502</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="fu">odds_call</span>(<span class="dv">1</span>,ex)</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.159471</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>(<span class="fu">odds_call</span>(<span class="dv">0</span>,ex)<span class="sc">/</span><span class="fu">odds_call</span>(<span class="dv">1</span>,ex))<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.953385</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Odds Ratios at 1, 10 and 20</strong></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">odds_call</span>(<span class="dv">0</span>,ex)<span class="sc">/</span><span class="fu">odds_call</span>(<span class="dv">1</span>,ex))<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.953385</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="co"># odds_call(0,10)</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="co"># odds_call(1,10)</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>(<span class="fu">odds_call</span>(<span class="dv">0</span>,<span class="dv">10</span>)<span class="sc">/</span><span class="fu">odds_call</span>(<span class="dv">1</span>,<span class="dv">10</span>))<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.100738</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="co"># odds_call(0,20)</span></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="co"># odds_call(1,20)</span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>(<span class="fu">odds_call</span>(<span class="dv">0</span>,<span class="dv">20</span>)<span class="sc">/</span><span class="fu">odds_call</span>(<span class="dv">1</span>,<span class="dv">20</span>))<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.050528</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>For those with 10 years of experience and no college, 10.5:1 odds of a call. For those with 10 years of experience but with college, 11.5:1 odds of a call. That’s 1.1 times more likely to get a call with a college degree for 10 years of exp.</p>
+<p>For those with 20 and no college, 21 to 1 odds of getting a call, with college 22:1. Making those with a degree 1.05 times more likely to get a call with 20 years experience.</p>
+<p><strong>Plotting the Odds ratio by exp.</strong></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>odds_rat <span class="ot">&lt;-</span> <span class="cf">function</span>(e) {</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">odds_call</span>(<span class="at">col =</span> <span class="dv">0</span>, <span class="at">ex =</span> e)<span class="sc">/</span><span class="fu">odds_call</span>(<span class="at">col =</span> <span class="dv">1</span>, <span class="at">ex =</span> e))<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># (odds_call(col = 0, ex = e)/odds_call(col = 1, ex = e))</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>equal_exp <span class="ot">&lt;-</span> <span class="fu">odds_rat</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Odds =</span> equal_exp,</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">Years =</span> years)</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d) <span class="sc">+</span> </span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(Years, Odds) <span class="sc">+</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">3</span><span class="sc">*</span>x)) <span class="sc">+</span> </span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Odds Ratio by years of experience"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="z3_learnR_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>For those with equal experience, there is a major difference in the odds of getting a callback for those without experience, but after a year or two the odds of getting a call back even out. However, those with a degree still retain a slight advatage at the later stages of a career.</p>
+<section id="plotting-the-odds-by-experience" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-the-odds-by-experience">Plotting the odds by experience</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>odds_w_col <span class="ot">&lt;-</span> <span class="fu">odds_call</span>(<span class="at">col =</span> <span class="dv">1</span>, <span class="at">ex =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>odds_wo_col <span class="ot">&lt;-</span> <span class="fu">odds_call</span>(<span class="at">col =</span> <span class="dv">0</span>, <span class="at">ex =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> odds_w_col, </span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nocol =</span> odds_wo_col, </span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">years =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">'col'</span>, <span class="st">'nocol'</span>),</span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"Coll"</span>, <span class="at">values_to =</span> <span class="st">"Odds"</span>)</span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d2) <span class="sc">+</span> </span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> years, <span class="at">y =</span> Odds, <span class="at">color =</span> Coll) <span class="sc">+</span> </span>
+<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Odds of a call back by years of experiece"</span>, </span>
+<span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"For applicants with and without college degrees over 20 years of experience"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="z3_learnR_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>odds_wo_col[<span class="dv">1</span>] <span class="sc">-</span> odds_w_col[<span class="dv">1</span>]</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -1.053969</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>odds_wo_col[<span class="dv">20</span>] <span class="sc">-</span> odds_w_col[<span class="dv">20</span>]</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -1.053969</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="plotting-probability-by-experience." class="level2">
+<h2 class="anchored" data-anchor-id="plotting-probability-by-experience.">Plotting Probability by experience.</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ResumeNames <span class="sc">|&gt;</span> <span class="fu">select</span>(call, college, reqeduc, industry, experience) <span class="sc">|&gt;</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">call =</span> <span class="fu">as.integer</span>(<span class="fu">ifelse</span>(call <span class="sc">==</span> <span class="st">"yes"</span>, <span class="dv">1</span>, <span class="dv">0</span>)))</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(call <span class="sc">~</span> experience <span class="sc">+</span> college, </span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>), </span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))}</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain 95% pointwise confidence bands from predict.glm()</span></span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>glm_pred <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(mod1, <span class="at">type=</span><span class="st">"link"</span>, <span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>low <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>upp <span class="ot">&lt;-</span> glm_pred<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> glm_pred<span class="sc">$</span>se.fit</span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a><span class="co"># back-transform everything to the data scale</span></span>
+<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="ot">&lt;-</span> <span class="fu">logistic</span>(glm_pred<span class="sc">$</span>fit)</span>
+<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a>glm_lower <span class="ot">&lt;-</span> <span class="fu">logistic</span>(low)</span>
+<span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a>glm_upper <span class="ot">&lt;-</span> <span class="fu">logistic</span>(upp)</span>
+<span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a><span class="co"># augment the Donner data frame</span></span>
+<span id="cb68-21"><a href="#cb68-21" aria-hidden="true" tabindex="-1"></a>augment_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(df, glm_fit, glm_lower, glm_upper))</span>
+<span id="cb68-22"><a href="#cb68-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-23"><a href="#cb68-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-24"><a href="#cb68-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Big plot</span></span>
+<span id="cb68-25"><a href="#cb68-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> augment_df) <span class="sc">+</span> </span>
+<span id="cb68-26"><a href="#cb68-26" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot jittered data</span></span>
+<span id="cb68-27"><a href="#cb68-27" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> experience, </span>
+<span id="cb68-28"><a href="#cb68-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> call,</span>
+<span id="cb68-29"><a href="#cb68-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> college),</span>
+<span id="cb68-30"><a href="#cb68-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb68-31"><a href="#cb68-31" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb68-32"><a href="#cb68-32" aria-hidden="true" tabindex="-1"></a> <span class="co"># plot fitted lines</span></span>
+<span id="cb68-33"><a href="#cb68-33" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> experience, </span>
+<span id="cb68-34"><a href="#cb68-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> glm_fit, </span>
+<span id="cb68-35"><a href="#cb68-35" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> college)) <span class="sc">+</span> </span>
+<span id="cb68-36"><a href="#cb68-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-37"><a href="#cb68-37" aria-hidden="true" tabindex="-1"></a><span class="co"># plot 95% pointwise confidence bands</span></span>
+<span id="cb68-38"><a href="#cb68-38" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> experience, </span>
+<span id="cb68-39"><a href="#cb68-39" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> college, </span>
+<span id="cb68-40"><a href="#cb68-40" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymin =</span> glm_lower, </span>
+<span id="cb68-41"><a href="#cb68-41" aria-hidden="true" tabindex="-1"></a>         <span class="at">ymax =</span> glm_upper),</span>
+<span id="cb68-42"><a href="#cb68-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb68-43"><a href="#cb68-43" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb68-44"><a href="#cb68-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-45"><a href="#cb68-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-46"><a href="#cb68-46" aria-hidden="true" tabindex="-1"></a>   <span class="co"># plot reference lines at 0 and 1 (minimum and maximum possible probabilities)</span></span>
+<span id="cb68-47"><a href="#cb68-47" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb68-48"><a href="#cb68-48" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb68-49"><a href="#cb68-49" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb68-50"><a href="#cb68-50" aria-hidden="true" tabindex="-1"></a> <span class="fu">facet_grid</span>(.<span class="sc">~</span>college) <span class="sc">+</span></span>
+<span id="cb68-51"><a href="#cb68-51" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Generalized linear model for df"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="z3_learnR_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>
