@@ -94,6 +94,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -189,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 4</span></a>
+ <span class="dropdown-text">Log Reg II</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
@@ -274,7 +276,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
-  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
+  <ul class="collapse">
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
+  </ul></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
@@ -339,76 +345,497 @@ Learning Objectives
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyverse)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="lectures" class="level2">
 <h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Email dataset: logisitic regression example</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#install_github("OpenIntroOrg/openintro-r-package", subdir = "openintro")</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>?email</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(email)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span>to_multiple<span class="sc">+</span>spam,<span class="at">data=</span>email)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span>winner<span class="sc">+</span>spam,<span class="at">data=</span>email)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>full1 <span class="ot">=</span> <span class="fu">glm</span>(spam<span class="sc">~</span>to_multiple<span class="sc">+</span>from<span class="sc">+</span>cc<span class="sc">+</span>sent_email<span class="sc">+</span>time<span class="sc">+</span>image<span class="sc">+</span>attach<span class="sc">+</span>dollar<span class="sc">+</span>winner<span class="sc">+</span>inherit<span class="sc">+</span>viagra<span class="sc">+</span>password<span class="sc">+</span>num_char<span class="sc">+</span>format<span class="sc">+</span>re_subj<span class="sc">+</span>exclaim_subj<span class="sc">+</span>urgent_subj<span class="sc">+</span>exclaim_mess<span class="sc">+</span>number,<span class="at">data=</span>email,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>))</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full1)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>full2 <span class="ot">=</span> <span class="fu">update</span>(full1,<span class="sc">~</span>.<span class="sc">-</span>from<span class="sc">-</span>cc<span class="sc">-</span>sent_email<span class="sc">-</span>viagra<span class="sc">-</span>exclaim_subj)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full2)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(full2,full1)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pchisq</span>(<span class="dv">162</span>,<span class="dv">5</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># fitted values</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>fits1 <span class="ot">=</span> <span class="fu">fitted</span>(full1)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>fits2 <span class="ot">=</span> <span class="fu">predict.glm</span>(full1)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>fits3 <span class="ot">=</span> <span class="fu">predict.glm</span>(full1,<span class="at">type=</span><span class="st">"response"</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(fits1,fits2,fits3))</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>fits4 <span class="ot">=</span> <span class="fu">exp</span>(fits2)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(fits2))</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(fits1,fits2,fits3,fits4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 <section id="another-example-in-r---more-logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="another-example-in-r---more-logistic-regression">Another Example in R - More Logistic Regression</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: email.R</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Email dataset: logisitic regression example</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#install_github("OpenIntroOrg/openintro-r-package", subdir = "openintro")</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'openintro' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: airports</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'airports' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: cherryblossom</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'cherryblossom' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: usdata</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'usdata' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'openintro'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:MASS':
+
+    housing, mammals</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ?email</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(email)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "spam"         "to_multiple"  "from"         "cc"           "sent_email"  
+ [6] "time"         "image"        "attach"       "dollar"       "winner"      
+[11] "inherit"      "viagra"       "password"     "num_char"     "line_breaks" 
+[16] "format"       "re_subj"      "exclaim_subj" "urgent_subj"  "exclaim_mess"
+[21] "number"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span>to_multiple<span class="sc">+</span>spam,<span class="at">data=</span>email)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           spam
+to_multiple    0    1
+          0 2946  355
+          1  608   12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span>winner<span class="sc">+</span>spam,<span class="at">data=</span>email)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      spam
+winner    0    1
+   no  3510  347
+   yes   44   20</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>full1 <span class="ot">=</span> <span class="fu">glm</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  spam<span class="sc">~</span>to_multiple <span class="sc">+</span> from <span class="sc">+</span> cc <span class="sc">+</span> sent_email <span class="sc">+</span> time <span class="sc">+</span> image <span class="sc">+</span> attach <span class="sc">+</span> dollar <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    winner <span class="sc">+</span> inherit <span class="sc">+</span> viagra <span class="sc">+</span> password <span class="sc">+</span> num_char <span class="sc">+</span> format <span class="sc">+</span> re_subj <span class="sc">+</span> exclaim_subj <span class="sc">+</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    urgent_subj <span class="sc">+</span> exclaim_mess <span class="sc">+</span> number,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> email, </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = spam ~ to_multiple + from + cc + sent_email + time + 
+    image + attach + dollar + winner + inherit + viagra + password + 
+    num_char + format + re_subj + exclaim_subj + urgent_subj + 
+    exclaim_mess + number, family = binomial(link = "logit"), 
+    data = email)
+
+Coefficients:
+               Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -8.912e+01  9.709e+03  -0.009  0.99268    
+to_multiple1 -2.614e+00  3.278e-01  -7.975 1.52e-15 ***
+from1        -2.215e+01  9.709e+03  -0.002  0.99818    
+cc            1.768e-02  2.244e-02   0.788  0.43070    
+sent_email1  -2.028e+01  4.008e+02  -0.051  0.95965    
+time          8.365e-08  2.865e-08   2.919  0.00351 ** 
+image        -1.811e+00  5.985e-01  -3.027  0.00247 ** 
+attach        7.061e-01  1.455e-01   4.852 1.23e-06 ***
+dollar       -5.955e-02  2.575e-02  -2.312  0.02076 *  
+winneryes     2.027e+00  3.639e-01   5.571 2.53e-08 ***
+inherit       3.125e-01  1.549e-01   2.017  0.04366 *  
+viagra        2.846e+00  2.216e+03   0.001  0.99898    
+password     -8.475e-01  2.970e-01  -2.854  0.00432 ** 
+num_char     -4.840e-02  9.540e-03  -5.074 3.90e-07 ***
+format1      -6.952e-01  1.496e-01  -4.648 3.35e-06 ***
+re_subj1     -1.691e+00  3.859e-01  -4.383 1.17e-05 ***
+exclaim_subj  2.305e-01  2.411e-01   0.956  0.33891    
+urgent_subj1  3.960e+00  1.321e+00   2.999  0.00271 ** 
+exclaim_mess  7.754e-03  1.525e-03   5.084 3.69e-07 ***
+numbersmall  -1.253e+00  1.543e-01  -8.117 4.76e-16 ***
+numberbig    -3.448e-01  2.185e-01  -1.578  0.11466    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2437.2  on 3920  degrees of freedom
+Residual deviance: 1653.1  on 3900  degrees of freedom
+AIC: 1695.1
+
+Number of Fisher Scoring iterations: 19</code></pre>
+</div>
+</div>
+<p>The warning about zero or one is ok, we know probabilities can be zero or one, but check the convergence.</p>
+<p>Here it is 19 which is finite and ok.</p>
+<p>The variables that are not significant shouldn’t be removed all at the same time.</p>
+<p>MASS has a function to remove variables one at a time with -.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>full2 <span class="ot">=</span> <span class="fu">update</span>(full1,<span class="sc">~</span>.<span class="sc">-</span>from<span class="sc">-</span>cc<span class="sc">-</span>sent_email<span class="sc">-</span>viagra<span class="sc">-</span>exclaim_subj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = spam ~ to_multiple + time + image + attach + dollar + 
+    winner + inherit + password + num_char + format + re_subj + 
+    urgent_subj + exclaim_mess + number, family = binomial(link = "logit"), 
+    data = email)
+
+Coefficients:
+               Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -9.438e+01  3.650e+01  -2.585 0.009726 ** 
+to_multiple1 -2.563e+00  3.138e-01  -8.168 3.13e-16 ***
+time          7.071e-08  2.746e-08   2.575 0.010017 *  
+image        -2.100e+00  9.013e-01  -2.330 0.019810 *  
+attach        4.678e-01  9.764e-02   4.791 1.66e-06 ***
+dollar       -5.298e-02  2.459e-02  -2.154 0.031215 *  
+winneryes     2.144e+00  3.605e-01   5.946 2.75e-09 ***
+inherit       3.434e-01  1.523e-01   2.255 0.024143 *  
+password     -8.109e-01  3.005e-01  -2.699 0.006956 ** 
+num_char     -3.968e-02  8.925e-03  -4.446 8.77e-06 ***
+format1      -9.453e-01  1.398e-01  -6.763 1.36e-11 ***
+re_subj1     -3.045e+00  3.835e-01  -7.941 2.01e-15 ***
+urgent_subj1  3.801e+00  1.063e+00   3.577 0.000348 ***
+exclaim_mess  6.614e-03  1.453e-03   4.551 5.34e-06 ***
+numbersmall  -8.639e-01  1.449e-01  -5.962 2.49e-09 ***
+numberbig    -2.278e-02  2.087e-01  -0.109 0.913067    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2437.2  on 3920  degrees of freedom
+Residual deviance: 1815.3  on 3905  degrees of freedom
+AIC: 1847.3
+
+Number of Fisher Scoring iterations: 8</code></pre>
+</div>
+</div>
+<p>Warning is still ok. Convergence was better, it converged in less iterations.</p>
+<p>The number of significant factors may mean it’s better, but let’s look at the drop in deviance test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(full2, full1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Resid. Df</th>
+<th style="text-align: right;">Resid. Dev</th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Deviance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3905</td>
+<td style="text-align: right;">1815.327</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3900</td>
+<td style="text-align: right;">1653.086</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">162.2409</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">162</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>Smaller first, then full. Deviane 162 and df 5. DF is difference in size between mocels.</p>
+<p>162 in pchisq is zero shows the full model is better.</p>
+<p>Pulling by significance wan’t the best idea here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fitted values</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>fits1 <span class="ot">=</span> <span class="fu">fitted</span>(full1)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>fits2 <span class="ot">=</span> <span class="fu">predict.glm</span>(full1)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>fits3 <span class="ot">=</span> <span class="fu">predict.glm</span>(full1,<span class="at">type=</span><span class="st">"response"</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(fits1,fits2,fits3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fits1     fits2      fits3
+1 0.12002923 -1.992153 0.12002923
+2 0.05467984 -2.850029 0.05467984
+3 0.06900556 -2.602066 0.06900556
+4 0.06797927 -2.618152 0.06797927
+5 0.10455872 -2.147568 0.10455872
+6 0.10519712 -2.140768 0.10519712</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fits4 <span class="ot">=</span> <span class="fu">exp</span>(fits2)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(fits2))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(fits1,fits2,fits3,fits4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fits1     fits2      fits3      fits4
+1 0.12002923 -1.992153 0.12002923 0.12002923
+2 0.05467984 -2.850029 0.05467984 0.05467984
+3 0.06900556 -2.602066 0.06900556 0.06900556
+4 0.06797927 -2.618152 0.06797927 0.06797927
+5 0.10455872 -2.147568 0.10455872 0.10455872
+6 0.10519712 -2.140768 0.10519712 0.10519712</code></pre>
+</div>
+</div>
+<p>Fitted values from log reg. Fitted values are the values we get if we apply the observations to the model that we fitted.</p>
+<p>Using full one, fitted and predict.glm will give fitted values. predict.glm can have type set.</p>
+<p>Fits one and fits 2 are the same, but fits 2 is different. Fits one gives the est fits of the log reg model of probabilities. fitted returns on the probability scale. By setting type to response we get the same thing.</p>
+<p>predict.glm will give log(odds).</p>
+<p>Fits 4 is a back transformation of log(odds). It is now the same as the other two.</p>
+<p>Ensure you know the scale you are looking at.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ex2116</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="dose-response-relationships" class="level3">
 <h3 class="anchored" data-anchor-id="dose-response-relationships">Dose Response Relationships</h3>
+<p>Dose responses are a particular type of log-reg.</p>
+<p>Ex: toxic effects of mold. Fish in tanks get dosed. After a year, they count the fish with tumors. 5 doses, 4 tanks at each dose. They graph proportion with tumors by dose for the 5 tanks. It’s on a multiplicative scale, at each step the dose doubles. Log dose is more linear. Responses are binomial counts. Number with tumors out of a number at a dose. We have been talking Bernoulli. Binomial is the sum independent Bernoulli random variables with the same probability of success.</p>
+<p>With binomial, we can plot emperical logits.</p>
+<p><span class="math display">\[
+log(\frac{x}{n-x})
+\]</span> We can plot the empirical logit against explanatory info like log(dose).</p>
+<p>Fitting the model to the data by log dose, but including a poly function for the curve.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Tumor, Dose, data = df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ex2116 <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">dose =</span> Dose,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">tumor =</span> Tumor,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">notumor =</span> Total <span class="sc">-</span> Tumor,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">tankid =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">logdose =</span> <span class="fu">log</span>(Dose), </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">emplog =</span> <span class="fu">log</span>((Tumor)<span class="sc">/</span>(Total  <span class="sc">-</span> Tumor)),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ld2 =</span> <span class="fu">log</span>(Dose)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> logdose, <span class="at">y =</span> emplog) <span class="sc">+</span> </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4_Logistic_Regression_II_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> df, </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">cbind</span>(tumor, notumor) <span class="sc">~</span> logdose <span class="sc">+</span> ld2, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(tumor, notumor) ~ logdose + ld2, family = "binomial", 
+    data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  1.02921    0.49343   2.086  0.03699 *  
+logdose     -1.03048    0.35743  -2.883  0.00394 ** 
+ld2         -0.39195    0.06136  -6.388 1.68e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 667.195  on 19  degrees of freedom
+Residual deviance:  26.048  on 17  degrees of freedom
+AIC: 119.45
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Both the squared term and log odds seam important.</p>
 </section>
 <section id="deviance-goodness-of-fit" class="level3">
 <h3 class="anchored" data-anchor-id="deviance-goodness-of-fit">Deviance Goodness-of-fit</h3>
+<p>A way to evaluate the adequacy of a model.</p>
+<p>Before interpretation check resids and adequacy.</p>
+<p>In logistic regression, with binary or Bernoulli, resids aren’t useful because everyting is zero or one. With binomial counts, resids are useful.</p>
+<p>There is also no need to worry about over-dispersion in binary logistic regression. There is when dealing with binomial responses.</p>
+<p>There are several types of resids. Two are deviance and Pearson resids. R defaults to Pearson. We use deviance more often. R reports sum of squared deviance resids.</p>
+<p>Resids are what is left after we fit a model.</p>
+<p>For the fish example: 3 models on n binomial counts, the number of counts. 20 binomial counts in the fish set.</p>
+<ol type="1">
+<li>logit(p_i) = beta_0, one param.</li>
+<li>logit(p_i) = beta_0 + beta_1X_1 + … + beta_pX_k, to 20, k params.</li>
+<li>logit(p_i) = alpha_i, n params.</li>
+</ol>
+<p>The null deviance corresponds to 1, with one parameter.<br>
+The residual deviance corresponds to k = 20.</p>
+<p>To compare with a drop in deviance test, null dev - resid rev in a chi squared with k-1 df, where the null and resid deviances come from fitting the logistic reg model with k - 1 explanatory variables.</p>
+<p>For the model with k params vs the model with n params. Comparing 2 to 3 asks if 2, a linear structure, is adequate for explaining the variation in the data.</p>
+<p>The resid deviance from the model with n params is zero. So, the resid dev - 0 = chi square on n-k df.</p>
+<p>This gives us a way to compare 2 against the model with a different phat for each observation, the saturated model. This is similar to the goodness of fit test.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(tumor, notumor) ~ logdose + ld2, family = "binomial", 
+    data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  1.02921    0.49343   2.086  0.03699 *  
+logdose     -1.03048    0.35743  -2.883  0.00394 ** 
+ld2         -0.39195    0.06136  -6.388 1.68e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 667.195  on 19  degrees of freedom
+Residual deviance:  26.048  on 17  degrees of freedom
+AIC: 119.45
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Compare the residual deviance of 26.048 and find the p-value on a chi-s with 20-3 df. p-value = .07 because of dispersion(extra binomial variation)</p>
 </section>
 <section id="over-dispersion" class="level3">
 <h3 class="anchored" data-anchor-id="over-dispersion">Over Dispersion</h3>
+<p>A binomial Rand Var os the sum of ind Bernoulli RVs each with the same probability.</p>
+<p>If we summed over RVs with the same probability, but are not statistically independent,</p>
+<ul>
+<li>as in the number of Alzeimers cases in an extended family or counting fish with tumors that live in the same tank.</li>
+</ul>
+<p>Remember that if X ~ binim(n,p), then mean(X) = np and Var(X) = np(1-p).</p>
+<p>p is in both, and a single parameter p is often inadequate to describe both mean and var. This is a problem because the extra variation cannot be modeled with binomial counts.</p>
+<p>When extra-binomial variation is present, the standard errors corresponding to logistic regression coefficient estimates are TOO SMALL.</p>
+<ul>
+<li>This means that p-values based on these SE’s are TOO SMALL and confidence intervals build with these SE’s are TOO NARROW.</li>
+<li>That is, the tests and confidence intervals are not just approximate, they are MISLEADING in this case.</li>
+<li>When in doubt, assume extra-binomial variation is present.</li>
+</ul>
+<p>It is best to assume there is extra binomial variation.</p>
+<p>The Quasi-Likelihood Model:</p>
+<p>We don’t assume the responses come form a binomial dist. We specify the mean and Var. m_ip_i are the sample mean and sample variation.</p>
+<p>Var = psi(the dispersion parameter)*m_ip_i(1-p_i).</p>
+<p>Extra binimoial variation is one type of over-dispersion. We’re not typically concerned with under-dispersion</p>
+<p>If psi = 1, it’s binomial.</p>
+<p>To check for over dispersion:</p>
+<ol type="1">
+<li><p>Think about whether over-dispersion might be likely for this particular response (dependence among binary random variables; unaccounted for explanatory information).</p></li>
+<li><p>Examine the deviance goodness-of-fit after fitting a rich model.</p></li>
+<li><p>Examine the residuals—over dispersion could just be due to one or two large outliers.</p></li>
+</ol>
+<p>Remember that under the quasi-likelihood parameterization, the variance of a count, Y_i, is assumed to be psi*m_i*p_i(1−p_i), where m_i is the size (denominator) associated with Y_i.</p>
+<p>One estimate for ψ is: psi = residual deviance / degrees of freedom, where degrees of freedom are n−k. psi is greater than one if there is over-dispersion.</p>
 </section>
 <section id="more-on-over-dispersion" class="level3">
 <h3 class="anchored" data-anchor-id="more-on-over-dispersion">More on Over Dispersion</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(tumor, notumor) ~ logdose + ld2, family = "binomial", 
+    data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  1.02921    0.49343   2.086  0.03699 *  
+logdose     -1.03048    0.35743  -2.883  0.00394 ** 
+ld2         -0.39195    0.06136  -6.388 1.68e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 667.195  on 19  degrees of freedom
+Residual deviance:  26.048  on 17  degrees of freedom
+AIC: 119.45
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Note the dispersion parameter is taken to be 1. The dispersion parameter estimate is the Residual deviance/df. So, psi is estimated to be 26.048/17 = 1.53. This suggests over-dispersion, but the dispersion parameter was set to one.</p>
+<p>To fit the Quasi, pass family = quasibinomial</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(tumor, Total<span class="sc">-</span>Tumor) <span class="sc">~</span> logdose <span class="sc">+</span> ld2, </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> quasibinomial, </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df) </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(tumor, Total - Tumor) ~ logdose + ld2, family = quasibinomial, 
+    data = df)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.02921    0.59942   1.717   0.1041    
+logdose     -1.03048    0.43421  -2.373   0.0297 *  
+ld2         -0.39195    0.07454  -5.258 6.41e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for quasibinomial family taken to be 1.475778)
+
+    Null deviance: 667.195  on 19  degrees of freedom
+Residual deviance:  26.048  on 17  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Dispersion parameter for quasi.. family taken to be 1.5. The estimates table has the same beta estimates. The std. Errors have gotten larger. The z-value is now a t-value, and the p-values come from the corresponding dists. AIC is not given as before. The dispersion parameter doesn’t match our estimate because R uses the pearson. This can be set in R by passing the type = pearson to the out2 model object. The AIC is a liklihood based metric, here we don’t have a likelihood model, so we don’t get an AIC.</p>
+<p>Std. Errors are multiplied by sqrt(psi), so we have more variation. We can perfom test and build confidence inervals as before using these adjusted std. Errors. We can use the standard normal, but using t is more conservative.</p>
 </section>
 </section>
 <section id="lab" class="level2">
 <h2 class="anchored" data-anchor-id="lab">Lab</h2>
+<p>Remember the logit transformation of a proportion/probability is given by <code>qlogis()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>empirical_logits <span class="ot">&lt;-</span> <span class="fu">with</span>(tumors, <span class="fu">qlogis</span>(Tumor<span class="sc">/</span>Total))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>LR Chisq</code> is the residual deviance, which is the sum of the squared deviance residuals. For instance, for <code>mod5</code>, the residual deviance value of 277 comes can be obtained as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid</span>(mod5, <span class="at">type =</span> <span class="st">'deviance'</span>) <span class="sc">%&gt;%</span> <span class="fu">raise_to_power</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="hw" class="level2">
 <h2 class="anchored" data-anchor-id="hw">HW</h2>
 </section>
 <section id="quizzes" class="level2">
 <h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+<section id="r" class="level3">
+<h3 class="anchored" data-anchor-id="r">R</h3>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">C</h3>
+</section>
 </section>
 <section id="end____" class="level1">
 <h1>____END____</h1>

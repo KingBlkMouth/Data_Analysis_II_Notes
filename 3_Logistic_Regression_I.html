@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 4</span></a>
+ <span class="dropdown-text">Log Reg II</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
@@ -276,15 +276,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fitting-models" id="toc-fitting-models" class="nav-link" data-scroll-target="#fitting-models">Fitting Models</a></li>
   <li><a href="#drop-in-deviance" id="toc-drop-in-deviance" class="nav-link" data-scroll-target="#drop-in-deviance">Drop in Deviance</a></li>
   </ul></li>
-  <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
-  <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
   <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
   <ul class="collapse">
   <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
   <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   </ul>
 </nav>
     </div>
@@ -341,14 +339,27 @@ Learning Objectives
 <li><del>Lectures</del></li>
 <li><del>Submit Module 3 Homework</del></li>
 <li><del>Submit Module 3 Lab</del></li>
-<li>Take the Module 3 Content Quiz and</li>
+<li><del>Take the Module 3 Content Quiz</del></li>
 <li><del>R Quiz</del></li>
-<li>Participate in the Module 3 Discussion</li>
+<li><del>Participate in the Module 3 Discussion</del></li>
 </ul>
 </section>
 </div>
 </div>
 </div>
+<p>95% Confidence Interval for a standard normal distribution.</p>
+<p><span class="math display">\[
+CONF.INT = EST \pm SE*1.96
+\]</span></p>
+<p>Otherwise</p>
+<p><span class="math display">\[
+CONF.INT = EST \pm t_{\alpha = .05}\times SE
+\]</span></p>
+<p><span class="math display">\[
+Critcal \ Value = t_{\alpha = .05}
+\]</span> <span class="math display">\[
+SE = \frac{sd}{sqrt(n)}
+\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -784,12 +795,6 @@ Age:Female      -0.16160    0.09426     -1.714    0.0865</code></pre>
 <p>Shows that the interaction and age terms</p>
 <p>Looking at the p-value for the int term, there isn’t evidence it’s different from zero, but the anova let’s us see that it is important.</p>
 </section>
-</section>
-<section id="lab" class="level2">
-<h2 class="anchored" data-anchor-id="lab">Lab</h2>
-</section>
-<section id="hw" class="level2">
-<h2 class="anchored" data-anchor-id="hw">HW</h2>
 </section>
 <section id="quizzes" class="level2">
 <h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
@@ -4575,11 +4580,157 @@ Number of Fisher Scoring iterations: 2</code></pre>
 </section>
 <section id="c" class="level3">
 <h3 class="anchored" data-anchor-id="c">C</h3>
+<p>All four questions on this quiz are related to the situation and output provided here:</p>
+<p>On January 28, 1986, a routine launch was anticipated for the Challenger space shuttle. Seventy-three seconds into the flight, disaster happened: the shuttle broke apart, killing all seven crew members on board. An investigation into the cause of the disaster focused on a critical seal called an O-ring, and it is believed that damage to O-rings during shuttle launches may have been related to the ambient temperature at the time of the launch. Using data from 24 shuttle missions, we fit a simple logistic regression model. Here, Temperature is the temperature in Fahrenheit at launch time and the response variable, Failure, is an indicator of O-rings failures (Failure = 1 if there was at least O-ring that failed.)</p>
+<p>Here is a summary of the logistic regression model t to these data:</p>
+<pre><code>Estimate    Std. Error  z value Pr(&gt;|z|
+(Intercept) 10.88   5.70    1.91    0.06
+Temperature -0.17   0.08    -2.05   0.04</code></pre>
+<section id="section" class="level5">
+<h5 class="anchored" data-anchor-id="section">1.</h5>
+<p>Give a 95% confidence interval for the coefficient on Temperature.</p>
+<p><strong>Ans c(-17 - 1.96<em>(.08), -17 + 1.96</em>(.08))</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)), (<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.3268 -0.0132</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="sc">-</span>.<span class="dv">17</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> .<span class="dv">08</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fl">2.05</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(t <span class="sc">-</span> se<span class="sc">*</span>z, t<span class="sc">+</span>se<span class="sc">*</span>z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.334 -0.006</code></pre>
+</div>
+</div>
+<p>(-0.33, -0.01)</p>
+</section>
+<section id="section-1" class="level5">
+<h5 class="anchored" data-anchor-id="section-1">2.</h5>
+<p>In the context of the problem, is this the correct interpretation of the confidence interval you found in question 1, on the log-odds scale. (True or False)</p>
+<p>A one degree increase in temperature is associated with an estimated decrease in the log odds of O-ring failure between 0.0132 and 0.3268 (95% confidence interval for the log-odds of failure).</p>
+<p><strong>ANS, TRUE</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.0132</span> <span class="sc">-</span> <span class="fl">0.3268</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.3136</code></pre>
+</div>
+</div>
+</section>
+<section id="section-2" class="level5">
+<h5 class="anchored" data-anchor-id="section-2">3.</h5>
+<p>Give a 95% confidence interval for the effect of a one-degree increase in temperature on the odds of O-ring failure.</p>
+<p><strong>ANS c(exp(-17 - 1.96<em>(.08)), exp(-17 + 1.96</em>(.08))</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((<span class="fu">exp</span>(<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>))), <span class="fu">exp</span>(<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7212280 0.9868867</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21.767</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>) <span class="sc">+</span> (.<span class="dv">08</span> <span class="sc">*</span> <span class="sc">-</span><span class="fl">2.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21.433</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>))<span class="sc">-</span> (<span class="fl">10.88</span> <span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>) <span class="sc">+</span> (.<span class="dv">08</span> <span class="sc">*</span> <span class="sc">-</span><span class="fl">2.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.334</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.88</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">-</span> .<span class="dv">17</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.71</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span>) <span class="sc">-</span> (<span class="fl">10.88</span> <span class="sc">-</span> .<span class="dv">17</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.17</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.0132</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.013288</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.3268</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.386524</code></pre>
+</div>
+</div>
+</section>
+<section id="section-3" class="level5">
+<h5 class="anchored" data-anchor-id="section-3">4.</h5>
+<p>In the context of the problem, is this the correct interpretation of the confidence interval you found in question 3. (True or False)</p>
+<p>We estimate that the odds of O-ring failure decrease between roughly 72% and 99% for each one degree increase in temperature (95% confidence interval for the odds of O-ring failure).</p>
+<p><strong>TRUE</strong></p>
+<p>We estimate that the odds of O-ring failure decrease between roughly 72% and 99% for each one degree increase in temperature (95% confidence interval for the odds of O-ring failure).</p>
 </section>
 </section>
 </section>
-<section id="end____" class="level1">
-<h1>____END____</h1>
+</section>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<p>Maximum Likelihood.</p>
+<p>Logistic function from zero to one shows probability between zero and one.</p>
+<p>We can only test to see if a variables effect is different from zero with walds test.</p>
+<p>In linear regression we fit a line with least squares.</p>
+<p>Here we use maximum likelihood. Pick a probability curve scaled by x of observing a 1. Use that to calculate a likelihood of observing a zero at x, and do that for every x,y combo, then multiply all likelihoods together. That is the likelihood of the data, given the line. Shift the line and repeat iteratively. The curve with the maximum likelihood wins.</p>
+<p>Log reg can be used to classify samples. It can use different types of data, and can assess what variables were useful to classify the sample.</p>
+<p>Maximum Likelihood.</p>
+<p>The goal is to find the optimal way to fit a distribution to the data. To do this, try fitting a distribution to the data. Measure the probability/likelihood of observing the data with the distribution at that point, then move the distribution and try again. Pick the point in the set maximizes the probability/likelihood of observing the values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">8</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">99</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">19</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>successes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,p<span class="sc">*</span><span class="fu">length</span>(X))</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>failures <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,((<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">*</span>(<span class="fu">length</span>(X)) <span class="sc">+</span> <span class="dv">1</span>))</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> ((y2 <span class="sc">-</span> y1)<span class="sc">/</span>(x2 <span class="sc">-</span> x1))</span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> y1 <span class="sc">-</span> m<span class="sc">*</span>x1</span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> m<span class="sc">*</span>(X <span class="sc">-</span> x1) <span class="sc">+</span> y1</span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>logodds <span class="ot">&lt;-</span> y</span>
+<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">exp</span>(logodds)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(logodds))</span>
+<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(failures, successes)</span>
+<span id="cb70-21"><a href="#cb70-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb70-22"><a href="#cb70-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> data) <span class="sc">+</span></span>
+<span id="cb70-23"><a href="#cb70-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb70-24"><a href="#cb70-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> b, <span class="at">slope =</span> m, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb70-25"><a href="#cb70-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_point(aes(x = x, y = logodds), color = "blue") + </span></span>
+<span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Log odds is y of blue dots"</span>) <span class="sc">+</span></span>
+<span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> prob), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability is the red dots"</span>, </span>
+<span id="cb70-29"><a href="#cb70-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"log(Odds) is the blue line"</span>) <span class="sc">+</span></span>
+<span id="cb70-30"><a href="#cb70-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">+</span> </span>
+<span id="cb70-31"><a href="#cb70-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 49 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 49 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="3_Logistic_Regression_I_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>

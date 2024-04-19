@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data_Analysis_II_Notes - LearnR 4</title>
+<title>Data_Analysis_II_Notes - Log Reg II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 4</span></a>
+ <span class="dropdown-text">Log Reg II</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
@@ -281,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#model-fit-and-model-comparison" id="toc-model-fit-and-model-comparison" class="nav-link" data-scroll-target="#model-fit-and-model-comparison">Model fit and model comparison</a>
   <ul class="collapse">
   <li><a href="#empirical-logits" id="toc-empirical-logits" class="nav-link" data-scroll-target="#empirical-logits">Empirical logits</a></li>
-  <li><a href="#deviance-goodness-of-fit" id="toc-deviance-goodness-of-fit" class="nav-link" data-scroll-target="#deviance-goodness-of-fit">Deviance goodness of fit</a></li>
+  <li><a href="#deviance-goodness-of-fit-lack-of-fit." id="toc-deviance-goodness-of-fit-lack-of-fit." class="nav-link" data-scroll-target="#deviance-goodness-of-fit-lack-of-fit.">Deviance goodness of fit , <em>lack of fit</em>.</a></li>
   <li><a href="#drop-in-deviance-test" id="toc-drop-in-deviance-test" class="nav-link" data-scroll-target="#drop-in-deviance-test">Drop-in-deviance test</a></li>
   <li><a href="#information-criteria-for-model-comparison" id="toc-information-criteria-for-model-comparison" class="nav-link" data-scroll-target="#information-criteria-for-model-comparison">Information criteria for model comparison</a></li>
   <li><a href="#deviance-residuals-pearson-residuals---dispersion-parameter-estimated-from-pearson-chi-squared" id="toc-deviance-residuals-pearson-residuals---dispersion-parameter-estimated-from-pearson-chi-squared" class="nav-link" data-scroll-target="#deviance-residuals-pearson-residuals---dispersion-parameter-estimated-from-pearson-chi-squared">Deviance residuals, Pearson residuals - dispersion parameter estimated from Pearson – chi squared</a></li>
@@ -289,6 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dealing-with-over-dispersion" id="toc-dealing-with-over-dispersion" class="nav-link" data-scroll-target="#dealing-with-over-dispersion">Dealing with over-dispersion</a></li>
   <li><a href="#a-pitfall-perfect-separation" id="toc-a-pitfall-perfect-separation" class="nav-link" data-scroll-target="#a-pitfall-perfect-separation">A Pitfall – perfect separation</a></li>
   <li><a href="#test-for-difference-in-proportions" id="toc-test-for-difference-in-proportions" class="nav-link" data-scroll-target="#test-for-difference-in-proportions">Test for difference in proportions</a></li>
+  <li><a href="#check-code-gender-should-be-factor-and-admit-is-factor-with-0-levels" id="toc-check-code-gender-should-be-factor-and-admit-is-factor-with-0-levels" class="nav-link" data-scroll-target="#check-code-gender-should-be-factor-and-admit-is-factor-with-0-levels">Check code: gender should be factor and admit is factor with 0 levels</a></li>
   <li><a href="#lab-4-assignment" id="toc-lab-4-assignment" class="nav-link" data-scroll-target="#lab-4-assignment">Lab 4 Assignment</a>
   <ul class="collapse">
   <li><a href="#question" id="toc-question" class="nav-link" data-scroll-target="#question">Question</a></li>
@@ -301,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LearnR 4</h1>
+<h1 class="title">Log Reg II</h1>
 </div>
 
 
@@ -320,102 +321,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Count responses</h1>
 <p>Please load these libraries that you’ll need for this lab:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'arm' was built under R version 4.3.3</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: MASS</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: Matrix</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: lme4</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-arm (Version 1.14-4, built: 2024-4-1)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Working directory is C:/Users/cmeck/Desktop/D_Anal/Anal_II/Anal_II_Notes/Data_Analysis_II_Notes</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::expand() masks Matrix::expand()
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-✖ tidyr::pack()   masks Matrix::pack()
-✖ dplyr::select() masks MASS::select()
-✖ tidyr::unpack() masks Matrix::unpack()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcdExtra' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: vcd</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: grid
-Loading required package: gnm</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gnm' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'vcdExtra'
-
-The following object is masked from 'package:dplyr':
-
-    summarise</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'magrittr'
-
-The following object is masked from 'package:purrr':
-
-    set_names
-
-The following object is masked from 'package:tidyr':
-
-    extract</code></pre>
-</div>
-</div>
-<p>In this lab, we’ll go over some of the finer details of binomial logistic regression that you only saw briefly in the narrated lectures. We’ll cover the drop in deviance and deviance goodness of fit tests, and show how to perform them using R. We’ll also talk more about residuals from binomial logistic regression and about the dispersion parameter and over dispersion. Two additional topics are (1) a pathological (but not altogether rare) situation that can arise in logistic regression and (2) using logistic regression to perform a test of the difference in two proportions.</p>
+<p>In this lab, We’ll cover the drop in deviance and deviance goodness of fit tests, and show how to perform them using R. We’ll also talk more about residuals from binomial logistic regression and about the dispersion parameter and over dispersion. Two additional topics are (1) a pathological (but not altogether rare) situation that can arise in logistic regression (2) using logistic regression to perform a test of the difference in two proportions.</p>
 </section>
 <section id="binomial-logistic-regression" class="level1">
 <h1>Binomial logistic regression</h1>
-<p>In the previous lab, we introduced binary logistic regression in the context of a continuous explanatory variable (age). In this situation, each individual could, in principle, have had a unique combination of values of the explanatory variables. In practice, due to rounding of ages to whole years, there were several explanatory variable combinations that occurred multiple times (this was why we had to jitter the plot of survival vs age). For those particular combinations of the explanatory variables, we could count up the number of Donner party survivors and non-survivors – so we’d have a count as the response, rather than a binary observations.</p>
+<p>In the previous lab, we introduced binary logistic regression in the context of a continuous explanatory variable (age). In this situation, each individual could, have had a unique combination of values of the explanatory variables. In practice,</p>
+<p>due to rounding of ages to whole years, there were several explanatory variable combinations that occurred multiple times (this was why we had to jitter the plot of survival vs age). For those particular combinations of the explanatory variables (age/sex), we could count up the number of Donner party survivors and non-survivors so we’d have a count as the response, rather than a binary observations (survivors per age/sex?).</p>
 <p>We are typically still inclined to think of the survival of <em>individual</em> Donner Party members, however; rather than in terms of the <em>count</em> of survivors out of the total number of members at each age-sex combination.</p>
-<p>In this lab, we take a different perspective on logistic regression. We consider binary observations that are clustered into groups, where the <em>counts</em> of outcomes in each group are the natural measurements of interest. We consider each count to have a <em>binomial</em> distribution with some probability <span class="math inline">\(p\)</span>, and derive the log-odds from these binomial probabilities. Since a binomial <span class="math inline">\(p\)</span> comes from an underlying Bernoulli <span class="math inline">\(p\)</span> (or since a Bernoulli is a special case of a binomial), however, logistic regressions for binary outcomes and binomial counts are not fundamentally different beasts – they use the same model equations, they are fit with the same R function, they estimate the same parameters, and they rely on the same assumptions. Using binomial logistic regression when applicable, though, makes <em>checking</em> some of those assumptions more direct.</p>
+<p>In this lab, we take a different perspective on logistic regression. We consider binary observations that are clustered into groups, where the <em>counts</em> of outcomes in each group are the natural measurements of interest. We consider each count to have a <em>binomial</em> distribution with some probability <span class="math inline">\(p\)</span>, and derive the log-odds from these binomial probabilities. Since a binomial <span class="math inline">\(p\)</span> comes from an underlying Bernoulli <span class="math inline">\(p\)</span> (or since a Bernoulli is a special case of a binomial), however, logistic regressions for binary outcomes and binomial counts are not fundamentally different beasts. They use the same model equations, they are fit with the same R function, they estimate the same parameters, and they rely on the same assumptions. Using binomial logistic regression when applicable, though, makes <em>checking</em> some of those assumptions more direct.</p>
 <section id="aflatoxin-data" class="level2">
 <h2 class="anchored" data-anchor-id="aflatoxin-data">Aflatoxin data</h2>
 <p>In this lab we will continue with the <code>ex2116</code> data from <em>Sleuth3</em>, introduced in lecture. Each of 20 tanks was stocked with fishes that had been exposed as embryos to one of 5 doses of a carcinogen. When the fishes were dissected a year later, the number of fishes that had developed liver tumors was recorded.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ex2116)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tumors <span class="ot">&lt;-</span> ex2116</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tumors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ex2116)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tumors <span class="ot">&lt;-</span> ex2116</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tumors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -464,8 +391,8 @@ The following object is masked from 'package:tidyr':
 </div>
 <p>Here we’ll add a column that records the number of fish in each tank which did not develop liver tumors, and a column that assigns a unique label to each of the 20 tanks. We’ll also add a column for log(Dose) and log(Dose)^2 since we used those as explanatory variables in the model you saw in the narrated lectures.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tumors <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Dose =</span> Dose, <span class="at">Tumor =</span> Tumor, <span class="at">NoTumor =</span> Total <span class="sc">-</span> Tumor, <span class="at">TankID =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tumors)),<span class="at">logDose =</span> <span class="fu">log</span>(Dose), <span class="at">logDose2 =</span> <span class="fu">log</span>(Dose)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tumors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tumors <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Dose =</span> Dose, <span class="at">Tumor =</span> Tumor, <span class="at">NoTumor =</span> Total <span class="sc">-</span> Tumor, <span class="at">TankID =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tumors)),<span class="at">logDose =</span> <span class="fu">log</span>(Dose), <span class="at">logDose2 =</span> <span class="fu">log</span>(Dose)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tumors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -540,18 +467,18 @@ The following object is masked from 'package:tidyr':
 </div>
 </div>
 </div>
-<p>We’ll also create a case-format version that records the binary status (tumor or not) for each of the 1739 individual fishes.<br>
-# check code tumors_case$Outcome should be a factor</p>
+<p>We’ll also create a case-format version that records the binary status (tumor or not) for each of the 1739 individual fishes.</p>
+<p><strong>check code tumors_case$Outcome should be a factor</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The syntax dplyr::select() ensures that the select() function from the dplyr package is </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># used instead of the select() function from the MASS package, in case you still have MASS</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loaded in the library.</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>tumors_freq <span class="ot">&lt;-</span> tumors <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Total) <span class="sc">%&gt;%</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Tumor<span class="sc">:</span>NoTumor,<span class="at">names_to=</span><span class="st">"Outcome"</span>,<span class="at">values_to=</span><span class="st">"Freq"</span>,<span class="at">cols_vary =</span> <span class="st">"slowest"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Outcome=</span><span class="fu">as.factor</span>(Outcome))</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>tumors_case <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(tumors_freq) <span class="sc">%&gt;%</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Outcome=</span><span class="fu">as.factor</span>(Outcome))</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tumors_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The syntax dplyr::select() ensures that the select() function from the dplyr package is </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># used instead of the select() function from the MASS package, in case you still have MASS</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loaded in the library.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>tumors_freq <span class="ot">&lt;-</span> tumors <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Total) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">pivot_longer</span>(Tumor<span class="sc">:</span>NoTumor,<span class="at">names_to=</span><span class="st">"Outcome"</span>,<span class="at">values_to=</span><span class="st">"Freq"</span>,<span class="at">cols_vary =</span> <span class="st">"slowest"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Outcome=</span><span class="fu">as.factor</span>(Outcome))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>tumors_case <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(tumors_freq) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Outcome=</span><span class="fu">as.factor</span>(Outcome))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tumors_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -612,7 +539,7 @@ The following object is masked from 'package:tidyr':
 </div>
 </div>
 </div>
-<p>(With most of the lab examples so far oriented around examples of death, discrimination, and disease, you might accuse us statisticians of attempting to usurp from economics the title of “dismal science”! (Economists think <em>they’re</em> pessimists – what they call “maximizing utility”, statisticians call “minimizing loss”). We promise nobody dies in the next lab. Probably.</p>
+<p>(With most of the lab examples so far oriented around examples of death, discrimination, and disease, you might accuse us statisticians of attempting to usurp from economics the title of “dismal science”! (Economists think <em>they’re</em> pessimists. what they call “maximizing utility”, statisticians call “minimizing loss”). We promise nobody dies in the next lab. Probably.</p>
 </section>
 <section id="binary-vs-binomial" class="level2">
 <h2 class="anchored" data-anchor-id="binary-vs-binomial">Binary vs binomial</h2>
@@ -621,8 +548,8 @@ The following object is masked from 'package:tidyr':
 <h3 class="anchored" data-anchor-id="modeling-a-binomial-count-for-each-tank">Modeling a binomial count for each tank</h3>
 <p>First, the response can be specified as a 2-column matrix containing counts of successes in the first column and counts of failures in the second.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, <span class="fu">cbind</span>(Tumor, NoTumor) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, <span class="fu">cbind</span>(Tumor, NoTumor) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -648,8 +575,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <p>The response can also be specified as a vector of <em>proportions</em> of successes in each group, with the total in each group given through the <code>weights</code> argument:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, Tumor<span class="sc">/</span>Total <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, Tumor<span class="sc">/</span>Total <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -679,8 +606,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <h3 class="anchored" data-anchor-id="modeling-a-binary-outcome-for-each-fish">Modeling a binary outcome for each fish</h3>
 <p>We have converted the data to case format, where each row contains an individual binary outcome corresponding to an individual fish. These outcomes can be modeled directly, just as we saw with the (ungrouped) Donner data in Lab 3.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors_case, Outcome <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors_case, Outcome <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -706,7 +633,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <p>Make a quick comparison of the coefficient estimates from <code>mod2</code> and <code>mod3</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coefficients</span>(mod2),<span class="fu">coefficients</span>(mod3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coefficients</span>(mod2),<span class="fu">coefficients</span>(mod3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  [,1]      [,2]
 (Intercept)  1.0292126  1.029213
@@ -719,9 +646,9 @@ logDose2    -0.3919491 -0.391949</code></pre>
 </section>
 <section id="modeling-as-binomial-counts-within-each-dose" class="level3">
 <h3 class="anchored" data-anchor-id="modeling-as-binomial-counts-within-each-dose">Modeling as binomial counts within each Dose</h3>
-<p>Note that “TankID” is not a term in any of the models we fit above. The binomial logistic models treat the 4 tanks in each of the 5 dose groups as independent binomial observations – within each <code>Dose</code> level, the 4 tanks are supposed to be draws from 4 independent binomial random variables, with potentially different <span class="math inline">\(n\)</span> (different number of fish in each tank) but all with the same <span class="math inline">\(p\)</span>. In the binary logistic model, the tanks are ignored and the fish-level outcomes are treated as independent Bernoulli random variables, with a common <span class="math inline">\(p\)</span> at each <code>Dose</code>. In either form, a single <span class="math inline">\(p\)</span> applies to every fish in the <code>Dose</code> level, regardless of tank. Indeed, we can explicitly collapse across the tanks before fitting the model, without affecting any of the inferences:</p>
+<p>Note that “TankID” is not a term in any of the models we fit above. The binomial logistic models treat the 4 tanks in each of the 5 dose groups as independent binomial observations. Within each <code>Dose</code> level, the 4 tanks are supposed to be draws from 4 independent binomial random variables, with potentially different <span class="math inline">\(n\)</span> (different number of fish in each tank) but all with the same <span class="math inline">\(p\)</span>. In the binary logistic model, the tanks are ignored and the fish-level outcomes are treated as independent Bernoulli random variables, with a common <span class="math inline">\(p\)</span> at each <code>Dose</code>. In either form, a single <span class="math inline">\(p\)</span> applies to every fish in the <code>Dose</code> level, regardless of tank. Indeed, we can explicitly collapse across the tanks before fitting the model, without affecting any of the inferences:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>(summed_tumor <span class="ot">&lt;-</span> <span class="fu">summarize</span>(<span class="fu">group_by</span>(tumors, Dose, logDose, logDose2), <span class="fu">sum</span>(Tumor), <span class="fu">sum</span>(NoTumor)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(summed_tumor <span class="ot">&lt;-</span> <span class="fu">summarize</span>(<span class="fu">group_by</span>(tumors, Dose, logDose, logDose2), <span class="fu">sum</span>(Tumor), <span class="fu">sum</span>(NoTumor)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'Dose', 'logDose'. You can override using
 the `.groups` argument.</code></pre>
@@ -781,8 +708,8 @@ the `.groups` argument.</code></pre>
 </div>
 <p>Notice that we’ve now reduced the dataset down to five observations! And now we’ll fit the model to these summed responses:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> summed_tumor, <span class="fu">cbind</span>(<span class="st">`</span><span class="at">sum(Tumor)</span><span class="st">`</span>, <span class="st">`</span><span class="at">sum(NoTumor)</span><span class="st">`</span>) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> summed_tumor, <span class="fu">cbind</span>(<span class="st">`</span><span class="at">sum(Tumor)</span><span class="st">`</span>, <span class="st">`</span><span class="at">sum(NoTumor)</span><span class="st">`</span>) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -808,7 +735,7 @@ Number of Fisher Scoring iterations: 3</code></pre>
 </div>
 <p>And compare coefficient estimates:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coefficients</span>(mod2),<span class="fu">coefficients</span>(mod3),<span class="fu">coefficients</span>(mod4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coefficients</span>(mod2),<span class="fu">coefficients</span>(mod3),<span class="fu">coefficients</span>(mod4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  [,1]      [,2]       [,3]
 (Intercept)  1.0292126  1.029213  1.0292126
@@ -820,9 +747,9 @@ logDose2    -0.3919491 -0.391949 -0.3919491</code></pre>
 </section>
 <section id="ok-so-now-what" class="level3">
 <h3 class="anchored" data-anchor-id="ok-so-now-what">Ok, so now what?!</h3>
-<p>The parameter estimates and standard errors are all identical – we reach the same conclusions from each model. But let’s look at the residual deviances for each of the models:</p>
+<p>The parameter estimates and standard errors are all identical. We reach the same conclusions from each model. But let’s look at the residual deviances for each of the models:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">deviance</span>(mod2),<span class="fu">deviance</span>(mod3),<span class="fu">deviance</span>(mod4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">deviance</span>(mod2),<span class="fu">deviance</span>(mod3),<span class="fu">deviance</span>(mod4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]       [,3]
 [1,] 26.04806 1754.692 0.08687945</code></pre>
@@ -831,8 +758,8 @@ logDose2    -0.3919491 -0.391949 -0.3919491</code></pre>
 <p>It’s also important to recognize that in <code>mod2</code>, <code>mod3</code> and <code>mod4</code>, the sample sizes are n = 20, n = 1739 and n = 5, respectively. And, the null deviances for each model are also substantially different; again in order of <code>mod2</code>, <code>mod3</code> and <code>mod4</code> these are 667.20, 2395.84 and 641.23. The <em>difference</em> in deviance (the deviance accounted for by a model), however, is the same for every form of the model.</p>
 <p>To see more plainly that the methods above are equivalent, we can view minimal summaries from each using the <code>display()</code> function from <em>arm</em>. The abbreviated output (compared to <code>summary</code>) facilitates comparison between several models on the same page.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># counts in tanks</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># counts in tanks</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>glm(formula = Tumor/Total ~ logDose + logDose2, family = "binomial", 
     data = tumors, weights = Total)
@@ -844,8 +771,8 @@ logDose2    -0.39     0.06
   n = 20, k = 3
   residual deviance = 26.0, null deviance = 667.2 (difference = 641.1)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># binary outcomes per fish</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># binary outcomes per fish</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>glm(formula = Outcome ~ logDose + logDose2, family = "binomial", 
     data = tumors_case)
@@ -857,8 +784,8 @@ logDose2    -0.39     0.06
   n = 1739, k = 3
   residual deviance = 1754.7, null deviance = 2395.8 (difference = 641.1)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># counts in dose level ignoring tanks</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># counts in dose level ignoring tanks</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>glm(formula = cbind(`sum(Tumor)`, `sum(NoTumor)`) ~ logDose + 
     logDose2, family = "binomial", data = summed_tumor)
@@ -879,20 +806,20 @@ logDose2    -0.39     0.06
 </section>
 <section id="model-fit-and-model-comparison" class="level1">
 <h1>Model fit and model comparison</h1>
-<p>In the binary logistic case, there was little we could do to directly assess model fit. You could try squinting at some residual plots, but that’s about it. The single binary outcomes just bounce around too much to say of anything about what the fitted line “should have done” at any given predictor value – it certainly should not chase every individual 1 or 0. To get some stability, you need to be able to put multiple observations within the same “bin”, so that you can say whether the proportion (or log-odds) in that bin is close to what the model predicts.</p>
+<p>In the binary logistic case, there was little we could do to directly assess model fit. You could try squinting at some residual plots, but that’s about it. The single binary outcomes just bounce around too much to say of anything about what the fitted line “should have done” at any given predictor value. It certainly should not chase every individual 1 or 0. To get some stability, you need to be able to put multiple observations within the same “bin”, so that you can say whether the proportion (or log-odds) in that bin is close to what the model predicts.</p>
 <section id="empirical-logits" class="level2">
 <h2 class="anchored" data-anchor-id="empirical-logits">Empirical logits</h2>
-<p>The empirical logit is just the logit transformation applied to the proportion within a bin (this isn’t the log-odds of the <em>probability</em> within the bin, it’s just an estimate based on the observed proportion – hence “empirical”).</p>
+<p>The empirical logit is just the logit transformation applied to the proportion within a bin (this isn’t the log-odds of the <em>probability</em> within the bin, it’s just an estimate based on the observed proportion, hence “empirical”).</p>
 <p>Remember the logit transformation of a proportion/probability is given by <code>qlogis()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>empirical_logits <span class="ot">&lt;-</span> <span class="fu">with</span>(tumors, <span class="fu">qlogis</span>(Tumor<span class="sc">/</span>Total))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>empirical_logits <span class="ot">&lt;-</span> <span class="fu">with</span>(tumors, <span class="fu">qlogis</span>(Tumor<span class="sc">/</span>Total))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We plot the empirical logits against <code>Dose</code> to see the shape of the relationship we’re trying to capture on the log-odds scale, along with a loess smooth.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(<span class="at">x =</span> Dose, <span class="at">y =</span> empirical_logits))<span class="sc">+</span> </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.005</span>, <span class="at">height =</span> <span class="fl">0.01</span>) <span class="sc">+</span> </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Empirical Logits vs Dose"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(<span class="at">x =</span> Dose, <span class="at">y =</span> empirical_logits))<span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.005</span>, <span class="at">height =</span> <span class="fl">0.01</span>) <span class="sc">+</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Empirical Logits vs Dose"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -902,10 +829,10 @@ logDose2    -0.39     0.06
 </div>
 <p>This appearance of a logarithmic relationship between the Dose and the logits prompts the a log-transformation of the dose to straighten it out (that is, it suggests that the <em>odds</em> of tumor are nearly linear in dose).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(<span class="at">x =</span> logDose, <span class="at">y =</span> empirical_logits)) <span class="sc">+</span> </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Empirical Logits vs log(Dose)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(<span class="at">x =</span> logDose, <span class="at">y =</span> empirical_logits)) <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Empirical Logits vs log(Dose)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -915,15 +842,16 @@ logDose2    -0.39     0.06
 </div>
 <p>This plot suggests that a logistic regression model which includes both <code>log(Dose)</code> and <code>log(Dose)^2</code> would be appropriate to capture the observed trend in the empirical logits. Unlike with binary logistic regression, the binomial model lets us measure the lack-of-fit to a proposed model, and compare the fit between models.</p>
 </section>
-<section id="deviance-goodness-of-fit" class="level2">
-<h2 class="anchored" data-anchor-id="deviance-goodness-of-fit">Deviance goodness of fit</h2>
-<p>Recall that the deviance goodness of fit test compares a fitted model to a saturated model, or one in which there are as many parameters as there are data points. In these goodness of fit comparisons, the null hypothesis corresponds to the fitted model (which is a reduced model relative to the saturated model), and the alternative hypothesis corresponds to the saturated model. Therefore, a small p-value indicating evidence for rejection of the fitted model in favor of the saturated model is evidence of <em>lack of fit</em>.</p>
+<section id="deviance-goodness-of-fit-lack-of-fit." class="level2">
+<h2 class="anchored" data-anchor-id="deviance-goodness-of-fit-lack-of-fit.">Deviance goodness of fit , <em>lack of fit</em>.</h2>
+<p>Recall that the deviance goodness of fit test compares a fitted model to a saturated model, or one in which there are as many parameters as there are data points. In these goodness of fit comparisons,</p>
+<p>the null hypothesis corresponds to the fitted model (which is a reduced model relative to the saturated model), and the alternative hypothesis corresponds to the saturated model. Therefore, a small p-value indicating evidence for rejection of the fitted model in favor of the saturated model is evidence of <em>lack of fit</em>.</p>
 <p>The <code>LRstats()</code> from <em>vcdExtra</em> function shows a convenient summary of the fits of one or more model objects.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> Dose, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>mod6 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>mod7 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(mod5, mod6, mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> Dose, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>mod6 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>mod7 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(mod5, mod6, mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -969,21 +897,21 @@ logDose2    -0.39     0.06
 </div>
 <p>The <code>LR Chisq</code> is the residual deviance, which is the sum of the squared deviance residuals. For instance, for <code>mod5</code>, the residual deviance value of 277 comes can be obtained as</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid</span>(mod5, <span class="at">type =</span> <span class="st">'deviance'</span>) <span class="sc">%&gt;%</span> <span class="fu">raise_to_power</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid</span>(mod5, <span class="at">type =</span> <span class="st">'deviance'</span>) <span class="sc">%&gt;%</span> <span class="fu">raise_to_power</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 277.0468</code></pre>
 </div>
 </div>
 <p>or as</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>mod5<span class="sc">$</span>deviance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>mod5<span class="sc">$</span>deviance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 277.0468</code></pre>
 </div>
 </div>
 <p>This quantity has an approximate chi-squared distribution if the model is correct, which is the basis for the deviance goodness of fit test. <code>Pr(&gt;Chisq)</code> provides the p-value for this test. For <code>mod6</code>, let’s check that this is equivalent to doing this test “by hand,” using the residual deviance and residual df:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(mod6<span class="sc">$</span>deviance, <span class="at">df =</span> mod6<span class="sc">$</span>df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(mod6<span class="sc">$</span>deviance, <span class="at">df =</span> mod6<span class="sc">$</span>df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.940025e-08</code></pre>
 </div>
@@ -992,10 +920,10 @@ logDose2    -0.39     0.06
 </section>
 <section id="drop-in-deviance-test" class="level2">
 <h2 class="anchored" data-anchor-id="drop-in-deviance-test">Drop-in-deviance test</h2>
-<p>Just a reminder that the drop in deviance test is different from the deviance goodness of fit test. Whereas the deviance goodness of fit test provides a comparison between a single fitted model and a saturated model, a drop in deviance test provides a way to compare two fitted models when one of those models is nested within the other one. Put another way, the drop in deviance test is a comparison between a reduced model (null hypothesis) and a full model (alternative hypothesis) – and we use it in cases where the reduced model is reduced from (or nested in) the full model.</p>
+<p>Just a reminder that the drop in deviance test is different from the deviance goodness of fit test. Whereas the deviance goodness of fit test provides a comparison between a single fitted model and a saturated model, a drop in deviance test provides a way to compare two fitted models when one of those models is nested within the other one. Put another way, the drop in deviance test is a comparison between a reduced model (null hypothesis) and a full model (alternative hypothesis) and we use it in cases where the reduced model is reduced from (or nested in) the full model.</p>
 <p>Using the models we have already fit, let’s use the <code>anova()</code> function to perform a drop in deviance test comparing a reduced model (only <code>logDose</code> included) to a full model (<code>logDose</code> and <code>logDose2</code> included):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod6, mod7,<span class="at">test=</span><span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod6, mod7,<span class="at">test=</span><span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1034,7 +962,7 @@ logDose2    -0.39     0.06
 <h2 class="anchored" data-anchor-id="information-criteria-for-model-comparison">Information criteria for model comparison</h2>
 <p>Let’s look at the <code>LRstats</code> again, this time with a focus on the first two columns:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(mod5, mod6,mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(mod5, mod6,mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1078,7 +1006,7 @@ logDose2    -0.39     0.06
 </div>
 </div>
 </div>
-<p>The AIC and BIC, as you may recall from Data Analytics I, are likelihood-based methods for comparing models. Both penalize models with more parameters, but the BIC generally applies a larger penalty (and hence promotes selection of simpler models). Models with smaller values are preferred. The AIC or BIC of a single model is not a measure of the goodness of fit for that model – the information criteria are only meaningful as comparisons between models. The information criteria can be applied to compare models which are not nested (neither model’s parameters are a strict subset of the other’s), as long as each model has a likelihood.</p>
+<p>The AIC and BIC, as you may recall from Data Analytics I, are likelihood-based methods for comparing models. Both penalize models with more parameters, but the BIC generally applies a larger penalty (and hence promotes selection of simpler models). Models with smaller values are preferred. The AIC or BIC of a single model is not a measure of the goodness of fit for that model the information criteria are only meaningful as comparisons between models. The information criteria can be applied to compare models which are not nested (neither model’s parameters are a strict subset of the other’s), as long as each model has a likelihood.</p>
 <blockquote class="blockquote">
 <p>Which of these three candidate models would we choose, based on the information criteria? Does this align with the conclusion from the drop-in-deviance test, given that mod6 is nested within mod7?</p>
 </blockquote>
@@ -1087,26 +1015,26 @@ logDose2    -0.39     0.06
 <h2 class="anchored" data-anchor-id="deviance-residuals-pearson-residuals---dispersion-parameter-estimated-from-pearson-chi-squared">Deviance residuals, Pearson residuals - dispersion parameter estimated from Pearson – chi squared</h2>
 <p>In the case of binomial logistic regression it can be helpful to look at the deviance and/or Pearson residuals to (a) evaluate the model fit and (b) check for outliers. Provided that the binomial counts are fairly large, both the deviance and Pearson residuals should look like draws from a standard Normal distribution, so too many residuals outside of the [-2,2] interval may be cause for concern. Here’ we’ll look at a few plots of both the deviance and Pearson residuals.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>tumors<span class="sc">$</span>residuals_deviance <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod7)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>tumors<span class="sc">$</span>residuals_pearson <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod7, <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(logDose,residuals_deviance)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>tumors<span class="sc">$</span>residuals_deviance <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod7)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>tumors<span class="sc">$</span>residuals_pearson <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod7, <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(logDose,residuals_deviance)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="z4_learnR_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(logDose,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(logDose,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="z4_learnR_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(residuals_deviance,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(residuals_deviance,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="z4_learnR_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>There are no obvious patterns in either of the plots showing the residuals against <code>logDose</code>, and there are also no outliers. This is all good – it suggests that we’ve done a good job at modeling the log odds of tumors (although we still have to talk about the over dispersion). We created the scatterplot of the Pearson residuals versus the deviance residuals just so you could see how similar they are – for the most part, they fall along the y = x diagonal.</p>
+<p>There are no obvious patterns in either of the plots showing the residuals against <code>logDose</code>, and there are also no outliers. This is all good, it suggests that we’ve done a good job at modeling the log odds of tumors (although we still have to talk about the over dispersion). We created the scatterplot of the Pearson residuals versus the deviance residuals just so you could see how similar they are. For the most part, they fall along the y = x diagonal.</p>
 <p>When looking at residuals, it can also be useful to plot the residuals versus the fitted values of a model. Again, we’re hoping that we <em>don’t</em> see any patterns in such a plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>tumors<span class="sc">$</span>fitted <span class="ot">=</span> <span class="fu">predict.glm</span>(mod7,<span class="at">scale=</span><span class="st">"link"</span>)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(fitted,residuals_deviance)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tumors<span class="sc">$</span>fitted <span class="ot">=</span> <span class="fu">predict.glm</span>(mod7,<span class="at">scale=</span><span class="st">"link"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tumors, <span class="fu">aes</span>(fitted,residuals_deviance)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="z4_learnR_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1119,7 +1047,7 @@ logDose2    -0.39     0.06
 <p>Over dispersion can arise when there is structure in the data that is not accounted for by a model. A high degree of over dispersion may indicate that important predictors have been omitted, the functional form of the predictors is inadequate to capture relevant features of the data, observations assumed independent are not so, or large outliers are present. When there is evidence of lack of fit, we expect overdispersion.</p>
 <p>From the residuals of <code>mod7</code> that we just examined (<code>mod7</code> includes <code>logDose + logDose2</code>), it doesn’t seem that there are outliers. It also seems that we’ve gotten a good functional form for the predictors (i.e., <code>logDose + logDose2</code>). Is there even evidence of lack of fit here? We looked at the deviance goodness of fit above, but let’s repeat it here just for <code>mod7</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1147,14 +1075,14 @@ logDose2    -0.39     0.06
 </div>
 </div>
 </div>
-<p>The p-value is 0.07, which suggests that our model is a good fit, but just barely. You also saw in the narrated lectures that the estimated dispersion parameter here is 1.48 – not wildly larger than one, but larger nonetheless. Even though there may not be strong evidence for over dispersion here, it makes sense that the counts of fish with tumors are over dispersed because it’s not likely that measurements on fish from the same tank are statistically independent.</p>
+<p>The p-value is 0.07, which suggests that our model is a good fit, but just barely. You also saw in the narrated lectures that the estimated dispersion parameter here is 1.48 not wildly larger than one, but larger nonetheless. Even though there may not be strong evidence for over dispersion here, it makes sense that the counts of fish with tumors are over dispersed because it’s not likely that measurements on fish from the same tank are statistically independent.</p>
 <blockquote class="blockquote">
 <p>When in doubt, assume that counts are over dispersed.</p>
 </blockquote>
 <p>You saw in the narrated lecture that the approach to use in the binomial setting when over dispersion is present is called quasi-binomial logistic regression. We’ll perform this in R, and then we’ll compare the model output from the quasi-binomial approach to the binomial approach in <code>mod7</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>mod8 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"quasibinomial"</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>mod8 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"quasibinomial"</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>glm(formula = (Tumor/Total) ~ logDose + logDose2, family = "binomial", 
     data = tumors, weights = Total)
@@ -1166,7 +1094,7 @@ logDose2    -0.39     0.06
   n = 20, k = 3
   residual deviance = 26.0, null deviance = 667.2 (difference = 641.1)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(mod8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>glm(formula = (Tumor/Total) ~ logDose + logDose2, family = "quasibinomial", 
     data = tumors, weights = Total)
@@ -1187,8 +1115,8 @@ logDose2    -0.39     0.07
 <p>A strong disadvantage of the quasi-likelihood (in this case quasi-binomial) approach is that since quasi-likelihoods are not real likelihoods, we cannot use likelihood-based methods of model comparison, like AIC and BIC, to choose between them, nor can we compare them with true likelihood models. Indeed, the idea of “model comparison” becomes somewhat muddled when we are talking about a collection of things that are not proper probability models to begin with.</p>
 <p>You’ll learn about an alternative to the quasi-binomial model in Module 7 when we introduce mixed effects models. In that Module, we’ll refit the tumor data, including <code>TankID</code> as a random effect. You might wonder why we can’t just include <code>TankID</code> in our logistic regression model to address the over dispersion problem. Recall, however, that there are 20 tanks, so that if we use <code>TankID</code> in the model, we’ll gobble up all 20 data points before we can estimate all the “tank effects.” Look at what happens:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>mod9 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2 <span class="sc">+</span> TankID, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>mod9 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> tumors, (Tumor<span class="sc">/</span>Total) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2 <span class="sc">+</span> TankID, <span class="at">weights =</span> Total, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1231,18 +1159,18 @@ AIC: 127.4
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
-<p>This model is <em>over-saturated</em> – we’ve put too many terms in it, and not all of them can be estimated. Notice also that the degrees of freedom corresponding to the residual deviance is 0. We should not use this model for inference.</p>
+<p>This model is <em>over-saturated</em> we’ve put too many terms in it, and not all of them can be estimated. Notice also that the degrees of freedom corresponding to the residual deviance is 0. We should not use this model for inference.</p>
 </section>
 <section id="a-pitfall-perfect-separation" class="level1">
 <h1>A Pitfall – perfect separation</h1>
 <p>In this section of the lab, we’ll discuss a pathology that can arise in logistic regression. We’ll show you what happens, and we’ll make a suggestion for dealing with the problem.</p>
 <p>First, we’ll create some fake data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>)</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x1, x2)</span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x1, x2)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1299,24 +1227,24 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
 </div>
-<p>Take a look at a plot of the data below, and it will be easy to see what the potential problem is – somewhere between 3 and 5, there’s perfect separation between the y = 0 responses and the y = 1 responses. The question is, where is “somewhere?”</p>
+<p>Take a look at a plot of the data below, and it will be easy to see what the potential problem is somewhere between 3 and 5, there’s perfect separation between the y = 0 responses and the y = 1 responses. The question is, where is “somewhere?”</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Note the clean split between 0's and 1's"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Note the clean split between 0's and 1's"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="z4_learnR_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The following will not work – try inserting an “r” to make it executable.</p>
+<p>The following will not work try inserting an “r” to make it executable.</p>
 <pre><code>m1 &lt;- glm(y ~ x1 + x2, family = binomial, data = df)</code></pre>
-<p>This generates an error, because <code>x1</code> predicts <em>too well</em>. There is no unique “maximum likelihood estimate” for the coefficient on <code>x1</code>, because there are too many super-excellent solutions, and the numerical algorithm behind the <code>glm()</code> function just can’t choose. This might seem like the silliest possible problem to have – that there are <em>too many</em> good solutions – but saying that doesn’t make the algorithm converge.</p>
-<p>If we really believe that we can predict <code>y</code> perfectly from <code>x1</code>, we could throw out the whole model and just write down a decision rule like “predict y = 1 if x1 &gt;= 4, predict y = 0 otherwise.” Of course, we don’t know if this is a better or worse rule than, say, “predict y = 1 if x1 &gt;= 3.5, predict y = 0 otherwise” – the choice of ‘4’ as the cutpoint was arbitrary. That is, we might have the same problem that the <code>glm()</code> algorithm had – which cut-point is the best one?!</p>
+<p>This generates an error, because <code>x1</code> predicts <em>too well</em>. There is no unique “maximum likelihood estimate” for the coefficient on <code>x1</code>, because there are too many super-excellent solutions, and the numerical algorithm behind the <code>glm()</code> function just can’t choose. This might seem like the silliest possible problem to have that there are <em>too many</em> good solutions but saying that doesn’t make the algorithm converge.</p>
+<p>If we really believe that we can predict <code>y</code> perfectly from <code>x1</code>, we could throw out the whole model and just write down a decision rule like “predict y = 1 if x1 &gt;= 4, predict y = 0 otherwise.” Of course, we don’t know if this is a better or worse rule than, say, “predict y = 1 if x1 &gt;= 3.5, predict y = 0 otherwise” the choice of ‘4’ as the cutpoint was arbitrary. That is, we might have the same problem that the <code>glm()</code> algorithm had, which cut-point is the best one?!</p>
 <p>The real underlying issue here is that we should not believe that we’ve derived a perfect classifier (i.e., a decision rule that says when y = 1 and when y = 0) from 8 data points! In fact, in the fake data we created above, we also created a second explanatory variable, <code>x2</code>, and we never even used it.</p>
 <p>An alternative approach sidesteps the problem by directly imposing our belief that a perfect classifier is too good to be true, and so it allows for estimating a coefficient on <code>x1</code>. This approach, a Bayesian generalized linear model, is well beyond the scope of this course, but you can nevertheless see it in action using the <code>bayesglm()</code> function in the <em>arm</em> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>bayes1 <span class="ot">&lt;-</span> <span class="fu">bayesglm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">family =</span> binomial, <span class="at">data =</span> df, <span class="at">prior.df =</span> <span class="dv">1</span>)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bayes1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>bayes1 <span class="ot">&lt;-</span> <span class="fu">bayesglm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">family =</span> binomial, <span class="at">data =</span> df, <span class="at">prior.df =</span> <span class="dv">1</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bayes1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1340,13 +1268,13 @@ AIC: 8.4855
 Number of Fisher Scoring iterations: 57</code></pre>
 </div>
 </div>
-<p>You should still take a careful look at this model summary. In particular there were 46 iterations of the Fisher scoring algorithm – even with the prior specification about imperfect separation, the algorithm still took a while to find a solution.</p>
+<p>You should still take a careful look at this model summary. In particular there were 46 iterations of the Fisher scoring algorithm even with the prior specification about imperfect separation, the algorithm still took a while to find a solution.</p>
 </section>
 <section id="test-for-difference-in-proportions" class="level1">
 <h1>Test for difference in proportions</h1>
 <p>Another important application of logistic regression is its use in testing the difference in two proportions. We’ll return to the Berkeley Admissions data to take a look.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a> (UCBA_sum <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">margin.table</span>(UCBAdmissions,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a> (UCBA_sum <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">margin.table</span>(UCBAdmissions,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Admit
 Gender   Admitted Rejected
@@ -1356,7 +1284,7 @@ Gender   Admitted Rejected
 </div>
 <p>And remember that we looked at the equivalence between <code>prop.test()</code> and <code>chisq.test()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -1370,7 +1298,7 @@ sample estimates:
    prop 1    prop 2 
 0.4451877 0.3035422 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(UCBA_sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test with Yates' continuity correction
@@ -1379,13 +1307,16 @@ data:  UCBA_sum
 X-squared = 91.61, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Now let’s perform the same test, using logistic regression. # Check code: gender should be factor and admit is factor with 0 levels</p>
+<p>Now let’s perform the same test, using logistic regression.</p>
+</section>
+<section id="check-code-gender-should-be-factor-and-admit-is-factor-with-0-levels" class="level1">
+<h1>Check code: gender should be factor and admit is factor with 0 levels</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>UCBA_case <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(UCBA_sum)</span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>UCBA_case <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Gender=</span><span class="fu">factor</span>(Gender), <span class="at">Admit =</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(Admit),<span class="st">"Rejected"</span>))</span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#mutate(Admit = factor(Admit,levels(Admit)[2:1]))</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make sure that "Rejected" is the failure level in glm</span></span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(UCBA_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>UCBA_case <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(UCBA_sum)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>UCBA_case <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Gender=</span><span class="fu">factor</span>(Gender), <span class="at">Admit =</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(Admit),<span class="st">"Rejected"</span>))</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a> <span class="co">#mutate(Admit = factor(Admit,levels(Admit)[2:1]))</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a> <span class="co"># make sure that "Rejected" is the failure level in glm</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(UCBA_case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1424,8 +1355,8 @@ X-squared = 91.61, df = 1, p-value &lt; 2.2e-16</code></pre>
 </table>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>test1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> UCBA_case, Admit <span class="sc">~</span> Gender, <span class="at">family =</span> binomial)</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(test1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>test1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> UCBA_case, Admit <span class="sc">~</span> Gender, <span class="at">family =</span> binomial)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(test1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1447,14 +1378,14 @@ AIC: 5954.9
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
-<p>The relationship to <code>prop.test()</code> may not be immediately clear, and this is partly because the logistic regression output is on then model scale – in this case the log odds. Take a look at the <code>z value</code> corresponding to the <code>GenderMale</code> variable. If you take the square of this value, you get 91.26, which is quite similar to the <code>X squared</code> value you get from <code>prop.test()</code> and from <code>Chisq.test</code>. Recall that the square of a standard Normal random variable is a Chi-square random variable, and this helps to explain the similarity.</p>
+<p>The relationship to <code>prop.test()</code> may not be immediately clear, and this is partly because the logistic regression output is on then model scale in this case the log odds. Take a look at the <code>z value</code> corresponding to the <code>GenderMale</code> variable. If you take the square of this value, you get 91.26, which is quite similar to the <code>X squared</code> value you get from <code>prop.test()</code> and from <code>Chisq.test</code>. Recall that the square of a standard Normal random variable is a Chi-square random variable, and this helps to explain the similarity.</p>
 <p>If we perform the appropriate back-transformations from the logistic regression output, we’ll see the correspondence to the test for a difference in proportions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(<span class="sc">-</span><span class="fl">0.83049</span>) <span class="co">#Pr(Admit|Female)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(<span class="sc">-</span><span class="fl">0.83049</span>) <span class="co">#Pr(Admit|Female)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3035415</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(<span class="sc">-</span><span class="fl">0.83049+0.61035</span>) <span class="co"># Pr(Admit|Male)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(<span class="sc">-</span><span class="fl">0.83049+0.61035</span>) <span class="co"># Pr(Admit|Male)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4451862</code></pre>
 </div>
@@ -1464,15 +1395,32 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <h1>Lab 4 Assignment</h1>
 <section id="question" class="level2">
 <h2 class="anchored" data-anchor-id="question">Question</h2>
-<p>Here we will return to the UCBAdmissions dataset and fit a logistic regression model for the count of students admitted (out of the total applicants) for each combination of the factors gender and department. The usual drill applies – submit your answers as an RMarkdown document, following the instructions given in the previous labs.</p>
-<ol type="a">
-<li>Construct an informative ggplot() of the empirical logits of admission proportion vs gender and department. It’s up to you what aesthetics to map to which variables – there is more than one right answer here.</li>
-</ol>
-<p>Some tips for part (a):</p>
+<p>Here we will return to the UCBAdmissions dataset and fit a logistic regression model for the count of students admitted (out of the total applicants) for each combination of the factors gender and department.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Some tips for part (a):
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>You can use the <code>group</code> argument to geom_line() to connect points within a group – for instance, given a plot with Gender on the x axis and a variable called <code>eLogits</code> on the y, you could add <code>geom_line(aes(group = Dept, x = Gender, y = eLogits))</code>, where the slope of the connecting lines would correspond to the sign and magnitude of the difference in empirical logits (log of observed odds ratio) between genders within each department.</p></li>
+<li><p>You can use the <code>group</code> argument to geom_line() to connect points within a group for instance, given a plot with Gender on the x axis and a variable called <code>eLogits</code> on the y, you could add <code>geom_line(aes(group = Dept, x = Gender, y = eLogits))</code>, where the slope of the connecting lines would correspond to the sign and magnitude of the difference in empirical logits (log of observed odds ratio) between genders within each department.</p></li>
 <li><p>You can also incorporate information about the total number of applicants to each department into your plot. For instance, supposing you had a data frame with separate columns containing counts of “Admitted” and “Rejected” by sex and department, you could map the number of applicants to the size of the plot points using <code>geom_point(size = Admitted + Rejected)</code>.</p></li>
 </ul>
+</div>
+</div>
+</div>
+<ol type="a">
+<li>Construct an informative ggplot() of the empirical logits of admission proportion vs gender and department. It’s up to you what aesthetics to map to which variables, there is more than one right answer here.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ol start="2" type="a">
 <li><p>Based on your plot from (a), which variable (gender or department) appears to account for more of the variability in admissions? Explain.</p></li>
 <li><p>Fit an appropriate (binomial) logistic regression model for admissions. What is the estimated dispersion parameter? Is there evidence of lack of fit?</p></li>
