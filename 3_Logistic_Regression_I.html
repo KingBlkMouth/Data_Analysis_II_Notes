@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
- <span class="dropdown-text">Log Reg II</span></a>
+ <span class="dropdown-text">4 Log Reg II</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
@@ -268,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#donner.r-lecture-4-fitting-models." id="toc-donner.r-lecture-4-fitting-models." class="nav-link active" data-scroll-target="#donner.r-lecture-4-fitting-models.">Donner.R, Lecture 4 Fitting Models.</a>
   <ul class="collapse">
-  <li><a href="#lectures" id="toc-lectures" class="nav-link" data-scroll-target="#lectures">Lectures</a>
+  <li><a href="#w-3-lectures" id="toc-w-3-lectures" class="nav-link" data-scroll-target="#w-3-lectures">W-3 Lectures</a>
   <ul class="collapse">
   <li><a href="#introduction-to-logistic-regression" id="toc-introduction-to-logistic-regression" class="nav-link" data-scroll-target="#introduction-to-logistic-regression">Introduction to Logistic Regression</a></li>
   <li><a href="#model-interpretation" id="toc-model-interpretation" class="nav-link" data-scroll-target="#model-interpretation">Model Interpretation</a></li>
@@ -464,8 +464,8 @@ SE = \frac{sd}{sqrt(n)}
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># exp(cis)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="lectures" class="level2">
-<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<section id="w-3-lectures" class="level2">
+<h2 class="anchored" data-anchor-id="w-3-lectures">W-3 Lectures</h2>
 <section id="introduction-to-logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-to-logistic-regression">Introduction to Logistic Regression</h3>
 <p>Donner party survival by sex and age, interested in sex.</p>
@@ -805,22 +805,13 @@ Age:Female      -0.16160    0.09426     -1.714    0.0865</code></pre>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcdExtra' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: vcd</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: grid</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: gnm</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gnm' was built under R version 4.3.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -831,16 +822,16 @@ Attaching package: 'vcdExtra'</code></pre>
 
     summarise</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(case1902)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(case1902)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> case1902</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Death, NoDeath), <span class="at">names_to =</span> <span class="st">"sent"</span>, <span class="at">values_to =</span> <span class="st">"Freq"</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(df)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sent =</span> <span class="fu">ifelse</span>(sent <span class="sc">==</span> <span class="st">"Death"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> case1902</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Death, NoDeath), <span class="at">names_to =</span> <span class="st">"sent"</span>, <span class="at">values_to =</span> <span class="st">"Freq"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(df)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sent =</span> <span class="fu">ifelse</span>(sent <span class="sc">==</span> <span class="st">"Death"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -2670,9 +2661,9 @@ Attaching package: 'vcdExtra'</code></pre>
 <p>Use the glm() function to fit a logistic regression model that includes additive terms for Aggravation and Victim (e.g., Sentence ~ Aggravation + Victim ). What is the p-value corresponding to the coefficient on Victim?</p>
 <p>0.000732</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(sent <span class="sc">~</span> Aggravation <span class="sc">+</span> Victim, </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df, </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(sent <span class="sc">~</span> Aggravation <span class="sc">+</span> Victim, </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2700,22 +2691,22 @@ Number of Fisher Scoring iterations: 7</code></pre>
 <p>It converged, the number of Fisher Scoring iterations is 7.</p>
 <p>Which of the following statements best describes the odds of a Death sentence when the Victim was white relative to when the victim was black, for two murders at the same aggravation level?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Agg <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>White <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># log(odds) = -6.6760 + 1.5397*Agg + 1.8106*White</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>odds1 <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">6.6760</span>) <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">1.8106</span><span class="sc">*</span>White)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>odds1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Agg <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>White <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># log(odds) = -6.6760 + 1.5397*Agg + 1.8106*White</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>odds1 <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">6.6760</span>) <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">1.8106</span><span class="sc">*</span>White)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>odds1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.115376</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>White <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>odds2 <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">6.6760</span>) <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">1.8106</span><span class="sc">*</span>White)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>odds2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>White <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>odds2 <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">6.6760</span>) <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">1.8106</span><span class="sc">*</span>White)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>odds2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.001261</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>odds1<span class="sc">/</span>odds2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>odds1<span class="sc">/</span>odds2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.107675</code></pre>
 </div>
@@ -2723,7 +2714,7 @@ Number of Fisher Scoring iterations: 7</code></pre>
 <p>The odds of a death sentence when the victim was white are estimated to be 6.11 times of the odds of a death sentence when the victim was black.</p>
 <p>If you first make sure that the response variable, Sentence, is coded as 0 or 1, and then you use the glm() function on the death penalty data, but neglect to pass in the argument, “family=binomial” what happens?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -4549,8 +4540,8 @@ Number of Fisher Scoring iterations: 7</code></pre>
 </table>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(sent <span class="sc">~</span> Aggravation <span class="sc">+</span> Victim, </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(sent <span class="sc">~</span> Aggravation <span class="sc">+</span> Victim, </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -4591,17 +4582,17 @@ Temperature -0.17   0.08    -2.05   0.04</code></pre>
 <p>Give a 95% confidence interval for the coefficient on Temperature.</p>
 <p><strong>Ans c(-17 - 1.96<em>(.08), -17 + 1.96</em>(.08))</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)), (<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)), (<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.3268 -0.0132</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="sc">-</span>.<span class="dv">17</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> .<span class="dv">08</span> </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fl">2.05</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(t <span class="sc">-</span> se<span class="sc">*</span>z, t<span class="sc">+</span>se<span class="sc">*</span>z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="sc">-</span>.<span class="dv">17</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> .<span class="dv">08</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fl">2.05</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(t <span class="sc">-</span> se<span class="sc">*</span>z, t<span class="sc">+</span>se<span class="sc">*</span>z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.334 -0.006</code></pre>
 </div>
@@ -4614,7 +4605,7 @@ Temperature -0.17   0.08    -2.05   0.04</code></pre>
 <p>A one degree increase in temperature is associated with an estimated decrease in the log odds of O-ring failure between 0.0132 and 0.3268 (95% confidence interval for the log-odds of failure).</p>
 <p><strong>ANS, TRUE</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.0132</span> <span class="sc">-</span> <span class="fl">0.3268</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.0132</span> <span class="sc">-</span> <span class="fl">0.3268</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.3136</code></pre>
 </div>
@@ -4625,45 +4616,45 @@ Temperature -0.17   0.08    -2.05   0.04</code></pre>
 <p>Give a 95% confidence interval for the effect of a one-degree increase in temperature on the odds of O-ring failure.</p>
 <p><strong>ANS c(exp(-17 - 1.96<em>(.08)), exp(-17 + 1.96</em>(.08))</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((<span class="fu">exp</span>(<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>))), <span class="fu">exp</span>(<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((<span class="fu">exp</span>(<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>))), <span class="fu">exp</span>(<span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>(.<span class="dv">08</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7212280 0.9868867</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21.767</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>) <span class="sc">+</span> (.<span class="dv">08</span> <span class="sc">*</span> <span class="sc">-</span><span class="fl">2.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>) <span class="sc">+</span> (.<span class="dv">08</span> <span class="sc">*</span> <span class="sc">-</span><span class="fl">2.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21.433</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>))<span class="sc">-</span> (<span class="fl">10.88</span> <span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>) <span class="sc">+</span> (.<span class="dv">08</span> <span class="sc">*</span> <span class="sc">-</span><span class="fl">2.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>))<span class="sc">-</span> (<span class="fl">10.88</span> <span class="sc">-</span>.<span class="dv">17</span> <span class="sc">+</span> (<span class="fl">5.7</span><span class="sc">*</span><span class="fl">1.91</span>) <span class="sc">+</span> (.<span class="dv">08</span> <span class="sc">*</span> <span class="sc">-</span><span class="fl">2.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.334</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10.88</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">-</span> .<span class="dv">17</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span> <span class="sc">-</span> .<span class="dv">17</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10.71</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span>) <span class="sc">-</span> (<span class="fl">10.88</span> <span class="sc">-</span> .<span class="dv">17</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">10.88</span>) <span class="sc">-</span> (<span class="fl">10.88</span> <span class="sc">-</span> .<span class="dv">17</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.17</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.0132</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.0132</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.013288</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.3268</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.3268</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.386524</code></pre>
 </div>
@@ -4690,37 +4681,37 @@ Temperature -0.17   0.08    -2.05   0.04</code></pre>
 <p>Maximum Likelihood.</p>
 <p>The goal is to find the optimal way to fit a distribution to the data. To do this, try fitting a distribution to the data. Measure the probability/likelihood of observing the data with the distribution at that point, then move the distribution and try again. Pick the point in the set maximizes the probability/likelihood of observing the values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">8</span></span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">99</span></span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">19</span></span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>successes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,p<span class="sc">*</span><span class="fu">length</span>(X))</span>
-<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>failures <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,((<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">*</span>(<span class="fu">length</span>(X)) <span class="sc">+</span> <span class="dv">1</span>))</span>
-<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> ((y2 <span class="sc">-</span> y1)<span class="sc">/</span>(x2 <span class="sc">-</span> x1))</span>
-<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> y1 <span class="sc">-</span> m<span class="sc">*</span>x1</span>
-<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> m<span class="sc">*</span>(X <span class="sc">-</span> x1) <span class="sc">+</span> y1</span>
-<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>logodds <span class="ot">&lt;-</span> y</span>
-<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">exp</span>(logodds)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(logodds))</span>
-<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(failures, successes)</span>
-<span id="cb70-21"><a href="#cb70-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb70-22"><a href="#cb70-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> data) <span class="sc">+</span></span>
-<span id="cb70-23"><a href="#cb70-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb70-24"><a href="#cb70-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> b, <span class="at">slope =</span> m, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb70-25"><a href="#cb70-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_point(aes(x = x, y = logodds), color = "blue") + </span></span>
-<span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Log odds is y of blue dots"</span>) <span class="sc">+</span></span>
-<span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> prob), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability is the red dots"</span>, </span>
-<span id="cb70-29"><a href="#cb70-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"log(Odds) is the blue line"</span>) <span class="sc">+</span></span>
-<span id="cb70-30"><a href="#cb70-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">+</span> </span>
-<span id="cb70-31"><a href="#cb70-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">8</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">99</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">19</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>successes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,p<span class="sc">*</span><span class="fu">length</span>(X))</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>failures <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,((<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">*</span>(<span class="fu">length</span>(X)) <span class="sc">+</span> <span class="dv">1</span>))</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> ((y2 <span class="sc">-</span> y1)<span class="sc">/</span>(x2 <span class="sc">-</span> x1))</span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> y1 <span class="sc">-</span> m<span class="sc">*</span>x1</span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> m<span class="sc">*</span>(X <span class="sc">-</span> x1) <span class="sc">+</span> y1</span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>logodds <span class="ot">&lt;-</span> y</span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">exp</span>(logodds)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(logodds))</span>
+<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(failures, successes)</span>
+<span id="cb67-21"><a href="#cb67-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb67-22"><a href="#cb67-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> data) <span class="sc">+</span></span>
+<span id="cb67-23"><a href="#cb67-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb67-24"><a href="#cb67-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> b, <span class="at">slope =</span> m, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb67-25"><a href="#cb67-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_point(aes(x = x, y = logodds), color = "blue") + </span></span>
+<span id="cb67-26"><a href="#cb67-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Log odds is y of blue dots"</span>) <span class="sc">+</span></span>
+<span id="cb67-27"><a href="#cb67-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> prob), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb67-28"><a href="#cb67-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability is the red dots"</span>, </span>
+<span id="cb67-29"><a href="#cb67-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"log(Odds) is the blue line"</span>) <span class="sc">+</span></span>
+<span id="cb67-30"><a href="#cb67-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">+</span> </span>
+<span id="cb67-31"><a href="#cb67-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 49 rows containing missing values or values outside the scale range
 (`geom_point()`).
