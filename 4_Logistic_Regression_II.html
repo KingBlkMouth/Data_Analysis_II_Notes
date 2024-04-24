@@ -266,7 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#w-4-lectures" id="toc-w-4-lectures" class="nav-link active" data-scroll-target="#w-4-lectures">W-4 Lectures</a>
+  <li><a href="#practical-stats" id="toc-practical-stats" class="nav-link active" data-scroll-target="#practical-stats">Practical Stats</a></li>
+  <li><a href="#w-4-lectures" id="toc-w-4-lectures" class="nav-link" data-scroll-target="#w-4-lectures">W-4 Lectures</a>
   <ul class="collapse">
   <li><a href="#another-example-in-r---more-logistic-regression" id="toc-another-example-in-r---more-logistic-regression" class="nav-link" data-scroll-target="#another-example-in-r---more-logistic-regression">Another Example in R - More Logistic Regression</a></li>
   <li><a href="#dose-response-relationships" id="toc-dose-response-relationships" class="nav-link" data-scroll-target="#dose-response-relationships">Dose Response Relationships</a></li>
@@ -275,12 +276,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#more-on-over-dispersion" id="toc-more-on-over-dispersion" class="nav-link" data-scroll-target="#more-on-over-dispersion">More on Over Dispersion</a></li>
   </ul></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
-  <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
+  <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a>
+  <ul class="collapse">
+  <li><a href="#def" id="toc-def" class="nav-link" data-scroll-target="#def">DEF</a></li>
+  </ul></li>
   <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
   <ul class="collapse">
   <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
   <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
   </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
@@ -335,11 +340,12 @@ Learning Objectives
 <p>Task list</p>
 <p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
 <ul>
-<li>Review Module 4 Readings and Lectures</li>
-<li>Submit Module 4 Homework</li>
-<li>Submit Module 4 Lab</li>
-<li>Take the Module 4 Content Quiz and R Quiz</li>
-<li>Participate in the Module 4 Discussion</li>
+<li><del>Review Module 4 Readings and Lectures</del></li>
+<li><del>Submit Module 4 Homework</del></li>
+<li><del>Submit Module 4 Lab</del></li>
+<li>Take the Module 4 Content Quiz and</li>
+<li>R Quiz</li>
+<li><del>Participate in the Module 4 Discussion</del></li>
 </ul>
 </div>
 </div>
@@ -350,8 +356,46 @@ Learning Objectives
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyverse)</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># library(arm)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="practical-stats" class="level2">
+<h2 class="anchored" data-anchor-id="practical-stats">Practical Stats</h2>
+<p>For logistic regression, first think of the outcome not as a binary label, but as the probability p that the label is a one.</p>
+<p>p is not a linear function of predictors because p will end up outside of zero and one. Instead model p by applying a logistic response or inverse logit fct to ensure the response stays between zero and one.</p>
+<p><span class="math display">\[
+p = \frac{1}{a + e^{1(\beta_0 ...)}}
+\]</span></p>
+<p>To get the exponential expression out of the denominator, we consider odds instead of probability. <span class="math display">\[
+Odds = \frac{prob}{1 - prob}
+\]</span> <span class="math display">\[
+Prob = \frac{Odds}{1+Odds}
+\]</span> Combine this with the logistic response fct to get: <span class="math display">\[
+odds(Y=1) = e^{\beta_0 ...}
+\]</span></p>
+<p>The linear function is:</p>
+<p><span class="math display">\[
+log(odds(Y=1)) = \beta_0 ...
+\]</span></p>
+<p>The log-odds fct, aka the logit fct, maps p from 0 to 1 to and value. Using a cutoff rule, where any value greater than the rule is classified as 1, we can set a rule for certain values always being classified as 1.</p>
+<p>Response is log odds of a binary outcome of 1.</p>
+<p>A factor with P levels is represented with P-1 columns. In R levels are all compared to the reference level.</p>
+<p>GLMs are characterized by two main components. A probability dist(here binomial) and a link function that maps the response to the predictors(here logit).</p>
+<p>The poisson is often used for count data like number of times a user visits a website.</p>
+<p>One advantage or log-regs is that it produces a model that can be scored to new data rapidly, without re-computation. Another is the ease of interpretation via the odds ratio.</p>
+<p>Log-Regs use maximum likelihood estimates. MLE is a process that tries to find the model that is most likely to have made that data we see. It fins the solution such that the estimated log odds best describes the observed outcome. For a set of data [X_n] and probability model P_theta(X_n) with parameters theta. The goal of MOE is to find the set of theta estimates that maximize P, aka the probability of seeing X_n given the model P. It does this using deviance,</p>
+<p><span class="math display">\[
+dev = -2log(P_{\hat{\theta}}(X_1, ... X_n))
+\]</span> Lower deviance means better fit.</p>
+<section id="assessing-the-model" class="level4">
+<h4 class="anchored" data-anchor-id="assessing-the-model">Assessing the model</h4>
+<p>Assessment is based generalization error.</p>
+<p>The p-value for glms should be viewed as a relative indicator of variable importance. There is no RMSE or R-squared. You can train and fit with different models and asses performance. You can use stepwise regression, fit interaction terms or include spline terms. Confounding and cerrelated variables are still issues.</p>
+</section>
+</section>
 <section id="w-4-lectures" class="level2">
 <h2 class="anchored" data-anchor-id="w-4-lectures">W-4 Lectures</h2>
 <section id="another-example-in-r---more-logistic-regression" class="level3">
@@ -700,7 +744,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </section>
 <section id="over-dispersion" class="level3">
 <h3 class="anchored" data-anchor-id="over-dispersion">Over Dispersion</h3>
-<p>A binomial Rand Var os the sum of ind Bernoulli RVs each with the same probability.</p>
+<p>A binomial Rand Var is the sum of ind Bernoulli RVs each with the same probability.</p>
 <p>If we summed over RVs with the same probability, but are not statistically independent,</p>
 <ul>
 <li>as in the number of Alzeimers cases in an extended family or counting fish with tumors that live in the same tank.</li>
@@ -804,18 +848,2121 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </section>
 <section id="hw" class="level2">
 <h2 class="anchored" data-anchor-id="hw">HW</h2>
+<p>Confidence intervals for log-regs are:</p>
+<p><span class="math display">\[
+est \pm SE*1.96
+\]</span></p>
+<p>not</p>
+<p><span class="math display">\[
+estA + estB \pm (SEA*1.96 + SEB*1.96)
+\]</span></p>
+<p>They are the multiplicative confidence intervals.</p>
+<p>Drop in Deviance:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {(<span class="fu">exp</span>(x))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))}</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"case0502"</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> case0502</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Judge) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">venire_id =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop =</span> Percent<span class="sc">/</span><span class="dv">100</span>, </span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">tot =</span> <span class="dv">30</span>, </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">30</span>,</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">female =</span> <span class="fu">round</span>(prop<span class="sc">*</span>n),</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">male =</span> n <span class="sc">-</span> female) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>()</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Judge, female, tot)</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Percent</th>
+<th style="text-align: left;">Judge</th>
+<th style="text-align: right;">venire_id</th>
+<th style="text-align: right;">prop</th>
+<th style="text-align: right;">tot</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">female</th>
+<th style="text-align: right;">male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">6.4</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.064</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.7</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.087</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13.3</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.133</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.6</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.136</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15.0</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.150</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15.2</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.152</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.7</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.177</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18.6</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.186</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23.1</td>
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.231</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16.8</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.168</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>emplog <span class="ot">&lt;-</span> <span class="fu">with</span>(df, <span class="fu">qlogis</span>((female<span class="sc">/</span>n)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>Judge, </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> tot,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df1, </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>m1 <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = (female/tot) ~ Judge, family = "binomial", data = df1, 
+    weights = tot)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -0.66329    0.17236  -3.848 0.000119 ***
+JudgeB        0.01974    0.23305   0.085 0.932484    
+JudgeC       -0.23749    0.21849  -1.087 0.277049    
+JudgeD       -0.34831    0.33902  -1.027 0.304239    
+JudgeE       -0.37691    0.24188  -1.558 0.119171    
+JudgeF       -0.32945    0.22019  -1.496 0.134599    
+JudgeSpock's -1.08591    0.24302  -4.468 7.88e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 62.919  on 45  degrees of freedom
+Residual deviance: 31.119  on 39  degrees of freedom
+AIC: 208.53
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dfmf <span class="ot">&lt;-</span> df1 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">male =</span> tot <span class="sc">-</span> female,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">j =</span> <span class="dv">1</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>dfmf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Judge</th>
+<th style="text-align: right;">female</th>
+<th style="text-align: right;">tot</th>
+<th style="text-align: right;">male</th>
+<th style="text-align: right;">j</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spock’s</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> dfmf <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Judge, </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">values_from =</span> j, </span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">id_cols =</span> <span class="fu">c</span>(id, female, male, tot),</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">S =</span> <span class="st">`</span><span class="at">Spock's</span><span class="st">`</span>, <span class="at">f =</span> <span class="st">'F'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(S, <span class="at">.after =</span> <span class="st">"f"</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>t </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">female</th>
+<th style="text-align: right;">male</th>
+<th style="text-align: right;">tot</th>
+<th style="text-align: right;">A</th>
+<th style="text-align: right;">B</th>
+<th style="text-align: right;">C</th>
+<th style="text-align: right;">D</th>
+<th style="text-align: right;">E</th>
+<th style="text-align: right;">f</th>
+<th style="text-align: right;">S</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m1 &lt;- glm((female/tot)~Judge, </span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">#           weights = tot,</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     data = df1, </span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     family = "binomial") </span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> tot,</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> t, </span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> m1 <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = (female/tot) ~ B + C + D + E + f + S, family = "binomial", 
+    data = t, weights = tot)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.66329    0.17236  -3.848 0.000119 ***
+B            0.01974    0.23305   0.085 0.932484    
+C           -0.23749    0.21849  -1.087 0.277049    
+D           -0.34831    0.33902  -1.027 0.304239    
+E           -0.37691    0.24188  -1.558 0.119171    
+f           -0.32945    0.22019  -1.496 0.134599    
+S           -1.08591    0.24302  -4.468 7.88e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 62.919  on 45  degrees of freedom
+Residual deviance: 31.119  on 39  degrees of freedom
+AIC: 208.53
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f, </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> tot,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> t, </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> m2 <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = (female/tot) ~ B + C + D + E + f + S, family = "binomial", 
+    data = t, weights = tot)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.66329    0.17236  -3.848 0.000119 ***
+B            0.01974    0.23305   0.085 0.932484    
+C           -0.23749    0.21849  -1.087 0.277049    
+D           -0.34831    0.33902  -1.027 0.304239    
+E           -0.37691    0.24188  -1.558 0.119171    
+f           -0.32945    0.22019  -1.496 0.134599    
+S           -1.08591    0.24302  -4.468 7.88e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 62.919  on 45  degrees of freedom
+Residual deviance: 31.119  on 39  degrees of freedom
+AIC: 208.53
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = (female/tot) ~ B + C + D + E + f, family = "binomial", 
+    data = t, weights = tot)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -1.2852     0.1184 -10.851   &lt;2e-16 ***
+B             0.6416     0.1966   3.265   0.0011 ** 
+C             0.3844     0.1790   2.147   0.0318 *  
+D             0.2736     0.3150   0.868   0.3852    
+E             0.2450     0.2069   1.184   0.2365    
+f             0.2925     0.1811   1.615   0.1064    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 62.919  on 45  degrees of freedom
+Residual deviance: 51.319  on 40  degrees of freedom
+AIC: 226.73
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Resid. Df</th>
+<th style="text-align: right;">Resid. Dev</th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Deviance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51.31931</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">31.11944</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20.19986</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">20.2</span>,<span class="dv">1</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.975294e-06</code></pre>
+</div>
+</div>
+<section id="def" class="level3">
+<h3 class="anchored" data-anchor-id="def">DEF</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> tot,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> t, </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>me <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> tot,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> t, </span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>ae <span class="ot">&lt;-</span> <span class="fu">anova</span>(me, mf)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>ae<span class="sc">$</span>Deviance[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.433019</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">2.433</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1188053</code></pre>
+</div>
+</div>
+<p>For the drop in deviance test on D, I accept the null hypothesis that the betas a,b,c,d,e,f,s are not equal to betas, a,b,c,e,f,s.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ms <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f, </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>mF <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>S, </span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>me <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>md <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a>an <span class="ot">&lt;-</span> <span class="fu">anova</span>(ms,mF, me, md, mc, mb, mf)</span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a>an<span class="sc">$</span></span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>an<span class="sc">$</span>Deviance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>) {</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"*"</span>,an<span class="sc">$</span>Deviance[i]))</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">pchisq</span>(an<span class="sc">$</span>Deviance[i], <span class="dv">1</span>, <span class="at">lower.tail =</span> F))</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "*17.9776859435636"
+[1] 2.235097e-05
+[1] "*-0.210840104158429"
+[1] 1
+[1] "*1.35069494016167"
+[1] 0.2451567
+[1] "*-0.0921905385879072"
+[1] 1
+[1] "*1.16733533961862"
+[1] 0.2799494
+[1] "*0.00717891306437934"
+[1] 0.9324773</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>mods <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'ms'</span>, <span class="st">'mF'</span>, <span class="st">'me'</span>, <span class="st">'md'</span>, <span class="st">'mc'</span>, <span class="st">'mb'</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(mods[i])</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">get</span>(mods[i])</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">pchisq</span>((<span class="fu">anova</span>(name, mf)<span class="sc">$</span>Deviance[<span class="dv">2</span>]), <span class="dv">1</span>, <span class="at">lower.tail =</span> F))</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ms"
+[1] 6.975788e-06
+[1] "mF"
+[1] 0.136041
+[1] "me"
+[1] 0.1188039
+[1] "md"
+[1] 0.2981783
+[1] "mc"
+[1] 0.2784756
+[1] "mb"
+[1] 0.9324773</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pchisq((anova(ms, mf)$Deviance[2]), 1, lower.tail = F)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 <section id="quizzes" class="level2">
 <h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
+<p>All questions rely on the data in ex2119 in the Sleuth3 library. The dataset contains information from ten different studies in which investigators examined the relationship between breast feeding and breast cancer in women.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ex2119)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ex2119</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Study</th>
+<th style="text-align: left;">Lactate</th>
+<th style="text-align: right;">Cancer</th>
+<th style="text-align: right;">NoCancer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">226</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">352</td>
+<td style="text-align: right;">865</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">244</td>
+<td style="text-align: right;">489</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">574</td>
+<td style="text-align: right;">1059</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">158</td>
+<td style="text-align: right;">147</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">119</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">371</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">682</td>
+<td style="text-align: right;">676</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">565</td>
+<td style="text-align: right;">32693</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">894</td>
+<td style="text-align: right;">55735</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">180</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">262</td>
+<td style="text-align: right;">272</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">179</td>
+<td style="text-align: right;">337</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">612</td>
+<td style="text-align: right;">1325</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">504</td>
+<td style="text-align: right;">433</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">470</td>
+<td style="text-align: right;">540</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">1957</td>
+<td style="text-align: right;">1824</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">1873</td>
+<td style="text-align: right;">2107</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">1925</td>
+<td style="text-align: right;">1988</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">1708</td>
+<td style="text-align: right;">1802</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>?ex2119</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>starting httpd help server ... done</code></pre>
+</div>
+</div>
+<section id="section" class="level4">
+<h4 class="anchored" data-anchor-id="section">1</h4>
+<p>Take a look at the data first. Which one of the following things can you verify ?</p>
+<p><strong>Study 5 had substantially more participants than all of the other studies.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Study) <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sum =</span> <span class="fu">sum</span>(Cancer <span class="sc">+</span> NoCancer)</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Study</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1550</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2366</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2162</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">89887</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">904</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2453</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1947</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7761</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7423</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Study 5 had substantially more participants than all of the other studies.</p>
+</section>
+<section id="section-1" class="level4">
+<h4 class="anchored" data-anchor-id="section-1">2</h4>
+<p>Remembering that Study should be coded as a factor variable, fit a binomial logistic regression model to these data that includes Lactate, Study and their interaction. Are there any problems with this model? (choose one).</p>
+<p><strong>Yes, the model is overfit—there are no df left to estimate the residual deviance.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Study =</span> <span class="fu">as.factor</span>(Study), </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">total =</span> Cancer <span class="sc">+</span> NoCancer)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(Cancer,NoCancer)<span class="sc">~</span>Lactate<span class="sc">*</span>Study, </span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>, </span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> df)</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(Cancer, NoCancer) ~ Lactate * Study, family = "binomial", 
+    data = df)
+
+Coefficients:
+                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)        -0.747706   0.117348  -6.372 1.87e-10 ***
+Lactateyes         -0.151392   0.133295  -1.136    0.256    
+Study2              0.052512   0.141117   0.372    0.710    
+Study3              0.819869   0.164020   4.999 5.77e-07 ***
+Study4              0.902242   0.137024   6.585 4.56e-11 ***
+Study5             -3.310384   0.124784 -26.529  &lt; 2e-16 ***
+Study6              0.801773   0.156810   5.113 3.17e-07 ***
+Study7              0.115009   0.149414   0.770    0.441    
+Study8              0.899545   0.134403   6.693 2.19e-11 ***
+Study9              0.818087   0.121778   6.718 1.84e-11 ***
+Study10             0.715503   0.121627   5.883 4.03e-09 ***
+Lactateyes:Study2   0.234135   0.163087   1.436    0.151    
+Lactateyes:Study3  -0.146017   0.223224  -0.654    0.513    
+Lactateyes:Study4   0.005693   0.160368   0.036    0.972    
+Lactateyes:Study5   0.076825   0.143891   0.534    0.593    
+Lactateyes:Study6   0.059867   0.189946   0.315    0.753    
+Lactateyes:Study7   0.011654   0.169441   0.069    0.945    
+Lactateyes:Study8  -0.139283   0.161371  -0.863    0.388    
+Lactateyes:Study9  -0.036712   0.140838  -0.261    0.794    
+Lactateyes:Study10  0.130021   0.141175   0.921    0.357    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 3.3218e+04  on 19  degrees of freedom
+Residual deviance: 6.1133e-12  on  0  degrees of freedom
+AIC: 188.72
+
+Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+</div>
+<p>Yes, the model is overfit—there are no df left to estimate the residual deviance.</p>
+</section>
+<section id="section-2" class="level4">
+<h4 class="anchored" data-anchor-id="section-2">3</h4>
+<p>Now fit a model that just includes the main effects of Lactate and Study. Which one of the following do you observe?</p>
+<p><strong>There is evidence of over dispersion.</strong></p>
+<blockquote class="blockquote">
+<p>1.33 of 4, before was 3.33 of 4. There appears to be something different about Study 7. There is convincing evidence that lactation is associated with breast cancer. There is evidence of over dispersion.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(Cancer,NoCancer)<span class="sc">~</span>Lactate<span class="sc">+</span>Study, </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>, </span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> df)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(Cancer, NoCancer) ~ Lactate + Study, family = "binomial", 
+    data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.78029    0.05846 -13.348  &lt; 2e-16 ***
+Lactateyes  -0.10943    0.02303  -4.751 2.02e-06 ***
+Study2       0.21757    0.07050   3.086  0.00203 ** 
+Study3       0.77526    0.10433   7.431 1.08e-13 ***
+Study4       0.91200    0.07044  12.947  &lt; 2e-16 ***
+Study5      -3.25657    0.06172 -52.765  &lt; 2e-16 ***
+Study6       0.84493    0.08685   9.729  &lt; 2e-16 ***
+Study7       0.12387    0.07045   1.758  0.07870 .  
+Study8       0.83808    0.07203  11.635  &lt; 2e-16 ***
+Study9       0.81036    0.06041  13.414  &lt; 2e-16 ***
+Study10      0.78969    0.06071  13.008  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 33218.213  on 19  degrees of freedom
+Residual deviance:    16.659  on  9  degrees of freedom
+AIC: 187.38
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>(s1<span class="sc">$</span>coefficients) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error      z value Pr(&gt;|z|)
+(Intercept) 0.45827389   1.060202 1.596752e-06 1.000000
+Lactateyes  0.89634755   1.023300 8.642843e-03 1.000002
+Study2      1.24305103   1.073050 2.188668e+01 1.002032
+Study3      2.17115800   1.109970 1.686931e+03 1.000000
+Study4      2.48929063   1.072978 4.197669e+05 1.000000
+Study5      0.03852023   1.063663 1.214572e-23 1.000000
+Study6      2.32782062   1.090734 1.678983e+04 1.000000
+Study7      1.13187027   1.072992 5.802364e+00 1.081882
+Study8      2.31192890   1.074686 1.130275e+05 1.000000
+Study9      2.24871035   1.062276 6.689864e+05 1.000000
+Study10     2.20271574   1.062590 4.458594e+05 1.000000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fl">16.659</span><span class="sc">/</span><span class="dv">9</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.851</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint.default</span>(m1) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %    97.5 %
+(Intercept) 0.40866218 0.5139085
+Lactateyes  0.85678390 0.9377381
+Study2      1.08261804 1.4272586
+Study3      1.76963365 2.6637870
+Study4      2.16829488 2.8578068
+Study5      0.03413141 0.0434734
+Study6      1.96345884 2.7597975
+Study7      0.98589064 1.2994649
+Study8      2.00753673 2.6624744
+Study9      1.99760448 2.5313811
+Study10     1.95561187 2.4810427</code></pre>
+</div>
+</div>
+</section>
+<section id="section-3" class="level4">
+<h4 class="anchored" data-anchor-id="section-3">4</h4>
+<p>Fit the same model you fit in question 3, except use family = quasibinomial. Which one of the following do you observe?</p>
+<p><strong>There is no evidence of a difference between Studies 1 and 7.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(Cancer,NoCancer)<span class="sc">~</span>Lactate<span class="sc">+</span>Study, </span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"quasibinomial"</span>, </span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> df)</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(Cancer, NoCancer) ~ Lactate + Study, family = "binomial", 
+    data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.78029    0.05846 -13.348  &lt; 2e-16 ***
+Lactateyes  -0.10943    0.02303  -4.751 2.02e-06 ***
+Study2       0.21757    0.07050   3.086  0.00203 ** 
+Study3       0.77526    0.10433   7.431 1.08e-13 ***
+Study4       0.91200    0.07044  12.947  &lt; 2e-16 ***
+Study5      -3.25657    0.06172 -52.765  &lt; 2e-16 ***
+Study6       0.84493    0.08685   9.729  &lt; 2e-16 ***
+Study7       0.12387    0.07045   1.758  0.07870 .  
+Study8       0.83808    0.07203  11.635  &lt; 2e-16 ***
+Study9       0.81036    0.06041  13.414  &lt; 2e-16 ***
+Study10      0.78969    0.06071  13.008  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 33218.213  on 19  degrees of freedom
+Residual deviance:    16.659  on  9  degrees of freedom
+AIC: 187.38
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(Cancer, NoCancer) ~ Lactate + Study, family = "binomial", 
+    data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.78029    0.05846 -13.348  &lt; 2e-16 ***
+Lactateyes  -0.10943    0.02303  -4.751 2.02e-06 ***
+Study2       0.21757    0.07050   3.086  0.00203 ** 
+Study3       0.77526    0.10433   7.431 1.08e-13 ***
+Study4       0.91200    0.07044  12.947  &lt; 2e-16 ***
+Study5      -3.25657    0.06172 -52.765  &lt; 2e-16 ***
+Study6       0.84493    0.08685   9.729  &lt; 2e-16 ***
+Study7       0.12387    0.07045   1.758  0.07870 .  
+Study8       0.83808    0.07203  11.635  &lt; 2e-16 ***
+Study9       0.81036    0.06041  13.414  &lt; 2e-16 ***
+Study10      0.78969    0.06071  13.008  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 33218.213  on 19  degrees of freedom
+Residual deviance:    16.659  on  9  degrees of freedom
+AIC: 187.38
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>s2<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error      z value Pr(&gt;|z|)
+(Intercept) 0.45827389   1.060202 1.596752e-06 1.000000
+Lactateyes  0.89634755   1.023300 8.642843e-03 1.000002
+Study2      1.24305103   1.073050 2.188668e+01 1.002032
+Study3      2.17115800   1.109970 1.686931e+03 1.000000
+Study4      2.48929063   1.072978 4.197669e+05 1.000000
+Study5      0.03852023   1.063663 1.214572e-23 1.000000
+Study6      2.32782062   1.090734 1.678983e+04 1.000000
+Study7      1.13187027   1.072992 5.802364e+00 1.081882
+Study8      2.31192890   1.074686 1.130275e+05 1.000000
+Study9      2.24871035   1.062276 6.689864e+05 1.000000
+Study10     2.20271574   1.062590 4.458594e+05 1.000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>s1<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error      z value Pr(&gt;|z|)
+(Intercept) 0.45827389   1.060202 1.596752e-06 1.000000
+Lactateyes  0.89634755   1.023300 8.642843e-03 1.000002
+Study2      1.24305103   1.073050 2.188668e+01 1.002032
+Study3      2.17115800   1.109970 1.686931e+03 1.000000
+Study4      2.48929063   1.072978 4.197669e+05 1.000000
+Study5      0.03852023   1.063663 1.214572e-23 1.000000
+Study6      2.32782062   1.090734 1.678983e+04 1.000000
+Study7      1.13187027   1.072992 5.802364e+00 1.081882
+Study8      2.31192890   1.074686 1.130275e+05 1.000000
+Study9      2.24871035   1.062276 6.689864e+05 1.000000
+Study10     2.20271574   1.062590 4.458594e+05 1.000000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>(s2<span class="sc">$</span>coefficients) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error      z value Pr(&gt;|z|)
+(Intercept) 0.45827389   1.060202 1.596752e-06 1.000000
+Lactateyes  0.89634755   1.023300 8.642843e-03 1.000002
+Study2      1.24305103   1.073050 2.188668e+01 1.002032
+Study3      2.17115800   1.109970 1.686931e+03 1.000000
+Study4      2.48929063   1.072978 4.197669e+05 1.000000
+Study5      0.03852023   1.063663 1.214572e-23 1.000000
+Study6      2.32782062   1.090734 1.678983e+04 1.000000
+Study7      1.13187027   1.072992 5.802364e+00 1.081882
+Study8      2.31192890   1.074686 1.130275e+05 1.000000
+Study9      2.24871035   1.062276 6.689864e+05 1.000000
+Study10     2.20271574   1.062590 4.458594e+05 1.000000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint.default</span>(m2) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %     97.5 %
+(Intercept) 0.39219008 0.53549279
+Lactateyes  0.84300776 0.95306231
+Study2      1.03021013 1.49986475
+Study3      1.64435119 2.86673984
+Study4      2.06342727 3.00304641
+Study5      0.03268062 0.04540332
+Study6      1.84703948 2.93374825
+Study7      0.93820068 1.36551841
+Study8      1.90830697 2.80092003
+Study9      1.91445165 2.64132982
+Study10     1.87381693 2.58934401</code></pre>
+</div>
+</div>
+</section>
+<section id="redos" class="level4">
+<h4 class="anchored" data-anchor-id="redos">Redo’s</h4>
+<p><em>2.33 att. 4</em></p>
+<p>Study 5 had substantially more participants than all of the other studies.</p>
+<p>Yes, the model is overfit—there are no df left to estimate the residual deviance.</p>
+<p>There appears to be something different about Study 7. There is evidence of over dispersion.</p>
+<p>There is no evidence of a difference between Studies 1 and 7.</p>
+<p><em>att. 4, 2.33</em></p>
+<p>Study 5 had substantially more participants than all of the other studies.</p>
+<p>Yes, the model is overfit—there are no df left to estimate the residual deviance.</p>
+<p>There is evidence of over dispersion. There is convincing evidence that lactation is associated with breast cancer.</p>
+<p>There is no evidence of a difference between Studies 1 and 7.</p>
+<p><em>att. 5</em>, 2.33</p>
+<p><strong>Study 5 had substantially more participants than all of the other studies.</strong></p>
+<p><strong>Yes, the model is overfit—there are no df left to estimate the residual deviance.</strong></p>
+<p><strong>There is evidence of over dispersion.</strong> There appears to be something different about Study 7. There is convincing evidence that lactation is associated with breast cancer.</p>
+<p>There is no evidence of a difference between Studies 1 and 7.</p>
+<p><em>att. 7</em>, 4 points.</p>
+<p><strong>Study 5 had substantially more participants than all of the other studies.</strong></p>
+<p><strong>Yes, the model is overfit—there are no df left to estimate the residual deviance.</strong></p>
+<p><strong>There is evidence of over dispersion.</strong></p>
+<p><strong>There is no evidence of a difference between Studies 1 and 7. Because we included study in the model, there is no explanation for the over dispersion. The effect of Lactate is different across the different studies</strong></p>
+</section>
 </section>
 <section id="c" class="level3">
 <h3 class="anchored" data-anchor-id="c">C</h3>
 </section>
 </section>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> c, </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"quasibinomial"</span>, </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">cbind</span>(admit, rej) <span class="sc">~</span> gender <span class="sc">+</span> dept)</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m3)</span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))}</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> m3<span class="sc">$</span>coefficients</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">logistic</span>(coefs)</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(coefs)</span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>prob</span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(coefs)</span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>odds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The logistic function is the same as plogis, they find probability given log(odds).</p>
+<p>Confidence intervals are in log odds, like the beta estimates.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>ci3 <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(m3)</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>ci3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m3)</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>s3</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>s3<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Confidence intervals from t-value and log odds.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>coefs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From the model glm(formula = cbind(admit, rej) ~ gender + dept, family = “quasibinomial”)</p>
+<p>This reads as the estimated log odds of admitance by gender and department. The intercept is females in department A.</p>
+<p><span class="math inline">\(log(odds_{admit}) = (0.68192148*f*A) + (-0.09987009*m*A) + (-0.04339793*B) + (-1.26259802*C) + (-1.29460647*D) + (-1.73930574*E) + (-3.30648006*F)\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>logodds_admit <span class="ot">&lt;-</span> <span class="cf">function</span>(f,m, A,B,C,D,E,F_) {</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">0.68192148</span><span class="sc">*</span>f<span class="sc">*</span>A) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.09987009</span><span class="sc">*</span>m<span class="sc">*</span>A) <span class="sc">+</span> </span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">0.04339793</span><span class="sc">*</span>B) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.26259802</span><span class="sc">*</span>C) <span class="sc">+</span> </span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">1.29460647</span><span class="sc">*</span>D) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.73930574</span><span class="sc">*</span>E) <span class="sc">+</span> </span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">3.30648006</span><span class="sc">*</span>F_)</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The log odds are additive. So, any single set can be found by setting the dummy variables equal to zero.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>ci3</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>lower <span class="ot">&lt;-</span> ci3[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>]</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>upper <span class="ot">&lt;-</span> ci3[<span class="dv">8</span><span class="sc">:</span><span class="dv">14</span>]</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>lower</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>upper</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>s3<span class="sc">$</span>coefficients</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> s3<span class="sc">$</span>coefficients[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>]</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>est</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> s3<span class="sc">$</span>coefficients[<span class="dv">8</span><span class="sc">:</span><span class="dv">14</span>]</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>SE</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>s3<span class="sc">$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intercept estimate</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>CI on female in A</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">1</span>]</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>SE[<span class="dv">1</span>]</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">1</span>] <span class="sc">+</span> SE[<span class="dv">1</span>]<span class="sc">*</span><span class="fu">qnorm</span>(.<span class="dv">975</span>)</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">1</span>] <span class="sc">-</span> SE[<span class="dv">1</span>]<span class="sc">*</span><span class="fu">qnorm</span>(.<span class="dv">975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>ci3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>CI on female in D</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">5</span>]</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>SE[<span class="dv">5</span>]</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">5</span>] <span class="sc">+</span> SE[<span class="dv">5</span>]<span class="sc">*</span><span class="fu">qnorm</span>(.<span class="dv">975</span>)</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">5</span>] <span class="sc">-</span> SE[<span class="dv">5</span>]<span class="sc">*</span><span class="fu">qnorm</span>(.<span class="dv">975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>All CIs</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"fa"</span>,<span class="st">"ma"</span>, <span class="st">'fb'</span>, <span class="st">'fc'</span>, <span class="st">'fd'</span>, <span class="st">'fe'</span>, <span class="st">'ff'</span>),</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">est =</span> est, </span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">se =</span> SE, </span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">crt_v =</span> <span class="fu">rep</span>(<span class="fu">qnorm</span>(.<span class="dv">975</span>), <span class="dv">7</span>))</span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> test <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">low =</span> est <span class="sc">-</span> se<span class="sc">*</span>crt_v,</span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">upp =</span> est <span class="sc">+</span> se<span class="sc">*</span>crt_v)</span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Reading that, the estimated log odds that a female is admitted to department A are .68. The odds of a male are .68 minus .10, etc.</p>
+<p>Here is a function to find the log odds of any single factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>logodds_admit <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">f=</span><span class="dv">0</span>,<span class="at">m=</span><span class="dv">0</span>, <span class="at">B=</span><span class="dv">0</span>,<span class="at">C=</span><span class="dv">0</span>,<span class="at">D=</span><span class="dv">0</span>,<span class="at">E=</span><span class="dv">0</span>,<span class="at">F_=</span><span class="dv">0</span>) {</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">0.68192148</span><span class="sc">*</span>f) <span class="sc">+</span> ((<span class="fl">0.68192148</span> <span class="sc">-</span> <span class="fl">0.09987009</span>)<span class="sc">*</span>m) <span class="sc">+</span> </span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">0.04339793</span><span class="sc">*</span>B) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.26259802</span><span class="sc">*</span>C) <span class="sc">+</span> </span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">1.29460647</span><span class="sc">*</span>D) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.73930574</span><span class="sc">*</span>E) <span class="sc">+</span> </span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">3.30648006</span><span class="sc">*</span>F_)</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="co"># logodds_admit(f = 1)</span></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co"># logodds_admit(m = 1)</span></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="co"># logodds_admit(f=1, D=1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>t is the actual log odds for each of the factors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">append</span>(t, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>))</span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">append</span>(t, <span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>))</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">append</span>(t, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">B=</span><span class="dv">1</span>))</span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">append</span>(t, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">C=</span><span class="dv">1</span>))</span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">append</span>(t, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">D=</span><span class="dv">1</span>))</span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">append</span>(t, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">E=</span><span class="dv">1</span>))</span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">append</span>(t, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">F_=</span><span class="dv">1</span>))</span>
+<span id="cb103-11"><a href="#cb103-11" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These are the actual probabilities for each factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">plogis</span>(t)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="end____" class="level1">
 <h1>____END____</h1>
+<p>Evaluation of Student Performance</p>
+<p>Discussions – 16 points Labs – 40 points Quizzes – 64 points Homework – 80 points Final Project – 40 points Total – 240 points</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># disc + lab +  Rq  +  Cq   +  hw    +  Final / total</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">16</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">40</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">32</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">32</span><span class="sc">*</span>.<span class="dv">5</span> <span class="sc">+</span> <span class="dv">80</span><span class="sc">*</span>.<span class="dv">95</span> <span class="sc">+</span> <span class="dv">40</span><span class="sc">*</span>.<span class="dv">95</span>)<span class="sc">/</span><span class="dv">240</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9083333</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># disc + lab +  Rq  +  Cq   +  hw    +  Final / total</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">16</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">40</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">32</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">32</span><span class="sc">*</span>.<span class="dv">5</span> <span class="sc">+</span> <span class="dv">80</span><span class="sc">*</span>.<span class="dv">89</span> <span class="sc">+</span> <span class="dv">40</span><span class="sc">*</span>.<span class="dv">9</span>)<span class="sc">/</span><span class="dv">240</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.88</code></pre>
+</div>
+</div>
+<p>I need to maintain above a 50% on the C quizzes and 90% on the HW to have a shot at keeping an A-.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># disc + lab +  Rq  +  Cq   +  hw    +  Final / total</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">16</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">40</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">32</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="dv">32</span><span class="sc">*</span>.<span class="dv">7</span> <span class="sc">+</span> <span class="dv">80</span><span class="sc">*</span>.<span class="dv">85</span> <span class="sc">+</span> <span class="dv">40</span><span class="sc">*</span>.<span class="dv">85</span>)<span class="sc">/</span><span class="dv">240</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.885</code></pre>
+</div>
+</div>
+<p>Grading Scale</p>
+<p>Final percentages will be rounded to the nearest 10th of a percent and converted to letter grades according to the following scheme.</p>
+<pre><code>Percent Grade
+95-100  A
+88-94.9 A-
+80-87.9 B+
+75-79.9 B
+70-74.9 B-</code></pre>
 
 
 </section>

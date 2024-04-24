@@ -298,7 +298,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#c-fit" id="toc-c-fit" class="nav-link" data-scroll-target="#c-fit">c Fit</a></li>
   <li><a href="#d-plot-of-residuals-vs-fitted-values" id="toc-d-plot-of-residuals-vs-fitted-values" class="nav-link" data-scroll-target="#d-plot-of-residuals-vs-fitted-values">d plot of residuals vs fitted values</a></li>
   <li><a href="#d2-refit" id="toc-d2-refit" class="nav-link" data-scroll-target="#d2-refit">d2 Refit</a></li>
-  <li><a href="#e-confint" id="toc-e-confint" class="nav-link" data-scroll-target="#e-confint">e Confint</a></li>
+  <li><a href="#e-confint" id="toc-e-confint" class="nav-link" data-scroll-target="#e-confint">e Confint</a>
+  <ul class="collapse">
+  <li><a href="#fit-a-quasibinomial" id="toc-fit-a-quasibinomial" class="nav-link" data-scroll-target="#fit-a-quasibinomial">1. fit a quasibinomial</a></li>
+  <li><a href="#conclusion-for-gender-on-admissions." id="toc-conclusion-for-gender-on-admissions." class="nav-link" data-scroll-target="#conclusion-for-gender-on-admissions.">2. conclusion for gender on admissions.</a></li>
+  <li><a href="#construct-ci" id="toc-construct-ci" class="nav-link" data-scroll-target="#construct-ci">3. construct CI</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#scratch" id="toc-scratch" class="nav-link" data-scroll-target="#scratch">Scratch</a>
+  <ul class="collapse">
   <li><a href="#probs" id="toc-probs" class="nav-link" data-scroll-target="#probs">Probs</a></li>
   </ul></li>
   </ul>
@@ -1807,7 +1815,7 @@ Some tips for part (a):
 <ol start="3" type="a">
 <li>Fit an appropriate (binomial) logistic regression model for admissions. What is the estimated dispersion parameter? Is there evidence of lack of fit?</li>
 </ol>
-<p>fit a logistic regression model for the count of students admitted (out of the total applicants) for each combination of the factors gender and department.</p>
+<p>Fitting a logistic regression model for the count of students admitted (out of the total applicants) for each combination of the factors gender and department.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> a <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Dept, Gender, <span class="at">admit =</span> Admitted, <span class="at">rej =</span> Rejected, <span class="at">tot =</span> tot_f, tot_a, elog_a, elog_r)</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="co"># str(c)</span></span>
@@ -1928,20 +1936,21 @@ AIC: 103.14
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
-<p>$ = 20.204/5 = $</p>
+<p><span class="math inline">\(\hat{\psi} = 20.204/5 =\)</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fl">20.204</span><span class="sc">/</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.0408</code></pre>
 </div>
 </div>
+<p><strong>There appears to be considerable dispersion</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">20.204</span>, <span class="dv">5</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.001144215</code></pre>
 </div>
 </div>
-<p>There is evidence of lack of fit. The p-value is low.</p>
+<p><strong>There is evidence of lack of fit. The p-value is low.</strong></p>
 </section>
 <section id="d-plot-of-residuals-vs-fitted-values" class="level2">
 <h2 class="anchored" data-anchor-id="d-plot-of-residuals-vs-fitted-values">d plot of residuals vs fitted values</h2>
@@ -1978,7 +1987,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <p><img src="z4_learnR_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>There is an outlier in Department A females. The other departments accepted roughly equal proportions by gender, but dept A accepted about 20% more for female applicants.</p>
+<p><strong>There is an outlier in Department A females. The other departments accepted roughly equal proportions by gender, but dept A accepted about 20% more for female applicants.</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>c <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">prop =</span> admit<span class="sc">/</span>tot) <span class="sc">|&gt;</span> <span class="fu">relocate</span>(prop, <span class="at">.after =</span> tot) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -2157,6 +2166,7 @@ Number of Fisher Scoring iterations: 3</code></pre>
 <pre><code>[1] 0.6391</code></pre>
 </div>
 </div>
+<p><strong>There is now no extra binomial variation</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.5564  on 4</span></span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">2.5564</span>, <span class="dv">4</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2164,7 +2174,7 @@ Number of Fisher Scoring iterations: 3</code></pre>
 <pre><code>[1] 0.6345658</code></pre>
 </div>
 </div>
-<p>It appears there is no evidence of discrimination on the basis of gender outside of department A.</p>
+<p><strong>There is no evidence of lack of fit. It appears there is no evidence of discrimination on the basis of gender outside of department A.</strong></p>
 </section>
 <section id="e-confint" class="level2">
 <h2 class="anchored" data-anchor-id="e-confint">e Confint</h2>
@@ -2175,6 +2185,18 @@ Number of Fisher Scoring iterations: 3</code></pre>
 <p>Using the quasibinomial model for all departments, what do you conclude about the effect of Gender on admissions? Support your conclusion by constructing and interpreting a 95% confidence interval for</p>
 <p><span class="math inline">\(P_{diff} = [P(Admit | (Department, Male)) - P(Admit | (Department, Female))]\)</span></p>
 <p>That is, construct an interval on the model scale, then back-transform to the data scale. Be careful with the direction (male higher or female higher) of the observed difference in conditional probability of admission.</p>
+<ol type="1">
+<li>fit a quasibinomial</li>
+<li>conclusion for gender on admissions.</li>
+<li>construct CI for difference in probability m - f, and interpret</li>
+</ol>
+<ul>
+<li>consruct on model scale</li>
+<li>back-transform to data scale</li>
+<li>care for direction</li>
+</ul>
+<section id="fit-a-quasibinomial" class="level3">
+<h3 class="anchored" data-anchor-id="fit-a-quasibinomial">1. fit a quasibinomial</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> c <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">dept =</span> Dept, <span class="at">gender =</span> Gender, admit, rej, tot, tot_a, elog_a, elog_r)</span>
 <span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> c <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">prop =</span> admit<span class="sc">/</span>tot) <span class="sc">|&gt;</span> <span class="fu">relocate</span>(prop, <span class="at">.after =</span> tot)</span>
@@ -2227,31 +2249,390 @@ Number of Fisher Scoring iterations: 4</code></pre>
       deptF 
  0.03664494 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>prob</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prob</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plogis(m3$coefficients)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="conclusion-for-gender-on-admissions." class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-for-gender-on-admissions.">2. conclusion for gender on admissions.</h3>
+<p>Using the quasibinomial model for all departments, what do you conclude about the effect of Gender on admissions?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>logodds_admit <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">f=</span><span class="dv">0</span>,<span class="at">m=</span><span class="dv">0</span>, <span class="at">B=</span><span class="dv">0</span>,<span class="at">C=</span><span class="dv">0</span>,<span class="at">D=</span><span class="dv">0</span>,<span class="at">E=</span><span class="dv">0</span>,<span class="at">F_=</span><span class="dv">0</span>) {</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">0.68192148</span><span class="sc">*</span>f) <span class="sc">+</span> ((<span class="fl">0.68192148</span> <span class="sc">-</span> <span class="fl">0.09987009</span>)<span class="sc">*</span>m) <span class="sc">+</span> </span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">0.04339793</span><span class="sc">*</span>B) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.26259802</span><span class="sc">*</span>C) <span class="sc">+</span> </span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">1.29460647</span><span class="sc">*</span>D) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.73930574</span><span class="sc">*</span>E) <span class="sc">+</span> </span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">3.30648006</span><span class="sc">*</span>F_)</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>female <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span> <span class="dv">1</span>),</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">B=</span> <span class="dv">1</span>),</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">C=</span> <span class="dv">1</span>),</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">D=</span> <span class="dv">1</span>),</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">E=</span> <span class="dv">1</span>),</span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">F_=</span><span class="dv">1</span>))</span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>male <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>),</span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">B=</span> <span class="dv">1</span>),</span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">C=</span> <span class="dv">1</span>),</span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">D=</span> <span class="dv">1</span>),</span>
+<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">E=</span> <span class="dv">1</span>),</span>
+<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">F_=</span> <span class="dv">1</span>))</span>
+<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a>f_odds <span class="ot">&lt;-</span> female <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span>
+<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a>m_odds <span class="ot">&lt;-</span> male<span class="sc">|&gt;</span> <span class="fu">exp</span>()</span>
+<span id="cb102-19"><a href="#cb102-19" aria-hidden="true" tabindex="-1"></a><span class="co"># f_odds</span></span>
+<span id="cb102-20"><a href="#cb102-20" aria-hidden="true" tabindex="-1"></a><span class="co"># m_odds</span></span>
+<span id="cb102-21"><a href="#cb102-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-22"><a href="#cb102-22" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">plogis</span>(female)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 66.42 65.44 35.88 35.14 25.78  6.76</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">plogis</span>(male)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 64.15 63.15 33.61 32.90 23.92  6.15</code></pre>
+</div>
+</div>
+<p><strong>The probability of males or females making it into any given departments are estimated to be roughly equal.</strong></p>
+</section>
+<section id="construct-ci" class="level3">
+<h3 class="anchored" data-anchor-id="construct-ci">3. construct CI</h3>
+<ol start="3" type="1">
+<li>construct CI for difference in probability m - f, and interpret</li>
+</ol>
+<ul>
+<li>consruct on model scale</li>
+<li>back-transform to data scale</li>
+<li>care for direction</li>
+</ul>
+<p>Support your conclusion by constructing and interpreting a 95% confidence interval for</p>
+<p><span class="math inline">\(P_{diff} = [P(Admit | (Department, Male)) - P(Admit | (Department, Female))]\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>ci3 <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(m3)</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>ci3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %     97.5 %
+(Intercept)  0.3049994  1.0588436
+genderMale  -0.4073263  0.2075862
+deptB       -0.4611114  0.3743155
+deptC       -1.6681191 -0.8570769
+deptD       -1.6970492 -0.8921637
+deptE       -2.2189109 -1.2597006
+deptF       -3.9529149 -2.6600453</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ci3 |&gt; exp()</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (ci3 |&gt; exp())^-1</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>ci3[<span class="dv">2</span>] <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.665427</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>ci3[<span class="dv">9</span>] <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.230704</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.665427</span><span class="sc">^-</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.502794</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.230704</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.230704</code></pre>
+</div>
+</div>
+<p>The ratio of students admitted by sex is estimated to be 1.11 females per male. With 95% confidence, the upper and lower bounds of the ratio of admitted students is between 1.5 females per male and 1.23 males per female. Department doesn’t matter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> m3<span class="sc">$</span>coefficients</span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>coefs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)  genderMale       deptB       deptC       deptD       deptE 
- 0.66416742  0.47505321  0.48915222  0.22052698  0.21507414  0.14940114 
+ 0.68192148 -0.09987009 -0.04339793 -1.26259802 -1.29460647 -1.73930574 
       deptF 
- 0.03534955 </code></pre>
+-3.30648006 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.68192148</span> <span class="sc">-</span><span class="fl">0.09987009</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5820514</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.09987009</span>)<span class="sc">^-</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.105027</code></pre>
 </div>
 </div>
-<p>Using the quasibinomial model for all departments, what do you conclude about the effect of Gender on admissions? Support your conclusion by constructing and interpreting a 95% confidence interval for</p>
-<p><span class="math inline">\(P_{diff} = [P(Admit | (Department, Male)) - P(Admit | (Department, Female))]\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.35662419</span><span class="sc">*</span><span class="fl">0.66542700</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9027344</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.88303501</span><span class="sc">*</span><span class="fl">1.23070375</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.548162</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.038727</span><span class="sc">/</span>(<span class="fl">2.038727</span><span class="sc">+</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6709148</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>logodds_admit <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">f=</span><span class="dv">0</span>,<span class="at">m=</span><span class="dv">0</span>, <span class="at">B=</span><span class="dv">0</span>,<span class="at">C=</span><span class="dv">0</span>,<span class="at">D=</span><span class="dv">0</span>,<span class="at">E=</span><span class="dv">0</span>,<span class="at">F_=</span><span class="dv">0</span>) {</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">0.68192148</span><span class="sc">*</span>f) <span class="sc">+</span> ((<span class="fl">0.68192148</span> <span class="sc">-</span> <span class="fl">0.09987009</span>)<span class="sc">*</span>m) <span class="sc">+</span> </span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">0.04339793</span><span class="sc">*</span>B) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.26259802</span><span class="sc">*</span>C) <span class="sc">+</span> </span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">1.29460647</span><span class="sc">*</span>D) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">1.73930574</span><span class="sc">*</span>E) <span class="sc">+</span> </span>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">3.30648006</span><span class="sc">*</span>F_)</span>
+<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>female <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span> <span class="dv">1</span>),</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">B=</span> <span class="dv">1</span>),</span>
+<span id="cb129-4"><a href="#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">C=</span> <span class="dv">1</span>),</span>
+<span id="cb129-5"><a href="#cb129-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">D=</span> <span class="dv">1</span>),</span>
+<span id="cb129-6"><a href="#cb129-6" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">E=</span> <span class="dv">1</span>),</span>
+<span id="cb129-7"><a href="#cb129-7" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">F_=</span><span class="dv">1</span>))</span>
+<span id="cb129-8"><a href="#cb129-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-9"><a href="#cb129-9" aria-hidden="true" tabindex="-1"></a>male <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb129-10"><a href="#cb129-10" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>),</span>
+<span id="cb129-11"><a href="#cb129-11" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">B=</span> <span class="dv">1</span>),</span>
+<span id="cb129-12"><a href="#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">C=</span> <span class="dv">1</span>),</span>
+<span id="cb129-13"><a href="#cb129-13" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">D=</span> <span class="dv">1</span>),</span>
+<span id="cb129-14"><a href="#cb129-14" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">E=</span> <span class="dv">1</span>),</span>
+<span id="cb129-15"><a href="#cb129-15" aria-hidden="true" tabindex="-1"></a><span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">F_=</span> <span class="dv">1</span>))</span>
+<span id="cb129-16"><a href="#cb129-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-17"><a href="#cb129-17" aria-hidden="true" tabindex="-1"></a>f_odds <span class="ot">&lt;-</span> female <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span>
+<span id="cb129-18"><a href="#cb129-18" aria-hidden="true" tabindex="-1"></a>m_odds <span class="ot">&lt;-</span> male<span class="sc">|&gt;</span> <span class="fu">exp</span>()</span>
+<span id="cb129-19"><a href="#cb129-19" aria-hidden="true" tabindex="-1"></a><span class="co"># f_odds</span></span>
+<span id="cb129-20"><a href="#cb129-20" aria-hidden="true" tabindex="-1"></a><span class="co"># m_odds</span></span>
+<span id="cb129-21"><a href="#cb129-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-22"><a href="#cb129-22" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">plogis</span>(female)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 66.42 65.44 35.88 35.14 25.78  6.76</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">plogis</span>(male)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 64.15 63.15 33.61 32.90 23.92  6.15</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> m3<span class="sc">$</span>coefficients</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>coefs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  genderMale       deptB       deptC       deptD       deptE 
+ 0.68192148 -0.09987009 -0.04339793 -1.26259802 -1.29460647 -1.73930574 
+      deptF 
+-3.30648006 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> s3<span class="sc">$</span>coefficients[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>]</span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.68192148 -0.09987009 -0.04339793 -1.26259802 -1.29460647 -1.73930574
+[7] -3.30648006</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> s3<span class="sc">$</span>coefficients[<span class="dv">8</span><span class="sc">:</span><span class="dv">14</span>]</span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>SE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1923107 0.1568683 0.2131230 0.2069023 0.2053317 0.2447010 0.3298197</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>ci3 <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(m3)</span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>ci3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %     97.5 %
+(Intercept)  0.3049994  1.0588436
+genderMale  -0.4073263  0.2075862
+deptB       -0.4611114  0.3743155
+deptC       -1.6681191 -0.8570769
+deptD       -1.6970492 -0.8921637
+deptE       -2.2189109 -1.2597006
+deptF       -3.9529149 -2.6600453</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+  0.6819215 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>SE[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1923107</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">1</span>] <span class="sc">+</span> SE[<span class="dv">1</span>]<span class="sc">*</span><span class="fu">qnorm</span>(.<span class="dv">975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+   1.058844 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>coefs[<span class="dv">1</span>] <span class="sc">-</span> SE[<span class="dv">1</span>]<span class="sc">*</span><span class="fu">qnorm</span>(.<span class="dv">975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+  0.3049994 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"fa"</span>,<span class="st">"ma"</span>, <span class="st">'fb'</span>, <span class="st">'fc'</span>, <span class="st">'fd'</span>, <span class="st">'fe'</span>, <span class="st">'ff'</span>),</span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">est =</span> est, </span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">se =</span> SE, </span>
+<span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">crt_v =</span> <span class="fu">rep</span>(<span class="fu">qnorm</span>(.<span class="dv">975</span>), <span class="dv">7</span>))</span>
+<span id="cb149-5"><a href="#cb149-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-6"><a href="#cb149-6" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> test <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">low =</span> est <span class="sc">-</span> se<span class="sc">*</span>crt_v,</span>
+<span id="cb149-7"><a href="#cb149-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">upp =</span> est <span class="sc">+</span> se<span class="sc">*</span>crt_v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test2 |&gt; dplyr::select(gro)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>female</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.6819215  0.6385235 -0.5806765 -0.6126850 -1.0573843 -2.6245586</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>ci3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %     97.5 %
+(Intercept)  0.3049994  1.0588436
+genderMale  -0.4073263  0.2075862
+deptB       -0.4611114  0.3743155
+deptC       -1.6681191 -0.8570769
+deptD       -1.6970492 -0.8921637
+deptE       -2.2189109 -1.2597006
+deptF       -3.9529149 -2.6600453</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>female</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.6819215  0.6385235 -0.5806765 -0.6126850 -1.0573843 -2.6245586</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>male</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.5820514  0.5386535 -0.6805466 -0.7125551 -1.1572544 -2.7244287</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">plogis</span>(female)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 66.42 65.44 35.88 35.14 25.78  6.76</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">plogis</span>(male)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 64.15 63.15 33.61 32.90 23.92  6.15</code></pre>
+</div>
+</div>
+<section id="diff-in-prob-m---f" class="level4">
+<h4 class="anchored" data-anchor-id="diff-in-prob-m---f">Diff in prob m - f</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>coefs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  genderMale       deptB       deptC       deptD       deptE 
+ 0.68192148 -0.09987009 -0.04339793 -1.26259802 -1.29460647 -1.73930574 
+      deptF 
+-3.30648006 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">append</span>(f, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>))</span>
+<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">append</span>(f, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">B =</span> <span class="dv">1</span>))</span>
+<span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">append</span>(f, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">C =</span> <span class="dv">1</span>))</span>
+<span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">append</span>(f, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">D =</span> <span class="dv">1</span>))</span>
+<span id="cb165-6"><a href="#cb165-6" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">append</span>(f, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">E =</span> <span class="dv">1</span>))</span>
+<span id="cb165-7"><a href="#cb165-7" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">append</span>(f, <span class="fu">logodds_admit</span>(<span class="at">f=</span><span class="dv">1</span>, <span class="at">F_=</span> <span class="dv">1</span>))</span>
+<span id="cb165-8"><a href="#cb165-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-9"><a href="#cb165-9" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb165-10"><a href="#cb165-10" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">append</span>(m, <span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>))</span>
+<span id="cb165-11"><a href="#cb165-11" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">append</span>(m, <span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">B =</span> <span class="dv">1</span>))</span>
+<span id="cb165-12"><a href="#cb165-12" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">append</span>(m, <span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">C =</span> <span class="dv">1</span>))</span>
+<span id="cb165-13"><a href="#cb165-13" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">append</span>(m, <span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">D =</span> <span class="dv">1</span>))</span>
+<span id="cb165-14"><a href="#cb165-14" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">append</span>(m, <span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">E =</span> <span class="dv">1</span>))</span>
+<span id="cb165-15"><a href="#cb165-15" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">append</span>(m, <span class="fu">logodds_admit</span>(<span class="at">m=</span><span class="dv">1</span>, <span class="at">F_=</span> <span class="dv">1</span>))</span>
+<span id="cb165-16"><a href="#cb165-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-17"><a href="#cb165-17" aria-hidden="true" tabindex="-1"></a>f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.6819215  0.6385235 -0.5806765 -0.6126850 -1.0573843 -2.6245586</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.5820514  0.5386535 -0.6805466 -0.7125551 -1.1572544 -2.7244287</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.78970605 1.71369775 0.50634014 0.49038961 0.31434809 0.06558366</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.58205</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.789704</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(male) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.64153929 0.63149912 0.33613931 0.32903451 0.23916654 0.06154717</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6641674 0.6544196 0.3587769 0.3514470 0.2578096 0.0675745</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb177"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pr(Admit|Male) - Pr(Admit|Female)</span></span>
+<span id="cb177-2"><a href="#cb177-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">plogis</span>(male) <span class="sc">-</span> <span class="fu">plogis</span>(female))<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.2628122 -2.2920508 -2.2637625 -2.2412452 -1.8643101 -0.6027326</code></pre>
+</div>
+</div>
+<p>Females are estimated to be favored by about 2% in all departments except F. There they are only favored by about 0.6%</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb179"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a>female <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.97767415 1.89368289 0.55951970 0.54189393 0.34736323 0.07247174</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>male <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.78970605 1.71369775 0.50634014 0.49038961 0.31434809 0.06558366</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.09987009</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.904955</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.97767415</span> <span class="sc">*</span><span class="fl">0.904955</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.789706</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.89368289</span> <span class="sc">*</span><span class="fl">0.904955</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.713698</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="scratch" class="level1">
+<h1>Scratch</h1>
 <p>That is, construct an interval on the model scale, then back-transform to the data scale. Be careful with the direction (male higher or female higher) of the observed difference in conditional probability of admission.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.68192</span> <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">11</span>) <span class="sc">*</span> <span class="fl">0.19231</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.68192</span> <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">11</span>) <span class="sc">*</span> <span class="fl">0.19231</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.105191</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.68192</span> <span class="sc">-</span> <span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">11</span>) <span class="sc">*</span> <span class="fl">0.19231</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.68192</span> <span class="sc">-</span> <span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">11</span>) <span class="sc">*</span> <span class="fl">0.19231</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2586485</code></pre>
 </div>
 </div>
 <p>Why don’t these match?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(m3)</span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(m3)</span>
+<span id="cb193-2"><a href="#cb193-2" aria-hidden="true" tabindex="-1"></a>ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 2.5 %     97.5 %
 (Intercept)  0.3049994  1.0588436
@@ -2265,7 +2646,7 @@ deptF       -3.9529149 -2.6600453</code></pre>
 </div>
 <p>-0.09987 0.15687</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(ci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(ci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 2.5 %     97.5 %
 (Intercept) 1.35662419 2.88303501
@@ -2278,34 +2659,33 @@ deptF       0.01919866 0.06994506</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> m3<span class="sc">$</span>coefficients</span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>j</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb197"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> m3<span class="sc">$</span>coefficients</span>
+<span id="cb197-2"><a href="#cb197-2" aria-hidden="true" tabindex="-1"></a>j</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)  genderMale       deptB       deptC       deptD       deptE 
  0.68192148 -0.09987009 -0.04339793 -1.26259802 -1.29460647 -1.73930574 
       deptF 
 -3.30648006 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>m3<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb199"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb199-1"><a href="#cb199-1" aria-hidden="true" tabindex="-1"></a>m3<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      deptB 
 -0.04339793 </code></pre>
 </div>
 </div>
-</section>
 <section id="probs" class="level2">
 <h2 class="anchored" data-anchor-id="probs">Probs</h2>
 <p><span class="math inline">\(P_{diff} = [P(Admit | (Department, Male)) - P(Admit | (Department, Female))]\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># male v female department a</span></span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plogis(0.68192) # P(a|f,a)</span></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">1</span>]) <span class="co"># P(a|f,a)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb201"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb201-1"><a href="#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># male v female department a</span></span>
+<span id="cb201-2"><a href="#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plogis(0.68192) # P(a|f,a)</span></span>
+<span id="cb201-3"><a href="#cb201-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">1</span>]) <span class="co"># P(a|f,a)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
   0.6641674 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plogis(0.68192-0.09987)# P(a|m,a)</span></span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb203"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb203-1"><a href="#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plogis(0.68192-0.09987)# P(a|m,a)</span></span>
+<span id="cb203-2"><a href="#cb203-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
   0.6415393 </code></pre>
@@ -2313,7 +2693,7 @@ deptF       0.01919866 0.06994506</code></pre>
 </div>
 <p><strong>The difference for all sets below favor the females.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
 -0.02262812 </code></pre>
@@ -2321,8 +2701,8 @@ deptF       0.01919866 0.06994506</code></pre>
 </div>
 <p>In department a female has slightly higher probability of admittance.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m v f, dept b</span></span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">3</span>]) <span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb207"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb207-1"><a href="#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m v f, dept b</span></span>
+<span id="cb207-2"><a href="#cb207-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">3</span>]) <span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>genderMale 
 -0.1901755 </code></pre>
@@ -2330,8 +2710,8 @@ deptF       0.01919866 0.06994506</code></pre>
 </div>
 <p>In department B, female has more probability of admittance.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept c</span></span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">4</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept c</span></span>
+<span id="cb209-2"><a href="#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">4</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>genderMale 
 -0.1549375 </code></pre>
@@ -2339,27 +2719,40 @@ deptF       0.01919866 0.06994506</code></pre>
 </div>
 <p>Again, female is more probale.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept d</span></span>
-<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">5</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">5</span>])<span class="co"># P(a|f,d)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb211"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept d</span></span>
+<span id="cb211-2"><a href="#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">5</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">5</span>])<span class="co"># P(a|f,d)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>genderMale 
 -0.1527529 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept e</span></span>
-<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">6</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">6</span>])<span class="co"># P(a|f,e)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb213"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb213-1"><a href="#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept e</span></span>
+<span id="cb213-2"><a href="#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">6</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">6</span>])<span class="co"># P(a|f,e)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>genderMale 
 -0.1206608 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept e</span></span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">7</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">7</span>])<span class="co"># P(a|f,f)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb215"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb215-1"><a href="#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # m v f, dept e</span></span>
+<span id="cb215-2"><a href="#cb215-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(j[<span class="dv">2</span>] <span class="sc">+</span> j[<span class="dv">7</span>])<span class="sc">-</span> <span class="fu">plogis</span>(j[<span class="dv">1</span>] <span class="sc">+</span> j[<span class="dv">7</span>])<span class="co"># P(a|f,f)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>genderMale 
 -0.0354769 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb217"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb217-1"><a href="#cb217-1" aria-hidden="true" tabindex="-1"></a>ci3 <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %     97.5 %
+(Intercept) 1.35662419 2.88303501
+genderMale  0.66542700 1.23070375
+deptB       0.63058244 1.45399583
+deptC       0.18860147 0.42440082
+deptD       0.18322338 0.40976816
+deptE       0.10872746 0.28373897
+deptF       0.01919866 0.06994506</code></pre>
 </div>
 </div>
 
