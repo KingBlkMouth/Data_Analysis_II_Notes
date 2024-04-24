@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-04-22">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 4</title>
 <style>
@@ -274,7 +274,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#a.-over-dispersion" id="toc-a.-over-dispersion" class="nav-link" data-scroll-target="#a.-over-dispersion">a. Over dispersion</a></li>
   <li><a href="#b.-odds-of-female-by-judge" id="toc-b.-odds-of-female-by-judge" class="nav-link" data-scroll-target="#b.-odds-of-female-by-judge">b. Odds of female by judge</a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">anova</a></li>
   <li><a href="#c.-judges-a-f" id="toc-c.-judges-a-f" class="nav-link" data-scroll-target="#c.-judges-a-f">c.&nbsp;Judges A-F</a></li>
+  <li><a href="#anova-1" id="toc-anova-1" class="nav-link" data-scroll-target="#anova-1">anova</a></li>
   <li><a href="#d.-spock-v-everyone." id="toc-d.-spock-v-everyone." class="nav-link" data-scroll-target="#d.-spock-v-everyone.">d.&nbsp;Spock v everyone.</a></li>
   </ul></li>
   </ul></li>
@@ -309,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 22, 2024</p>
+      <p class="date">April 23, 2024</p>
     </div>
   </div>
   
@@ -630,6 +632,88 @@ JudgeSpock's 0.2096726 0.5435664</code></pre>
 </div>
 <p>Graphically, it is more obvious that there is a difference between the judges. Spock is the most obvious difference.</p>
 </section>
+<section id="anova" class="level3">
+<h3 class="anchored" data-anchor-id="anova">anova</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dfanova <span class="ot">&lt;-</span> df1 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">tot =</span> n,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">male =</span> tot <span class="sc">-</span> female,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">j =</span> <span class="dv">1</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> dfanova <span class="sc">|&gt;</span> </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Judge, </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">values_from =</span> j, </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">id_cols =</span> <span class="fu">c</span>(id, female, male, tot),</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">S =</span> <span class="st">`</span><span class="at">Spock's</span><span class="st">`</span>, <span class="at">f =</span> <span class="st">'F'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(S, <span class="at">.after =</span> <span class="st">"f"</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> tot,</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> t, </span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>ms <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f, </span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>mF <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>S, </span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>me <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>md <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f<span class="sc">+</span>S, </span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>mods <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'ms'</span>, <span class="st">'mF'</span>, <span class="st">'me'</span>, <span class="st">'md'</span>, <span class="st">'mc'</span>, <span class="st">'mb'</span>)</span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(mods[i])</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">get</span>(mods[i])</span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">pchisq</span>((<span class="fu">anova</span>(name, mf)<span class="sc">$</span>Deviance[<span class="dv">2</span>]), <span class="dv">1</span>, <span class="at">lower.tail =</span> F))</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ms"
+[1] 6.975788e-06
+[1] "mF"
+[1] 0.136041
+[1] "me"
+[1] 0.1188039
+[1] "md"
+[1] 0.2981783
+[1] "mc"
+[1] 0.2784756
+[1] "mb"
+[1] 0.9324773</code></pre>
+</div>
+</div>
+<p>The model without Spock is the only one that rejects the null hypothesis that the coefficients are equal. The full model, with Spock, is a better fit. The factor “Spock’s” is not equal to zero, Spock is different than the others.</p>
+</section>
 <section id="c.-judges-a-f" class="level3">
 <h3 class="anchored" data-anchor-id="c.-judges-a-f">c.&nbsp;Judges A-F</h3>
 <p><em>think about what models you could compare using drop-in-deviance tests.</em></p>
@@ -637,14 +721,14 @@ JudgeSpock's 0.2096726 0.5435664</code></pre>
 <li>Do judges A-F differ in their probabilities of selecting females to the venire? Please explain.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dfc <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">filter</span>(Judge <span class="sc">!=</span> <span class="st">"Spock's"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>n)<span class="sc">~</span>Judge, </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> n,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> dfc, </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m2)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dfc <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">filter</span>(Judge <span class="sc">!=</span> <span class="st">"Spock's"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>n)<span class="sc">~</span>Judge, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> n,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> dfc, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m2)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -672,7 +756,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>s2<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>s2<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Estimate Std. Error    z value Pr(&gt;|z|)
 (Intercept) 0.5151515   1.188109 0.02131701 1.000119
@@ -684,8 +768,8 @@ JudgeF      0.7193192   1.246313 0.22397781 1.144078</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(m2) </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>c2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">confint.default</span>(m2) </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>c2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 2.5 %      97.5 %
 (Intercept) -1.0011186 -0.32546980
@@ -695,7 +779,7 @@ JudgeD      -1.0127782  0.31616482
 JudgeE      -0.8509766  0.09716194
 JudgeF      -0.7610145  0.10211435</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>c2 <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>c2 <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                2.5 %   97.5 %
 (Intercept) 0.3674681 0.722188
@@ -708,45 +792,124 @@ JudgeF      0.4671922 1.107510</code></pre>
 </div>
 <p>There may be differences between judges A through F, but the 95% confidence intervals seem to indicate that it is plausible that these judges all have roughly to same odds of choosing females. The confidence intervals contain 1 and they are multiplicative off of A. Meaning judges B through F are all choosing at roughly the same rate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -0.66329422  0.01974398 -0.23749233 -0.34830669 -0.37690731 -0.32945007</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>log_odds <span class="ot">&lt;-</span> <span class="cf">function</span>(A,B,C,D,E,f) {</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>   log_o <span class="ot">=</span> (<span class="sc">-</span><span class="fl">0.66329422</span><span class="sc">*</span>A) <span class="sc">+</span> (<span class="fl">0.01974398</span><span class="sc">*</span>B) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.23749233</span><span class="sc">*</span>C) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.34830669</span><span class="sc">*</span>D) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.37690731</span><span class="sc">*</span>E) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.32945007</span><span class="sc">*</span>f)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>   odds <span class="ot">=</span> <span class="fu">exp</span>(log_o)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>   odds</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -0.66329422  0.01974398 -0.23749233 -0.34830669 -0.37690731 -0.32945007</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>log_odds <span class="ot">&lt;-</span> <span class="cf">function</span>(A,B,C,D,E,f) {</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>   log_o <span class="ot">=</span> (<span class="sc">-</span><span class="fl">0.66329422</span><span class="sc">*</span>A) <span class="sc">+</span> (<span class="fl">0.01974398</span><span class="sc">*</span>B) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.23749233</span><span class="sc">*</span>C) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.34830669</span><span class="sc">*</span>D) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.37690731</span><span class="sc">*</span>E) <span class="sc">+</span> (<span class="sc">-</span><span class="fl">0.32945007</span><span class="sc">*</span>f)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>   odds <span class="ot">=</span> <span class="fu">exp</span>(log_o)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>   odds</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.941176</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.903226</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.461538</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.75</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.829787</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>odds_a <span class="ot">&lt;-</span> <span class="fu">log_odds</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>odds_a<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.69863</code></pre>
 </div>
 </div>
 <p>The odds for these judges range from about 1.9 to 2.8 in favor of males.</p>
+</section>
+<section id="anova-1" class="level3">
+<h3 class="anchored" data-anchor-id="anova-1">anova</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>dfanova <span class="ot">&lt;-</span> df1 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">tot =</span> n,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">male =</span> tot <span class="sc">-</span> female,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">j =</span> <span class="dv">1</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">filter</span>(Judge <span class="sc">!=</span> <span class="st">"Spock's"</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> dfanova <span class="sc">|&gt;</span> </span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Judge, </span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> j, </span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">id_cols =</span> <span class="fu">c</span>(id, female, male, tot),</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">f =</span> <span class="st">'F'</span>) </span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f, </span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">weights =</span> tot,</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> t, </span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ms &lt;-  glm((female/tot)~B+C+D+E+f, </span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="co">#             weights = tot,</span></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a><span class="co">#             data = t, </span></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a><span class="co">#             family = "binomial") </span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>mF <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>E, </span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a>me <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>D<span class="sc">+</span>f, </span>
+<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a>md <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>C<span class="sc">+</span>E<span class="sc">+</span>f, </span>
+<span id="cb48-40"><a href="#cb48-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb48-41"><a href="#cb48-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb48-42"><a href="#cb48-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb48-43"><a href="#cb48-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-44"><a href="#cb48-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-45"><a href="#cb48-45" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>B<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f, </span>
+<span id="cb48-46"><a href="#cb48-46" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb48-47"><a href="#cb48-47" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb48-48"><a href="#cb48-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb48-49"><a href="#cb48-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-50"><a href="#cb48-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-51"><a href="#cb48-51" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span>  <span class="fu">glm</span>((female<span class="sc">/</span>tot)<span class="sc">~</span>C<span class="sc">+</span>D<span class="sc">+</span>E<span class="sc">+</span>f, </span>
+<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> tot,</span>
+<span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> t, </span>
+<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
+<span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-56"><a href="#cb48-56" aria-hidden="true" tabindex="-1"></a>mods <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'mF'</span>, <span class="st">'me'</span>, <span class="st">'md'</span>, <span class="st">'mc'</span>, <span class="st">'mb'</span>)</span>
+<span id="cb48-57"><a href="#cb48-57" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mods)) {</span>
+<span id="cb48-58"><a href="#cb48-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(mods[i])</span>
+<span id="cb48-59"><a href="#cb48-59" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">get</span>(mods[i])</span>
+<span id="cb48-60"><a href="#cb48-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">pchisq</span>((<span class="fu">anova</span>(name, mf)<span class="sc">$</span>Deviance[<span class="dv">2</span>]), <span class="dv">1</span>, <span class="at">lower.tail =</span> F))</span>
+<span id="cb48-61"><a href="#cb48-61" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "mF"
+[1] 0.136041
+[1] "me"
+[1] 0.1188039
+[1] "md"
+[1] 0.2981783
+[1] "mc"
+[1] 0.2784756
+[1] "mb"
+[1] 0.9324773</code></pre>
+</div>
+</div>
+<p>Testing the remaining judges, the all fail to reject the null hypothesis. Judges A though F are equally likely to choose females.</p>
 </section>
 <section id="d.-spock-v-everyone." class="level3">
 <h3 class="anchored" data-anchor-id="d.-spock-v-everyone.">d.&nbsp;Spock v everyone.</h3>
@@ -754,37 +917,57 @@ JudgeF      0.4671922 1.107510</code></pre>
 <li>How different are the odds of having a woman on the Spock judge’s venires from the odds of having a woman on the venires of other judges? Please explain.</li>
 </ol>
 <p><em>think about what models you could compare using drop-in-deviance tests.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">1.941176</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As stated in part B, the odds of being on each judges venire are : <strong>All in favor of choosing a male and against 1</strong></p>
+<ul>
+<li>A: 1.941176</li>
+<li>B: 1.903226</li>
+<li>C: 2.461538</li>
+<li>D: 2.75</li>
+<li>E: 2.829787</li>
+<li>f: 2.69863</li>
+<li>Spock: 5.75</li>
+</ul>
+<p>Comparing the ratios of the odds of Spock choosing a female vs the other judges,</p>
+<div class="cell" data-collase="true">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">1.941176</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.962122</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">1.903226</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">1.903226</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.021186</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.461538</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.461538</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.335938</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.75</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.75</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.090909</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.829787</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.829787</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.031955</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.69863</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">2.69863</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.130711</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">5.75</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.75</span><span class="sc">/</span> <span class="fl">5.75</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-<p>Spock is about 3 times more likely to choose male than A, 3 times more likely than B, 2.33 times more likely than C, 2.1 times more likely than D, 2.0 times more likely than E, and 2.1 times more likely than F.</p>
+<p>Spock is about:</p>
+<ul>
+<li>3 times more likely to choose male than A,</li>
+<li>3 times more likely than B,</li>
+<li>2.33 times more likely than C,</li>
+<li>2.1 times more likely than D,</li>
+<li>2.0 times more likely than E, and</li>
+<li>2.1 times more likely than F.</li>
+</ul>
+<p>The ANOVA in parts b and c showed that Spock is the only judge that is significantly different among this group. (Drop in Deviance test, P-value = 6.975788e-06 on 1 df).</p>
 </section>
 </section>
 </section>
