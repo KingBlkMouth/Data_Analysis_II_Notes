@@ -94,6 +94,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -193,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 5</span></a>
+ <span class="dropdown-text">5 Log Lin Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
@@ -264,18 +266,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lectures" id="toc-lectures" class="nav-link active" data-scroll-target="#lectures">Lectures</a>
+  <li><a href="#w5-lectures" id="toc-w5-lectures" class="nav-link active" data-scroll-target="#w5-lectures">w5 Lectures</a>
   <ul class="collapse">
   <li><a href="#log-linear-regression" id="toc-log-linear-regression" class="nav-link" data-scroll-target="#log-linear-regression">Log Linear Regression</a></li>
   <li><a href="#crab-example" id="toc-crab-example" class="nav-link" data-scroll-target="#crab-example">Crab Example</a></li>
   <li><a href="#model-fit" id="toc-model-fit" class="nav-link" data-scroll-target="#model-fit">Model Fit</a></li>
   <li><a href="#over-dispersion-in-r" id="toc-over-dispersion-in-r" class="nav-link" data-scroll-target="#over-dispersion-in-r">Over Dispersion in R</a></li>
   <li><a href="#data-analysis-strategy" id="toc-data-analysis-strategy" class="nav-link" data-scroll-target="#data-analysis-strategy">Data Analysis Strategy</a></li>
-  <li><a href="#log-linear-models" id="toc-log-linear-models" class="nav-link" data-scroll-target="#log-linear-models">Log Linear Models</a></li>
+  <li><a href="#log-linear-models-for-cont-tables." id="toc-log-linear-models-for-cont-tables." class="nav-link" data-scroll-target="#log-linear-models-for-cont-tables.">Log Linear Models for cont tables.</a></li>
   </ul></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
-  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
+  <ul class="collapse">
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
+  </ul></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
@@ -331,20 +337,26 @@ Learning Objectives
 <p>Task list</p>
 <p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
 <ul>
-<li>Review Module 5 Readings and Lectures</li>
-<li>Submit Module 5 Homework</li>
-<li>Submit Module 5 Lab</li>
-<li>Take the Module 5 Content Quiz and R Quiz</li>
-<li>Participate in the Module 5 Discussion</li>
+<li><del>Review Module 5 Readings and Lectures</del></li>
+<li><del>Submit Module 5 Lab</del></li>
+<li><del>Submit Module 5 Homework</del></li>
+<li><del>Participate in the Module 5 Discussion</del></li>
+<li>R Quiz</li>
+<li>Content Quiz</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="lectures" class="level2">
-<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<section id="w5-lectures" class="level2">
+<h2 class="anchored" data-anchor-id="w5-lectures">w5 Lectures</h2>
+<p>Book is better than lectures!</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -516,21 +528,133 @@ Learning Objectives
 </div>
 <section id="log-linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="log-linear-regression">Log Linear Regression</h3>
+<p>Crabs by width and color.</p>
+<p>All examples use poisson.</p>
+<p><span class="math display">\[
+Y-I = log(\lambda_i) = \beta_0 + ... + \beta_kX_{k-1i}
+\]</span></p>
+<p>Link is log.</p>
+<p>pdf = L<sup>ye</sup>-L / y!</p>
+<p>non constant variance.</p>
+<p>lambda may not be wnough to represent variation.</p>
+<p>Multiplicative vs add error terms mean GLm is better than mlr. even if variance is constant. MLR assumes additivity.</p>
+<p>Coef fit by ML.</p>
+<p>Everything is similar to binomial counts.</p>
+<p>Poisson counts look at y and exp vars.</p>
+<p>If one is zero, DNE, add a num to create a plot.</p>
 </section>
 <section id="crab-example" class="level3">
 <h3 class="anchored" data-anchor-id="crab-example">Crab Example</h3>
+<p>Agresti ex.</p>
+<p>173 crabs, data in glm2 library</p>
+<p>width, dark and and good spawn are exp.</p>
+<p>fitting a rich model.</p>
+<p>Script above.</p>
+<p>plotting sats by width shows lots of zeroes but no pattern. Lots of ladies with no men. Maybe a hint of inc relationship.</p>
+<p>Adjusting for zero by adding .01 to zero only. then take log.</p>
+<p>plotting sats by width again shows the zeroes by -2 and everything else pretty much the same.</p>
+<p>Sats by dark and light shows maybe more by dark, and for better spine condition.</p>
+<p>facet wrap by yes no for spine and dark doesn’t show much, but dark and spine bad is not populated much.</p>
+<p>GLM for sats~width*dark*spine in poisson family with automatic log link.</p>
+<p>dispersion is assumed one by default.</p>
+<p>three way interacition is significant. but we can’t make inference without looking at disperison.</p>
+<p>Resids and fits with predict by type response for fits. and residuals().</p>
+<p>width by resids shows the line near zero and others for the fact that the data are discrete.</p>
+<p>Resids are spread out and theres a lot above 2 and 3.</p>
+<p>Plotting fitted by observed counts, we expect y = x. That is not the case. Lots near zero and spread near 1 - 5.</p>
+<p>We want to fit for extra poisson variation. The plots make her think dispersion is at fault.</p>
 </section>
 <section id="model-fit" class="level3">
 <h3 class="anchored" data-anchor-id="model-fit">Model Fit</h3>
+<p>Talk about fit with poisson regression</p>
+<p>deviance GOF and extra poisson variation via the crabs.</p>
+<p>there are dev, pearson, and std-resids. dev are default in R.</p>
+<p>If the model is correct and sample is large dev resids look normal.</p>
+<p>dev GOF test is informal test of adequecy, not good.</p>
+<p>compares reg model to sat model</p>
+<p>a large p may mean good fit or inadequate data</p>
+<p>small p, model is correst poisson is wrong, outliers.</p>
+<p>As in log reg, dev gof stat is sum os squared resids. resid deviance.</p>
+<p>In the poisson case chi 2 requires means to be large (most greater than 5). Counts give idea of means.</p>
+<p>For crabs Resid dev is 550 on 165 df. 75% are less than or eq to 5. We shouldn’t use dev GOf.</p>
+<p>extra poisson variation. like binom variation from more var in obseveed counts. Var in poisson via lambda.</p>
+<p>If E-poisson var exists var too small and SE too small.</p>
+<p>Checking, is it likely, is there clustering, missing exp variation.</p>
+<p>We could compare to sample var and mean to groups to counts with identical exp vars . not often possible.</p>
+<p>Dev GOF gives an idea., calc disp param, examine dev resids plots.</p>
+<p>= resid/ df. here = 3.33. suggestind extra var.</p>
+<p>Looking at dev resids by width shows lots above 2 and below -2 means there could be extra dispersion.</p>
 </section>
 <section id="over-dispersion-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="over-dispersion-in-r">Over Dispersion in R</h3>
+<p>We can use quisi poisson lM like we did with binom by adding an extra param.</p>
+<p>Neg binom regression maight work.</p>
+<p>mass and glm2 libs.</p>
+<p>mass for glm.nb for neg binom. mass before glm to get correct crab data.</p>
+<p>fit poisson , quasi and neg.</p>
+<p>glm family is poisson, and quisipoisson then nb is glm.nb w/o family.</p>
+<p>coef for estimates. poisson and quasi are the same as before. SE does. nb does slightly change the ests.</p>
+<p>Summary for quasi and nb. quasi shows 1 sig variable. disp is 3.25.</p>
+<p>Remove the three way interaction for further analysis.</p>
+<p>glm.nb shows shows different everything but the same significance. We do get and AIC for this for model comparison.</p>
+<p>Plotting resid plots for these shows via resid(mod) to data$col.&nbsp;</p>
+<p>quasi is the same as the first bc coefs are the same and resids are based on those, but the glm.nb shows a different scale and less above and below 2 or -2.</p>
+<p>nb model does a good job for extra dispersion in this case. plus its likelihood based.</p>
+<p>We see zero inflation and that is mod 6.</p>
 </section>
 <section id="data-analysis-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="data-analysis-strategy">Data Analysis Strategy</h3>
+<p>dealing with poisson regression and looking at a large example.</p>
+<p>be clear about objectives,</p>
+<p>what element can answer</p>
+<p>what is response and exp var. How do they relate(hyp)</p>
+<p>if poisson count perform exp analysis. Look for zeroes in response. Plot log of responses agaisnst exp vars.</p>
+<p>relative to the q of interest and samle size fit a rich model.</p>
+<p>examing the resids, check dev GOF and look at psi.</p>
+<p>refit with nb</p>
+<p>perfrom reduction and anova or aic. but don’t use model selection bias.</p>
+<p>look at resid plots again.</p>
+<p>Ex vai slueth for planets,</p>
+<p>what char of planets makes moons.</p>
+<p>sleuth mass ggplot.</p>
+<p>name dist dia mass moons are variables.</p>
+<p>explore for zeroes, and add.01 for plotting log.</p>
+<p>summary shows min and first q are zero, at least 25% are zero.</p>
+<p>log moons by dist is zero inflated but maybe negatively related.</p>
+<p>dist by dia is also zero inflated but maybe curved and increasing. dist by log dia is linear.</p>
+<p>mad via log moons is curved, log mass is inc. both dia and mass are inc. mog mass and log dia is near y = x. Both may not be good in the model, but a rich model is what we are going for at first.</p>
+<p>glm moons by .og dia log mass and dist.</p>
+<p>psi is 21/9 is greater than 2 and maybe there’s dispersion.</p>
+<p>plotting resids by exp variables:</p>
+<ul>
+<li>mass is zero and one large one, spread is good.</li>
+<li>dia is the same</li>
+<li>dist is more spread out but no pattern.</li>
+<li>all show zero inflation.</li>
+<li>dispersion is 2.4</li>
+</ul>
+<p>X squared GOF is low.</p>
+<p>Fitting a nb mod:</p>
+<p>mass and dia are again sig.</p>
+<p>resids:</p>
+<ul>
+<li>dist is normal, no pattern</li>
+</ul>
+<p>it appears dia and mass are important to a planet having moons, but dia and mass are cov. check diff models with aic and anova.</p>
 </section>
-<section id="log-linear-models" class="level3">
-<h3 class="anchored" data-anchor-id="log-linear-models">Log Linear Models</h3>
+<section id="log-linear-models-for-cont-tables." class="level3">
+<h3 class="anchored" data-anchor-id="log-linear-models-for-cont-tables.">Log Linear Models for cont tables.</h3>
+<p>example and notation.</p>
+<p>Agresti table for weed and booze. alc yes, cigs, yes/no, weed yes/no.</p>
+<p>question isn’t about variation in use from one to another but looking for association of booze, cigs, and weed.</p>
+<p>Do smokers smoke it all and such.</p>
+<p>sub-notation, I 1-2 for booze yes and no, j, 1-2 for cigs and k for weed. n_111 for weed booze and cig yes.</p>
+<p>pi_ijk for prob by cat.</p>
+<p>N = 2276 for total participants, mu_ijk = N x pi_ijk.</p>
+<p>log(mu_ijk) = beta_0 + … + b_7X_iY_jZ_k in the parlance of the course.</p>
+<p>expamine reg coef of interaction terms for associations.</p>
+<p>if b_7 is zero and three ways have no chance then they are ind.</p>
+<p>for the two ways its the same thought, we’ll consider three ways and two ways in lab.</p>
 </section>
 </section>
 <section id="lab" class="level2">
@@ -538,9 +662,304 @@ Learning Objectives
 </section>
 <section id="hw" class="level2">
 <h2 class="anchored" data-anchor-id="hw">HW</h2>
+<ol type="1">
+<li>(2 points) Recall the obesity problem from Homework 1. The data are as follows:</li>
+</ol>
+<pre><code>        CVD Death
+
+            Yes         No
+Obese       16        2045
+Not obese   7         1044</code></pre>
+<p>Using Poisson log linear regression, test for independence between obesity and CVD death outcome. (Hint: this is equivalent to testing that the interaction term in the model is zero.) How does your answer compare to a chi-square test on the same data?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ob =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Obese"</span>, <span class="st">"NotObese"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Obese"</span>, <span class="st">"NotObese"</span>)),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">death =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>o<span class="sc">$</span>Freq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">2045</span>,  <span class="dv">1044</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>o_tab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="at">data =</span> o, Freq<span class="sc">~</span>ob <span class="sc">+</span> death)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>o_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          death
+ob          Yes   No
+  Obese      16 2045
+  NotObese    7 1044</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> o, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> poisson, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    Freq<span class="sc">~</span>ob<span class="sc">+</span>death)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Freq ~ ob + death, family = poisson, data = o)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   2.7234     0.2089   13.04   &lt;2e-16 ***
+obNotObese   -0.6734     0.0379  -17.77   &lt;2e-16 ***
+deathNo       4.9001     0.2093   23.41   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 4376.49698  on 3  degrees of freedom
+Residual deviance:    0.11741  on 1  degrees of freedom
+AIC: 32.796
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> o, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> poisson, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    Freq<span class="sc">~</span>ob<span class="sc">+</span>death)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Freq ~ ob + death, family = poisson, data = o)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   2.7234     0.2089   13.04   &lt;2e-16 ***
+obNotObese   -0.6734     0.0379  -17.77   &lt;2e-16 ***
+deathNo       4.9001     0.2093   23.41   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 4376.49698  on 3  degrees of freedom
+Residual deviance:    0.11741  on 1  degrees of freedom
+AIC: 32.796
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+</div>
+<p>The statsistical independence model for log lin reg:</p>
+<p><span class="math inline">\(\mu_{ij} = \mu \alpha \beta_j\)</span></p>
+<p>Obese , not obese are one variable. Death yes or no are another.</p>
+<p><span class="math display">\[
+\mu_{ij} = n \pi_i + \pi_{+j}, \  i = 1  \ to \  I,  \ j = 1  \ to \ J
+\]</span></p>
+<p>Subscript +j means column j total.</p>
+<section id="chi-squared" class="level4">
+<h4 class="anchored" data-anchor-id="chi-squared">Chi squared</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(o<span class="sc">$</span>Freq)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>n11 <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>n12 <span class="ot">&lt;-</span> <span class="dv">2045</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>n21 <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>n22 <span class="ot">&lt;-</span> <span class="dv">1044</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>j1 <span class="ot">&lt;-</span> n11 <span class="sc">+</span> n21</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>j2 <span class="ot">&lt;-</span> n12 <span class="sc">+</span> n22</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>i1 <span class="ot">&lt;-</span> n11 <span class="sc">+</span> n12</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>i2 <span class="ot">&lt;-</span> n21 <span class="sc">+</span> n22</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>mu_11 <span class="ot">&lt;-</span> i1<span class="sc">*</span>j1<span class="sc">/</span>n</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>mu_12 <span class="ot">&lt;-</span> i1<span class="sc">*</span>j2<span class="sc">/</span>n</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>mu_21 <span class="ot">&lt;-</span> i2<span class="sc">*</span>j1<span class="sc">/</span>n</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>mu_22 <span class="ot">&lt;-</span> i2<span class="sc">*</span>j2<span class="sc">/</span>n</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>Xsquared <span class="ot">&lt;-</span> (((n11 <span class="sc">-</span> mu_11)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>mu_11) <span class="sc">+</span> (((n12 <span class="sc">-</span> mu_12)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>mu_12) <span class="sc">+</span> (((n21 <span class="sc">-</span> mu_21)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>mu_21) <span class="sc">+</span> (((n22 <span class="sc">-</span> mu_22)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>mu_22)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(Xsquared, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7340665</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">log</span>(mu_11) <span class="sc">+</span> <span class="fu">log</span>(mu_22) <span class="sc">-</span> <span class="fu">log</span>(mu_12) <span class="sc">-</span> <span class="fu">log</span>(mu_21)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(ans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>i1<span class="sc">*</span>j1<span class="sc">/</span>n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15.23233</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="quizzes" class="level2">
 <h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+<section id="r" class="level3">
+<h3 class="anchored" data-anchor-id="r">R</h3>
+<p>All questions rely on the data in the quine dataset in the MASS library. The dataset contains information about children from Walgett, New South Wales, Australia. They were classified by Ethnicity (Eth), Age, Sex and Learner (Lrn) status and the number of days (Days) absent from school in a particular school year was recorded.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"quine"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> quine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Question 1</p>
+<p>All of the explanatory variables, Eth, Age, Sex, and Lrn are categorical. What does this mean for the analysis we should perform? (Select one) Group of answer choices</p>
+<p>We can use log linear regression using combinations of these explanatory variables.</p>
+<p>Question 2</p>
+<p>Fit a model that contains all of the two-way interactions between the explanatory variables. You should notice that the effect corresponding to AgeF3:LrnSL cannot be estimated. Why is this? (Select one) Group of answer choices</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(<span class="at">data =</span> df, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> poisson, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    Days<span class="sc">~</span>(Eth <span class="sc">+</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Lrn)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Days ~ (Eth + Age + Sex + Lrn)^2, family = poisson, 
+    data = df)
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.93246    0.09826  29.843  &lt; 2e-16 ***
+EthN        -0.17399    0.12134  -1.434   0.1516    
+AgeF1       -0.04270    0.12691  -0.336   0.7365    
+AgeF2       -0.08632    0.16164  -0.534   0.5933    
+AgeF3       -0.15290    0.11898  -1.285   0.1987    
+SexM        -0.71452    0.12229  -5.843 5.14e-09 ***
+LrnSL        0.21608    0.14558   1.484   0.1377    
+EthN:AgeF1  -0.92889    0.14657  -6.337 2.34e-10 ***
+EthN:AgeF2  -1.33398    0.13504  -9.879  &lt; 2e-16 ***
+EthN:AgeF3  -0.11242    0.13478  -0.834   0.4042    
+EthN:SexM    0.43902    0.09208   4.768 1.86e-06 ***
+EthN:LrnSL   0.26415    0.11378   2.322   0.0203 *  
+AgeF1:SexM  -0.05565    0.16303  -0.341   0.7328    
+AgeF2:SexM   1.09942    0.15281   7.195 6.26e-13 ***
+AgeF3:SexM   1.15949    0.13859   8.366  &lt; 2e-16 ***
+AgeF1:LrnSL -0.13019    0.15688  -0.830   0.4066    
+AgeF2:LrnSL  0.37340    0.14563   2.564   0.0103 *  
+AgeF3:LrnSL       NA         NA      NA       NA    
+SexM:LrnSL   0.04143    0.13718   0.302   0.7627    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 2073.5  on 145  degrees of freedom
+Residual deviance: 1368.7  on 128  degrees of freedom
+AIC: 1993.1
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">filter</span>(Age <span class="sc">==</span> <span class="st">"F3"</span> <span class="sc">&amp;</span> Lrn <span class="sc">==</span> <span class="st">"SL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Eth</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: left;">Age</th>
+<th style="text-align: left;">Lrn</th>
+<th style="text-align: right;">Days</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>No students.</p>
+<p>Question 3</p>
+<p>From the summary information you obtained in question 2, there is evidence of over dispersion. What is this evidence? (Select one) Group of answer choices</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1368.7</span><span class="sc">/</span><span class="dv">128</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.69297</code></pre>
+</div>
+</div>
+<p>The residual deviance is a lot bigger than the residual degrees of freedom.</p>
+<p>Question 4</p>
+<p>Fit the same model you fit in question 2, except use the glm.nb function. Using this model fit, what is the expected number of days absent for a male of Aboriginal ethnicity in the F2 age group who is an average learner? (Select one) Group of answer choices</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm.nb</span>(<span class="at">data =</span> df, </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       Days<span class="sc">~</span>(Eth <span class="sc">+</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Lrn)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = Days ~ (Eth + Age + Sex + Lrn)^2, data = df, 
+    init.theta = 1.60364105, link = log)
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  3.00155    0.33709   8.904  &lt; 2e-16 ***
+EthN        -0.24591    0.39135  -0.628  0.52977    
+AgeF1       -0.02546    0.41615  -0.061  0.95121    
+AgeF2       -0.54884    0.54393  -1.009  0.31296    
+AgeF3       -0.25735    0.40558  -0.635  0.52574    
+SexM        -0.77181    0.38021  -2.030  0.04236 *  
+LrnSL        0.38919    0.48421   0.804  0.42153    
+EthN:AgeF1  -0.70000    0.43646  -1.604  0.10876    
+EthN:AgeF2  -1.23283    0.42962  -2.870  0.00411 ** 
+EthN:AgeF3   0.04721    0.44883   0.105  0.91622    
+EthN:SexM    0.36240    0.29430   1.231  0.21818    
+EthN:LrnSL   0.06847    0.34040   0.201  0.84059    
+AgeF1:SexM   0.02257    0.47360   0.048  0.96198    
+AgeF2:SexM   1.55330    0.51325   3.026  0.00247 ** 
+AgeF3:SexM   1.25227    0.45539   2.750  0.00596 ** 
+AgeF1:LrnSL -0.43101    0.47948  -0.899  0.36870    
+AgeF2:LrnSL  0.52074    0.48567   1.072  0.28363    
+AgeF3:LrnSL       NA         NA      NA       NA    
+SexM:LrnSL   0.07187    0.40805   0.176  0.86019    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(1.6036) family taken to be 1)
+
+    Null deviance: 235.23  on 145  degrees of freedom
+Residual deviance: 167.53  on 128  degrees of freedom
+AIC: 1100.5
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  1.604 
+          Std. Err.:  0.214 
+
+ 2 x log-likelihood:  -1062.546 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">3.00155</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a is Aborig, female, F0, AL</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a + Aborig + male + F2 + AL + interactions. </span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># d is a     + F2   +  Male    + F2:Male  </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fl">3.00155</span> <span class="sc">-</span> <span class="fl">0.5488</span> <span class="sc">-</span> <span class="fl">0.77181</span> <span class="sc">+</span> <span class="fl">1.55330</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>a<span class="sc">*</span>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.707733</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25.38707</code></pre>
+</div>
+</div>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">C</h3>
+<p>Question 1</p>
+<p>Consider the deviance goodness-of-fit test. Under what conditions is it valid for Poisson regression? (i.e., when is the Poisson distribution well-approximated by a Normal distribution?)</p>
+<p>When all of the Poisson counts are large (at least 5)</p>
+<p>Question 2</p>
+<p>Consider the deviance goodness-of-fit test. When it is valid, what possibility is suggested by a small p-value? Group of answer choices</p>
+<p>We are using the wrong model for λ</p>
+<p>Question 3</p>
+<p>Consider the deviance goodness-of-fit test. When it is valid, what possibility is suggested by a large p-value? Group of answer choices</p>
+<p>We have chosen the correct model for the data.</p>
+<p>Question 4</p>
+<p>Which of the following is the best approach to assess the fit of a Poisson Regression Model? Group of answer choices</p>
+<p>Look at the residuals and examine the deviance goodness of fit test.</p>
+</section>
 </section>
 <section id="end____" class="level1">
 <h1>____END____</h1>

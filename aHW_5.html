@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-04-04">
+<meta name="dcterms.date" content="2024-04-29">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 5</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -62,6 +96,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -161,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 5</span></a>
+ <span class="dropdown-text">5 Log Lin Reg</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
@@ -232,8 +268,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-questions" id="toc-r-questions" class="nav-link active" data-scroll-target="#r-questions">R Questions</a></li>
-  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link" data-scroll-target="#conceptual-questions">Conceptual Questions</a></li>
+  <li><a href="#log-lin-reg" id="toc-log-lin-reg" class="nav-link active" data-scroll-target="#log-lin-reg">5 Log-Lin Reg</a></li>
+  <li><a href="#r-questions" id="toc-r-questions" class="nav-link" data-scroll-target="#r-questions">R Questions</a>
+  <ul class="collapse">
+  <li><a href="#log-lin-reg-on-obeisty" id="toc-log-lin-reg-on-obeisty" class="nav-link" data-scroll-target="#log-lin-reg-on-obeisty">1. Log-lin Reg on obeisty</a></li>
+  <li><a href="#elephants" id="toc-elephants" class="nav-link" data-scroll-target="#elephants">2. Elephants</a>
+  <ul class="collapse">
+  <li><a href="#a.-model-w-lm-and-sqrt" id="toc-a.-model-w-lm-and-sqrt" class="nav-link" data-scroll-target="#a.-model-w-lm-and-sqrt">A. Model w/ lm and sqrt</a></li>
+  <li><a href="#b.-lm-w-log-1" id="toc-b.-lm-w-log-1" class="nav-link" data-scroll-target="#b.-lm-w-log-1">B. lm w/ log + 1</a></li>
+  <li><a href="#c.-log-linear" id="toc-c.-log-linear" class="nav-link" data-scroll-target="#c.-log-linear">C. log-linear</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link" data-scroll-target="#conceptual-questions">Conceptual Questions</a>
+  <ul class="collapse">
+  <li><a href="#log-lin-v-linear-transfromed." id="toc-log-lin-v-linear-transfromed." class="nav-link" data-scroll-target="#log-lin-v-linear-transfromed.">3. Log-lin v Linear transfromed.</a></li>
+  <li><a href="#elephants-1" id="toc-elephants-1" class="nav-link" data-scroll-target="#elephants-1">4. Elephants</a>
+  <ul class="collapse">
+  <li><a href="#a." id="toc-a." class="nav-link" data-scroll-target="#a.">A.</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">B</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -259,7 +314,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2024</p>
+      <p class="date">April 29, 2024</p>
     </div>
   </div>
   
@@ -270,35 +325,557 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>output: pdf_document</p>
-<section id="r-questions" class="level2">
-<h2 class="anchored" data-anchor-id="r-questions">R Questions</h2>
+<section id="log-lin-reg" class="level1">
+<h1>5 Log-Lin Reg</h1>
+</section>
+<section id="r-questions" class="level1">
+<h1>R Questions</h1>
+<section id="log-lin-reg-on-obeisty" class="level2">
+<h2 class="anchored" data-anchor-id="log-lin-reg-on-obeisty">1. Log-lin Reg on obeisty</h2>
 <ol type="1">
-<li><p>(2 points) Recall the obesity problem from Homework 1. The data are as follows:</p>
+<li>(2 points) Recall the obesity problem from Homework 1. The data are as follows:</li>
+</ol>
 <pre><code>        CVD Death
 
             Yes         No
 Obese       16        2045
 Not obese   7         1044</code></pre>
-<p>Using Poisson log linear regression, test for independence between obesity and CVD death outcome. (Hint: this is equivalent to testing that the interaction term in the model is zero.) How does your answer compare to a chi-square test on the same data?</p></li>
-<li><p>(3 points) Although male elephants are capable of reproducing by 14 to 17 years of age, younger adult males are usually unsuccessful in competing with their larger elders for the attention of receptive females. Since male elephants continue to grow throughout their lifetimes, and since larger males tend to be more successful at mating, the males most likely to pass their genes to future generations are those whose characteristics enable them to live long lives. Joyce Poole studied a population of African elephants in Amboseli National Park, Kenya, for 8 years. You can explore this data set in case2201 in the Sleuth3 library. This data frame contains the number of successful matings and ages (at the study’s beginning) of 41 male elephants. Give an estimated model for describing the number of successful matings as a function age, using</p>
-<ol type="a">
-<li><p>simple linear regression after taking a square root transformation of the number of successful matings;</p></li>
-<li><p>simple linear regression after taking a logarithmic transformation (after adding 1);</p></li>
-<li><p>log-linear regression.</p></li>
-</ol>
-<p>Be sure to examine residuals from each of these models. How do the models compare? Please be specific. Is there evidence of over dispersion? If so, fit another model and report results from that model. If not, why not?</p></li>
-</ol>
+<p>Using Poisson log linear regression, test for independence between obesity and CVD death outcome. (Hint: this is equivalent to testing that the interaction term in the model is zero.) How does your answer compare to a chi-square test on the same data?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ob =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Obese"</span>, <span class="st">"NotObese"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Obese"</span>, <span class="st">"NotObese"</span>)),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">death =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>o<span class="sc">$</span>Freq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">2045</span>,  <span class="dv">1044</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>o_tab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="at">data =</span> o, Freq<span class="sc">~</span>ob <span class="sc">+</span> death)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>o_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          death
+ob          Yes   No
+  Obese      16 2045
+  NotObese    7 1044</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>o</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">ob</th>
+<th style="text-align: left;">death</th>
+<th style="text-align: right;">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Obese</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NotObese</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Obese</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">2045</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NotObese</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">1044</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>o2 <span class="ot">&lt;-</span> <span class="fu">expand.dft</span>(o)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> o, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> poisson, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Freq<span class="sc">~</span>ob<span class="sc">+</span>death)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Freq ~ ob + death, family = poisson, data = o)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   2.7234     0.2089   13.04   &lt;2e-16 ***
+obNotObese   -0.6734     0.0379  -17.77   &lt;2e-16 ***
+deathNo       4.9001     0.2093   23.41   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 4376.49698  on 3  degrees of freedom
+Residual deviance:    0.11741  on 1  degrees of freedom
+AIC: 32.796
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(m1<span class="sc">$</span>deviance, <span class="at">df =</span> m1<span class="sc">$</span>df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7318639</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> o_tab, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> poisson, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    Freq<span class="sc">~</span>ob<span class="sc">+</span>death)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>s1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Freq ~ ob + death, family = poisson, data = o_tab)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   2.7234     0.2089   13.04   &lt;2e-16 ***
+obNotObese   -0.6734     0.0379  -17.77   &lt;2e-16 ***
+deathNo       4.9001     0.2093   23.41   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 4376.49698  on 3  degrees of freedom
+Residual deviance:    0.11741  on 1  degrees of freedom
+AIC: 32.796
+
+Number of Fisher Scoring iterations: 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">0.11741</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7318607</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(o_tab, <span class="at">correct =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  o_tab
+X-squared = 0.11541, df = 1, p-value = 0.7341</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(o_tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  o_tab
+X-squared = 0.014031, df = 1, p-value = 0.9057</code></pre>
+</div>
+</div>
+<p>Chi squared test for independence suggests evidense of an association.</p>
+<p><strong>The chi squared test of independence and the log-linear regression chi squared stat are the same. At least, they are if I turn off the continuity correction</strong></p>
 </section>
-<section id="conceptual-questions" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-questions">Conceptual Questions</h2>
-<ol start="3" type="1">
-<li><p>(2 points) What is the diference between a log-linear model and a linear model after the log transformation of the response?</p></li>
-<li><p>(3 points) This question refers to the elephant mating data from question 2 above.</p>
+<section id="elephants" class="level2">
+<h2 class="anchored" data-anchor-id="elephants">2. Elephants</h2>
+<p>(3 points) Although male elephants are capable of reproducing by 14 to 17 years of age, younger adult males are usually unsuccessful in competing with their larger elders for the attention of receptive females. Since male elephants continue to grow throughout their lifetimes, and since larger males tend to be more successful at mating, the males most likely to pass their genes to future generations are those whose characteristics enable them to live long lives. Joyce Poole studied a population of African elephants in Amboseli National Park, Kenya, for 8 years. You can explore this data set in case2201 in the Sleuth3 library. This data frame contains the number of successful matings and ages (at the study’s beginning) of 41 male elephants.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(case2201)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> case2201</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Age</th>
+<th style="text-align: right;">Matings</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Give an estimated model for describing the number of successful matings as a function age, using</p>
+<section id="a.-model-w-lm-and-sqrt" class="level3">
+<h3 class="anchored" data-anchor-id="a.-model-w-lm-and-sqrt">A. Model w/ lm and sqrt</h3>
 <ol type="a">
-<li><p>Both the binomial and the Poisson distributions provide probability models for random counts. Which distribution is more appropriate to model the number of successful matings for male African elephants, and why?</p></li>
-<li><p>In the following plot, we see that the spread of responses is larger for larger values of the mean response. Is this something to be concerned about if we perform a Poisson log-linear regression?</p></li>
+<li>simple linear regression after taking a square root transformation of the number of successful matings;</li>
 </ol>
-<img src="aHW_5_plot.png" class="img-fluid" alt="Plots">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lmsqrt <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(Matings)<span class="sc">~</span>Age, <span class="at">data =</span> df)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmsqrt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sqrt(Matings) ~ Age, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.90532 -0.33654  0.07767  0.45871  1.09468 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.81220    0.56867  -1.428 0.161187    
+Age          0.06320    0.01561   4.049 0.000236 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6493 on 39 degrees of freedom
+Multiple R-squared:  0.296, Adjusted R-squared:  0.2779 
+F-statistic:  16.4 on 1 and 39 DF,  p-value: 0.0002362</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+sqrt(Matings) = -.81 + .063Age
+\]</span> First mating around 12.9 years.</p>
+</section>
+<section id="b.-lm-w-log-1" class="level3">
+<h3 class="anchored" data-anchor-id="b.-lm-w-log-1">B. lm w/ log + 1</h3>
+<p>simple linear regression after taking a logarithmic transformation (after adding 1);</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>mlp1 <span class="ot">&lt;-</span> <span class="fu">log</span>(df<span class="sc">$</span>Matings <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>lmlp1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mlp1<span class="sc">~</span>Age, <span class="at">data =</span> df)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmlp1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mlp1 ~ Age, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.49087 -0.33939  0.06607  0.35376  0.81171 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.69893    0.45861  -1.524 0.135567    
+Age          0.05093    0.01259   4.046 0.000238 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.5237 on 39 degrees of freedom
+Multiple R-squared:  0.2957,    Adjusted R-squared:  0.2776 
+F-statistic: 16.37 on 1 and 39 DF,  p-value: 0.0002385</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+log(Matings + 1) = -0.69893 + 0.05093Age
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.69893</span><span class="sc">/</span><span class="fl">0.05093</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13.72335</code></pre>
+</div>
+</div>
+<p>First mating around 13.7 years.</p>
+</section>
+<section id="c.-log-linear" class="level3">
+<h3 class="anchored" data-anchor-id="c.-log-linear">C. log-linear</h3>
+<p>log-linear regression.</p>
+<p>Be sure to examine residuals from each of these models. How do the models compare? Please be specific. Is there evidence of over dispersion? If so, fit another model and report results from that model. If not, why not?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_tab <span class="ot">&lt;-</span> <span class="fu">table</span>(df[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>df_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Matings
+Age  0 1 2 3 4 5 6 7 9
+  27 1 0 0 0 0 0 0 0 0
+  28 0 3 0 1 0 0 0 0 0
+  29 3 0 3 0 0 0 0 0 0
+  30 0 1 0 0 0 0 0 0 0
+  32 0 0 1 0 0 0 0 0 0
+  33 0 0 1 3 1 0 0 0 0
+  34 0 2 1 1 0 0 0 0 0
+  36 0 0 0 0 0 1 1 0 0
+  37 0 2 0 0 0 0 1 0 0
+  38 0 0 1 0 0 0 0 0 0
+  39 0 1 0 0 0 0 0 0 0
+  41 0 0 0 1 0 0 0 0 0
+  42 0 0 0 0 1 0 0 0 0
+  43 1 0 1 1 1 0 0 0 1
+  44 0 0 0 1 0 0 0 0 0
+  45 0 0 0 0 0 1 0 0 0
+  47 0 0 0 0 0 0 0 1 0
+  48 0 0 1 0 0 0 0 0 0
+  52 0 0 0 0 0 0 0 0 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> df, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">family =</span> poisson, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>            Matings<span class="sc">~</span>Age)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Matings ~ Age, family = poisson, data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -1.58201    0.54462  -2.905  0.00368 ** 
+Age          0.06869    0.01375   4.997 5.81e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 75.372  on 40  degrees of freedom
+Residual deviance: 51.012  on 39  degrees of freedom
+AIC: 156.46
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>glm1psi <span class="ot">&lt;-</span> <span class="fl">51.012</span><span class="sc">/</span><span class="dv">39</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Psi of 1.3 isn’t wild.</p>
+<p><span class="math display">\[
+log(\mu_{ij}) = -1.58201 + 0.06869 \lambda_{ij}^{Age}
+\]</span></p>
+<p>Probability of mating given age of 50 is 87%.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>((<span class="sc">-</span><span class="fl">1.58201</span> <span class="sc">+</span> <span class="fl">0.06869</span><span class="sc">*</span><span class="dv">27</span>), <span class="at">lower.tail =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.567736</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sqres <span class="ot">&lt;-</span> <span class="fu">residuals</span>(lmsqrt)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>p1res <span class="ot">&lt;-</span> <span class="fu">residuals</span>(lmlp1)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>glmres <span class="ot">&lt;-</span> <span class="fu">residuals</span>(glm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> sqres) <span class="sc">+</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"sqrt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aHW_5_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> p1res) <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"log + 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aHW_5_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> glmres) <span class="sc">+</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"glm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aHW_5_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There are a couple of values in the glm that are on the edge of the plus or minus 2 cutoff for outliers. That same low point at age equal to 43 is a little off in all the residual plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> df, </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>       Matings<span class="sc">~</span>Age)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = Matings ~ Age, data = df, init.theta = 16.48629005, 
+    link = log)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -1.58837    0.59393  -2.674  0.00749 ** 
+Age          0.06887    0.01519   4.534  5.8e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(16.4863) family taken to be 1)
+
+    Null deviance: 65.199  on 40  degrees of freedom
+Residual deviance: 44.498  on 39  degrees of freedom
+AIC: 157.92
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  16.5 
+          Std. Err.:  25.7 
+
+ 2 x log-likelihood:  -151.923 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fl">44.498</span><span class="sc">/</span> <span class="dv">39</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.140974</code></pre>
+</div>
+</div>
+<p>Psi is a little lower, but it wasn’t bad before.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>nbres <span class="ot">&lt;-</span> <span class="fu">residuals</span>(nb)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> nbres) <span class="sc">+</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"nb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aHW_5_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The negative binomial residuals look the same.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmsqrt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sqrt(Matings) ~ Age, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.90532 -0.33654  0.07767  0.45871  1.09468 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.81220    0.56867  -1.428 0.161187    
+Age          0.06320    0.01561   4.049 0.000236 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6493 on 39 degrees of freedom
+Multiple R-squared:  0.296, Adjusted R-squared:  0.2779 
+F-statistic:  16.4 on 1 and 39 DF,  p-value: 0.0002362</code></pre>
+</div>
+</div>
+<p>An increase of 1 year in Age results in a .06 more matings. This one has a lower intercept than the log plus one lm.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmlp1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mlp1 ~ Age, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.49087 -0.33939  0.06607  0.35376  0.81171 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.69893    0.45861  -1.524 0.135567    
+Age          0.05093    0.01259   4.046 0.000238 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.5237 on 39 degrees of freedom
+Multiple R-squared:  0.2957,    Adjusted R-squared:  0.2776 
+F-statistic: 16.37 on 1 and 39 DF,  p-value: 0.0002385</code></pre>
+</div>
+</div>
+<p>An increase of 1 year in Age results in a .05 more matings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>sgl <span class="ot">&lt;-</span> <span class="fu">summary</span>(glm1)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>sgl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Matings ~ Age, family = poisson, data = df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -1.58201    0.54462  -2.905  0.00368 ** 
+Age          0.06869    0.01375   4.997 5.81e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 75.372  on 40  degrees of freedom
+Residual deviance: 51.012  on 39  degrees of freedom
+AIC: 156.46
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>sgl<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Estimate Std. Error      z value Pr(&gt;|z|)
+(Intercept) 0.2055619   1.723955   0.05476055 1.003682
+Age         1.0711071   1.013841 148.02412630 1.000001</code></pre>
+</div>
+</div>
+<p>An increase of 1 year in Age results in a 7% increase in matings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">51.012</span>, <span class="at">df =</span> <span class="dv">39</span>, <span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09425638</code></pre>
+</div>
+</div>
+<p>p-values for all three models are low, but glm is the highest.</p>
+</section>
+</section>
+</section>
+<section id="conceptual-questions" class="level1">
+<h1>Conceptual Questions</h1>
+<section id="log-lin-v-linear-transfromed." class="level2">
+<h2 class="anchored" data-anchor-id="log-lin-v-linear-transfromed.">3. Log-lin v Linear transfromed.</h2>
+<p>(2 points) What is the difference between a log-linear model and a linear model after the log transformation of the response?</p>
+<p>If the log transformation results in constant variance then, MLR could be used. However, glms don’t assume constant variance or normality.</p>
+<p>Multiplicative vs additivity in error terms is the major difference. In MLR additivity is assumed.</p>
+</section>
+<section id="elephants-1" class="level2">
+<h2 class="anchored" data-anchor-id="elephants-1">4. Elephants</h2>
+<p>(3 points) This question refers to the elephant mating data from question 2 above.</p>
+<section id="a." class="level3">
+<h3 class="anchored" data-anchor-id="a.">A.</h3>
+<p>Both the binomial and the Poisson distributions provide probability models for random counts. Which distribution is more appropriate to model the number of successful matings for male African elephants, and why?</p>
+<p>Elephant mating doesn’t have fixed sample size or constant probability, so Poisson is better in this instance.</p>
+</section>
+<section id="b" class="level3">
+<h3 class="anchored" data-anchor-id="b">B</h3>
+<p>In the following plot, we see that the spread of responses is larger for larger values of the mean response. Is this something to be concerned about if we perform a Poisson log-linear regression?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> <span class="fu">aes</span>(Age, Matings) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> T, <span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="aHW_5_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Poisson assumes that variance will go up with mean. The lambda parameter is the only parameter, if one goes up so does the other.</p>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">C</h3>
 <ol start="3" type="a">
 <li>Performing a Poisson log-linear regression results in the following output:</li>
 </ol>
@@ -306,10 +883,45 @@ Not obese   7         1044</code></pre>
 (Intercept)     -1.58201    0.54462     -2.905    0.00368 **
 Age             0.06869     0.01375     4.997     5.81e-07 ***</code></pre>
 <p>Residual Deviance: 51.01 on 39 degrees of freedom</p>
-<p>What are the mean and variance of the distribution of counts of successful matings (in 8 years) for elephants who are aged 25 years at the beginning of the observation period? What are the mean and variance for elephants who are aged 45 years?</p></li>
-</ol>
+<p>What are of the mean and variance of the distribution of counts of successful matings (in 8 years) for elephants who are aged 25 years at the beginning of the observation period? What are the mean and variance for elephants who are aged 45 years?</p>
+<p>I do not know what that means, but lets try and figure it out. 25 to 33 year old elephants. Distribution of counts suggests we are not talking about the glm at all. I guess it wants me to filter by age and get the mean and variance.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">filter</span>(Age <span class="sc">&gt;</span> <span class="dv">24</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="dv">34</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d<span class="sc">$</span>Matings)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.666667</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(d<span class="sc">$</span>Matings)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.529412</code></pre>
+</div>
+</div>
+<p>The mean and variance of the distribution of Matings for elephants 25 to 33 are 1.66 and 1.53 respectively.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>MV <span class="ot">&lt;-</span> <span class="cf">function</span>(A) {<span class="sc">-</span><span class="fl">1.58201</span> <span class="sc">+</span> <span class="fl">0.06869</span><span class="sc">*</span>A}</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">MV</span>(<span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">33</span>, <span class="dv">1</span>))) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.506818</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sd</span>(<span class="fu">MV</span>(<span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">33</span>, <span class="dv">1</span>)))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.036021</code></pre>
+</div>
+</div>
+<p>For the estimated distribution between 25 and 33, mean is 1.5 and var is 1.04.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="dv">45</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">MV</span>(A) <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.522387</code></pre>
+</div>
+</div>
+<p>The mean and variance for elephants at 45 is 4.5 Matings.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
