@@ -310,7 +310,15 @@ window.Quarto = {
   </ul></li>
   <li><a href="#more-model-fitting" id="toc-more-model-fitting" class="nav-link" data-scroll-target="#more-model-fitting">More Model Fitting</a></li>
   </ul></li>
-  <li><a href="#lab-questions" id="toc-lab-questions" class="nav-link" data-scroll-target="#lab-questions">Lab Questions</a></li>
+  <li><a href="#lab-questions" id="toc-lab-questions" class="nav-link" data-scroll-target="#lab-questions">Lab Questions</a>
+  <ul class="collapse">
+  <li><a href="#coefficient-estimates" id="toc-coefficient-estimates" class="nav-link" data-scroll-target="#coefficient-estimates">1 Coefficient estimates</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">2</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">3</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">4</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">5</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">6</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1373,8 +1381,14 @@ Visit       -0.205  0.004  0.010  0.001</code></pre>
 <p>In the <code>epilepsy</code> data, we really need to use a mixed effects model to account for the fact that observations within a subject are almost certainly not independent. Let’s suppose, however, that we are a naive statistician and do not realize that we need to account for this within subject correlation. Instead we fit a Poisson GLM and completely ignore the fact that we have non-independent observations (to be clear, this is <strong>not</strong> a correct way to do the analysis, but we are fitting the model to compare the results we get to the results from the more appropriate GLMM we fit above).</p>
 <p>Please write 1-2 sentences in response to the following questions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>mod.norand <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(Seizures <span class="sc">~</span> Trt <span class="sc">+</span> Age <span class="sc">+</span> Base <span class="sc">+</span> Visit, <span class="at">data =</span> epil_long)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.norand)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod3 &lt;- glmer.nb(Seizures ~ Trt + Age + Base + Visit + (1|ID), data = epil_long)</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co"># init &lt;- getME(mod3,name=c("theta","fixef"))</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mod3 &lt;- glmer.nb(Seizures ~ Trt + Age + Base + Visit + (1|ID), data = epil_long, start = init)</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>mod.norand <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(Seizures <span class="sc">~</span> Trt <span class="sc">+</span> Age <span class="sc">+</span> Base <span class="sc">+</span> Visit, <span class="at">data =</span> epil_long)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.norand)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1406,7 +1420,7 @@ Number of Fisher Scoring iterations: 1
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Estimate  Std. Error   z value     Pr(&gt;|z|)
 (Intercept)   0.66202163 0.416600169  1.589106 1.120366e-01
@@ -1415,7 +1429,7 @@ Age           0.01405663 0.012566776  1.118555 2.633299e-01
 Base          0.02718444 0.002806301  9.686930 3.426738e-22
 Visit        -0.05223065 0.033086077 -1.578629 1.144211e-01</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.norand)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.norand)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Estimate  Std. Error    z value     Pr(&gt;|z|)
 (Intercept)   0.66125191 0.292126465  2.2635810 2.359990e-02
@@ -1425,27 +1439,278 @@ Base          0.02686460 0.001755952 15.2991685 7.743965e-53
 Visit        -0.04497306 0.045011777 -0.9991399 3.177269e-01</code></pre>
 </div>
 </div>
+<section id="coefficient-estimates" class="level2">
+<h2 class="anchored" data-anchor-id="coefficient-estimates">1 Coefficient estimates</h2>
 <p>1.) How do the coefficient estimates for the fixed effects compare in the two models? Why do you think the coefficient estimates are approximately the same or very different?</p>
+<p>They are similar.</p>
+<p>A regular negative binomial gets one ML estimate for all the data. A negative binomial with random intercepts per group has a fixed effect ML estimate for all the data, where variation by group is accounted for by random intercepts. In this case I think the two models have very similar estimates because the variation due to grouping was low enough to not change the estimates that much.</p>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2</h2>
 <p>2.) How do the standard errors for the coefficients compare in the two models? Why do you think the standard errors are approximately the same or very different?</p>
+<p>The standard errors are much different. The model without mixed effects has lower SEs than the one with them, except for visit which is higher.</p>
+<p>In this case, there is dispersion due to clustering. The model without mixed effects doesn’t account for the clustering. So, its standard errors are too small.</p>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">3</h2>
 <p>3.) How do the p-values compare for the two models?</p>
+<p>The regular negative binomial model’s p-values are lower except for visit, which is higher. p-values are dependent on the standard errors.</p>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">4</h2>
 <p>4.) Based on your answers from (1) to (3), what is the danger in assuming independence between all the observations, when, in fact, some of the observations are not independent?</p>
+<p>The danger is that inference will be invalid due to lack of independence. Standard errors and p-values will be too small. Effects may be declared significant by mistake.</p>
 <p>Let’s next look at the first 40 fitted values for the incorrectly fitted model without a random effect for subject and the GLMM with a random effect for subject.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">fitted</span>(mod.norand), <span class="fu">fitted</span>(mod3))[<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>, ] <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       [,1]      [,2]
-1 16.262001 11.823995
-2 15.546851 11.222271
-3 14.863151 10.651169
-4 14.209517 10.109130
-5  7.518812  7.237358
-6  7.188159  6.869049</code></pre>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">fitted</span>(mod.norand), <span class="fu">fitted</span>(mod3))[<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>, ] <span class="co">#|&gt; head()</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> t <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>t2 <span class="ot">&lt;-</span> t <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">norand_min_rand =</span> V1 <span class="sc">-</span> V2) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(norand_min_rand))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">5</h2>
 <p>5.) How do the fitted values from the two models compare? Are the fitted values from one model consistently higher or lower than the other model?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(t2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       V1               V2         norand_min_rand   
+ Min.   : 2.968   Min.   : 1.978   Min.   :-10.1657  
+ 1st Qu.: 3.354   1st Qu.: 2.942   1st Qu.:  0.1650  
+ Median : 3.931   Median : 3.500   Median :  0.4299  
+ Mean   : 5.318   Mean   : 5.478   Mean   : -0.1599  
+ 3rd Qu.: 5.558   3rd Qu.: 6.607   3rd Qu.:  1.1962  
+ Max.   :16.262   Max.   :16.178   Max.   :  4.4380  </code></pre>
+</div>
+</div>
+<p>The model without mixed effects is usually higher than the one with.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(t2) <span class="sc">+</span> </span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(V2, V1) <span class="sc">+</span> </span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="z7_learnR_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">6</h2>
 <p>6.) Notice fitted values 37 through 40. These values correspond to the 10th subject in the data set (subject ID 112). Can you justify why these fitted values are much higher in the GLMM? In your justification, can you include a plot of some sort that highlights this particular subject?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>t[<span class="dv">37</span><span class="sc">:</span><span class="dv">40</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">V1</th>
+<th style="text-align: right;">V2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">37</td>
+<td style="text-align: right;">6.011792</td>
+<td style="text-align: right;">16.17753</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">38</td>
+<td style="text-align: right;">5.747412</td>
+<td style="text-align: right;">15.35425</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">39</td>
+<td style="text-align: right;">5.494660</td>
+<td style="text-align: right;">14.57287</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">40</td>
+<td style="text-align: right;">5.253022</td>
+<td style="text-align: right;">13.83126</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>epil_long <span class="sc">|&gt;</span> <span class="fu">filter</span>(ID <span class="sc">==</span> <span class="dv">112</span> <span class="sc">|</span>ID <span class="sc">==</span> <span class="dv">113</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 11%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 13%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ID</th>
+<th style="text-align: right;">Base</th>
+<th style="text-align: right;">Age</th>
+<th style="text-align: left;">Trt</th>
+<th style="text-align: right;">Ysum</th>
+<th style="text-align: right;">Age10</th>
+<th style="text-align: right;">Base4</th>
+<th style="text-align: left;">improvement</th>
+<th style="text-align: right;">Visit</th>
+<th style="text-align: right;">Seizures</th>
+<th style="text-align: right;">resid</th>
+<th style="text-align: right;">fits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">112</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">7.75</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0.7436494</td>
+<td style="text-align: right;">16.177527</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">112</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">7.75</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.2334746</td>
+<td style="text-align: right;">15.354251</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">112</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">7.75</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0.6256015</td>
+<td style="text-align: right;">14.572872</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">112</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">7.75</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.3315202</td>
+<td style="text-align: right;">13.831258</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">113</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.0673093</td>
+<td style="text-align: right;">4.809035</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">113</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.2143688</td>
+<td style="text-align: right;">4.564303</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">113</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.9056346</td>
+<td style="text-align: right;">4.332025</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">113</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">progabide</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: left;">didn’t</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.0444647</td>
+<td style="text-align: right;">4.111568</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?epilepsy</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">filter</span>(epil_long, ID <span class="sc">==</span> <span class="dv">112</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(epil_long[<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>,]) <span class="sc">+</span> </span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(Base, Ysum) <span class="sc">+</span> </span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> l, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="z7_learnR_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I this set, patient 112 had more seizures after the treatment compared to the number of seizures before. The GLMM is doing a better job fitting the data than the glm.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -300,8 +300,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#practical-stats" id="toc-practical-stats" class="nav-link active" data-scroll-target="#practical-stats">Practical Stats</a></li>
-  <li><a href="#w-4-lectures" id="toc-w-4-lectures" class="nav-link" data-scroll-target="#w-4-lectures">W-4 Lectures</a>
+  <li><a href="#w-4-log-reg-ii-lectures" id="toc-w-4-log-reg-ii-lectures" class="nav-link active" data-scroll-target="#w-4-log-reg-ii-lectures">W-4 log reg II Lectures</a>
   <ul class="collapse">
   <li><a href="#another-example-in-r---more-logistic-regression" id="toc-another-example-in-r---more-logistic-regression" class="nav-link" data-scroll-target="#another-example-in-r---more-logistic-regression">Another Example in R - More Logistic Regression</a></li>
   <li><a href="#dose-response-relationships" id="toc-dose-response-relationships" class="nav-link" data-scroll-target="#dose-response-relationships">Dose Response Relationships</a></li>
@@ -398,8 +397,7 @@ Learning Objectives
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># library(arm)</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="practical-stats" class="level2">
-<h2 class="anchored" data-anchor-id="practical-stats">Practical Stats</h2>
+<p>Practical Stats</p>
 <p>For logistic regression, first think of the outcome not as a binary label, but as the probability p that the label is a one.</p>
 <p>p is not a linear function of predictors because p will end up outside of zero and one. Instead model p by applying a logistic response or inverse logit fct to ensure the response stays between zero and one.</p>
 <p><span class="math display">\[
@@ -431,9 +429,8 @@ dev = -2log(P_{\hat{\theta}}(X_1, ... X_n))
 <p>Assessment is based generalization error.</p>
 <p>The p-value for glms should be viewed as a relative indicator of variable importance. There is no RMSE or R-squared. You can train and fit with different models and asses performance. You can use stepwise regression, fit interaction terms or include spline terms. Confounding and cerrelated variables are still issues.</p>
 </section>
-</section>
-<section id="w-4-lectures" class="level2">
-<h2 class="anchored" data-anchor-id="w-4-lectures">W-4 Lectures</h2>
+<section id="w-4-log-reg-ii-lectures" class="level2">
+<h2 class="anchored" data-anchor-id="w-4-log-reg-ii-lectures">W-4 log reg II Lectures</h2>
 <section id="another-example-in-r---more-logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="another-example-in-r---more-logistic-regression">Another Example in R - More Logistic Regression</h3>
 <div class="cell">

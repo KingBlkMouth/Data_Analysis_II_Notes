@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-04-04">
+<meta name="dcterms.date" content="2024-05-17">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 7</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -239,8 +273,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a></li>
-  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link" data-scroll-target="#conceptual-questions">Conceptual Questions</a></li>
+  <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a>
+  <ul class="collapse">
+  <li><a href="#ex2119-in-the-sleuth3-library" id="toc-ex2119-in-the-sleuth3-library" class="nav-link" data-scroll-target="#ex2119-in-the-sleuth3-library">1. ex2119 in the Sleuth3 library</a></li>
+  </ul></li>
+  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link" data-scroll-target="#conceptual-questions">Conceptual Questions</a>
+  <ul class="collapse">
+  <li><a href="#true-or-false" id="toc-true-or-false" class="nav-link" data-scroll-target="#true-or-false">2. true or false</a></li>
+  <li><a href="#short-paragraph" id="toc-short-paragraph" class="nav-link" data-scroll-target="#short-paragraph">3. short paragraph</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -266,7 +307,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2024</p>
+      <p class="date">May 17, 2024</p>
     </div>
   </div>
   
@@ -279,31 +320,270 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>output: pdf_document</p>
-<section id="r-question" class="level2">
-<h2 class="anchored" data-anchor-id="r-question">R Question</h2>
-<ol type="1">
-<li><p>(5 points) Recall the data in ex2119 in the Sleuth3 library. These data record results from 10 different studies in which the relationship between breast cancer and whether or not a woman had breast fed her child(ren) was examined. Earlier in the course, you looked at these data, and treated study as a fixed effect. Another way to consider these data is by taking study to be a random effect.</p>
-<ol type="a">
-<li><p>Fit an appropriate GLMM to the breast cancer data, using study as a random effect. Report the estimated random effect variance and the fixed effect estimate for the Lactate variable, as well as its standard error.</p></li>
-<li><p>Create a normal probability plot of the random effects. Do you notice anything unusual?</p></li>
-<li><p>Write a few sentences about how you might proceed with an analysis from here. There are several different approaches you could take—just decide on one and describe it briefly.</p></li>
-</ol></li>
-</ol>
+<section id="r-question" class="level1">
+<h1>R Question</h1>
+<section id="ex2119-in-the-sleuth3-library" class="level3">
+<h3 class="anchored" data-anchor-id="ex2119-in-the-sleuth3-library">1. ex2119 in the Sleuth3 library</h3>
+<p><strong>(5 points) Recall the data in ex2119 in the Sleuth3 library. These data record results from 10 different studies in which the relationship between breast cancer and whether or not a woman had breast fed her child(ren) was examined. Earlier in the course, you looked at these data, and treated study as a fixed effect. Another way to consider these data is by taking study to be a random effect.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ex2119)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ex2119</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># str(df)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Study =</span> <span class="fu">factor</span>(Study))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   20 obs. of  4 variables:
+ $ Study   : Factor w/ 10 levels "1","2","3","4",..: 1 1 2 2 3 3 4 4 5 5 ...
+ $ Lactate : Factor w/ 2 levels "no","yes": 1 2 1 2 1 2 1 2 1 2 ...
+ $ Cancer  : int  107 352 244 574 158 95 433 682 565 894 ...
+ $ NoCancer: int  226 865 489 1059 147 119 371 676 32693 55735 ...</code></pre>
+</div>
+</div>
+<section id="a-fit-an-appropriate-glmm" class="level4">
+<h4 class="anchored" data-anchor-id="a-fit-an-appropriate-glmm">(a) Fit an appropriate GLMM</h4>
+<p><strong>Fit an appropriate GLMM to the breast cancer data, using study as a random effect. Report the estimated random effect variance and the fixed effect estimate for the Lactate variable, as well as its standard error.</strong></p>
+<p>Poisson is count per area or time. I am not sure if count per study works. Binomial is yes or no.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(Lactate, Cancer<span class="sc">/</span>NoCancer) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(<span class="fu">cbind</span>(Cancer,NoCancer)<span class="sc">~</span>Lactate <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Study), </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> df2)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: cbind(Cancer, NoCancer) ~ Lactate + (1 | Study)
+   Data: df2
+
+     AIC      BIC   logLik deviance df.resid 
+   248.5    251.5   -121.2    242.5       17 
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.69254 -0.60223  0.01219  0.44225  1.44836 
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ Study  (Intercept) 1.438    1.199   
+Number of obs: 20, groups:  Study, 10
+
+Fixed effects:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.57534    0.37980  -1.515     0.13    
+Lactateyes  -0.10958    0.02303  -4.758 1.95e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+           (Intr)
+Lactateyes -0.036</code></pre>
+</div>
+</div>
+<p>Report:</p>
+<ul>
+<li>the estimated random effect variance: 1.438</li>
+<li>the fixed effect estimate for the Lactate variable: -0.10958<br>
+</li>
+<li>as well as its standard error: 0.02303</li>
+</ul>
 </section>
-<section id="conceptual-questions" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-questions">Conceptual Questions</h2>
-<ol start="2" type="1">
-<li><p>(3 points) Please answer true or false to the following. Explain/justify your answers.</p>
+<section id="b-normal-probability-plot" class="level4">
+<h4 class="anchored" data-anchor-id="b-normal-probability-plot">(b) Normal probability plot</h4>
+<p><strong>Create a normal probability plot of the random effects. Do you notice anything unusual?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">unlist</span>((<span class="fu">ranef</span>(mod1)<span class="sc">$</span>Study)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It’s not linear.</p>
+</section>
+<section id="c-a-few-sentences" class="level4">
+<h4 class="anchored" data-anchor-id="c-a-few-sentences">(c) A few sentences</h4>
+<p><strong>Write a few sentences about how you might proceed with an analysis from here. There are several different approaches you could take</strong></p>
+<p>The normality plot is nonlinear. It appears there is at least one large outlier. I would run a model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>resid <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod1)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>fitted <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(mod1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df2, <span class="fu">aes</span>(Lactate, resid)) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df2, <span class="fu">aes</span>(Study, resid)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df2, <span class="fu">aes</span>(Cancer, fitted)) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> <span class="fu">geom_abline</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(Cancer<span class="sc">~</span>Lactate <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Study), </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> df2)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: Negative Binomial(7.3181)  ( log )
+Formula: Cancer ~ Lactate + (1 | Study)
+   Data: df2
+
+     AIC      BIC   logLik deviance df.resid 
+   294.8    298.8   -143.4    286.8       16 
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.28447 -0.41203 -0.06147  0.59074  1.08430 
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ Study  (Intercept) 0.6325   0.7953  
+Number of obs: 20, groups:  Study, 10
+
+Fixed effects:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   5.9922     0.2789  21.483   &lt;2e-16 ***
+Lactateyes    0.3621     0.1719   2.107   0.0351 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+           (Intr)
+Lactateyes -0.311</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">unlist</span>((<span class="fu">ranef</span>(mod2)<span class="sc">$</span>Study)))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">unlist</span>((<span class="fu">ranef</span>(mod2)<span class="sc">$</span>Study)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>resids2 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>fitted2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(mod2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df2,<span class="fu">aes</span>(Cancer,fitted2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_abline</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df2,<span class="fu">aes</span>(Study,resids2)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df2,<span class="fu">aes</span>(Lactate,resids2)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_7_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="conceptual-questions" class="level1">
+<h1>Conceptual Questions</h1>
+<section id="true-or-false" class="level2">
+<h2 class="anchored" data-anchor-id="true-or-false">2. true or false</h2>
+<p>(3 points) Please answer true or false to the following. Explain/justify your answers.</p>
 <ol type="a">
-<li><p>One reason for using a mixed effects model is to account for the similarities among observations that are clustered together in groups.</p></li>
-<li><p>If a GLMM does not converge in R, we should just go back to using a GLM approach.</p></li>
-<li><p>If an estimated random efect variance is small, that’s an indication that we don’t need that random effect in the model.</p></li>
-</ol></li>
-<li><p>(2 points) Consider the following R output from fitting a GLMM to the Donner party data (’Donner‘ in the ’vcdExtra‘ package) using ’family‘ as a random effect.</p>
-<p>I am not fixing this right now. <code>Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]  Family: binomial ( logit )  Formula: survived ~ age + sex + (1 | family)  Data: Don  AIC BIC logLik deviance df.resid  116.1 126.1 -54.1 108.1 86  Scaled residuals:  Min 1Q Median 3Q Max  -2.3824 -0.6896 0.3774 0.6315 1.7398  Random effects:  Groups Name Variance Std.Dev.  1  family (Intercept) 0.6738 0.8209  Number of obs: 90, groups: family, 10  Fixed effects:  Estimate Std. Error z value Pr(&gt;|z|)  (Intercept) 1.73785 0.62108 2.798 0.00514 **  age -0.03452 0.01632 -2.115 0.03445 *  sexMale -1.21847 0.54514 -2.235 0.02541 *  ---  Signif. codes: 0 ?***? 0.001 ?**? 0.01 ?*? 0.05 ?.? 0.1 ? ? 1  Write a short paragraph that describes the results from fitting this model.</code></p></li>
+<li>One reason for using a mixed effects model is to account for the similarities among observations that are clustered together in groups.</li>
 </ol>
+<p><strong>True</strong></p>
+<ol start="2" type="a">
+<li>If a GLMM does not converge in R, we should just go back to using a GLM approach.</li>
+</ol>
+<p><strong>False</strong></p>
+<ol start="3" type="a">
+<li>If an estimated random effect variance is small, that???s an indication that we don???t need that random effect in the model.</li>
+</ol>
+<p><strong>True</strong></p>
+</section>
+<section id="short-paragraph" class="level2">
+<h2 class="anchored" data-anchor-id="short-paragraph">3. short paragraph</h2>
+<p>(2 points) Consider the following R output from fitting a GLMM to the Donner party data (???Donner??? in the ???vcdExtra??? package) using ???family??? as a random effect.</p>
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
+Family: binomial ( logit )
+Formula: survived ~ age + sex + (1 | family)
+Data: Don
+AIC BIC logLik deviance df.resid
+116.1 126.1 -54.1 108.1 86
+Scaled residuals:
+Min 1Q Median 3Q Max
+-2.3824 -0.6896 0.3774 0.6315 1.7398
+Random effects:
+Groups Name Variance Std.Dev.
+1
+family (Intercept) 0.6738 0.8209
+Number of obs: 90, groups: family, 10
+Fixed effects:
+Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept) 1.73785 0.62108 2.798 0.00514 **
+age -0.03452 0.01632 -2.115 0.03445 *
+sexMale -1.21847 0.54514 -2.235 0.02541 *
+---
+Signif. codes: 0 ?***? 0.001 ?**? 0.01 ?*? 0.05 ?.? 0.1 ? ? 1</code></pre>
+<p>Write a short paragraph that describes the results from fitting this model.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

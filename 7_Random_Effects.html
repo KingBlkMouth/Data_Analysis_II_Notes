@@ -308,8 +308,6 @@ window.Quarto = {
   <li><a href="#modeling-strategies" id="toc-modeling-strategies" class="nav-link" data-scroll-target="#modeling-strategies">Modeling Strategies</a></li>
   <li><a href="#model-interpretation" id="toc-model-interpretation" class="nav-link" data-scroll-target="#model-interpretation">Model Interpretation</a></li>
   </ul></li>
-  <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
-  <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
   <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
   <ul class="collapse">
   <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
@@ -370,19 +368,19 @@ Learning Objectives
 <ul>
 <li><del>Review Module 7 Readings and Lectures</del></li>
 <li><del>Participate in the Module 7 Discussion</del></li>
-<li>Submit Module 7 Lab</li>
-<li>Submit Module 7 Homework</li>
-<li>Take the Module 7 R Quiz</li>
-<li>Take the Module 7 Content Quiz</li>
+<li><del>Submit Module 7 Lab</del></li>
+<li><del>Submit Module 7 Homework</del></li>
+<li><del>Take the Module 7 R Quiz</del></li>
+<li><del>Take the Module 7 Content Quiz</del></li>
 </ul>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)<span class="co"># tidying and readability</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)  <span class="co"># data sets</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra) <span class="co"># Categorical data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr) <span class="co"># math divide_by</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)     <span class="co"># access the mixed functions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="random_effects-lectures" class="level1">
@@ -748,19 +746,180 @@ logDose2    -0.3925717  0.0647011 -6.067465 1.299448e-09</code></pre>
 <p>Clustered categorical and count responses is the search term.</p>
 </section>
 </section>
-<section id="lab" class="level1">
-<h1>Lab</h1>
-</section>
-<section id="hw" class="level1">
-<h1>HW</h1>
-</section>
 <section id="quizzes" class="level1">
 <h1>Quizzes</h1>
 <section id="r" class="level2">
 <h2 class="anchored" data-anchor-id="r">R</h2>
+<p>All questions rely on the data in the Ovary dataset in the nlme library. The dataset contains data on the number of ovarian follicles greater than 10mm in diameter for several days throughout the estrus cycle of several female horses (mares).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'nlme'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:lme4':
+
+    lmList</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    collapse</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Ovary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Question 1</p>
+<p>1 pts</p>
+<p>Which of the following gives a plot that well represents the structure of these data (check one)? Group of answer choices</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Ovary, <span class="fu">aes</span>(Time, follicles)) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Mare) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Random_Effects_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Ovary, <span class="fu">aes</span>(Time, <span class="fu">log</span>(follicles), <span class="at">color=</span>Mare)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Random_Effects_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Ovary, <span class="fu">aes</span>(Time, follicles)) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Mare) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Random_Effects_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Ovary, <span class="fu">aes</span>(Time, follicles, <span class="at">color=</span>Mare)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Random_Effects_files/figure-html/unnamed-chunk-12-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="5" type="a">
+<li><p>a and b would work</p></li>
+<li><p>a and c would work</p></li>
+</ol>
+<p><strong>b and c</strong></p>
+<p>b, ggplot(data = Ovary, aes(Time, follicles)) + facet_wrap(~Mare) + geom_line()</p>
+<ol start="4" type="a">
+<li>ggplot(data = Ovary, aes(Time, log(follicles), color=Mare)) + geom_line()</li>
+</ol>
+<p>c, ggplot(data = Ovary, aes(Time, follicles)) + facet_wrap(~Mare) + geom_point()</p>
+<p>a, ggplot(data = Ovary, aes(Time, follicles, color=Mare)) + geom_point()</p>
+<p>Flag question: Question 2 Question 21 pts Based on the plots from question 1, which one of the following might be a good way(s) to include the Time variable in the model? Group of answer choices</p>
+<p>Time should be included as a random effect in the model.</p>
+<p>There is not enough information to tell.</p>
+<p>Time + Time2, where Time2 is Time2</p>
+<p><strong>Time + Time2 + Time3, where Time3 is Time3</strong></p>
+<p>Question 3</p>
+<p>Question 31 pts</p>
+<p>Use the following R commands to fit a model to the Ovary data (note: all appropriate packages must be loaded):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>OV <span class="ot">&lt;-</span> Ovary</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>OV <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(.,<span class="at">Time2 =</span> Time<span class="sc">^</span><span class="dv">2</span>, <span class="at">Time3 =</span> Time<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glmer</span>(<span class="at">data=</span>OV,follicles<span class="sc">~</span>Time<span class="sc">+</span>Time2<span class="sc">+</span>Time3<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>Mare),<span class="at">family=</span><span class="st">"poisson"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: poisson  ( log )
+Formula: follicles ~ Time + Time2 + Time3 + (1 | Mare)
+   Data: OV
+
+     AIC      BIC   logLik deviance df.resid 
+  1655.9   1674.6   -823.0   1645.9      303 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.0347 -0.6051 -0.0633  0.6039  4.5225 
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ Mare   (Intercept) 0.07087  0.2662  
+Number of obs: 308, groups:  Mare, 11
+
+Fixed effects:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  2.27040    0.08629  26.312  &lt; 2e-16 ***
+Time        -1.18825    0.22251  -5.340 9.28e-08 ***
+Time2        5.13986    0.57575   8.927  &lt; 2e-16 ***
+Time3       -3.71027    0.37768  -9.824  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+      (Intr) Time   Time2 
+Time  -0.081              
+Time2 -0.030 -0.910       
+Time3  0.062  0.807 -0.975</code></pre>
+</div>
+</div>
+<p>Which one of the following commands will allow you to obtain the fitted values from the out model object on the data scale?</p>
+<p>Group of answer choices</p>
+<p>OV$fits &lt;- ranef(out)$Mare</p>
+<p>OV$fits &lt;- predict(out)</p>
+<p><strong>OV$fits &lt;- exp(predict(out))</strong></p>
+<p>OV$fits &lt;- exp(fixed(out))</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>OV<span class="sc">$</span>fits <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(out))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Question 4</p>
+<p>1 pts</p>
+<p>Which one of the following commands will allow you to look at a Normal probability plot of the random effects from the out model object? Group of answer choices</p>
+<p>qqplot(unlist(ranef(out)$Mare))</p>
+<p>qqline(ranef(out)$Mare))</p>
+<p>qqnorm(ranef(out))</p>
+<p><strong>qqnorm(unlist(ranef(out)$Mare))</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">unlist</span>(<span class="fu">ranef</span>(out)<span class="sc">$</span>Mare))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Random_Effects_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="c" class="level2">
 <h2 class="anchored" data-anchor-id="c">C</h2>
+<p>Question 11 pts Which one of the following is NOT a reason for including a random effect in a model ? Group of answer choices</p>
+<p>There is zero-inflation in the responses.</p>
+<p>Measurements of a response are taken repeatedly on a sample of subjects.</p>
+<p>Observations are clustered in groups.</p>
+<p>At each of 25 locations in a forest, measurements on three trees, including height, diameter at breast height and presence/absence of a disease are taken.</p>
+<p>Flag question: Question 2 Question 21 pts Consider a study in which student success on a math achievement test is recorded as pass/fail.</p>
+<p>Researchers are interested in what factors among gender, ethnicity, days of school missed, and socio-economic status are associated with the likelihood of a student passing the test. Student scores from 5 classrooms within each of 10 schools in a large urban school district are used in the study. Which of the following might you include in a GLMM as random effects? (Select one of the following choices.)</p>
+<p>Group of answer choices</p>
+<ol type="a">
+<li><p>Classroom</p></li>
+<li><p>School</p></li>
+<li><p>Gender</p></li>
+<li><p>a and b</p></li>
+<li><p>a and c</p></li>
+<li><p>b and c</p></li>
+</ol>
+<p>Flag question: Question 3 Question 31 pts Recalling the breast cancer and lactation study that you revisited in the homework for Module 7, what’s the problem with reporting just the fixed effect estimate corresponding to the lactate variable when you’ve fit a mixed effects model with study as a random effect? (Check one) Group of answer choices</p>
+<p>There is no problem, this is part of how you report results from this model.</p>
+<p>The only problem is that the fixed effect estimate will be on the log-odds scale, and you may want to back-transform it to the probability scale.</p>
+<p>The problem is that the fixed effect estimate is conditional on the random effects, it’s not altogether meaningful by itself.</p>
+<p>None of these.</p>
+<p>Flag question: Question 4 Question 41 pts Which of the following would be a good way to report results from the fit of a GLMM (check one)? Group of answer choices</p>
+<p>You can report the estimate(s) of the random effect variance(s), but you can’t say anything about the fixed effect estimates.</p>
+<p>You can report the estimates of the fixed effects, but only if the estimate(s) of the random effect variance(s) is (are) small.</p>
+<p>You should just make a plot of the results and describe the results that way.</p>
+<p>You can report the estimate(s) of the random effect variance(s) and the p-values (i.e., statistical significance) associated with each fixed effect.</p>
 </section>
 </section>
 <section id="end____" class="level1">
