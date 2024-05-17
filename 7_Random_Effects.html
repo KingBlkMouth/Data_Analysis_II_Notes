@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,12 +94,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -102,9 +138,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Data_Analysis_II_Notes</span>
     </a>
@@ -116,142 +152,142 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li>
-    <a class="dropdown-item" href="./1_Types_of_Categoricals.html" rel="" target="">
+    <a class="dropdown-item" href="./1_Types_of_Categoricals.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./2_Props_Risks_Odds.html" rel="" target="">
+    <a class="dropdown-item" href="./2_Props_Risks_Odds.html">
  <span class="dropdown-text">2 Props, Risk &amp; Odds</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./3_Logistic_Regression_I.html" rel="" target="">
+    <a class="dropdown-item" href="./3_Logistic_Regression_I.html">
  <span class="dropdown-text">3 Log Reg I</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./4_Logistic_Regression_II.html" rel="" target="">
+    <a class="dropdown-item" href="./4_Logistic_Regression_II.html">
  <span class="dropdown-text">4 Log-Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./5_Log_linear_Regression.html" rel="" target="">
+    <a class="dropdown-item" href="./5_Log_linear_Regression.html">
  <span class="dropdown-text">5 Log-lin-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html" rel="" target="">
+    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html">
  <span class="dropdown-text">6 Disp &amp; 0 Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./7_Random_Effects.html" rel="" target="">
+    <a class="dropdown-item" href="./7_Random_Effects.html">
  <span class="dropdown-text">7 Random_Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./8_Evaluating_Models.html" rel="" target="">
+    <a class="dropdown-item" href="./8_Evaluating_Models.html">
  <span class="dropdown-text">8 Model Eval</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html" rel="" target="">
+    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html">
  <span class="dropdown-text">9 Imp, Pred, Validate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./10_Final_Project.html" rel="" target="">
+    <a class="dropdown-item" href="./10_Final_Project.html">
  <span class="dropdown-text">10 Final Project</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
-    <a class="dropdown-item" href="./z0_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z0_learnR.html">
  <span class="dropdown-text">LearnR 0</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z1_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z1_learnR.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z2_learnR.html">
  <span class="dropdown-text">2 Odds and risks</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z3_learnR.html">
  <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z4_learnR.html">
  <span class="dropdown-text">4 Log Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z5_learnR.html">
  <span class="dropdown-text">5 Log Lin Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 6</span></a>
+    <a class="dropdown-item" href="./z6_learnR.html">
+ <span class="dropdown-text">6 Zero Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z7_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 7</span></a>
+    <a class="dropdown-item" href="./z7_learnR.html">
+ <span class="dropdown-text">7 Mixed Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z8_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z8_learnR.html">
  <span class="dropdown-text">LearnR 8</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">HW</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hw">    
         <li>
-    <a class="dropdown-item" href="./aHW_1.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_1.html">
  <span class="dropdown-text">ST-518 HW 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_2.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_2.html">
  <span class="dropdown-text">ST-518 HW 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_3.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_3.html">
  <span class="dropdown-text">ST-518 HW 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_4.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_4.html">
  <span class="dropdown-text">ST-518 HW 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_5.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_5.html">
  <span class="dropdown-text">ST-518 HW 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_6.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_6.html">
  <span class="dropdown-text">ST-518 HW 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_7.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_7.html">
  <span class="dropdown-text">ST-518 HW 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_8.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_8.html">
  <span class="dropdown-text">ST-518 HW 8</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -264,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lectures" id="toc-lectures" class="nav-link active" data-scroll-target="#lectures">Lectures</a>
+  <li><a href="#random_effects-lectures" id="toc-random_effects-lectures" class="nav-link active" data-scroll-target="#random_effects-lectures">7 Random_Effects Lectures</a>
   <ul class="collapse">
   <li><a href="#clustered-data" id="toc-clustered-data" class="nav-link" data-scroll-target="#clustered-data">Clustered Data</a></li>
   <li><a href="#mixed-effects" id="toc-mixed-effects" class="nav-link" data-scroll-target="#mixed-effects">Mixed Effects</a></li>
@@ -274,7 +310,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
-  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
+  <ul class="collapse">
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
+  </ul></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
@@ -297,7 +337,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -326,22 +368,27 @@ Learning Objectives
 <p>Task list</p>
 <p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
 <ul>
-<li>Review Module 7 Readings and Lectures</li>
-<li>Submit Module 7 Homework</li>
+<li><del>Review Module 7 Readings and Lectures</del></li>
+<li><del>Participate in the Module 7 Discussion</del></li>
 <li>Submit Module 7 Lab</li>
-<li>Take the Module 7 Content Quiz and R Quiz</li>
-<li>Participate in the Module 7 Discussion</li>
+<li>Submit Module 7 Homework</li>
+<li>Take the Module 7 R Quiz</li>
+<li>Take the Module 7 Content Quiz</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)     <span class="co"># access the mixed functions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="lectures" class="level2">
-<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<section id="random_effects-lectures" class="level1">
+<h1>7 Random_Effects Lectures</h1>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Aflatoxicol example -- dealing with tank</span></span>
@@ -386,30 +433,335 @@ Learning Objectives
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glm1,glm3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="clustered-data" class="level3">
-<h3 class="anchored" data-anchor-id="clustered-data">Clustered Data</h3>
+<section id="clustered-data" class="level2">
+<h2 class="anchored" data-anchor-id="clustered-data">Clustered Data</h2>
+<ul>
+<li><p>Fish in tanks example</p></li>
+<li><p>Observation of tumors in the same tank are dependent</p></li>
+<li><p>Clustering leads to correlated Bernoulli observations, which manifests as over dispersion in log-regs.</p></li>
+<li><p>Observations that are clustered in space or time are more similar and therefore dependent.</p></li>
+<li><p>Do we want to infer about the clusters or do we want to control for them.</p></li>
+<li><p>Group id as fixed effect if we want to infer about the cluster.</p></li>
+<li><p>Group id as random effect if we want to control for clusters.</p></li>
+<li><p>Generally, if we want CI or estimates, they should be fixed effects.</p></li>
+</ul>
 </section>
-<section id="mixed-effects" class="level3">
-<h3 class="anchored" data-anchor-id="mixed-effects">Mixed Effects</h3>
+<section id="mixed-effects" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-effects">Mixed Effects</h2>
+<pre><code>
+X2 &lt;- tank
+
+# Fixed model 
+log(odds) = B0 + B1*X + B2*X2
+
+etaij &lt;- tank
+Xij &lt;- dose ith fish in jth tank
+
+# Mixed effects model 
+log(odds) = B0 + B1*Xij + B2*etaj
+
+etaj sim ind N(0, var) for i = 1 to T</code></pre>
+<ul>
+<li>The quasibinomial is an alternative to mixed effects for handling Over dispersion.</li>
+</ul>
 </section>
-<section id="mixed-example" class="level3">
-<h3 class="anchored" data-anchor-id="mixed-example">Mixed Example</h3>
+<section id="mixed-example" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-example">Mixed Example</h2>
+<p>log(odds) = beta_0 + beta_1log(dose)_ij + beta_2 log(dose)_ij + eta_j</p>
+<ul>
+<li>glmer in lme4</li>
+<li>doesn’t converge</li>
+<li>compare quasibinomial</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ex2116)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tumors <span class="ot">&lt;-</span> ex2116</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add no  tumor and tank id. </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>tumors <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Dose =</span> Dose, <span class="at">Tumor =</span> Tumor, <span class="at">NoTumor =</span> Total <span class="sc">-</span> Tumor, <span class="at">TankID =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tumors)),<span class="at">logDose =</span> <span class="fu">log</span>(Dose), <span class="at">logDose2 =</span> <span class="fu">log</span>(Dose)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fit fixed effects logisitic regression</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(Tumor,NoTumor) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">data =</span> tumors, <span class="at">family=</span>binomial)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(Tumor, NoTumor) ~ logDose + logDose2, family = binomial, 
+    data = tumors)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  1.02921    0.49343   2.086  0.03699 *  
+logDose     -1.03048    0.35743  -2.883  0.00394 ** 
+logDose2    -0.39195    0.06136  -6.388 1.68e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 667.195  on 19  degrees of freedom
+Residual deviance:  26.048  on 17  degrees of freedom
+AIC: 119.45
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>psi is greater than 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit fixed effects logistic regression with quasi-binomial likelihood</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(Tumor,NoTumor) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2, <span class="at">data =</span> tumors, <span class="at">family=</span>quasibinomial)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(Tumor, NoTumor) ~ logDose + logDose2, family = quasibinomial, 
+    data = tumors)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.02921    0.59942   1.717   0.1041    
+logDose     -1.03048    0.43421  -2.373   0.0297 *  
+logDose2    -0.39195    0.07454  -5.258 6.41e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for quasibinomial family taken to be 1.475778)
+
+    Null deviance: 667.195  on 19  degrees of freedom
+Residual deviance:  26.048  on 17  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>There is evidene of overdisperion in the model. This is the better model because it accounts for the dispersion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit mixed effects logistic regression, using Tank as random effect</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>glm3 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(<span class="fu">cbind</span>(Tumor,NoTumor) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2 <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>TankID), <span class="at">data =</span> tumors,<span class="at">family=</span>binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+Model failed to converge with max|grad| = 0.00506263 (tol = 0.002, component 1)</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Use columns Tumor and NoTumor</p></li>
+<li><p>+(1|TankID) adds intercept term for each tank.</p></li>
+<li><div class="line-block">is a pipe.</div></li>
+<li><p>convergence warning is about the variance being small. Trouble optimizing the surface to estimate.</p></li>
+<li><p>Need to start the algorithm somewhere or it picks.</p></li>
+<li><p>getME get mixed effects from lme4, go to glm3 and pull off theta, the random effects variance, and the estimates of the fixed effects.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># oops, it looks like theres' a convergence problems. Let's re-run the glmer algorithm</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># using the values from the model we just fit as starting points:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>(init <span class="ot">&lt;-</span> <span class="fu">getME</span>(glm3, <span class="at">name =</span><span class="fu">c</span> (<span class="st">"theta"</span>,<span class="st">"fixef"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$theta
+TankID.(Intercept) 
+        0.09980808 
+
+$fixef
+(Intercept)     logDose    logDose2 
+  1.0346691  -1.0309744  -0.3925934 </code></pre>
+</div>
+</div>
+<ul>
+<li>estimate for RE std dev is .099</li>
+<li>fixed effects are similar to the regular model</li>
+<li>start at these values.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>glm3 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(<span class="fu">cbind</span>(Tumor,NoTumor) <span class="sc">~</span> logDose <span class="sc">+</span> logDose2 <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>TankID), <span class="at">data=</span>tumors, <span class="at">start=</span>init, <span class="at">family=</span>binomial)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: cbind(Tumor, NoTumor) ~ logDose + logDose2 + (1 | TankID)
+   Data: tumors
+
+     AIC      BIC   logLik deviance df.resid 
+   121.3    125.3    -56.6    113.3       16 
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.79604 -0.62245 -0.08873  0.97928  1.58266 
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ TankID (Intercept) 0.009959 0.0998  
+Number of obs: 20, groups:  TankID, 20
+
+Fixed effects:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   1.0349     0.5219   1.983  0.04736 *  
+logDose      -1.0308     0.3780  -2.727  0.00639 ** 
+logDose2     -0.3926     0.0647  -6.067  1.3e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+         (Intr) logDos
+logDose  0.969        
+logDose2 0.915  0.983 </code></pre>
+</div>
+</div>
+<ul>
+<li>No trouble with convergence this time.</li>
+<li>Fixed effects table is the same as glm, not the numbers, but the table is there.</li>
+<li>Random effects variance and std dev is new.</li>
+<li>Variance is .0099 and variance cannot be zero or negative.</li>
+<li>These being non zero means there is evidence of over dispersion.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm1)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error   z value     Pr(&gt;|z|)
+(Intercept)  1.0292126  0.4934250  2.085854 3.699184e-02
+logDose     -1.0304804  0.3574260 -2.883060 3.938329e-03
+logDose2    -0.3919491  0.0613608 -6.387614 1.684940e-10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm2)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept)  1.0292126 0.59942066  1.717012 1.041388e-01
+logDose     -1.0304804 0.43420681 -2.373248 2.968769e-02
+logDose2    -0.3919491 0.07454208 -5.258091 6.408881e-05</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm3)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error   z value     Pr(&gt;|z|)
+(Intercept)  1.0348488  0.5218465  1.983052 4.736161e-02
+logDose     -1.0308418  0.3780293 -2.726883 6.393563e-03
+logDose2    -0.3925717  0.0647011 -6.067465 1.299448e-09</code></pre>
+</div>
+</div>
+<ul>
+<li>1 is binomial, 2 is quasi, estimates are the same std errs is not.</li>
+<li>3 is mixed, but the estimates are similar and the std errs are intermediate.</li>
+<li>The mixed effects model is likelihood based and can be compared via AIC.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare using AIC</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glm1,glm3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">glm1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">119.4461</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">glm3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">121.2700</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li>The fixed effects model wins, but it’s close.</li>
+<li>There is overdispersion, so the mixed effect can/should be used.</li>
+</ul>
 </section>
-<section id="modeling-strategies" class="level3">
-<h3 class="anchored" data-anchor-id="modeling-strategies">Modeling Strategies</h3>
+<section id="modeling-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="modeling-strategies">Modeling Strategies</h2>
+<ul>
+<li><p>Settle on a model for the fixed effects</p></li>
+<li><p>settle on a model for the Random effects.</p></li>
+<li><p>When you don’t know what should be fixed, fit a rich model for fixed effects. Then look at Random effects.</p></li>
+<li><p>Iterate between steps one and two.</p></li>
+<li><p>make inference on the fixed estimates</p></li>
+<li><p>Report on random effects.</p></li>
+<li><p>If there were different labs for each tank, but tanks in a diff lab, then you only need a REffect for tank.</p></li>
+<li><p>Consider this sort of info</p></li>
+<li><p>Things that are clustered tend to be more similar.</p></li>
+<li><p>If there are many types of clustering or nesting, you need many RE for each type of cluster.</p></li>
+<li><p>Look at estimated RE variances, If small maybe they’re not needed, unless there is some reason to include them.</p></li>
+<li><p>Like they correspond to nesting or generate over dispersion</p></li>
+<li><p>Evaluate normality of REs.</p></li>
+</ul>
+<p>Looking at normality.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>RE <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(<span class="fu">ranef</span>(glm3)<span class="sc">$</span>TankID))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(RE)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(RE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Random_Effects_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looks good.</p>
+<ul>
+<li>Use AIC or BIC to compare two mixed effects models.</li>
+<li>fixed effects should be fixed.</li>
+<li>You can also compare mixed models and fixed models.</li>
+</ul>
+<p>Lastly summarize the inference.</p>
+<p>Ex:</p>
+<p>We fit a generalized linear mixed model to the fish tumor counts, using TankID as a random effect and log(Dose) and its square as fixed effects. The random effect variance is estimated to be 0.01, which, though small, seems necessary to include given the structure of the experiment and the evidence of over dispersion in the tumor counts. Both log(Dose) and its square were important to the model, with p-values of p = 0.006 and p &lt; 0.0001, respectively.</p>
+<ul>
+<li>Interpreting the fixed effects is conditional on the mixed effects.</li>
+</ul>
 </section>
-<section id="model-interpretation" class="level3">
-<h3 class="anchored" data-anchor-id="model-interpretation">Model Interpretation</h3>
+<section id="model-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="model-interpretation">Model Interpretation</h2>
+<ul>
+<li>Back transformations and complications.</li>
+<li>Using the same mixed effects model for the fish tumors.</li>
+<li>Solving for the p_js in</li>
+</ul>
+<p><span class="math inline">\(pj = \frac{exp{β0 +β1logDosej +β2logDose2j +ηj}}{1+exp{β0 +β1logDosej +β2logDose2j +ηj}}\)</span>$</p>
+<ul>
+<li><p>Results in each tank having it’s own dose-response.</p></li>
+<li><p>We don’t want tank level inference. We want to say something about each dose.</p></li>
+<li><p>Can’t average of the random effects because of non-linearity of back transformation of logit link.</p></li>
+<li><p>In a linear mixed model they are linear and we can average.</p></li>
+<li><p>We have to make conditional inference.</p></li>
+<li><p>They are conditioned on two observations being in the same cluster.</p></li>
+<li><p>eta_js need to be the same.</p></li>
+<li><p>We could go back and use the quasi-binomial model to handle the over dispersion.</p></li>
+<li><p>That would be correct here</p></li>
+<li><p>Inference here is academic. We are assuming the REs don’t change the log(odds) of a tumor by much.</p></li>
+<li><p>The dose probability CI slide shows that with the caveat that the RE are meaningless.</p></li>
+</ul>
+<p>Alternative approaches to eliminate conditional inference.</p>
+<ul>
+<li>generalized estimating equations</li>
+<li>conditional maximum likelihood.</li>
+</ul>
+<p>They encourage us to study more on this if we end up actually using these models.</p>
+<p>Clustered categorical and count responses is the search term.</p>
 </section>
 </section>
-<section id="lab" class="level2">
-<h2 class="anchored" data-anchor-id="lab">Lab</h2>
+<section id="lab" class="level1">
+<h1>Lab</h1>
 </section>
-<section id="hw" class="level2">
-<h2 class="anchored" data-anchor-id="hw">HW</h2>
+<section id="hw" class="level1">
+<h1>HW</h1>
 </section>
-<section id="quizzes" class="level2">
-<h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+<section id="quizzes" class="level1">
+<h1>Quizzes</h1>
+<section id="r" class="level2">
+<h2 class="anchored" data-anchor-id="r">R</h2>
+</section>
+<section id="c" class="level2">
+<h2 class="anchored" data-anchor-id="c">C</h2>
+</section>
 </section>
 <section id="end____" class="level1">
 <h1>____END____</h1>
@@ -497,10 +849,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/KingBlkMouth\.github\.io\/Data_Analysis_II_Notes\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -510,8 +879,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -523,7 +901,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -567,6 +1068,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -592,6 +1094,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -652,6 +1180,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

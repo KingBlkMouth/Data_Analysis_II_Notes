@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-04-04">
+<meta name="dcterms.date" content="2024-05-07">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 6</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -47,7 +81,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,6 +96,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -70,9 +111,9 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Data_Analysis_II_Notes</span>
     </a>
@@ -84,142 +125,142 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li>
-    <a class="dropdown-item" href="./1_Types_of_Categoricals.html" rel="" target="">
+    <a class="dropdown-item" href="./1_Types_of_Categoricals.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./2_Props_Risks_Odds.html" rel="" target="">
+    <a class="dropdown-item" href="./2_Props_Risks_Odds.html">
  <span class="dropdown-text">2 Props, Risk &amp; Odds</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./3_Logistic_Regression_I.html" rel="" target="">
+    <a class="dropdown-item" href="./3_Logistic_Regression_I.html">
  <span class="dropdown-text">3 Log Reg I</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./4_Logistic_Regression_II.html" rel="" target="">
+    <a class="dropdown-item" href="./4_Logistic_Regression_II.html">
  <span class="dropdown-text">4 Log-Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./5_Log_linear_Regression.html" rel="" target="">
+    <a class="dropdown-item" href="./5_Log_linear_Regression.html">
  <span class="dropdown-text">5 Log-lin-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html" rel="" target="">
+    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html">
  <span class="dropdown-text">6 Disp &amp; 0 Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./7_Random_Effects.html" rel="" target="">
+    <a class="dropdown-item" href="./7_Random_Effects.html">
  <span class="dropdown-text">7 Random_Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./8_Evaluating_Models.html" rel="" target="">
+    <a class="dropdown-item" href="./8_Evaluating_Models.html">
  <span class="dropdown-text">8 Model Eval</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html" rel="" target="">
+    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html">
  <span class="dropdown-text">9 Imp, Pred, Validate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./10_Final_Project.html" rel="" target="">
+    <a class="dropdown-item" href="./10_Final_Project.html">
  <span class="dropdown-text">10 Final Project</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
-    <a class="dropdown-item" href="./z0_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z0_learnR.html">
  <span class="dropdown-text">LearnR 0</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z1_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z1_learnR.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z2_learnR.html">
  <span class="dropdown-text">2 Odds and risks</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z3_learnR.html">
  <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z4_learnR.html">
  <span class="dropdown-text">4 Log Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z5_learnR.html">
  <span class="dropdown-text">5 Log Lin Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 6</span></a>
+    <a class="dropdown-item" href="./z6_learnR.html">
+ <span class="dropdown-text">6 Zero Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z7_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 7</span></a>
+    <a class="dropdown-item" href="./z7_learnR.html">
+ <span class="dropdown-text">7 Mixed Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z8_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z8_learnR.html">
  <span class="dropdown-text">LearnR 8</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">HW</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hw">    
         <li>
-    <a class="dropdown-item" href="./aHW_1.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_1.html">
  <span class="dropdown-text">ST-518 HW 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_2.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_2.html">
  <span class="dropdown-text">ST-518 HW 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_3.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_3.html">
  <span class="dropdown-text">ST-518 HW 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_4.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_4.html">
  <span class="dropdown-text">ST-518 HW 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_5.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_5.html">
  <span class="dropdown-text">ST-518 HW 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_6.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_6.html">
  <span class="dropdown-text">ST-518 HW 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_7.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_7.html">
  <span class="dropdown-text">ST-518 HW 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_8.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_8.html">
  <span class="dropdown-text">ST-518 HW 8</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -232,8 +273,25 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a></li>
-  <li><a href="#conceptual-question" id="toc-conceptual-question" class="nav-link" data-scroll-target="#conceptual-question">Conceptual Question</a></li>
+  <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a>
+  <ul class="collapse">
+  <li><a href="#model-the-number-of-visits" id="toc-model-the-number-of-visits" class="nav-link" data-scroll-target="#model-the-number-of-visits">1. Model the number of visits</a>
+  <ul class="collapse">
+  <li><a href="#a.-produce-a-histogram" id="toc-a.-produce-a-histogram" class="nav-link" data-scroll-target="#a.-produce-a-histogram">a. Produce a histogram</a></li>
+  <li><a href="#b.-fit-the-models" id="toc-b.-fit-the-models" class="nav-link" data-scroll-target="#b.-fit-the-models">b. Fit the models</a></li>
+  <li><a href="#c.-interpretation-of-the-models" id="toc-c.-interpretation-of-the-models" class="nav-link" data-scroll-target="#c.-interpretation-of-the-models">c.&nbsp;interpretation of the models</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conceptual-question" id="toc-conceptual-question" class="nav-link" data-scroll-target="#conceptual-question">Conceptual Question</a>
+  <ul class="collapse">
+  <li><a href="#zero-inflated-model-or-a-hurdle" id="toc-zero-inflated-model-or-a-hurdle" class="nav-link" data-scroll-target="#zero-inflated-model-or-a-hurdle">2. zero-inflated model or a hurdle</a>
+  <ul class="collapse">
+  <li><a href="#a." id="toc-a." class="nav-link" data-scroll-target="#a.">a.</a></li>
+  <li><a href="#b." id="toc-b." class="nav-link" data-scroll-target="#b.">b.</a></li>
+  <li><a href="#c." id="toc-c." class="nav-link" data-scroll-target="#c.">c.&nbsp;</a></li>
+  <li><a href="#d." id="toc-d." class="nav-link" data-scroll-target="#d.">d.&nbsp;</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -259,7 +317,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2024</p>
+      <p class="date">May 7, 2024</p>
     </div>
   </div>
   
@@ -267,33 +325,219 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
 
+
 <p>output: pdf_document</p>
-<section id="r-question" class="level2">
-<h2 class="anchored" data-anchor-id="r-question">R Question</h2>
-<ol type="1">
-<li><p>(5 points) Consider data on 4406 individuals, aged 66 and over, who are covered by Medicare, a public insurance program, in the file DT.rda. The objective is to model the number of physician/non-physician oce and hospital outpatient visits using available covariate information for the patients. The covariates include health status variables hosp (number of hospital stays), health (self-perceived health status), numchron (number of chronic conditions), as well as socioeconomic variables gender, school (number of years of education), and privins (private insurance indicator). Once you download the <code>DT.rda</code> file, you can load it into R using <code>load("DT.rda")</code>.</p>
-<ol type="a">
-<li><p>Produce a histogram of the dependent variable. What types of statistical models (.e.g, Poisson regression, hurdle Poisson model, etc.) should you consider for these data? Give a brief justification for your answer.</p></li>
-<li><p>Fit the models you indicated in part (a), using the identical set of explanatory variables in each, and report the AIC for each.</p></li>
-<li><p>Based on parts (a) and (b) and considering interpretation of the models in the context of the data, write a sentence summarizing your findings in terms of which model seems most appropriate for these data.</p></li>
-</ol></li>
-</ol>
+<section id="r-question" class="level1">
+<h1>R Question</h1>
+<section id="model-the-number-of-visits" class="level2">
+<h2 class="anchored" data-anchor-id="model-the-number-of-visits">1. Model the number of visits</h2>
+<p>(5 points) Consider data on 4406 individuals, aged 66 and over, who are covered by Medicare, a public insurance program, in the file DT.rda. The objective is to model the number of physician/non-physician office and hospital outpatient visits using available covariate information for the patients. The covariates include health status variables hosp (number of hospital stays), health (self-perceived health status), numchron (number of chronic conditions), as well as socioeconomic variables gender, school (number of years of education), and privins (private insurance indicator). Once you download the <code>DT.rda</code> file, you can load it into R using <code>load("DT.rda")</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../../Data/DT.rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="a.-produce-a-histogram" class="level3">
+<h3 class="anchored" data-anchor-id="a.-produce-a-histogram">a. Produce a histogram</h3>
+<p>Produce a histogram of the dependent variable. What types of statistical models (.e.g, Poisson regression, hurdle Poisson model, etc.) should you consider for these data? Give a brief justification for your answer.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> dt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># str(dt)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>ofp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="aHW_6_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Lots of zeroes and long tail means Negative Binomial, probably zero inflated</strong></p>
 </section>
-<section id="conceptual-question" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-question">Conceptual Question</h2>
-<ol start="2" type="1">
-<li><p>(5 points) For each of the following response variables, indicate whether a zero-inflated model or a hurdle model would be more appropriate. Justify your answer by providing possible processes responsible for generating the excess zeros and the counts that correspond to the model. There may not be a clear answer for you, so simply pick one and try to justify it.</p>
-<ol type="a">
-<li><p>School administrators study the attendance behavior of high school juniors and take the number of days absent as the response variable.</p></li>
-<li><p>Wildlife biologists want to model how many fish are being caught by fishermen at a state park. All park visitors are asked how many fish they caught.</p></li>
-<li><p>Researchers are interested in creating a stock trading model for investors. The response is trades per week made by each investor.</p></li>
-<li><p>Researchers want to create a model for loan defaults. They take the number of outstanding payments that exist for each of a random sample of loans.</p></li>
-</ol></li>
-</ol>
+<section id="b.-fit-the-models" class="level3">
+<h3 class="anchored" data-anchor-id="b.-fit-the-models">b. Fit the models</h3>
+<p>Fit the models you indicated in part (a), using the identical set of explanatory variables in each, and report the AIC for each.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># names(dt)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mod.nb0 <span class="ot">&lt;-</span> <span class="fu">zeroinfl</span>(ofp <span class="sc">~</span> hosp <span class="sc">+</span> health <span class="sc">+</span> numchron <span class="sc">+</span> gender <span class="sc">+</span> school <span class="sc">+</span> privins, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dist =</span> <span class="st">"negbin"</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> dt)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>mod.nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(ofp <span class="sc">~</span> hosp <span class="sc">+</span> health <span class="sc">+</span> numchron <span class="sc">+</span> gender <span class="sc">+</span> school <span class="sc">+</span> privins, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+zeroinfl(formula = ofp ~ hosp + health + numchron + gender + school + 
+    privins, data = dt, dist = "negbin")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1966 -0.7097 -0.2784  0.3256 17.7661 
+
+Count model coefficients (negbin with log link):
+                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)      1.193466   0.056737  21.035  &lt; 2e-16 ***
+hosp             0.201214   0.020392   9.867  &lt; 2e-16 ***
+healthpoor       0.287190   0.045940   6.251 4.07e-10 ***
+healthexcellent -0.313540   0.062977  -4.979 6.40e-07 ***
+numchron         0.128955   0.011938  10.802  &lt; 2e-16 ***
+gendermale      -0.080093   0.031035  -2.581  0.00986 ** 
+school           0.021338   0.004368   4.886 1.03e-06 ***
+privinsyes       0.126815   0.041687   3.042  0.00235 ** 
+Log(theta)       0.394731   0.035145  11.231  &lt; 2e-16 ***
+
+Zero-inflation model coefficients (binomial with logit link):
+                Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)     -0.06354    0.27668  -0.230  0.81837    
+hosp            -0.81760    0.43875  -1.863  0.06240 .  
+healthpoor       0.10178    0.44071   0.231  0.81735    
+healthexcellent  0.10488    0.30965   0.339  0.73484    
+numchron        -1.24630    0.17918  -6.956 3.51e-12 ***
+gendermale       0.64937    0.20046   3.239  0.00120 ** 
+school          -0.08481    0.02676  -3.169  0.00153 ** 
+privinsyes      -1.15808    0.22436  -5.162 2.45e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Theta = 1.484 
+Number of iterations in BFGS optimization: 31 
+Log-likelihood: -1.209e+04 on 17 Df</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = ofp ~ hosp + health + numchron + gender + school + 
+    privins, data = dt, init.theta = 1.206603534, link = log)
+
+Coefficients:
+                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)      0.929257   0.054591  17.022  &lt; 2e-16 ***
+hosp             0.217772   0.020176  10.793  &lt; 2e-16 ***
+healthpoor       0.305013   0.048511   6.288 3.23e-10 ***
+healthexcellent -0.341807   0.060924  -5.610 2.02e-08 ***
+numchron         0.174916   0.012092  14.466  &lt; 2e-16 ***
+gendermale      -0.126488   0.031216  -4.052 5.08e-05 ***
+school           0.026815   0.004394   6.103 1.04e-09 ***
+privinsyes       0.224402   0.039464   5.686 1.30e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(1.2066) family taken to be 1)
+
+    Null deviance: 5743.7  on 4405  degrees of freedom
+Residual deviance: 5044.5  on 4398  degrees of freedom
+AIC: 24359
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  1.2066 
+          Std. Err.:  0.0336 
+
+ 2 x log-likelihood:  -24341.1070 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod.nb0, mod.nb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">mod.nb0</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">24215.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod.nb</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">24359.11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="c.-interpretation-of-the-models" class="level3">
+<h3 class="anchored" data-anchor-id="c.-interpretation-of-the-models">c.&nbsp;interpretation of the models</h3>
+<p>Based on parts (a) and (b) and considering interpretation of the models in the context of the data, write a sentence summarizing your findings in terms of which model seems most appropriate for these data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vuong</span>(mod.nb, mod.nb0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Vuong Non-Nested Hypothesis Test-Statistic: 
+(test-statistic is asymptotically distributed N(0,1) under the
+ null that the models are indistinguishible)
+-------------------------------------------------------------
+              Vuong z-statistic             H_A    p-value
+Raw                   -5.917202 model2 &gt; model1 1.6373e-09
+AIC-corrected         -5.324799 model2 &gt; model1 5.0532e-08
+BIC-corrected         -3.431859 model2 &gt; model1 0.00029973</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod.nb0)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># s1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>s1<span class="sc">$</span>coefficients[[<span class="dv">1</span>]][,<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    (Intercept)            hosp      healthpoor healthexcellent        numchron 
+     1.19346578      0.20121399      0.28719018     -0.31354004      0.12895450 
+     gendermale          school      privinsyes      Log(theta) 
+    -0.08009312      0.02133836      0.12681467      0.39473077 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.31354004</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2691449</code></pre>
+</div>
+</div>
+<p><strong>Theta is larger than 1 in both models, indicating that there is some over dispersion. The AICs are similar but the Voung test shows the zero inflated negative binomial is preferable. The most appropraite model seems to be the zero-inflated negative binomial. A person in excellent health is expected to be 27% less likely to visit a Doctor than someone of less than excellent health in this population among those who are not otherwise disinclined to visit, all other vaariable being equal. </strong></p>
+</section>
+</section>
+</section>
+<section id="conceptual-question" class="level1">
+<h1>Conceptual Question</h1>
+<section id="zero-inflated-model-or-a-hurdle" class="level2">
+<h2 class="anchored" data-anchor-id="zero-inflated-model-or-a-hurdle">2. zero-inflated model or a hurdle</h2>
+<p>(5 points) For each of the following response variables, indicate whether a zero-inflated model or a hurdle model would be more appropriate. Justify your answer by providing possible processes responsible for generating the excess zeros and the counts that correspond to the model. There may not be a clear answer for you, so simply pick one and try to justify it.</p>
+<section id="a." class="level3">
+<h3 class="anchored" data-anchor-id="a.">a.</h3>
+<p>School administrators study the attendance behavior of high school juniors and take the number of days absent as the response variable.</p>
+<p><strong>With school absenses, I expect there to be excess zeroes. The hurdle model assumes all zeroes to be true zeroes. So, the zero-inlated model would be preferable.</strong></p>
+</section>
+<section id="b." class="level3">
+<h3 class="anchored" data-anchor-id="b.">b.</h3>
+<p>Wildlife biologists want to model how many fish are being caught by fishermen at a state park. All park visitors are asked how many fish they caught.</p>
+<p><strong>Again the assumption of all zeroes being true dictates my decision. All park visitors are not fishermen. So, there would be excess zeroes and the zero-inflated model is better.</strong></p>
+</section>
+<section id="c." class="level3">
+<h3 class="anchored" data-anchor-id="c.">c.&nbsp;</h3>
+<p>Researchers are interested in creating a stock trading model for investors. The response is trades per week made by each investor.</p>
+<p><strong>For active traders, if they are not trading that’s a true zero. Here the hurdle model is appropriate.</strong></p>
+</section>
+<section id="d." class="level3">
+<h3 class="anchored" data-anchor-id="d.">d.&nbsp;</h3>
+<p>Researchers want to create a model for loan defaults. They take the number of outstanding payments that exist for each of a random sample of loans.</p>
+<p><strong>I assume that there are cases in which there could be excess zeroes, but that the banks have already accounted for them. For example, I am assuming they are not including non-payment because of death. In the assumed situation the hurdle model would be appropriate.</strong></p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -376,10 +620,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/KingBlkMouth\.github\.io\/Data_Analysis_II_Notes\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -389,8 +650,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -402,7 +672,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -446,6 +839,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -471,6 +865,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -531,6 +951,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

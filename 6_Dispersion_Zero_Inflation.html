@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,12 +94,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -102,9 +138,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Data_Analysis_II_Notes</span>
     </a>
@@ -116,142 +152,142 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li>
-    <a class="dropdown-item" href="./1_Types_of_Categoricals.html" rel="" target="">
+    <a class="dropdown-item" href="./1_Types_of_Categoricals.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./2_Props_Risks_Odds.html" rel="" target="">
+    <a class="dropdown-item" href="./2_Props_Risks_Odds.html">
  <span class="dropdown-text">2 Props, Risk &amp; Odds</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./3_Logistic_Regression_I.html" rel="" target="">
+    <a class="dropdown-item" href="./3_Logistic_Regression_I.html">
  <span class="dropdown-text">3 Log Reg I</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./4_Logistic_Regression_II.html" rel="" target="">
+    <a class="dropdown-item" href="./4_Logistic_Regression_II.html">
  <span class="dropdown-text">4 Log-Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./5_Log_linear_Regression.html" rel="" target="">
+    <a class="dropdown-item" href="./5_Log_linear_Regression.html">
  <span class="dropdown-text">5 Log-lin-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html" rel="" target="">
+    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html">
  <span class="dropdown-text">6 Disp &amp; 0 Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./7_Random_Effects.html" rel="" target="">
+    <a class="dropdown-item" href="./7_Random_Effects.html">
  <span class="dropdown-text">7 Random_Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./8_Evaluating_Models.html" rel="" target="">
+    <a class="dropdown-item" href="./8_Evaluating_Models.html">
  <span class="dropdown-text">8 Model Eval</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html" rel="" target="">
+    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html">
  <span class="dropdown-text">9 Imp, Pred, Validate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./10_Final_Project.html" rel="" target="">
+    <a class="dropdown-item" href="./10_Final_Project.html">
  <span class="dropdown-text">10 Final Project</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
-    <a class="dropdown-item" href="./z0_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z0_learnR.html">
  <span class="dropdown-text">LearnR 0</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z1_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z1_learnR.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z2_learnR.html">
  <span class="dropdown-text">2 Odds and risks</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z3_learnR.html">
  <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z4_learnR.html">
  <span class="dropdown-text">4 Log Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z5_learnR.html">
  <span class="dropdown-text">5 Log Lin Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 6</span></a>
+    <a class="dropdown-item" href="./z6_learnR.html">
+ <span class="dropdown-text">6 Zero Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z7_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 7</span></a>
+    <a class="dropdown-item" href="./z7_learnR.html">
+ <span class="dropdown-text">7 Mixed Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z8_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z8_learnR.html">
  <span class="dropdown-text">LearnR 8</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">HW</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hw">    
         <li>
-    <a class="dropdown-item" href="./aHW_1.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_1.html">
  <span class="dropdown-text">ST-518 HW 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_2.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_2.html">
  <span class="dropdown-text">ST-518 HW 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_3.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_3.html">
  <span class="dropdown-text">ST-518 HW 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_4.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_4.html">
  <span class="dropdown-text">ST-518 HW 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_5.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_5.html">
  <span class="dropdown-text">ST-518 HW 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_6.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_6.html">
  <span class="dropdown-text">ST-518 HW 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_7.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_7.html">
  <span class="dropdown-text">ST-518 HW 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_8.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_8.html">
  <span class="dropdown-text">ST-518 HW 8</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -264,16 +300,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lectures" id="toc-lectures" class="nav-link active" data-scroll-target="#lectures">Lectures</a>
+  <li><a href="#zero-inf-lectures" id="toc-zero-inf-lectures" class="nav-link active" data-scroll-target="#zero-inf-lectures">6. Zero-Inf Lectures</a>
   <ul class="collapse">
   <li><a href="#zero-inflation" id="toc-zero-inflation" class="nav-link" data-scroll-target="#zero-inflation">Zero Inflation</a></li>
-  <li><a href="#zip-zinb-in-r" id="toc-zip-zinb-in-r" class="nav-link" data-scroll-target="#zip-zinb-in-r">ZIP ZINB in R</a></li>
+  <li><a href="#zip-zinb-in-r" id="toc-zip-zinb-in-r" class="nav-link" data-scroll-target="#zip-zinb-in-r">ZIP &amp; ZINB in R</a></li>
   <li><a href="#hurdle-models" id="toc-hurdle-models" class="nav-link" data-scroll-target="#hurdle-models">Hurdle Models</a></li>
   <li><a href="#strategies" id="toc-strategies" class="nav-link" data-scroll-target="#strategies">Strategies</a></li>
   </ul></li>
   <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
   <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
-  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a>
+  <ul class="collapse">
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
+  </ul></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a></li>
   </ul>
 </nav>
@@ -296,7 +336,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -326,11 +368,11 @@ Learning Objectives
 <p>Task list</p>
 <p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
 <ul>
-<li>Review Module 6 Readings and Lectures</li>
-<li>Submit Module 6 Homework</li>
-<li>Submit Module 6 Lab</li>
-<li>Take the Module 6 Content Quiz and R Quiz</li>
-<li>Participate in the Module 6 Discussion</li>
+<li><del>Review Module 6 Readings and Lectures</del></li>
+<li><del>Submit Module 6 Homework</del></li>
+<li><del>Submit Module 6 Lab</del></li>
+<li><del>Take the Module 6 Content Quiz and R Quiz</del></li>
+<li><del>Participate in the Module 6 Discussion</del></li>
 </ul>
 </div>
 </div>
@@ -338,10 +380,10 @@ Learning Objectives
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="lectures" class="level2">
-<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<section id="zero-inf-lectures" class="level2">
+<h2 class="anchored" data-anchor-id="zero-inf-lectures">6. Zero-Inf Lectures</h2>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit and compare ZIP and and ZINB models to the Crab data</span></span>
@@ -395,15 +437,511 @@ Learning Objectives
 </div>
 <section id="zero-inflation" class="level3">
 <h3 class="anchored" data-anchor-id="zero-inflation">Zero Inflation</h3>
+<ul>
+<li>We must account for over dispersion with the correct model.</li>
+<li>Sero inflation is more zeroes than we expect from a poisson or neg.bin. model.</li>
+<li>True zeroes are from the same dist as the non-zeroes, female crabs un-attractive, but old enough.</li>
+<li>excess zeroes are not, female crabs not old enough for mating.</li>
+<li>Prob <span class="math inline">\(\pi\)</span> is probabilty of an excess zero.</li>
+<li>There can still be over-dispersion in the non-zero counts. Shoppers who buy lots vs average of 1 or 2.</li>
+<li>use zero inflated nb. ZINB if there is still OD, or ZIP if not.</li>
+</ul>
 </section>
 <section id="zip-zinb-in-r" class="level3">
-<h3 class="anchored" data-anchor-id="zip-zinb-in-r">ZIP ZINB in R</h3>
+<h3 class="anchored" data-anchor-id="zip-zinb-in-r">ZIP &amp; ZINB in R</h3>
+<ul>
+<li>Crabs example</li>
+<li>What characteristics are reltaed to the mean number of satelite males per female crab.</li>
+<li><span class="math inline">\(Y_i \sim ZIP \ (\pi_i, \lambda_i)\)</span></li>
+<li><span class="math inline">\(logit(\pi_i) = \beta_0 + ...\)</span></li>
+<li><span class="math inline">\(log(\lambda_i) = \gamma_0 + ...\)</span></li>
+</ul>
+<p>In R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit and compare ZIP and and ZINB models to the Crab data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("pscl")</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)     <span class="co"># access the zeroinfl function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Classes and Methods for R originally developed in the
+Political Science Computational Laboratory
+Department of Political Science
+Stanford University (2002-2015),
+by and under the direction of Simon Jackman.
+hurdle and zeroinfl functions by Achim Zeileis.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)     <span class="co"># access the glm.nb function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'MASS'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    select</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glm2)     <span class="co"># access the crab data ***order of accessing these</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'glm2'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:MASS':
+
+    crabs</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>                  <span class="co">#         libraries is important for getting the </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                  <span class="co">#         appropriate crabs dataset</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(crabs, <span class="at">package =</span> <span class="st">"glm2"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>work <span class="ot">=</span> crabs</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(work)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Satellites</th>
+<th style="text-align: right;">Width</th>
+<th style="text-align: left;">Dark</th>
+<th style="text-align: left;">GoodSpine</th>
+<th style="text-align: right;">Rep1</th>
+<th style="text-align: right;">Rep2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">28.3</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">22.5</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">26.0</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">24.8</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26.0</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">23.8</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(work,<span class="fu">aes</span>(Width,Satellites)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_Dispersion_Zero_Inflation_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ZIP model</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">zeroinfl</span>(Satellites<span class="sc">~</span>Width<span class="sc">+</span>Dark<span class="sc">+</span>GoodSpine, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">dist=</span><span class="st">"poisson"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">data=</span>work)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+zeroinfl(formula = Satellites ~ Width + Dark + GoodSpine, data = work, 
+    dist = "poisson")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6800 -0.8315 -0.2883  0.6516  4.4613 
+
+Count model coefficients (poisson with log link):
+             Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)   0.64169    0.59881   1.072    0.284
+Width         0.03075    0.02190   1.404    0.160
+Darkyes      -0.02495    0.10453  -0.239    0.811
+GoodSpineyes  0.12486    0.09928   1.258    0.209
+
+Zero-inflation model coefficients (binomial with logit link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   11.0579     2.7783   3.980 6.89e-05 ***
+Width         -0.4652     0.1062  -4.381 1.18e-05 ***
+Darkyes        0.7658     0.3899   1.964   0.0495 *  
+GoodSpineyes   0.3412     0.4179   0.816   0.4142    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Number of iterations in BFGS optimization: 17 
+Log-likelihood: -361.9 on 8 Df</code></pre>
+</div>
+</div>
+<ul>
+<li>Big Pearson resid on Max, something might be wrong. they should look standard normal.</li>
+<li>Two reports, one for the Poisson rate paramater and one for the zero inflation <span class="math inline">\(\pi s\)</span>.</li>
+<li>Width and dark are important to there being zeroes, but not for there being male satelites.</li>
+<li>We could modify the zeroinf call to control the parts that go to each part of the model.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to Poisson model</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">=</span> <span class="fu">glm</span>(Satellites<span class="sc">~</span>Width<span class="sc">+</span>Dark<span class="sc">+</span>GoodSpine,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">family=</span>poisson,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data=</span>work)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Satellites ~ Width + Dark + GoodSpine, family = poisson, 
+    data = work)
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -2.820088   0.570859  -4.940 7.81e-07 ***
+Width         0.149196   0.020753   7.189 6.52e-13 ***
+Darkyes      -0.265665   0.104972  -2.531   0.0114 *  
+GoodSpineyes -0.002041   0.097990  -0.021   0.9834    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 632.79  on 172  degrees of freedom
+Residual deviance: 560.96  on 169  degrees of freedom
+AIC: 924.25
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<ul>
+<li>Width and dark eyes appear important again, but above we saw that they are important for finding zeroes.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod0,mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">mod0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">924.2548</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">739.8864</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li>AIC favors the zip model.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the ZINB model</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">=</span> <span class="fu">zeroinfl</span>(Satellites<span class="sc">~</span>Width<span class="sc">+</span>Dark<span class="sc">+</span>GoodSpine,<span class="at">dist=</span><span class="st">"negbin"</span>,<span class="at">data=</span>work)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+zeroinfl(formula = Satellites ~ Width + Dark + GoodSpine, data = work, 
+    dist = "negbin")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3408 -0.7569 -0.2396  0.5506  3.7472 
+
+Count model coefficients (negbin with log link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   0.40462    0.87317   0.463    0.643    
+Width         0.03815    0.03184   1.198    0.231    
+Darkyes      -0.01734    0.14733  -0.118    0.906    
+GoodSpineyes  0.13213    0.14197   0.931    0.352    
+Log(theta)    1.58554    0.35147   4.511 6.45e-06 ***
+
+Zero-inflation model coefficients (binomial with logit link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   11.4254     3.0153   3.789 0.000151 ***
+Width         -0.4860     0.1163  -4.180 2.91e-05 ***
+Darkyes        0.8380     0.4260   1.967 0.049130 *  
+GoodSpineyes   0.3864     0.4564   0.846 0.397311    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Theta = 4.8819 
+Number of iterations in BFGS optimization: 19 
+Log-likelihood: -350.8 on 9 Df</code></pre>
+</div>
+</div>
+<ul>
+<li>Again, there’s two reports.</li>
+<li>The log(theta) term accounts for OD in counts. Here it suggests there is OD in addition to the zero-inflation.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to the negative binomial model</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">=</span> <span class="fu">glm.nb</span>(Satellites<span class="sc">~</span>Width<span class="sc">+</span>Dark<span class="sc">+</span>GoodSpine,<span class="at">data=</span>work)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = Satellites ~ Width + Dark + GoodSpine, data = work, 
+    init.theta = 0.9260423909, link = log)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -3.58218    1.22581  -2.922  0.00347 ** 
+Width         0.17756    0.04521   3.927  8.6e-05 ***
+Darkyes      -0.27798    0.20662  -1.345  0.17852    
+GoodSpineyes  0.02773    0.20725   0.134  0.89355    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(0.926) family taken to be 1)
+
+    Null deviance: 215.80  on 172  degrees of freedom
+Residual deviance: 196.17  on 169  degrees of freedom
+AIC: 759.21
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  0.926 
+          Std. Err.:  0.167 
+
+ 2 x log-likelihood:  -749.210 </code></pre>
+</div>
+</div>
+<ul>
+<li>NB has slightly different report than the zinnb, theta is at the bottom not with the coefficients.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod0,mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">mod0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">759.2097</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">719.5533</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li>Again AIC shows the zero-indlated model is favored.</li>
+</ul>
 </section>
 <section id="hurdle-models" class="level3">
 <h3 class="anchored" data-anchor-id="hurdle-models">Hurdle Models</h3>
+<ul>
+<li>All zeroes are assumed to be true zeroes.</li>
+<li>Prob of zero is a constant.</li>
+<li>Zip and hurdle are likelihood based and can be compared with AIC</li>
+<li>pscl::hurdle()</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span>  <span class="fu">hurdle</span>(Satellites<span class="sc">~</span>Width<span class="sc">+</span>Dark<span class="sc">+</span>GoodSpine,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">dist=</span><span class="st">"poisson"</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>work)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+hurdle(formula = Satellites ~ Width + Dark + GoodSpine, data = work, 
+    dist = "poisson")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6902 -0.8307 -0.2903  0.6526  4.4756 
+
+Count model coefficients (truncated poisson with log link):
+             Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)   0.65727    0.60292   1.090    0.276
+Width         0.03014    0.02206   1.366    0.172
+Darkyes      -0.02529    0.10487  -0.241    0.809
+GoodSpineyes  0.12623    0.09942   1.270    0.204
+Zero hurdle model coefficients (binomial with logit link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -11.0042     2.7142  -4.054 5.03e-05 ***
+Width          0.4609     0.1035   4.452 8.50e-06 ***
+Darkyes       -0.7473     0.3793  -1.970   0.0488 *  
+GoodSpineyes  -0.3145     0.4077  -0.772   0.4404    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Number of iterations in BFGS optimization: 11 
+Log-likelihood: -361.9 on 8 Df</code></pre>
+</div>
+</div>
+<ul>
+<li>When to use zeroinf or hurdle.</li>
+<li>If there is a justification for there being excess then ZIP</li>
+<li>If there’s a difference in the inference, consider the implications on inference.</li>
+<li>Are there excess zeroes and true zeroes or just true zeroes. What’s the reason.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">=</span> <span class="fu">hurdle</span>(Satellites <span class="sc">~</span> Width <span class="sc">+</span> Dark <span class="sc">+</span> GoodSpine, </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="at">dist =</span> <span class="st">"negbin"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="at">data =</span> work)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+hurdle(formula = Satellites ~ Width + Dark + GoodSpine, data = work, 
+    dist = "negbin")
+
+Pearson residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3632 -0.7527 -0.2436  0.5574  3.7123 
+
+Count model coefficients (truncated negbin with log link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)   0.49533    0.89424   0.554    0.580    
+Width         0.03459    0.03267   1.059    0.290    
+Darkyes      -0.02047    0.14993  -0.137    0.891    
+GoodSpineyes  0.13915    0.14398   0.966    0.334    
+Log(theta)    1.55246    0.35598   4.361 1.29e-05 ***
+Zero hurdle model coefficients (binomial with logit link):
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -11.0042     2.7142  -4.054 5.03e-05 ***
+Width          0.4609     0.1035   4.452 8.50e-06 ***
+Darkyes       -0.7473     0.3793  -1.970   0.0488 *  
+GoodSpineyes  -0.3145     0.4077  -0.772   0.4404    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Theta: count = 4.7231
+Number of iterations in BFGS optimization: 19 
+Log-likelihood: -350.5 on 9 Df</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod0,mod1,mod2,mod3,mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">mod0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">759.2097</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">739.8864</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mod2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">719.5533</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mod3</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">739.8008</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mod4</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">719.0879</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </section>
 <section id="strategies" class="level3">
 <h3 class="anchored" data-anchor-id="strategies">Strategies</h3>
+<p>Recall:</p>
+<ul>
+<li><p>Poisson is count in time or space.</p></li>
+<li><p>The Poisson regression, log-linear model, reads as a log Beta_j increase when others are held fixed.</p></li>
+<li><p>An e^beta_j multiplicative increase.</p></li>
+<li><p>OD can be due to unaccounted clustering or any type of unaccounted variable.</p></li>
+<li><p>If we don’t account for the OD, the inference is invalid. the confint is too narrow and the p-value is off.</p></li>
+<li><p>Underdispersion will not be addressed here.</p></li>
+<li><p>Assume there is OD and check. dev-gof, psi and resids.</p></li>
+</ul>
+<p>We’ve covered:</p>
+<ul>
+<li>quisiPoisson with glm and family = quasipoisson</li>
+<li>negative binomial with glm.nb</li>
+<li>Zero-inf with zeroinfl function and either dist = poisson or negbin</li>
+<li>hurdle models with hurdle function and poisson or negbin.</li>
+</ul>
+<p>Zero inflation and overdisperssion</p>
+<ul>
+<li>Look at the raw counts.</li>
+<li>Are there lots of large values, lots of zeroes, lots different from zero.</li>
+<li>What system created the counts. What makes sense.</li>
+</ul>
+<p>For e^x by x, the poisson prob of y being zero.</p>
 </section>
 </section>
 <section id="lab" class="level2">
@@ -414,6 +952,151 @@ Learning Objectives
 </section>
 <section id="quizzes" class="level2">
 <h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+<section id="r" class="level3">
+<h3 class="anchored" data-anchor-id="r">R</h3>
+<p>All questions rely on the data in the bioChemists dataset in the pscl library. The dataset contains information about the numbers of articles (art) published by each member of a sample of 915 biochemistry graduate students during the final three years of the PhD study. You can look at ?bioChemists to learn about the other variables in the dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bioChemists)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> bioChemists</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ?bioChemists</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>art)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_Dispersion_Zero_Inflation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There is clear evidence of zero-inflation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># names(df)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>mod.poi <span class="ot">&lt;-</span> <span class="fu">glm</span>(art<span class="sc">~</span>fem<span class="sc">+</span>mar<span class="sc">+</span>kid5<span class="sc">+</span>phd<span class="sc">+</span>ment, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="st">"poisson"</span>, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> df)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.poi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = art ~ fem + mar + kid5 + phd + ment, family = "poisson", 
+    data = df)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.304617   0.102981   2.958   0.0031 ** 
+femWomen    -0.224594   0.054613  -4.112 3.92e-05 ***
+marMarried   0.155243   0.061374   2.529   0.0114 *  
+kid5        -0.184883   0.040127  -4.607 4.08e-06 ***
+phd          0.012823   0.026397   0.486   0.6271    
+ment         0.025543   0.002006  12.733  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 1817.4  on 914  degrees of freedom
+Residual deviance: 1634.4  on 909  degrees of freedom
+AIC: 3314.1
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1634.4</span><span class="sc">/</span><span class="dv">909</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.79802</code></pre>
+</div>
+</div>
+<p>There is evidence of over dispersion because the residual deviance is a lot bigger than the corresponding degrees of freedom.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mod.nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(art<span class="sc">~</span>fem<span class="sc">+</span>mar<span class="sc">+</span>kid5<span class="sc">+</span>phd<span class="sc">+</span>ment,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> df)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = art ~ fem + mar + kid5 + phd + ment, data = df, 
+    init.theta = 2.264387695, link = log)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.256144   0.137348   1.865 0.062191 .  
+femWomen    -0.216418   0.072636  -2.979 0.002887 ** 
+marMarried   0.150489   0.082097   1.833 0.066791 .  
+kid5        -0.176415   0.052813  -3.340 0.000837 ***
+phd          0.015271   0.035873   0.426 0.670326    
+ment         0.029082   0.003214   9.048  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(2.2644) family taken to be 1)
+
+    Null deviance: 1109.0  on 914  degrees of freedom
+Residual deviance: 1004.3  on 909  degrees of freedom
+AIC: 3135.9
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  2.264 
+          Std. Err.:  0.271 
+
+ 2 x log-likelihood:  -3121.917 </code></pre>
+</div>
+</div>
+<p>The over dispersion is confirmed.</p>
+<p>Fit a zero-inflated or hurdle negative binomial regression model to check on the potential zero-inflation problem.</p>
+<p>First attempt was 3 of 4.</p>
+<p>2nd, changing to Most of the counts are less than 5.</p>
+<p>That was it.</p>
+<p>Question 1</p>
+<p>Create a histogram of the art counts. Check the one observation you observe.</p>
+<p>There is clear evidence of zero-inflation.</p>
+<p>More than half of the counts are zeroes.</p>
+<p>Most of the counts are less than 5.</p>
+<p>Question 2</p>
+<p>Fit a log linear (Poisson regression) model to the article counts, including all of the explanatory variables in the model. Examine the model summary information and check the best possible observation.</p>
+<p>The model is a poor fit because the residual deviance is not that much smaller than the null deviance.</p>
+<p>There is evidence of over dispersion because the largest deviance residual is over 5.</p>
+<p>There is evidence of over dispersion because the residual deviance is a lot bigger than the corresponding degrees of freedom.</p>
+<p>There is evidence of zero-inflation because the intercept estimate is statistically significant.</p>
+<p>Question 3</p>
+<p>Now use the glm.nb function from the MASS library to fit the negative binomial regression model using the same explanatory information as you used in question 2. Check the one best observation.</p>
+<p>It seems clear that there’s no zero-inflation.</p>
+<p>The over dispersion is confirmed.</p>
+<p>The maximum residual is still larger than 3, we should be concerned about this.</p>
+<p>The negative binomial model is a better fit because the residual deviance from the negative binomial regression model is so much lower than the residual deviance from the Poisson regression model.</p>
+<p>Question 4</p>
+<p>There may be several things that you could do next to proceed with a data analysis of the bioChemists data? Which one of the following options is best?</p>
+<p>There’s nothing more to do but summarize the results of the model you fit in question 3.</p>
+<p>Perform a drop in deviance test to see if you can remove phd and mar from the model you fit in question 3.</p>
+<p>Fit a zero-inflated or hurdle negative binomial regression model to check on the potential zero-inflation problem.</p>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">C</h3>
+<p>Question 11 pts What’s the best way to determine whether a hurdle model or a zero-inflated model is most appropriate in a situation where there are more zeroes than what you should expect from a Poisson distribution? Group of answer choices</p>
+<p>The models are essentially the same so it doesn’t really matter.</p>
+<p>Fit both models and pick the one that gives smaller standard errors.</p>
+<p><strong>Think carefully about the data generating mechanism and determine whether the concept of “true zeroes” or “excess zeroes” is more appropriate.</strong></p>
+<p>Use a drop in deviance test to compare the models.</p>
+<p>Flag question: Question 2 Question 21 pts Which one of the following is true about over dispersion and zero-inflation? Group of answer choices</p>
+<p><strong>Over dispersion results from counts that have more variation than can be accounted for by a Poisson distribution, whereas zero-inflation results from there being more zeroes in a distribution of counts than can be accounted for by a Poisson (or negative binomial) distibution.</strong></p>
+<p>If there is over dispersion, there is guaranteed to also be zero-inflation.</p>
+<p>If there is zero-inflation, there is guaranteed to also be over dispersion</p>
+<p>Flag question: Question 3 Question 31 pts Consider the following partial output from the fit of a zero-inflated regression model. Which one of the choices given below the model output can you conclude?</p>
+<p>Count model coefficients (negbin with log link):</p>
+<p>Estimate Std. Error z value Pr (&gt;|z|) (Intercept) 0.63269 0.04723 13.395 &lt; 2e-16 <strong><em> femWomen -0.24720 0.07208 -3.430 0.000605 </em></strong> Log (theta) 0.56589 0.10570 5.354 8.61e-08 ***</p>
+<p>Zero-inflation model coefficients (binomial with logit link):</p>
+<p>Estimate Std. Error z value Pr(&gt;|z|) (Intercept) -10.436 85.226 -0.122 0.903 femWomen -2.842 208.220 -0.014 0.989 Group of answer choices</p>
+<p>There is evidence of over dispersion and zero-inflation.</p>
+<p>There is not enough information to determine anything about over dispersion or zeroinflation.</p>
+<p>**There is evidence of zero-inflation but no evidence of over *dispersion.<strong> </strong>Wrong**</p>
+<p>There is evidence of over dispersion but no evidence of zero-inflation.</p>
+<p>Flag question: Question 4 Question 41 pts True or False? You can use a likelihood ratio test (a drop in deviance test) to compare a Poisson regression model to a negative binomial regression model, provided that they both have the same explanatory information. Group of answer choices</p>
+<p>True</p>
+<p><strong>False</strong> <strong>Wrong</strong></p>
+</section>
 </section>
 <section id="end____" class="level1">
 <h1>____END____</h1>
@@ -501,10 +1184,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/KingBlkMouth\.github\.io\/Data_Analysis_II_Notes\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -514,8 +1214,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -527,7 +1236,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -571,6 +1403,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -596,6 +1429,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -656,6 +1515,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

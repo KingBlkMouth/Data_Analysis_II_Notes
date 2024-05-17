@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,6 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -97,6 +104,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -104,9 +138,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Data_Analysis_II_Notes</span>
     </a>
@@ -118,142 +152,142 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-notes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Notes</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-notes">    
         <li>
-    <a class="dropdown-item" href="./1_Types_of_Categoricals.html" rel="" target="">
+    <a class="dropdown-item" href="./1_Types_of_Categoricals.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./2_Props_Risks_Odds.html" rel="" target="">
+    <a class="dropdown-item" href="./2_Props_Risks_Odds.html">
  <span class="dropdown-text">2 Props, Risk &amp; Odds</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./3_Logistic_Regression_I.html" rel="" target="">
+    <a class="dropdown-item" href="./3_Logistic_Regression_I.html">
  <span class="dropdown-text">3 Log Reg I</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./4_Logistic_Regression_II.html" rel="" target="">
+    <a class="dropdown-item" href="./4_Logistic_Regression_II.html">
  <span class="dropdown-text">4 Log-Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./5_Log_linear_Regression.html" rel="" target="">
+    <a class="dropdown-item" href="./5_Log_linear_Regression.html">
  <span class="dropdown-text">5 Log-lin-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html" rel="" target="">
+    <a class="dropdown-item" href="./6_Dispersion_Zero_Inflation.html">
  <span class="dropdown-text">6 Disp &amp; 0 Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./7_Random_Effects.html" rel="" target="">
+    <a class="dropdown-item" href="./7_Random_Effects.html">
  <span class="dropdown-text">7 Random_Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./8_Evaluating_Models.html" rel="" target="">
+    <a class="dropdown-item" href="./8_Evaluating_Models.html">
  <span class="dropdown-text">8 Model Eval</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html" rel="" target="">
+    <a class="dropdown-item" href="./9_Imp_Pred_Validate.html">
  <span class="dropdown-text">9 Imp, Pred, Validate</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./10_Final_Project.html" rel="" target="">
+    <a class="dropdown-item" href="./10_Final_Project.html">
  <span class="dropdown-text">10 Final Project</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
-    <a class="dropdown-item" href="./z0_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z0_learnR.html">
  <span class="dropdown-text">LearnR 0</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z1_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z1_learnR.html">
  <span class="dropdown-text">1 Types of Categoricals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z2_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z2_learnR.html">
  <span class="dropdown-text">2 Odds and risks</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z3_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z3_learnR.html">
  <span class="dropdown-text">3 Log-Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z4_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z4_learnR.html">
  <span class="dropdown-text">4 Log Reg II</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z5_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z5_learnR.html">
  <span class="dropdown-text">5 Log Lin Reg</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z6_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 6</span></a>
+    <a class="dropdown-item" href="./z6_learnR.html">
+ <span class="dropdown-text">6 Zero Inflation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z7_learnR.html" rel="" target="">
- <span class="dropdown-text">LearnR 7</span></a>
+    <a class="dropdown-item" href="./z7_learnR.html">
+ <span class="dropdown-text">7 Mixed Effects</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./z8_learnR.html" rel="" target="">
+    <a class="dropdown-item" href="./z8_learnR.html">
  <span class="dropdown-text">LearnR 8</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">HW</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hw">    
         <li>
-    <a class="dropdown-item" href="./aHW_1.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_1.html">
  <span class="dropdown-text">ST-518 HW 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_2.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_2.html">
  <span class="dropdown-text">ST-518 HW 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_3.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_3.html">
  <span class="dropdown-text">ST-518 HW 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_4.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_4.html">
  <span class="dropdown-text">ST-518 HW 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_5.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_5.html">
  <span class="dropdown-text">ST-518 HW 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_6.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_6.html">
  <span class="dropdown-text">ST-518 HW 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_7.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_7.html">
  <span class="dropdown-text">ST-518 HW 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./aHW_8.html" rel="" target="">
+    <a class="dropdown-item" href="./aHW_8.html">
  <span class="dropdown-text">ST-518 HW 8</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -313,7 +347,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="log-lin-reg" class="level1">
 <h1>5 Log lin reg</h1>
@@ -322,17 +358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Count responses</h1>
 <p>Please load these libraries that you’ll need for this lab:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in check_dep_version(): ABI version mismatch: 
-lme4 was built with Matrix ABI version 0
-Current Matrix ABI version is 1
-Please re-install lme4 from source or restore original 'Matrix' package</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In this lab, we’ll go over log linear regression in the case of count data in a little more detail than you saw in the narrated lectures. We’ll cover the deviance goodness of fit test (which, remember, is an informal test here) and the drop in deviance test in R; and we’ll discuss residuals and model evaluation. You’ll see more about over dispersion in the case of Poisson counts, and we’ll cover the negative binomial model for over dispersion. We’ll conclude with another example of log linear regression for general contingency tables.</p>
 </section>
@@ -340,9 +370,9 @@ Please re-install lme4 from source or restore original 'Matrix' package</code></
 <h1>Salamander Data</h1>
 <p>The data that we’ll use for this lab concern salamander habitat:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?case2202</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>salamanders <span class="ot">&lt;-</span> case2202</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(salamanders)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?case2202</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>salamanders <span class="ot">&lt;-</span> case2202</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(salamanders)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -401,39 +431,55 @@ Please re-install lme4 from source or restore original 'Matrix' package</code></
 <h2 class="anchored" data-anchor-id="some-data-exploration">Some data exploration</h2>
 <p>We’ll start with some exploration of the data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> PctCover, <span class="at">y =</span> Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Salamanders vs Percent Cover"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> PctCover, <span class="at">y =</span> Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Salamanders vs Percent Cover"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>This first figure seems to indicate that there are two distinct types of sites those with <code>PctCover</code> below about 53% and those with <code>PctCover</code> greater than 75%. It also seems clear that only sites with <code>PctCover</code> greater than 75% have <code>Salamander</code> counts higher than 2.</p>
 <p>Here’s another plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> ForestAge, <span class="at">y =</span> Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Salamanders vs Forest Age"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> ForestAge, <span class="at">y =</span> Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Salamanders vs Forest Age"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>There doesn’t appear to be anything remarkable about this plot, though it’s important to notice the range of the x-axis scale – it’s fairly large. This suggests that we might observe something more informative if we look at <code>ForestAge</code> on the log scale.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">y =</span> Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Salamanders vs log(Forest Age)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">y =</span> Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Salamanders vs log(Forest Age)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Notice that we used <code>x = log(ForestAge + 1/2)</code> in the <code>ggplot()</code> function call because some of the <code>ForestAge</code> values are zero, and <code>log(0)</code> is undefined.</p>
 <p>This plot seems to indicate a clearer relationship between <code>ForestAge</code> and <code>Salamanders</code> as <code>ForestAge</code> increases on the log scale, the salamander counts tend to increase and they get more variable. Let’s also look at the relationship between the two explanatory variables:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">y =</span> PctCover)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Percent Cover vs log(Forest Age"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">y =</span> PctCover)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Percent Cover vs log(Forest Age"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>This plot tells and interesting story almost all of the older sites are those with <code>PctCover</code> greater than 75%. For the younger sites, there is a increasing (perhaps curvilinear) relationship with <code>PctCover</code>.</p>
 <p>Remember that multicollinearity is a problem when two or more explanatory variables are highly correlated. Let’s check the correlation between log-transformed <code>PctCover</code> and the <code>ForestAge</code> variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>salamanders <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Site =</span> Site, <span class="at">Salamanders =</span> Salamanders, <span class="at">ForestAge =</span> ForestAge, <span class="at">logPctCover =</span> <span class="fu">log</span>(PctCover <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(salamanders<span class="sc">$</span>ForestAge,salamanders<span class="sc">$</span>logPctCover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>salamanders <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Site =</span> Site, <span class="at">Salamanders =</span> Salamanders, <span class="at">ForestAge =</span> ForestAge, <span class="at">logPctCover =</span> <span class="fu">log</span>(PctCover <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(salamanders<span class="sc">$</span>ForestAge,salamanders<span class="sc">$</span>logPctCover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5352604</code></pre>
 </div>
@@ -441,16 +487,20 @@ Please re-install lme4 from source or restore original 'Matrix' package</code></
 <p>The correlation is not actually so high that we should be concerned about it. Remember, too, that correlation tells us about the <em>linear</em> association between two variables. In terms of a linear association, these two variables are moderately correlated – even though from our last plot we see that there is a strong relationship between them.</p>
 <p>Because of the distinctive cut-point in the <code>PctForest</code> variable, we’ll create a new variable, called <code>CovGroup</code>, that just takes the value 0 if <code>PctCover &lt; 75)</code> and 1 otherwise.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>CovGroup <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(salamanders<span class="sc">$</span>PctCover <span class="sc">&lt;</span> <span class="dv">75</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>CovGroup <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(salamanders<span class="sc">$</span>PctCover <span class="sc">&lt;</span> <span class="dv">75</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, as a last bit of exploration, let’s just take a look at the histogram of <code>Salamander</code> counts.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(salamanders,<span class="fu">aes</span>(Salamanders)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(salamanders,<span class="fu">aes</span>(Salamanders)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>You can see that there are a lot of zeroes in among the <code>Salamander</code> counts. One method for analyzing Poisson count data is to take the log of the counts, and then perform a multiple linear regression. We don’t recommend that here, since there are so many zeroes – you’d have to first add a small amount to the zero counts, then take logs, and that means that interpretations will be difficult.</p>
@@ -468,20 +518,20 @@ Please re-install lme4 from source or restore original 'Matrix' package</code></
 <h2 class="anchored" data-anchor-id="model-fitting">Model Fitting</h2>
 <p>In this part of the lab, we’ll fit several different models, and make some comparisons among them. This is a little bit of data snooping, and we will likely end up with biased estimates in the model we do select (recall the simulation you saw back in Data Analytics I). So, please, consider this to be the academic exercise it’s intended to be!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model with PctCover only</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pois_mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover, <span class="at">family =</span> poisson)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model the log(Forest Age + 1/2) only</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>pois_mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">family =</span> poisson)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>pois_mod3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">+</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">family =</span> poisson)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables, plus their interaction</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>pois_mod4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">*</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">family =</span> poisson)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison of the models</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(pois_mod1, pois_mod2, pois_mod3, pois_mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model with PctCover only</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pois_mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover, <span class="at">family =</span> poisson)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model the log(Forest Age + 1/2) only</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>pois_mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">family =</span> poisson)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>pois_mod3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">+</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">family =</span> poisson)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables, plus their interaction</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>pois_mod4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">*</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">family =</span> poisson)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison of the models</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(pois_mod1, pois_mod2, pois_mod3, pois_mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -535,7 +585,7 @@ Please re-install lme4 from source or restore original 'Matrix' package</code></
 </div>
 <p>In terms of the AIC comparisons, there’s not much difference between models 1, 2 and 4; and the same is true if we use the BIC comparisons. This is somewhat surprising – from the exploratory plots above, you might have suspected that both <code>PctCover</code> and <code>ForestAge</code>, and maybe even their interaction might be important. Let’s take a look at the summary information for <code>pois_mod4</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pois_mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pois_mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -562,27 +612,27 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <p>It looks like there pretty clear evidence of over dispersion, the residual deviance divided by the residual degrees of freedom is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fl">120.7</span><span class="sc">/</span><span class="dv">43</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fl">120.7</span><span class="sc">/</span><span class="dv">43</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.806977</code></pre>
 </div>
 </div>
 <p>That’s pretty big. Before we talk a lot more about model fitting and model comparison in terms of what explanatory information to include, we should address the over dispersion. Remember that we can do this using the <code>family = quasipoisson</code> argument to the <code>glm()</code> function, or we can do this using the <code>glm.nb</code> function. We’ll leave it to you to try the quasi-poisson approach, and we’ll go over the negative binomial approach here. We’ll simply fit the same four models as above, but using the negative binomial likelihood rather than the Poisson likelihood.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model with PctCover only</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>nb_mod1 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model the log(Forest Age + 1/2) only</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>nb_mod2 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>nb_mod3 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">+</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables, plus their interaction</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>nb_mod4 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">*</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison of the models</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(nb_mod1, nb_mod2, nb_mod3, nb_mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model with PctCover only</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>nb_mod1 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model the log(Forest Age + 1/2) only</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>nb_mod2 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>nb_mod3 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">+</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># model with both explanatory variables, plus their interaction</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>nb_mod4 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> PctCover <span class="sc">*</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison of the models</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(nb_mod1, nb_mod2, nb_mod3, nb_mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -636,7 +686,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <p>Again, there’s no clear winner here in terms of either AIC or BIC, so we’ll go with Occam’s Razor and look at results for the simplest model, <code>nb_mod1</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nb_mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nb_mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -666,14 +716,14 @@ Number of Fisher Scoring iterations: 1
 </div>
 <p>Remember that we still didn’t use the <code>CovGroup</code> indicator variable that we created above. Let’s fit a couple more models using that variable, and see where we are.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model with CovGroup only </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>nb_mod5 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> CovGroup)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model with CovGroup*log(ForestAge + 1/2)</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>nb_mod6 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> CovGroup <span class="sc">*</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compare with the other models</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(nb_mod1,nb_mod2,nb_mod3,nb_mod4,nb_mod5,nb_mod6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model with CovGroup only </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>nb_mod5 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> CovGroup)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model with CovGroup*log(ForestAge + 1/2)</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>nb_mod6 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(<span class="at">data =</span> salamanders, Salamanders <span class="sc">~</span> CovGroup <span class="sc">*</span> <span class="fu">log</span>(ForestAge <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compare with the other models</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(nb_mod1,nb_mod2,nb_mod3,nb_mod4,nb_mod5,nb_mod6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -743,7 +793,7 @@ Number of Fisher Scoring iterations: 1
 </div>
 <p>Now it seems like there’s really not much difference among any of these models (except that many <code>nb_mod2</code> is a clear-ish loser) in terms of AIC or BIC. We’ll continue with <code>nb_mod1</code> at this point. Let’s take a look at the model and it’s fit.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nb_mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nb_mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -770,20 +820,24 @@ Number of Fisher Scoring iterations: 1
 
  2 x log-likelihood:  -170.963 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>resid <span class="ot">&lt;-</span> <span class="fu">residuals</span>(nb_mod1)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fits <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(nb_mod1,<span class="at">scale=</span><span class="st">"data"</span>,<span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>fits <span class="ot">&lt;-</span> <span class="fu">exp</span>(fits<span class="sc">$</span>fit)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>low <span class="ot">&lt;-</span> <span class="fu">exp</span>(fits<span class="sc">$</span>fit<span class="fl">-1.96</span><span class="sc">*</span>fits<span class="sc">$</span>se.fit)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(fits<span class="sc">$</span>fit<span class="fl">+1.96</span><span class="sc">*</span>fits<span class="sc">$</span>se.fit)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(salamanders,<span class="fu">aes</span>(PctCover,Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span>      </span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> PctCover, </span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> fits)) <span class="sc">+</span> </span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> PctCover, </span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> low, </span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> upp),</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>resid <span class="ot">&lt;-</span> <span class="fu">residuals</span>(nb_mod1)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>fits <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(nb_mod1,<span class="at">scale=</span><span class="st">"data"</span>,<span class="at">se.fit=</span><span class="cn">TRUE</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>fits <span class="ot">&lt;-</span> <span class="fu">exp</span>(fits<span class="sc">$</span>fit)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>low <span class="ot">&lt;-</span> <span class="fu">exp</span>(fits<span class="sc">$</span>fit<span class="fl">-1.96</span><span class="sc">*</span>fits<span class="sc">$</span>se.fit)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(fits<span class="sc">$</span>fit<span class="fl">+1.96</span><span class="sc">*</span>fits<span class="sc">$</span>se.fit)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(salamanders,<span class="fu">aes</span>(PctCover,Salamanders)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span>      </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> PctCover, </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> fits)) <span class="sc">+</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> PctCover, </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> low, </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> upp),</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The model fit is not bad – remember that the solid line in the figure above is the model estimate of the Poisson rate parameter at each value of <code>PctCover</code>, and the shaded bands are 95% pointwise confidence intervals. The model output gives strong evidence of a positive association between <code>PctCover</code> and the number of salamanders at a site.</p>
@@ -794,7 +848,7 @@ Number of Fisher Scoring iterations: 1
 <h2 class="anchored" data-anchor-id="model-evaluation">Model Evaluation</h2>
 <p>Recall that the deviance goodness of fit test compares a fitted model to a saturated model, or one in which there are as many parameters as there are data points. In these goodness of fit comparisons, the null hypothesis corresponds to the fitted model (which is a reduced model relative to the saturated model), and the alternative hypothesis corresponds to the saturated model. In the case of Poisson counts, the goodness of fit should only be used as a guideline, not as a firm decision making tool.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(nb_mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LRstats</span>(nb_mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -829,7 +883,7 @@ Number of Fisher Scoring iterations: 1
 <p>Just a reminder that the drop in deviance test is different from the deviance goodness of fit test. Whereas the deviance goodness of fit test provides a comparison between a single fitted model and a saturated model, a drop in deviance test provides a way to compare two fitted models when one of those models is nested within the other one. Put another way, the drop in deviance test is a comparison between a reduced model (null hypothesis) and a full model (alternative hypothesis) – and we use it in cases where the reduced model is reduced from (or nested in) the full model.</p>
 <p>Using the models we have already fit, let’s use the <code>anova()</code> function to perform a drop in deviance test comparing the model that only contains <code>PctCover</code> to the one that contains <code>PctCover</code>, <code>ForestAge</code> and their interaction.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(nb_mod1,nb_mod4,<span class="at">test=</span><span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(nb_mod1,nb_mod4,<span class="at">test=</span><span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -887,19 +941,31 @@ Number of Fisher Scoring iterations: 1
 <h2 class="anchored" data-anchor-id="looking-at-residuals">Looking at Residuals</h2>
 <p>As in the case of binomial logistic regression, it can be helpful to look at the deviance and/or Pearson residuals from our negative binomial (or Poisson) regression mode to (a) evaluate the model fit and (b) check for outliers. Provided that the counts are fairly large, both the deviance and Pearson residuals should look like draws from a standard Normal distribution, so too many residuals outside of the [-2,2] interval may be cause for concern. Here, we’ll look at plots of both the deviance and Pearson residuals.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>residuals_deviance <span class="ot">&lt;-</span> <span class="fu">residuals</span>(nb_mod1)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>residuals_pearson <span class="ot">&lt;-</span> <span class="fu">residuals</span>(nb_mod1, <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(PctCover,residuals_deviance)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>residuals_deviance <span class="ot">&lt;-</span> <span class="fu">residuals</span>(nb_mod1)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>salamanders<span class="sc">$</span>residuals_pearson <span class="ot">&lt;-</span> <span class="fu">residuals</span>(nb_mod1, <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(PctCover,residuals_deviance)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(PctCover,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(residuals_deviance,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(PctCover,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-19-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salamanders, <span class="fu">aes</span>(residuals_deviance,residuals_pearson)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-19-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>First, you should notice that there are some distinctive patterns in both the deviance and Pearson residual plots. These kinds of patterns are quite common when we are dealing with count data, and they are result of the discreteness of those counts. In these residual plots, we are more concerned with detecting potential outliers, and there do not appear to be any here.</p>
@@ -910,13 +976,13 @@ Number of Fisher Scoring iterations: 1
 <h1>Log Linear Models for General Contingency Tables</h1>
 <p>We’ll now turn to an example of using a log linear model for data in general contingency tables. The following table relates education level, religious views, and approval of homosexual marriage for 133 Americans age 18-25 (see example 8.4.2 in Agresti (2013)). In this table “agree” indicates that the respondent agrees that homosexual marriage should be allowed in the US.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">opinion =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Agree"</span>, <span class="st">"Neutral"</span>, <span class="st">"Disagree"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Agree"</span>, <span class="st">"Neutral"</span>, <span class="st">"Disagree"</span>)),</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">relig =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Fundamentalist"</span>, <span class="st">"Moderate"</span>, <span class="st">"Liberal"</span>), <span class="fu">c</span>(<span class="st">"Liberal"</span>, <span class="st">"Moderate"</span>, <span class="st">"Fundamentalist"</span>)),</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">educ =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"High school or less"</span>, <span class="st">"At least some college"</span>), <span class="fu">c</span>(<span class="st">"High school or less"</span>, <span class="st">"At least some college"</span>))) </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>marriage<span class="sc">$</span>Freq <span class="ot">&lt;-</span> <span class="fu">c</span>(  <span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">11</span>,<span class="dv">21</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">22</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>marriage_tab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="at">data =</span> marriage, Freq <span class="sc">~</span> educ <span class="sc">+</span> relig <span class="sc">+</span> opinion)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(marriage_tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">opinion =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Agree"</span>, <span class="st">"Neutral"</span>, <span class="st">"Disagree"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Agree"</span>, <span class="st">"Neutral"</span>, <span class="st">"Disagree"</span>)),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">relig =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Fundamentalist"</span>, <span class="st">"Moderate"</span>, <span class="st">"Liberal"</span>), <span class="fu">c</span>(<span class="st">"Liberal"</span>, <span class="st">"Moderate"</span>, <span class="st">"Fundamentalist"</span>)),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">educ =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"High school or less"</span>, <span class="st">"At least some college"</span>), <span class="fu">c</span>(<span class="st">"High school or less"</span>, <span class="st">"At least some college"</span>))) </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>marriage<span class="sc">$</span>Freq <span class="ot">&lt;-</span> <span class="fu">c</span>(  <span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">11</span>,<span class="dv">21</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">22</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>marriage_tab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="at">data =</span> marriage, Freq <span class="sc">~</span> educ <span class="sc">+</span> relig <span class="sc">+</span> opinion)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(marriage_tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                     opinion Agree Neutral Disagree
 educ                  relig                                        
@@ -930,8 +996,8 @@ At least some college Liberal                   22       4        1
 </div>
 <p>If we just think about questions regarding whether and how these three variables are related, we can fit a log linear model, with the count frequencies as the responses, and the levels of three factors as explanatory information.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mod_relig <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> marriage_tab, Freq <span class="sc">~</span> relig <span class="sc">+</span> educ <span class="sc">+</span> opinion, <span class="at">family =</span> poisson)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>mod_relig <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> marriage_tab, Freq <span class="sc">~</span> relig <span class="sc">+</span> educ <span class="sc">+</span> opinion, <span class="at">family =</span> poisson)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -967,7 +1033,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <section id="exploration" class="level3">
 <h3 class="anchored" data-anchor-id="exploration">exploration</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>marriage_tab <span class="sc">|&gt;</span> <span class="fu">ftable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>marriage_tab <span class="sc">|&gt;</span> <span class="fu">ftable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                     opinion Agree Neutral Disagree
 educ                  relig                                        
@@ -980,35 +1046,37 @@ At least some college Liberal                   22       4        1
 </div>
 </div>
 <p>I am assuming the log relationship due to this being the lab for that scenario.</p>
-<div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion, <span class="at">shape =</span> relig) <span class="sc">+</span> </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) </span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> relig, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion) <span class="sc">+</span> </span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>educ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion, <span class="at">shape =</span> relig) <span class="sc">+</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> relig, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion) <span class="sc">+</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>educ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="z5_learnR_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="z5_learnR_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 </div>
 </div>
 <p>Some college is more spread out than high school, opinions cluster more. There is a single count of Liberal, college, disagree that is a potential outlier. In both sets, disagreement increases as liberal goes to fundamentalist and vice versa, agreement goes down.<br>
 Neutrality decreases as liberal goes to fundamentalist.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion) <span class="sc">+</span> </span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion) <span class="sc">+</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>For college vs religion, among liberals agreement goes up with education, neutrality slightly down. For moderates, it’s the same, but more folks disagree and neutrality might go a little up. For fundamentalists, agreement goes down and disagree up. That is different. Neutrality is roughly the same.</p>
@@ -1023,7 +1091,7 @@ Neutrality decreases as liberal goes to fundamentalist.</p>
 <h3 class="anchored" data-anchor-id="fit-saturated">fit saturated</h3>
 <p>Looking at table.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>marriage_tab <span class="sc">|&gt;</span> <span class="fu">ftable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>marriage_tab <span class="sc">|&gt;</span> <span class="fu">ftable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                     opinion Agree Neutral Disagree
 educ                  relig                                        
@@ -1036,11 +1104,11 @@ At least some college Liberal                   22       4        1
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> marriage_tab, </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> poisson, </span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>          Freq<span class="sc">~</span>relig<span class="sc">*</span>opinion <span class="sc">+</span> relig<span class="sc">*</span>educ <span class="sc">+</span> opinion<span class="sc">*</span>educ)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m2)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> marriage_tab, </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> poisson, </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>          Freq<span class="sc">~</span>relig<span class="sc">*</span>opinion <span class="sc">+</span> relig<span class="sc">*</span>educ <span class="sc">+</span> opinion<span class="sc">*</span>educ)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m2)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1092,7 +1160,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <p><strong>It appears that fundamentalists and opinions about gay marriage are main effects that are associated with variation in the table. Those with at least some college who disagree with gay marriage and Fundamentalists who disagree also appear to account for some variation. Also moderates who disagree could also account for some variation.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(m2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(m2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
@@ -1134,13 +1202,17 @@ opinionDisagree:educAt least some college     -1.9388926 -0.22115922</code></pre
 <li>At least some college and Neutrality</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion, <span class="at">size =</span> Freq) <span class="sc">+</span> </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion, <span class="at">size =</span> Freq) <span class="sc">+</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>If we are considering opinion the response, it looks to me like the major interaction here is fundamentalists and college. With the exception of fundamentalists, college tends to result in mostly increasing agreement. However, that is not the case for fundamentalists.</p>
@@ -1152,17 +1224,17 @@ opinionDisagree:educAt least some college     -1.9388926 -0.22115922</code></pre
 <li>Fit a model that includes all two-way and the three-way interactions. Is there anything problematic about this model? Please explain.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m2 &lt;- glm(data = marriage_tab, </span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co">#           family = poisson, </span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co">#           Freq~relig*opinion + relig*educ + opinion*educ)</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># s2 &lt;- summary(m2)</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># s2</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> marriage_tab, </span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> poisson, </span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>          Freq<span class="sc">~</span>relig<span class="sc">*</span>opinion<span class="sc">*</span>educ)</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m3)</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>s3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m2 &lt;- glm(data = marriage_tab, </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#           family = poisson, </span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#           Freq~relig*opinion + relig*educ + opinion*educ)</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># s2 &lt;- summary(m2)</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># s2</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> marriage_tab, </span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> poisson, </span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>          Freq<span class="sc">~</span>relig<span class="sc">*</span>opinion<span class="sc">*</span>educ)</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m3)</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>s3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1260,7 +1332,7 @@ Number of Fisher Scoring iterations: 3</code></pre>
 </div>
 <p><strong>Residual DF are zero, the model is overfit</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(m3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(m3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
@@ -1310,13 +1382,17 @@ religFundamentalist:opinionDisagree:educAt least some college 2.98568 1.38224 2.
 <p><em>religFundamentalist:opinionNeutral -2.450923140 1.5435972</em> <em>religModerate:opinionDisagree -0.637748305 2.1457413</em> <em>religFundamentalist:opinionDisagree -0.271365102 2.5975239</em> <em>religModerate:educAt least some college -0.812567305 1.3871701</em> <em>religFundamentalist:educAt least some college -2.635442109 0.3397077</em> <em>opinionNeutral:educAt least some college -2.483332868 0.5862740</em> opinionDisagree:educAt least some college -5.488683217 -0.5634587 <em>religModerate:opinionNeutral:educAt least some college -2.420448446 2.3367740</em> <em>religFundamentalist:opinionNeutral:educAt least some college -1.503710058 4.1835517</em> <em>religModerate:opinionDisagree:educAt least some college -1.481979451 4.1546178</em> religFundamentalist:opinionDisagree:educAt least some college 0.502282533 6.2766234</p>
 <p><strong>In the model with three way interactions, there were only two significant terms which may be associated with variation in the model. Those are some college/disagreement and fundamentalists/disagree/college. There are 9 interaction terms that appear to be independent of each other, shown above. It looks like college mostly reduced disagreement, except among fundamentalists. </strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion, <span class="at">size =</span> Freq) <span class="sc">+</span> </span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> <span class="fu">log</span>(Freq), <span class="at">color =</span> opinion, <span class="at">size =</span> Freq) <span class="sc">+</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="z5_learnR_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="z5_learnR_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
@@ -1404,10 +1480,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/KingBlkMouth\.github\.io\/Data_Analysis_II_Notes\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1417,8 +1510,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1430,7 +1532,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1474,6 +1699,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1499,6 +1725,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1559,6 +1811,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
