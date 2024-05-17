@@ -60,7 +60,7 @@
     "href": "z6_learnR.html#make-three-histograms",
     "title": "6 Zero Inflation",
     "section": "1 Make three histograms",
-    "text": "1 Make three histograms\nRun the above code and then make three histograms of the three sets of simulated data. Also, get summary statistics for each of the three sets of simulations.\n\nhist(pois)\n\n\n\n\n\n\n\nhist(pois0)\n\n\n\n\n\n\n\nhist(negbin)\n\n\n\n\n\n\n\n\n\nsummary(pois)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  1.000   3.000   5.000   4.947   6.000  13.000 \n\nsummary(pois0)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  0.000   3.000   5.000   4.913   7.000  11.000 \n\nsummary(negbin)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00    1.25    3.00    5.34    8.00   27.00"
+    "text": "1 Make three histograms\nRun the above code and then make three histograms of the three sets of simulated data. Also, get summary statistics for each of the three sets of simulations.\n\nhist(pois)\n\n\n\n\n\n\n\nhist(pois0)\n\n\n\n\n\n\n\nhist(negbin)\n\n\n\n\n\n\n\n\n\nsummary(pois)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00    3.00    5.00    5.08    7.00   12.00 \n\nsummary(pois0)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  0.000   3.000   5.000   5.053   7.000  15.000 \n\nsummary(negbin)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00    2.00    4.00    5.34    8.75   23.00"
   },
   {
     "objectID": "z6_learnR.html#section",
