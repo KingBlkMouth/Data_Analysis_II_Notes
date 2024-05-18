@@ -4,7 +4,7 @@
     "href": "z8_learnR.html",
     "title": "8 Model Eval",
     "section": "",
-    "text": "The topic of this lab is prediction in the generalized linear modeling setting. We’ll first talk about prediction (or classification) in the case of binary categories, and then about classification into \\(k\\) categories. We’ll also talk about prediction in the case of responses that are counts.\nWe’ll look at some R functions that perform cross-validation, and we’ll discuss issues of model comparison on the basis of prediction error.\nTo start off, please load these libraries that you’ll need for this lab. Note that you may have to install some of these packages first.\nlibrary(tidyverse)\nlibrary(openintro) # contains email data\nlibrary(ggplot2)\nlibrary(vcdExtra)\nlibrary(magrittr)\nlibrary(MASS)\nlibrary(lme4)     # access the mixed functions\nlibrary(VGAM)     # contains crash data\nlibrary(tree)     # for classification trees\nlibrary(pROC)     # ROC curves   \nlibrary(boot)     # contains the cv.glm function"
+    "text": "The topic of this lab is prediction in the generalized linear modeling setting. We’ll first talk about prediction (or classification) in the case of binary categories, and then about classification into \\(k\\) categories. We’ll also talk about prediction in the case of responses that are counts.\nWe’ll look at some R functions that perform cross-validation, and we’ll discuss issues of model comparison on the basis of prediction error.\nTo start off, please load these libraries that you’ll need for this lab. Note that you may have to install some of these packages first.\nlibrary(tidyverse)\nlibrary(openintro) # contains email data\nlibrary(ggplot2)\nlibrary(vcdExtra)\nlibrary(magrittr)\nlibrary(MASS)\nlibrary(lme4)     # access the mixed functions\nlibrary(VGAM)     # contains crash data\nlibrary(tree)     # for classification trees\nlibrary(pROC)     # ROC curves   \nlibrary(boot)     # contains the cv.glm function\nlibrary(car)"
   },
   {
     "objectID": "z8_learnR.html#binary-predictionclassification",
@@ -371,18 +371,18 @@
     "text": "output: pdf_document"
   },
   {
-    "objectID": "aHW_8.html#r-question",
-    "href": "aHW_8.html#r-question",
+    "objectID": "aHW_8.html#consider-the-crashi-data",
+    "href": "aHW_8.html#consider-the-crashi-data",
     "title": "ST-518 HW 8",
-    "section": "R Question",
-    "text": "R Question\n\n(5 points) Consider the crashi data in the VGAM library that we examined in Lab. Sometimes people will fit multiple linear regression models to data like this, not recognizing that the responses are counts.\n\nUsing the Time.Cat and Day.Cat variables that we created in Lab, fit a multiple linear regression model to the counts—be sure to include the interaction between Time.Cat and Day.Cat just as we did in the lab. How does the model fit compare to the negative binomial regression model that you fit in lab? Please explain.\nNow compare the predicted number of crashes in the early morning on Saturdays using your model from part (a) and the negative binomial model from the Lab. Are they the same? Different?\nNow examine the standard errors associated with the predictions from part (b). Are they the same? Different? Which model do you prefer? Please explain."
+    "section": "1. Consider the crashi data",
+    "text": "1. Consider the crashi data\n(5 points) Consider the crashi data in the VGAM library that we examined in Lab. Sometimes people will fit multiple linear regression models to data like this, not recognizing that the responses are counts.\n\n(a) Fit a multiple linear regression\nUsing the Time.Cat and Day.Cat variables that we created in Lab, fit a multiple linear regression model to the counts—be sure to include the interaction between Time.Cat and Day.Cat just as we did in the lab. How does the model fit compare to the negative binomial regression model that you fit in lab? Please explain.\n\n\n(b) Compare the predicted number of crashes\nNow compare the predicted number of crashes in the early morning on Saturdays using your model from part (a) and the negative binomial model from the Lab. Are they the same? Different?\n\n\n(c) Examine the standard errors\nNow examine the standard errors associated with the predictions from part (b). Are they the same? Different? Which model do you prefer? Please explain."
   },
   {
-    "objectID": "aHW_8.html#conceptual-question",
-    "href": "aHW_8.html#conceptual-question",
+    "objectID": "aHW_8.html#issues-with-large-datasets",
+    "href": "aHW_8.html#issues-with-large-datasets",
     "title": "ST-518 HW 8",
-    "section": "Conceptual Question",
-    "text": "Conceptual Question\n\n(5 points) Please find an article or web posting in which the authors discuss the statistical issues with large datasets. Write a short paragraph in which you identify at least one of the issues that the authors raise. Also please comment on whether you agree with or disagree with their assessment. Please submit either a PDF copy of the article you read, or a web link to the article or post."
+    "section": "2. Issues with large datasets",
+    "text": "2. Issues with large datasets\n(5 points) Please find an article or web posting in which the authors discuss the statistical issues with large datasets. Write a short paragraph in which you identify at least one of the issues that the authors raise. Also please comment on whether you agree with or disagree with their assessment. Please submit either a PDF copy of the article you read, or a web link to the article or post."
   },
   {
     "objectID": "aHW_6.html",

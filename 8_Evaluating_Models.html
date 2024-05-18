@@ -492,16 +492,16 @@ glm(formula = spam ~ to_multiple, family = binomial, data = email75)
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)  -2.13059    0.06535 -32.605  &lt; 2e-16 ***
-to_multiple1 -2.06768    0.38620  -5.354 8.61e-08 ***
+(Intercept)  -2.07044    0.06353 -32.589  &lt; 2e-16 ***
+to_multiple1 -1.82138    0.34264  -5.316 1.06e-07 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 1799.4  on 2940  degrees of freedom
-Residual deviance: 1743.3  on 2939  degrees of freedom
-AIC: 1747.3
+    Null deviance: 1885.2  on 2940  degrees of freedom
+Residual deviance: 1835.3  on 2939  degrees of freedom
+AIC: 1839.3
 
 Number of Fisher Scoring iterations: 6</code></pre>
 </div>
@@ -520,14 +520,14 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and then calculate MSPE:</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>(MSPE1 <span class="ot">&lt;-</span> <span class="fu">mean</span>((ytilde<span class="sc">-</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1</code></pre>
+<pre><code>[1] 0.08061224</code></pre>
 </div>
 </div>
 <p>That’s actually not a bad mis-classification rate, but the reason is really that there are not that many spam emails!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1</code></pre>
+<pre><code>[1] 0.08061224</code></pre>
 </div>
 </div>
 <p>This is exactly the same as the MSPE, because our classification rule classified everything in <code>email25</code> as non-spam! We are precisely wrong.</p>
@@ -548,25 +548,25 @@ glm(formula = spam ~ to_multiple + winner + format + re_subj +
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)  -0.81366    0.10307  -7.894 2.92e-15 ***
-to_multiple1 -3.01139    0.40164  -7.498 6.49e-14 ***
-winneryes     1.92416    0.38553   4.991 6.01e-07 ***
-format1      -1.53514    0.14344 -10.702  &lt; 2e-16 ***
-re_subj1     -3.03040    0.42452  -7.138 9.44e-13 ***
-exclaim_subj  0.04946    0.27455   0.180  0.85703    
-cc            0.01025    0.04709   0.218  0.82767    
-attach        0.21510    0.07075   3.040  0.00236 ** 
-dollar       -0.06688    0.02531  -2.642  0.00825 ** 
-inherit       0.40171    0.18152   2.213  0.02690 *  
-password     -0.84766    0.39093  -2.168  0.03013 *  
+(Intercept)  -0.76201    0.10107  -7.539 4.72e-14 ***
+to_multiple1 -2.83618    0.36182  -7.839 4.55e-15 ***
+winneryes     1.71058    0.37065   4.615 3.93e-06 ***
+format1      -1.52628    0.13957 -10.936  &lt; 2e-16 ***
+re_subj1     -3.35994    0.46430  -7.237 4.60e-13 ***
+exclaim_subj  0.32124    0.25185   1.276 0.202121    
+cc            0.02145    0.02431   0.882 0.377587    
+attach        0.23310    0.06232   3.740 0.000184 ***
+dollar       -0.06537    0.02382  -2.744 0.006072 ** 
+inherit       0.36742    0.18106   2.029 0.042434 *  
+password     -0.72879    0.32988  -2.209 0.027154 *  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 1799.4  on 2940  degrees of freedom
-Residual deviance: 1423.4  on 2930  degrees of freedom
-AIC: 1445.4
+    Null deviance: 1885.2  on 2940  degrees of freedom
+Residual deviance: 1490.0  on 2930  degrees of freedom
+AIC: 1512
 
 Number of Fisher Scoring iterations: 7</code></pre>
 </div>
@@ -593,7 +593,7 @@ Number of Fisher Scoring iterations: 7</code></pre>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ytilde <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(email25<span class="sc">$</span>phat <span class="sc">&gt;=</span> <span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>(MSPE2 <span class="ot">&lt;-</span> <span class="fu">mean</span>((ytilde<span class="sc">-</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.09795918</code></pre>
+<pre><code>[1] 0.08367347</code></pre>
 </div>
 </div>
 <p>Well…only a moderately better MSPE, but maybe we need a better classification rule. This is where looking at the ROC curve can help. We have a prediction model, and now we want to find the optimal classification rule.</p>
@@ -623,8 +623,8 @@ Number of Fisher Scoring iterations: 7</code></pre>
 Call:
 roc.default(response = email25$spam, predictor = email25$phat,     plot = TRUE)
 
-Data: email25$phat in 882 controls (email25$spam 0) &lt; 98 cases (email25$spam 1).
-Area under the curve: 0.7982</code></pre>
+Data: email25$phat in 901 controls (email25$spam 0) &lt; 79 cases (email25$spam 1).
+Area under the curve: 0.8125</code></pre>
 </div>
 </div>
 <p>Specificity instead of fpr on the x axis flips the numbers to high to low. Sensitivity is == tpr.</p>
@@ -634,7 +634,7 @@ Area under the curve: 0.7982</code></pre>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ytilde2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(email25<span class="sc">$</span>phat <span class="sc">&gt;</span> <span class="fl">0.6</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>(MSPE3 <span class="ot">&lt;-</span> <span class="fu">mean</span>((ytilde2<span class="sc">-</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.09693878</code></pre>
+<pre><code>[1] 0.08163265</code></pre>
 </div>
 </div>
 <p>This is just marginally better than our original cut-off of 0.5, but we’re not going to get much better using this prediction model.</p>

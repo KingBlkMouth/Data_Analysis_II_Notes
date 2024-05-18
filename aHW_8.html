@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-04-04">
+<meta name="dcterms.date" content="2024-05-18">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 8</title>
 <style>
@@ -239,8 +239,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a></li>
-  <li><a href="#conceptual-question" id="toc-conceptual-question" class="nav-link" data-scroll-target="#conceptual-question">Conceptual Question</a></li>
+  <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a>
+  <ul class="collapse">
+  <li><a href="#consider-the-crashi-data" id="toc-consider-the-crashi-data" class="nav-link" data-scroll-target="#consider-the-crashi-data">1. Consider the crashi data</a>
+  <ul class="collapse">
+  <li><a href="#a-fit-a-multiple-linear-regression" id="toc-a-fit-a-multiple-linear-regression" class="nav-link" data-scroll-target="#a-fit-a-multiple-linear-regression">(a) Fit a multiple linear regression</a></li>
+  <li><a href="#b-compare-the-predicted-number-of-crashes" id="toc-b-compare-the-predicted-number-of-crashes" class="nav-link" data-scroll-target="#b-compare-the-predicted-number-of-crashes">(b) Compare the predicted number of crashes</a></li>
+  <li><a href="#c-examine-the-standard-errors" id="toc-c-examine-the-standard-errors" class="nav-link" data-scroll-target="#c-examine-the-standard-errors">(c) Examine the standard errors</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conceptual-question" id="toc-conceptual-question" class="nav-link" data-scroll-target="#conceptual-question">Conceptual Question</a>
+  <ul class="collapse">
+  <li><a href="#issues-with-large-datasets" id="toc-issues-with-large-datasets" class="nav-link" data-scroll-target="#issues-with-large-datasets">2. Issues with large datasets</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -266,7 +277,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2024</p>
+      <p class="date">May 18, 2024</p>
     </div>
   </div>
   
@@ -279,24 +290,33 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>output: pdf_document</p>
-<section id="r-question" class="level2">
-<h2 class="anchored" data-anchor-id="r-question">R Question</h2>
-<ol type="1">
-<li><p>(5 points) Consider the crashi data in the VGAM library that we examined in Lab. Sometimes people will fit multiple linear regression models to data like this, not recognizing that the responses are counts.</p>
-<ol type="a">
-<li><p>Using the Time.Cat and Day.Cat variables that we created in Lab, fit a multiple linear regression model to the counts—be sure to include the interaction between Time.Cat and Day.Cat just as we did in the lab. How does the model fit compare to the negative binomial regression model that you fit in lab? Please explain.</p></li>
-<li><p>Now compare the predicted number of crashes in the early morning on Saturdays using your model from part (a) and the negative binomial model from the Lab. Are they the same? Different?</p></li>
-<li><p>Now examine the standard errors associated with the predictions from part (b). Are they the same? Different? Which model do you prefer? Please explain.</p></li>
-</ol></li>
-</ol>
+<section id="r-question" class="level1">
+<h1>R Question</h1>
+<section id="consider-the-crashi-data" class="level2">
+<h2 class="anchored" data-anchor-id="consider-the-crashi-data">1. Consider the crashi data</h2>
+<p>(5 points) Consider the crashi data in the VGAM library that we examined in Lab. Sometimes people will fit multiple linear regression models to data like this, not recognizing that the responses are counts.</p>
+<section id="a-fit-a-multiple-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="a-fit-a-multiple-linear-regression">(a) Fit a multiple linear regression</h3>
+<p>Using the Time.Cat and Day.Cat variables that we created in Lab, fit a multiple linear regression model to the counts—be sure to include the interaction between Time.Cat and Day.Cat just as we did in the lab. How does the model fit compare to the negative binomial regression model that you fit in lab? Please explain.</p>
 </section>
-<section id="conceptual-question" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-question">Conceptual Question</h2>
-<ol start="2" type="1">
-<li>(5 points) Please find an article or web posting in which the authors discuss the statistical issues with large datasets. Write a short paragraph in which you identify at least one of the issues that the authors raise. Also please comment on whether you agree with or disagree with their assessment. Please submit either a PDF copy of the article you read, or a web link to the article or post.</li>
-</ol>
+<section id="b-compare-the-predicted-number-of-crashes" class="level3">
+<h3 class="anchored" data-anchor-id="b-compare-the-predicted-number-of-crashes">(b) Compare the predicted number of crashes</h3>
+<p>Now compare the predicted number of crashes in the early morning on Saturdays using your model from part (a) and the negative binomial model from the Lab. Are they the same? Different?</p>
+</section>
+<section id="c-examine-the-standard-errors" class="level3">
+<h3 class="anchored" data-anchor-id="c-examine-the-standard-errors">(c) Examine the standard errors</h3>
+<p>Now examine the standard errors associated with the predictions from part (b). Are they the same? Different? Which model do you prefer? Please explain.</p>
+</section>
+</section>
+</section>
+<section id="conceptual-question" class="level1">
+<h1>Conceptual Question</h1>
+<section id="issues-with-large-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="issues-with-large-datasets">2. Issues with large datasets</h2>
+<p>(5 points) Please find an article or web posting in which the authors discuss the statistical issues with large datasets. Write a short paragraph in which you identify at least one of the issues that the authors raise. Also please comment on whether you agree with or disagree with their assessment. Please submit either a PDF copy of the article you read, or a web link to the article or post.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
