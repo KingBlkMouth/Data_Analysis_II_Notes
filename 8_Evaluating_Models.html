@@ -101,6 +101,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -212,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./z8_learnR.html">
- <span class="dropdown-text">LearnR 8</span></a>
+ <span class="dropdown-text">8 Model Eval</span></a>
   </li>  
     </ul>
   </li>
@@ -271,21 +300,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lectures" id="toc-lectures" class="nav-link active" data-scroll-target="#lectures">Lectures</a>
+  <li><a href="#model-eval-lectures" id="toc-model-eval-lectures" class="nav-link active" data-scroll-target="#model-eval-lectures">8 Model Eval Lectures</a>
   <ul class="collapse">
   <li><a href="#binary-classification" id="toc-binary-classification" class="nav-link" data-scroll-target="#binary-classification">Binary Classification</a></li>
   <li><a href="#comparing-predictions" id="toc-comparing-predictions" class="nav-link" data-scroll-target="#comparing-predictions">Comparing Predictions</a></li>
   <li><a href="#classifier-example" id="toc-classifier-example" class="nav-link" data-scroll-target="#classifier-example">Classifier Example</a></li>
-  <li><a href="#classifier.rmd" id="toc-classifier.rmd" class="nav-link" data-scroll-target="#classifier.rmd">Classifier.Rmd</a></li>
   <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross Validation</a></li>
   <li><a href="#big-data-issues" id="toc-big-data-issues" class="nav-link" data-scroll-target="#big-data-issues">Big Data Issues</a></li>
+  <li><a href="#working-with-big-data-in-r" id="toc-working-with-big-data-in-r" class="nav-link" data-scroll-target="#working-with-big-data-in-r">Working with big data in R</a></li>
   </ul></li>
-  <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">Lab</a></li>
-  <li><a href="#hw" id="toc-hw" class="nav-link" data-scroll-target="#hw">HW</a></li>
-  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
+  <li><a href="#quiz-r" id="toc-quiz-r" class="nav-link" data-scroll-target="#quiz-r">Quiz R</a></li>
+  <li><a href="#quiz-c" id="toc-quiz-c" class="nav-link" data-scroll-target="#quiz-c">Quiz C</a></li>
   <li><a href="#end____" id="toc-end____" class="nav-link" data-scroll-target="#end____">____END____</a>
   <ul class="collapse">
-  <li><a href="#quizzes-1" id="toc-quizzes-1" class="nav-link" data-scroll-target="#quizzes-1">Quizzes</a></li>
+  <li><a href="#quizzes" id="toc-quizzes" class="nav-link" data-scroll-target="#quizzes">Quizzes</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -339,197 +367,507 @@ Learning Objectives
 <p>Task list</p>
 <p>In order to achieve these learning outcomes, please make sure to complete the following:</p>
 <ul>
-<li>Review Module 8 Readings and Lectures</li>
-<li>Submit Module 8 Homework</li>
-<li>Submit Module 8 Lab</li>
-<li>Take the Module 8 Content Quiz and R Quiz</li>
-<li>Participate in the Module 8 Discussion</li>
+<li><del>Module 8 Readings</del></li>
+<li><del>Lectures</del></li>
+<li>Module 8 Lab</li>
+<li>Module 8 Homework</li>
+<li>R Quiz</li>
+<li>Content Quiz</li>
+<li>Discussion Wed</li>
+<li>Disc Sunday</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Classifier example libs. </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="lectures" class="level2">
-<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<section id="model-eval-lectures" class="level1">
+<h1>8 Model Eval Lectures</h1>
 <section id="binary-classification" class="level3">
 <h3 class="anchored" data-anchor-id="binary-classification">Binary Classification</h3>
-<p>(Binary Classification.pdf)</p>
+<p>Looking at the email dataset and the binary classification problem.</p>
+<ul>
+<li>email dataset from openintro stats in mod 3</li>
+<li>3921 emails in one account</li>
+<li>21 variables for each email.</li>
+<li>spam or not prediction.</li>
+</ul>
+<p>Simple start</p>
+<ul>
+<li>74% training set.</li>
+<li>fit log reg using spam as response</li>
+<li>to_multiple as exp</li>
+<li>model is logit(p) = -2.1 -2.11 x multiple</li>
+<li>Back transforms the equation to find p of spam or not.</li>
+</ul>
+<p>If an incoming email is addressed to multiple people, then the estimated probability that it’s spam is 0.015 and if it’s not addressed to multiple people, then the estimated probability that it’s spam is 0.109.</p>
+<p>We don’t just want probs, we want to classify/predict.</p>
+<ul>
+<li>for ex, if prob &gt; .5 it’s spam, or .75, whatever</li>
+<li>here the probs are low and those numbers won’t work.</li>
+<li>we need a better prediction model and</li>
+<li>we need to figure out a classification rule.</li>
+</ul>
 </section>
 <section id="comparing-predictions" class="level3">
 <h3 class="anchored" data-anchor-id="comparing-predictions">Comparing Predictions</h3>
-<p>(Comparing Predictions.pdf)</p>
+<p>Mean Squared Prediction Errors &amp; Receiver Operating Characteristic Curves (ROC curves)</p>
+<ul>
+<li>good means predictions are right</li>
+<li>how good depends on situation. Health would need to be more strict than spam.</li>
+<li>pred error is difference yhat and y</li>
+<li>we held back 25% for that.</li>
+<li>MSPE = Mean Squared Prediction Error</li>
+</ul>
+<p><span class="math inline">\(MSPE = 1/m \sum{(\hat{y_i} −y_i)^2}\)</span></p>
+<ul>
+<li>m is the number of values in a validation dataset.</li>
+<li>For binary outcomes MSPE is prop of incorrect predictions, bc each squared pred err is zero or one.</li>
+<li>smaller error is a better model.</li>
+<li>We want to pick the model/classification rule combination that minimizes MSPE</li>
+</ul>
+<p>ROC curves.</p>
+<ul>
+<li>ROC is a graphical tool to evaluate a pred model with different classification rules.</li>
+<li>false positive rate fpr is prob of predicting 1 when zero</li>
+<li>true pos rate tpr is prob of pred 1 when 1.</li>
+<li>we want to minimize fpr and max tpr.</li>
+<li>ROC is tpr ~ fpr</li>
+<li>1 to 1 is even chance.</li>
+<li>more above the 1:1 line is better.</li>
+<li>the point furthest from the 1:1 line that maxes and mins the rates is the number above which we set the rule.</li>
+</ul>
+<p>Specificity = 1 - fpr</p>
+<p>sensitivity = tpr</p>
+<ul>
+<li>Specificity or sensitivity could be on the ROC curve instead. i.e.&nbsp;R does that.</li>
+</ul>
 </section>
 <section id="classifier-example" class="level3">
 <h3 class="anchored" data-anchor-id="classifier-example">Classifier Example</h3>
-<p>(Classifier Example.pdf)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?email</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(email)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "spam"         "to_multiple"  "from"         "cc"           "sent_email"  
+ [6] "time"         "image"        "attach"       "dollar"       "winner"      
+[11] "inherit"      "viagra"       "password"     "num_char"     "line_breaks" 
+[16] "format"       "re_subj"      "exclaim_subj" "urgent_subj"  "exclaim_mess"
+[21] "number"      </code></pre>
+</div>
+</div>
+<section id="training-test-sets" class="level5">
+<h5 class="anchored" data-anchor-id="training-test-sets">Training &amp; Test Sets</h5>
+<p>Sample 75% of the email dataset, perform a simple logistic regression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simple log reg</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(n <span class="ot">&lt;-</span> <span class="fu">dim</span>(email)[<span class="dv">1</span>]) <span class="co"># num of obs in dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3921</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(r <span class="ot">&lt;-</span> <span class="fu">round</span>(n<span class="sc">*</span>.<span class="dv">75</span>)) <span class="co"># .75 for training data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2941</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n <span class="co"># index of all rows from 1 to n</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>nidx <span class="ot">&lt;-</span> <span class="fu">sample</span>(idx,r,<span class="at">replace=</span>F) <span class="co"># sample from index of .75</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>email75 <span class="ot">&lt;-</span> email[nidx,] <span class="co"># set training</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>email25 <span class="ot">&lt;-</span> email[<span class="sc">-</span>nidx,] <span class="co"># set test set</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># set simple glm</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>pmod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(spam<span class="sc">~</span>to_multiple,<span class="at">data=</span>email75,<span class="at">family=</span>binomial)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pmod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = spam ~ to_multiple, family = binomial, data = email75)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -2.13059    0.06535 -32.605  &lt; 2e-16 ***
+to_multiple1 -2.06768    0.38620  -5.354 8.61e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1799.4  on 2940  degrees of freedom
+Residual deviance: 1743.3  on 2939  degrees of freedom
+AIC: 1747.3
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
 </section>
-<section id="classifier.rmd" class="level3">
-<h3 class="anchored" data-anchor-id="classifier.rmd">Classifier.Rmd</h3>
+<section id="predictions" class="level5">
+<h5 class="anchored" data-anchor-id="predictions">Predictions</h5>
+<p>Get predictions for the model;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(pmod1,<span class="at">newdata =</span> email25, <span class="at">type=</span><span class="st">"link"</span>) <span class="co"># get predictions</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="fu">plogis</span>(pred) <span class="co"># get preds on probability scale. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we need a classifier rule to take these probabilities and turn them into 0’s and 1’s. Let’s just use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ytilde <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(phat <span class="sc">&gt;=</span> <span class="fl">0.50</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="co"># setting naive classifier rule</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and then calculate MSPE:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>(MSPE1 <span class="ot">&lt;-</span> <span class="fu">mean</span>((ytilde<span class="sc">-</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1</code></pre>
+</div>
+</div>
+<p>That’s actually not a bad mis-classification rate, but the reason is really that there are not that many spam emails!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mean</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1</code></pre>
+</div>
+</div>
+<p>This is exactly the same as the MSPE, because our classification rule classified everything in <code>email25</code> as non-spam! We are precisely wrong.</p>
+</section>
+<section id="more-realistic-model" class="level4">
+<h4 class="anchored" data-anchor-id="more-realistic-model">More Realistic Model</h4>
+<p>Now, lets’ look at a more realistic prediction model and recaclulate MSPE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># setting a better model. </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(spam<span class="sc">~</span>to_multiple<span class="sc">+</span>winner<span class="sc">+</span>format<span class="sc">+</span>re_subj<span class="sc">+</span>exclaim_subj<span class="sc">+</span>cc<span class="sc">+</span>attach<span class="sc">+</span>dollar<span class="sc">+</span>inherit<span class="sc">+</span>password,<span class="at">data=</span>email75,<span class="at">family=</span><span class="st">"binomial"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = spam ~ to_multiple + winner + format + re_subj + 
+    exclaim_subj + cc + attach + dollar + inherit + password, 
+    family = "binomial", data = email75)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -0.81366    0.10307  -7.894 2.92e-15 ***
+to_multiple1 -3.01139    0.40164  -7.498 6.49e-14 ***
+winneryes     1.92416    0.38553   4.991 6.01e-07 ***
+format1      -1.53514    0.14344 -10.702  &lt; 2e-16 ***
+re_subj1     -3.03040    0.42452  -7.138 9.44e-13 ***
+exclaim_subj  0.04946    0.27455   0.180  0.85703    
+cc            0.01025    0.04709   0.218  0.82767    
+attach        0.21510    0.07075   3.040  0.00236 ** 
+dollar       -0.06688    0.02531  -2.642  0.00825 ** 
+inherit       0.40171    0.18152   2.213  0.02690 *  
+password     -0.84766    0.39093  -2.168  0.03013 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1799.4  on 2940  degrees of freedom
+Residual deviance: 1423.4  on 2930  degrees of freedom
+AIC: 1445.4
+
+Number of Fisher Scoring iterations: 7</code></pre>
+</div>
+</div>
+<p>Many of the exp models are significant.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict with second model</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict.glm</span>(mod2,<span class="at">newdata=</span>email25,<span class="at">type=</span><span class="st">"link"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># get it on prob scale. </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>email25<span class="sc">$</span>phat <span class="ot">&lt;-</span> <span class="fu">plogis</span>(pred)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># looking at the predictions. </span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(email25,<span class="fu">aes</span>(phat)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="8_Evaluating_Models_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Before the highest phat was about .1. Here we’ve got a .8. That at least does predict some spam.</p>
+<p>Now it looks like some of the predicted probabilities are fairly large, so let’s use the same classification rule we did above and recalculate MSPE:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ytilde <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(email25<span class="sc">$</span>phat <span class="sc">&gt;=</span> <span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>(MSPE2 <span class="ot">&lt;-</span> <span class="fu">mean</span>((ytilde<span class="sc">-</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09795918</code></pre>
+</div>
+</div>
+<p>Well…only a moderately better MSPE, but maybe we need a better classification rule. This is where looking at the ROC curve can help. We have a prediction model, and now we want to find the optimal classification rule.</p>
+<section id="roc-curves" class="level5">
+<h5 class="anchored" data-anchor-id="roc-curves">ROC Curves</h5>
+<p>We’ll use the package <code>pROC</code>, so if you don’t have that installed you’ll have to get it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(pROC)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ?roc</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">roc</span>(email25<span class="sc">$</span>spam,email25<span class="sc">$</span>phat,<span class="at">plot=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Setting levels: control = 0, case = 1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Setting direction: controls &lt; cases</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="8_Evaluating_Models_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+roc.default(response = email25$spam, predictor = email25$phat,     plot = TRUE)
+
+Data: email25$phat in 882 controls (email25$spam 0) &lt; 98 cases (email25$spam 1).
+Area under the curve: 0.7982</code></pre>
+</div>
+</div>
+<p>Specificity instead of fpr on the x axis flips the numbers to high to low. Sensitivity is == tpr.</p>
+<p>Looking for a point where we min fpr and max tpr.</p>
+<p>This seems to suggest that we use 0.60 as our cut-off for the classification rule:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ytilde2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(email25<span class="sc">$</span>phat <span class="sc">&gt;</span> <span class="fl">0.6</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>(MSPE3 <span class="ot">&lt;-</span> <span class="fu">mean</span>((ytilde2<span class="sc">-</span>(<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam)<span class="sc">-</span><span class="dv">1</span>))<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09693878</code></pre>
+</div>
+</div>
+<p>This is just marginally better than our original cut-off of 0.5, but we’re not going to get much better using this prediction model.</p>
+</section>
+<section id="next-steps" class="level5">
+<h5 class="anchored" data-anchor-id="next-steps">Next Steps</h5>
+<p>In the lab for this module, you’ll look at finding other prediction models for the email data that might do a better job than this one did.</p>
+</section>
+</section>
 </section>
 <section id="cross-validation" class="level3">
 <h3 class="anchored" data-anchor-id="cross-validation">Cross Validation</h3>
-<p>(Cross Validation.pdf)</p>
+<p>k-fold cross validation and more than two categories.</p>
+<ul>
+<li>training and test sets are for cross validation.</li>
+<li>As in LR MSE, GLM MSPE is similar</li>
+<li>for k fold we split the data into k samples of roughly equal size.</li>
+</ul>
+<p>When we split into 25:75 test:training. MSPE was .082.</p>
+<ul>
+<li>using cv.glm in the boot package we can do k-fold.</li>
+<li>for k = 10, we get .084, and for k = 5 it’s the same.</li>
+</ul>
+<p>The real power comes from comparing models.</p>
+<ul>
+<li>comparing models by k = 10 shows the number of preds and MSPE going up together.</li>
+<li>Still need to consider parsimony and overfitting.</li>
+</ul>
+<p>For more than 2 categories, like spam, not spam, and maybe.</p>
+<ul>
+<li>we need training data for this type of prediction.</li>
+<li>we would use multinomial log regs which is a generalization of binary logistic reg.</li>
+<li>or we could use machine learning.</li>
+</ul>
 </section>
 <section id="big-data-issues" class="level3">
 <h3 class="anchored" data-anchor-id="big-data-issues">Big Data Issues</h3>
-<p>(Big Data Issues.pdf)</p>
+<p>Big p and big n</p>
+<p>p is number of exp variables. n is the number of observations.</p>
+<ul>
+<li>big is in terms of p and n.&nbsp;</li>
+<li>genomics might have n = 10 and p = 200,000. That’s big data.</li>
+<li>weather over 30 years of monthly weather in 1km^2 grid can be terabytes.</li>
+</ul>
+<p>When p is large compared to n.&nbsp;</p>
+<ul>
+<li>if p =&gt; n you should not fit a model, it will fit exactly.</li>
+<li>if p &lt; n but close, there is still likely overfitting.</li>
+<li>don’t use all the preds, but model selection then becomes a process.</li>
+<li>Many of the same issues occur with cat vars.</li>
+</ul>
+<p>When n is large:</p>
+<ul>
+<li>bigger sample doesn’t mean better.</li>
+<li>large n won’t improve inference if non-random</li>
+<li>won’t improve ability to make causal inference without randomization to treatments.</li>
+<li>won’t solve dependency issues.</li>
+<li>won’t solve missing data issues if non-random.</li>
+</ul>
+<p><strong>You can’t overcome lack of randomization.</strong> Randomness is more important than size.</p>
+<ul>
+<li>With large n, small effects can be statistically significant.</li>
+<li>Consider practical vs statistical significance.</li>
+<li>lm and glm require the data to be in memory.</li>
+<li>there are ways to swap out data and do it anyway.</li>
+</ul>
+<p>Increasing sample size is often accompanied by increasingly complicated relationships. This is more a conceptual problem that it is computational. It’s hard for us to think about complicated relationships.</p>
+<p>The data must be informative about the thing we are interested in, having more data won’t help if it’s the wrong data.</p>
+<p>Steps to looking at big data</p>
+<ul>
+<li>look at a sample.</li>
+<li>find a way to get a more representative set out of the whole to look at your question of interest.</li>
+<li>analysis of a random sample can be used to make inference about the whole and the population.</li>
+<li>summarize some aspects of the data, but be careful about the perils of aggregation.</li>
+</ul>
+<p>If you see a summary table created from any dataset, large or small, be sure to consider whether the counts in the table have been aggregated over another factor or set of factors and if those had been included, would the information in the summary be different?</p>
+</section>
+<section id="working-with-big-data-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-big-data-in-r">Working with big data in R</h3>
+<p><a href="https://posit.co/resources/videos/working-with-big-data-in-r/">Working with big data in R</a></p>
+<p>This is 1 hour long. I am not going to try and do the whole thing here. I’ll just watch it later.</p>
 </section>
 </section>
-<section id="lab" class="level2">
-<h2 class="anchored" data-anchor-id="lab">Lab</h2>
+<section id="quiz-r" class="level1">
+<h1>Quiz R</h1>
 </section>
-<section id="hw" class="level2">
-<h2 class="anchored" data-anchor-id="hw">HW</h2>
-</section>
-<section id="quizzes" class="level2">
-<h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
+<section id="quiz-c" class="level1">
+<h1>Quiz C</h1>
 </section>
 <section id="end____" class="level1">
 <h1>____END____</h1>
-<section id="quizzes-1" class="level2">
-<h2 class="anchored" data-anchor-id="quizzes-1">Quizzes</h2>
+<section id="quizzes" class="level2">
+<h2 class="anchored" data-anchor-id="quizzes">Quizzes</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the number of simulations (and different random seeds)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to try. Don't pick a number that is much bigger than 10,000</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or it will take quite a long time and possibly crash your </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># computer.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty vector (just a vector of zeroes) that will</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># be used to store the p-values from each new simulation.</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, nSim)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the sample size n.</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nSim){</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The lines below ('print(i)', etc.) are just to tell us how far </span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># through the nSim iterations we have gotten. This is </span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># slow with a large sample size because of the iterative</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># nature of the glm solution. </span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">20</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">print</span>(i)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For the ith simulation, we are using 'i' as the random seed,</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># so the first simulation will use 1 as the random seed, the second</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># will use 2, and so on.  We could instead randomly generate new </span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># random seeds, but I wanted to keep this simple and easily</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reproducible.  </span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(i)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate the data Y and X as in the quiz question, with</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the designated sample size n.</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    Y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span>)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family =</span> binomial) </span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Store the p-value resulting from the estimated logistic</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># regression model.  This can be found as the element in row 2,</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># column 4 of the 'coefficients' object of the summary output.</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    pvals[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(out)<span class="sc">$</span>coeff[<span class="dv">2</span>,<span class="dv">4</span>]</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Count how many of the resulting p-values are less than </span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.05.  Here we show several ways to do that.  First, we</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co"># use the 'table' function to tabulate how many of the p-values</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co"># were &lt;= 0.05, and how many were &gt; 0.05.  A 'TRUE' value means</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co"># the p-value was &lt;= 0.05, while a 'FALSE' value means the p-value</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co"># was &gt; 0.05.</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="do">### Output:</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="do">### -------</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="do">### FALSE  TRUE </span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="do">###  952    48 </span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Another way of counting how many p-values are &lt;= 0.05.  Note that</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co"># R treats 'TRUE' as a 1 and 'FALSE' as a 0, so when we add up a </span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="co"># vector of 'TRUE's and 'FALSE's, we are just counting how many 'TRUE's </span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="co"># there were.</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="do">### Output:</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="do">### -------</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="do">### [1] 48</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Now to calculate the proportion of p-values &lt;= 0.05, we just divide</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="co"># the number that were &lt;= 0.05 by the total number of simulations we </span></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="co"># did:</span></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)<span class="sc">/</span>nSim</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="do">### Output:</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="do">### -------</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="do">### [1] 0.048</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Or we could do that in one step using the 'mean' function, since</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="co"># the mean of a vector of 1's and 0's is just the proportion of 1's:</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="do">### Output:</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="do">### -------</span></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="do">### [1] 0.048</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Same thing, but for a smaller significance level (0.006 instead of</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.05)</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="do">### Output:</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="do">### -------</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="do">### FALSE  TRUE </span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="do">###  994     6 </span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="do">### Output:</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="do">### -------</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="do">### [1] 0.006</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="do">##################################################</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat all of the above, but with n = 50 instead of n = 1000000</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, nSim)</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nSim){</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">20</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">print</span>(i)</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(i)</span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>    Y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span>)</span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family =</span> binomial) </span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    pvals[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(out)<span class="sc">$</span>coeff[<span class="dv">2</span>,<span class="dv">4</span>]</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="do">##################################################</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="co"># Consider a single example with n = 50:</span></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">304</span>)</span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">50</span>, <span class="dv">1</span>, <span class="fl">0.3</span>)</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family =</span> binomial) </span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the number of simulations (and different random seeds)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to try. Don't pick a number that is much bigger than 10,000</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or it will take quite a long time and possibly crash your </span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># computer.</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty vector (just a vector of zeroes) that will</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># be used to store the p-values from each new simulation.</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, nSim)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the sample size n.</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nSim){</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The lines below ('print(i)', etc.) are just to tell us how far </span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># through the nSim iterations we have gotten. This is </span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># slow with a large sample size because of the iterative</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># nature of the glm solution. </span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">20</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">print</span>(i)</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For the ith simulation, we are using 'i' as the random seed,</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># so the first simulation will use 1 as the random seed, the second</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># will use 2, and so on.  We could instead randomly generate new </span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># random seeds, but I wanted to keep this simple and easily</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reproducible.  </span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(i)</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate the data Y and X as in the quiz question, with</span></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the designated sample size n.</span></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    Y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span>)</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family =</span> binomial) </span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Store the p-value resulting from the estimated logistic</span></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># regression model.  This can be found as the element in row 2,</span></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># column 4 of the 'coefficients' object of the summary output.</span></span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>    pvals[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(out)<span class="sc">$</span>coeff[<span class="dv">2</span>,<span class="dv">4</span>]</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Count how many of the resulting p-values are less than </span></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.05.  Here we show several ways to do that.  First, we</span></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a><span class="co"># use the 'table' function to tabulate how many of the p-values</span></span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a><span class="co"># were &lt;= 0.05, and how many were &gt; 0.05.  A 'TRUE' value means</span></span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="co"># the p-value was &lt;= 0.05, while a 'FALSE' value means the p-value</span></span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a><span class="co"># was &gt; 0.05.</span></span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Output:</span></span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a><span class="do">## -------</span></span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a><span class="do">## FALSE  TRUE </span></span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a><span class="do">##  952    48 </span></span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Another way of counting how many p-values are &lt;= 0.05.  Note that</span></span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a><span class="co"># R treats 'TRUE' as a 1 and 'FALSE' as a 0, so when we add up a </span></span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a><span class="co"># vector of 'TRUE's and 'FALSE's, we are just counting how many 'TRUE's </span></span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a><span class="co"># there were.</span></span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a><span class="do">## Output:</span></span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a><span class="do">## -------</span></span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 48</span></span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Now to calculate the proportion of p-values &lt;= 0.05, we just divide</span></span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a><span class="co"># the number that were &lt;= 0.05 by the total number of simulations we </span></span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a><span class="co"># did:</span></span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)<span class="sc">/</span>nSim</span>
+<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Output:</span></span>
+<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a><span class="do">## -------</span></span>
+<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.048</span></span>
+<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Or we could do that in one step using the 'mean' function, since</span></span>
+<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a><span class="co"># the mean of a vector of 1's and 0's is just the proportion of 1's:</span></span>
+<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-87"><a href="#cb26-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-88"><a href="#cb26-88" aria-hidden="true" tabindex="-1"></a><span class="do">## Output:</span></span>
+<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a><span class="do">## -------</span></span>
+<span id="cb26-90"><a href="#cb26-90" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.048</span></span>
+<span id="cb26-91"><a href="#cb26-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-92"><a href="#cb26-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Same thing, but for a smaller significance level (0.006 instead of</span></span>
+<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.05)</span></span>
+<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
+<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-97"><a href="#cb26-97" aria-hidden="true" tabindex="-1"></a><span class="do">## Output:</span></span>
+<span id="cb26-98"><a href="#cb26-98" aria-hidden="true" tabindex="-1"></a><span class="do">## -------</span></span>
+<span id="cb26-99"><a href="#cb26-99" aria-hidden="true" tabindex="-1"></a><span class="do">## FALSE  TRUE </span></span>
+<span id="cb26-100"><a href="#cb26-100" aria-hidden="true" tabindex="-1"></a><span class="do">##  994     6 </span></span>
+<span id="cb26-101"><a href="#cb26-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-102"><a href="#cb26-102" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
+<span id="cb26-103"><a href="#cb26-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-104"><a href="#cb26-104" aria-hidden="true" tabindex="-1"></a><span class="do">## Output:</span></span>
+<span id="cb26-105"><a href="#cb26-105" aria-hidden="true" tabindex="-1"></a><span class="do">## -------</span></span>
+<span id="cb26-106"><a href="#cb26-106" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.006</span></span>
+<span id="cb26-107"><a href="#cb26-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-108"><a href="#cb26-108" aria-hidden="true" tabindex="-1"></a><span class="do">##################################################</span></span>
+<span id="cb26-109"><a href="#cb26-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-110"><a href="#cb26-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat all of the above, but with n = 50 instead of n = 1000000</span></span>
+<span id="cb26-111"><a href="#cb26-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-112"><a href="#cb26-112" aria-hidden="true" tabindex="-1"></a>nSim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb26-113"><a href="#cb26-113" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, nSim)</span>
+<span id="cb26-114"><a href="#cb26-114" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb26-115"><a href="#cb26-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-116"><a href="#cb26-116" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nSim){</span>
+<span id="cb26-117"><a href="#cb26-117" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">20</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">print</span>(i)</span>
+<span id="cb26-118"><a href="#cb26-118" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(i)</span>
+<span id="cb26-119"><a href="#cb26-119" aria-hidden="true" tabindex="-1"></a>    Y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span>)</span>
+<span id="cb26-120"><a href="#cb26-120" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb26-121"><a href="#cb26-121" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family =</span> binomial) </span>
+<span id="cb26-122"><a href="#cb26-122" aria-hidden="true" tabindex="-1"></a>    pvals[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(out)<span class="sc">$</span>coeff[<span class="dv">2</span>,<span class="dv">4</span>]</span>
+<span id="cb26-123"><a href="#cb26-123" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-124"><a href="#cb26-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-125"><a href="#cb26-125" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-126"><a href="#cb26-126" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-127"><a href="#cb26-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-128"><a href="#cb26-128" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
+<span id="cb26-129"><a href="#cb26-129" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;=</span> <span class="fl">0.006</span>)</span>
+<span id="cb26-130"><a href="#cb26-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-131"><a href="#cb26-131" aria-hidden="true" tabindex="-1"></a><span class="do">##################################################</span></span>
+<span id="cb26-132"><a href="#cb26-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-133"><a href="#cb26-133" aria-hidden="true" tabindex="-1"></a><span class="co"># Consider a single example with n = 50:</span></span>
+<span id="cb26-134"><a href="#cb26-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-135"><a href="#cb26-135" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">304</span>)</span>
+<span id="cb26-136"><a href="#cb26-136" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">50</span>, <span class="dv">1</span>, <span class="fl">0.3</span>)</span>
+<span id="cb26-137"><a href="#cb26-137" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb26-138"><a href="#cb26-138" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family =</span> binomial) </span>
+<span id="cb26-139"><a href="#cb26-139" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

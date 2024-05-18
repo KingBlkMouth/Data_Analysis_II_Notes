@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data_Analysis_II_Notes - LearnR 8</title>
+<title>Data_Analysis_II_Notes - 8 Model Eval</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -241,7 +241,7 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./z8_learnR.html">
- <span class="dropdown-text">LearnR 8</span></a>
+ <span class="dropdown-text">8 Model Eval</span></a>
   </li>  
     </ul>
   </li>
@@ -315,7 +315,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LearnR 8</h1>
+<h1 class="title">8 Model Eval</h1>
 </div>
 
 
@@ -404,7 +404,7 @@ Misclassification error rate: 0.08296 = 244 / 2941 </code></pre>
 </div>
 </div>
 </div>
-<p>If you zoom in on the plot above, you can better see what is happening. All emails are classified as not spam except at 5 of the nodes of the tree. Fr example, starting from the base of the tree, if there are less than 49.5 line breaks, the <code>sent_email</code> variable is 0, and the <code>num_char</code> variable is less than 0.7105, then the model calls the email spam. See if you can trace down to the other 4 nodes on the tree to see what other types of emails the model is classifying as spam.</p>
+<p>If you zoom in on the plot above, you can better see what is happening. All emails are classified as not spam except at 5 of the nodes of the tree. For example, starting from the base of the tree, if there are less than 49.5 line breaks, the <code>sent_email</code> variable is 0, and the <code>num_char</code> variable is less than 0.7105, then the model calls the email spam. See if you can trace down to the other 4 nodes on the tree to see what other types of emails the model is classifying as spam.</p>
 <p>Let’s now use our the model suggested by <code>tree</code> to make predictions on the test data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>email.noresp <span class="ot">&lt;-</span> email25[, <span class="sc">-</span><span class="dv">1</span>] <span class="do">## dropping the response variable</span></span>
@@ -440,7 +440,7 @@ Data: phats in 892 controls (email25$spam 0) &lt; 88 cases (email25$spam 1).
 Area under the curve: 0.8432</code></pre>
 </div>
 </div>
-<p>It looks like we can simultaneously maximize specificity and sensitivity if we take the classification cutoff value to be around 0.75 – that is, we’ll classify an email as spam if <span class="math inline">\(\hat{p} \ge 0.75\)</span>. Then, we can use that to calculate the MSPE.</p>
+<p>It looks like we can simultaneously maximize specificity and sensitivity if we take the classification cutoff value to be around 0.75, that is, we’ll classify an email as spam if <span class="math inline">\(\hat{p} \ge 0.75\)</span>. Then, we can use that to calculate the MSPE.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(phats<span class="sc">&gt;=</span><span class="fl">0.75</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>(MSPE <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="fu">as.integer</span>(email25<span class="sc">$</span>spam) <span class="sc">-</span> preds <span class="sc">-</span><span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -476,12 +476,14 @@ Area under the curve: 0.8432</code></pre>
 </div>
 <p>Now, we’ll run the classification tree algorithm using <code>as.factor(number)</code> as the response.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tr2 <span class="ot">&lt;-</span> <span class="fu">tree</span>(<span class="fu">as.factor</span>(number) <span class="sc">~</span> spam <span class="sc">+</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>        to_multiple <span class="sc">+</span> from <span class="sc">+</span> cc <span class="sc">+</span> sent_email <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        image <span class="sc">+</span> attach <span class="sc">+</span> dollar <span class="sc">+</span> winner <span class="sc">+</span> inherit <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        viagra <span class="sc">+</span> password <span class="sc">+</span> num_char <span class="sc">+</span> line_breaks <span class="sc">+</span> format <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        re_subj <span class="sc">+</span> exclaim_subj <span class="sc">+</span> urgent_subj <span class="sc">+</span> exclaim_mess, <span class="at">data =</span> email75)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tr2 <span class="ot">&lt;-</span> <span class="fu">tree</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>(number) <span class="sc">~</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    spam <span class="sc">+</span> to_multiple <span class="sc">+</span> from <span class="sc">+</span> cc <span class="sc">+</span> sent_email <span class="sc">+</span>   image <span class="sc">+</span> attach <span class="sc">+</span> dollar <span class="sc">+</span> winner <span class="sc">+</span> inherit <span class="sc">+</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    viagra <span class="sc">+</span> password <span class="sc">+</span> num_char <span class="sc">+</span> line_breaks <span class="sc">+</span> format <span class="sc">+</span>   re_subj <span class="sc">+</span> exclaim_subj <span class="sc">+</span> urgent_subj <span class="sc">+</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    exclaim_mess, </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> email75)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Classification tree:
@@ -512,7 +514,7 @@ Misclassification error rate: 0.2414 = 710 / 2941 </code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(tr2, email25, <span class="at">type =</span> <span class="st">"class"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, let’s calculate the misclassification rate – we’ll just sum up the number of times the predicted classification does not match the classification in the <code>email25</code> data.</p>
+<p>Here, let’s calculate the misclassification rate we’ll just sum up the number of times the predicted classification does not match the classification in the <code>email25</code> data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(predictions <span class="sc">!=</span> email25<span class="sc">$</span>number) <span class="sc">/</span> <span class="fu">length</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -679,7 +681,7 @@ Misclassification error rate: 0.2414 = 710 / 2941 </code></pre>
 </div>
 </div>
 </div>
-<p>The number of crashes across the different days of the week look more similar than what you may have expected. We can see a few reasonable differences between weekdays and weekends – early Saturday morning and early Sunday morning between midnight and 5:00 am, there seem to be more crashes than on the other days of the week at those times, likely because drivers are out much later on weekends. Also, during the 7:00 - 8:00 am rush hour on Monday through Friday, there are many more crashes than on Saturday and Sunday during these times.</p>
+<p>The number of crashes across the different days of the week look more similar than what you may have expected. We can see a few reasonable differences between weekdays and weekends early Saturday morning and early Sunday morning between midnight and 5:00 am, there seem to be more crashes than on the other days of the week at those times, likely because drivers are out much later on weekends. Also, during the 7:00 - 8:00 am rush hour on Monday through Friday, there are many more crashes than on Saturday and Sunday during these times.</p>
 <p>Next, we can fit a Poisson regression model that just includes terms for <code>Day</code> and <code>Hour</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Count <span class="sc">~</span> Day <span class="sc">+</span> Hour, <span class="at">data =</span> crashi2, </span>
