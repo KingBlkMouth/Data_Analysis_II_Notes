@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chris Eckerson">
-<meta name="dcterms.date" content="2024-05-18">
+<meta name="dcterms.date" content="2024-05-19">
 
 <title>Data_Analysis_II_Notes - ST-518 HW 8</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -69,6 +103,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -241,11 +304,11 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#r-question" id="toc-r-question" class="nav-link active" data-scroll-target="#r-question">R Question</a>
   <ul class="collapse">
-  <li><a href="#consider-the-crashi-data" id="toc-consider-the-crashi-data" class="nav-link" data-scroll-target="#consider-the-crashi-data">1. Consider the crashi data</a>
+  <li><a href="#consider-the-crashi-data" id="toc-consider-the-crashi-data" class="nav-link" data-scroll-target="#consider-the-crashi-data"><em>1</em>. Consider the crashi data</a>
   <ul class="collapse">
-  <li><a href="#a-fit-a-multiple-linear-regression" id="toc-a-fit-a-multiple-linear-regression" class="nav-link" data-scroll-target="#a-fit-a-multiple-linear-regression">(a) Fit a multiple linear regression</a></li>
-  <li><a href="#b-compare-the-predicted-number-of-crashes" id="toc-b-compare-the-predicted-number-of-crashes" class="nav-link" data-scroll-target="#b-compare-the-predicted-number-of-crashes">(b) Compare the predicted number of crashes</a></li>
-  <li><a href="#c-examine-the-standard-errors" id="toc-c-examine-the-standard-errors" class="nav-link" data-scroll-target="#c-examine-the-standard-errors">(c) Examine the standard errors</a></li>
+  <li><a href="#a-fit-a-multiple-linear-regression" id="toc-a-fit-a-multiple-linear-regression" class="nav-link" data-scroll-target="#a-fit-a-multiple-linear-regression">(<em>a</em>) Fit a multiple linear regression</a></li>
+  <li><a href="#b-compare-the-predicted-number-of-crashes" id="toc-b-compare-the-predicted-number-of-crashes" class="nav-link" data-scroll-target="#b-compare-the-predicted-number-of-crashes">(<em>b</em>) Compare the predicted number of crashes</a></li>
+  <li><a href="#c-examine-the-standard-errors" id="toc-c-examine-the-standard-errors" class="nav-link" data-scroll-target="#c-examine-the-standard-errors">(<em>c</em>) Examine the standard errors</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#conceptual-question" id="toc-conceptual-question" class="nav-link" data-scroll-target="#conceptual-question">Conceptual Question</a>
@@ -277,7 +340,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2024</p>
+      <p class="date">May 19, 2024</p>
     </div>
   </div>
   
@@ -290,22 +353,248 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>output: pdf_document</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(crashi)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>hour <span class="ot">&lt;-</span> <span class="fu">rownames</span>(crashi) <span class="do">## grab the hours</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>crashi2 <span class="ot">&lt;-</span> <span class="fu">stack</span>(crashi) <span class="do">## combine 7 columns of crashes into 1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(crashi2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Count"</span>,<span class="st">"Day"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>crashi2<span class="sc">$</span>Day <span class="ot">&lt;-</span> <span class="fu">factor</span>(crashi2<span class="sc">$</span>Day,<span class="fu">levels</span>(crashi2<span class="sc">$</span>Day)[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)])  <span class="co"># make sure the days are ordered correctly</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>crashi2<span class="sc">$</span>Hour <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">rep</span>(hour, <span class="fu">ncol</span>(crashi))) </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>crashi2 <span class="ot">&lt;-</span> crashi2 <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Day.Cat =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    (Day <span class="sc">!=</span> <span class="st">"Fri"</span> <span class="sc">&amp;</span> Day <span class="sc">!=</span> <span class="st">"Sat"</span> <span class="sc">&amp;</span> Day <span class="sc">!=</span> <span class="st">"Sun"</span>), <span class="st">"Weekday"</span>, <span class="fu">as.character</span>(Day)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Time.Cat =</span> <span class="fu">cut</span>(Hour,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="fl">5.5</span>, <span class="fl">11.5</span>, <span class="fl">18.5</span>, <span class="dv">25</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Early.Morn"</span>, <span class="st">"Morn"</span>, <span class="st">"Afternoon"</span>, <span class="st">"Evening"</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="r-question" class="level1">
 <h1>R Question</h1>
 <section id="consider-the-crashi-data" class="level2">
-<h2 class="anchored" data-anchor-id="consider-the-crashi-data">1. Consider the crashi data</h2>
+<h2 class="anchored" data-anchor-id="consider-the-crashi-data"><em>1</em>. Consider the crashi data</h2>
 <p>(5 points) Consider the crashi data in the VGAM library that we examined in Lab. Sometimes people will fit multiple linear regression models to data like this, not recognizing that the responses are counts.</p>
 <section id="a-fit-a-multiple-linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="a-fit-a-multiple-linear-regression">(a) Fit a multiple linear regression</h3>
-<p>Using the Time.Cat and Day.Cat variables that we created in Lab, fit a multiple linear regression model to the counts—be sure to include the interaction between Time.Cat and Day.Cat just as we did in the lab. How does the model fit compare to the negative binomial regression model that you fit in lab? Please explain.</p>
+<h3 class="anchored" data-anchor-id="a-fit-a-multiple-linear-regression">(<em>a</em>) Fit a multiple linear regression</h3>
+<p>Using the Time.Cat and Day.Cat variables that we created in Lab, <em>fit a multiple linear regression model to the counts.</em> Be sure to include the interaction between Time.Cat and Day.Cat just as we did in the lab.</p>
+<p><em>How does the model fit compare to the negative binomial regression model that you fit in lab?</em> <em>Please explain.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mod.mlr <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  Count <span class="sc">~</span> Day.Cat <span class="sc">*</span> Time.Cat, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crashi2,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>mod.nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  Count <span class="sc">~</span> Day.Cat <span class="sc">*</span> Time.Cat, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crashi2</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.mlr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Count ~ Day.Cat * Time.Cat, data = crashi2)
+
+Coefficients:
+                                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                        20.833      8.528   2.443 0.015719 *  
+Day.CatSat                         17.000     12.061   1.410 0.160729    
+Day.CatSun                         28.833     12.061   2.391 0.018044 *  
+Day.CatWeekday                     -8.667      9.535  -0.909 0.364827    
+Time.CatMorn                       53.333     12.061   4.422 1.85e-05 ***
+Time.CatAfternoon                 106.167     11.622   9.135 3.87e-16 ***
+Time.CatEvening                    48.767     12.650   3.855 0.000170 ***
+Day.CatSat:Time.CatMorn           -28.333     17.057  -1.661 0.098751 .  
+Day.CatSun:Time.CatMorn           -54.167     17.057  -3.176 0.001810 ** 
+Day.CatWeekday:Time.CatMorn        11.333     13.485   0.840 0.401967    
+Day.CatSat:Time.CatAfternoon      -40.857     16.436  -2.486 0.014009 *  
+Day.CatSun:Time.CatAfternoon      -66.833     16.436  -4.066 7.65e-05 ***
+Day.CatWeekday:Time.CatAfternoon  -14.119     12.994  -1.087 0.278944    
+Day.CatSat:Time.CatEvening        -21.800     17.889  -1.219 0.224883    
+Day.CatSun:Time.CatEvening        -63.233     17.889  -3.535 0.000541 ***
+Day.CatWeekday:Time.CatEvening    -18.783     14.143  -1.328 0.186128    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 436.4019)
+
+    Null deviance: 255316  on 167  degrees of freedom
+Residual deviance:  66333  on 152  degrees of freedom
+AIC: 1515.1
+
+Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod.mlr)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = Count ~ Day.Cat * Time.Cat, data = crashi2, 
+    init.theta = 13.71581333, link = log)
+
+Coefficients:
+                                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                       3.03655    0.14196  21.391  &lt; 2e-16 ***
+Day.CatSat                        0.59664    0.19159   3.114 0.001845 ** 
+Day.CatSun                        0.86878    0.18883   4.601 4.21e-06 ***
+Day.CatWeekday                   -0.53785    0.16314  -3.297 0.000977 ***
+Time.CatMorn                      1.26976    0.18588   6.831 8.42e-12 ***
+Time.CatAfternoon                 1.80763    0.17802  10.154  &lt; 2e-16 ***
+Time.CatEvening                   1.20621    0.19392   6.220 4.97e-10 ***
+Day.CatSat:Time.CatMorn          -0.76247    0.25673  -2.970 0.002979 ** 
+Day.CatSun:Time.CatMorn          -1.28668    0.25617  -5.023 5.09e-07 ***
+Day.CatWeekday:Time.CatMorn       0.57318    0.21117   2.714 0.006642 ** 
+Day.CatSat:Time.CatAfternoon     -0.80471    0.24505  -3.284 0.001024 ** 
+Day.CatSun:Time.CatAfternoon     -1.22433    0.24335  -5.031 4.88e-07 ***
+Day.CatWeekday:Time.CatAfternoon  0.34012    0.20273   1.678 0.093415 .  
+Day.CatSat:Time.CatEvening       -0.66810    0.26801  -2.493 0.012675 *  
+Day.CatSun:Time.CatEvening       -1.55050    0.27088  -5.724 1.04e-08 ***
+Day.CatWeekday:Time.CatEvening    0.03632    0.22114   0.164 0.869524    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(13.7158) family taken to be 1)
+
+    Null deviance: 880.82  on 167  degrees of freedom
+Residual deviance: 172.14  on 152  degrees of freedom
+AIC: 1439.5
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  13.72 
+          Std. Err.:  1.93 
+
+ 2 x log-likelihood:  -1405.533 </code></pre>
+</div>
+</div>
+<p>MLR model:</p>
+<p>For a linear regression where there are only factors, the betas are all dummy variables.</p>
+<p><span class="math inline">\(\mu(Y|Day, Time) = \beta_0 + \beta_1Weekday + \beta_2Fri + \beta_3Sat +\)</span> <span class="math inline">\(\beta_4Sun + \beta_5Early.Morn + \beta_6Morn + \beta_7Afternoon + \beta_8Evening + interactions\)</span></p>
+<p>Negative Binomial:</p>
+<p>For the negative binomial, it approaches a poisson model as dispersion approaches 1.</p>
+<p><span class="math inline">\(log(\lambda_i) = \beta_0 + \beta_1Weekday + \beta_2Fri + \beta_3Sat +\)</span> <span class="math inline">\(\beta_4Sun + \beta_5Early.Morn + \beta_6Morn + \beta_7Afternoon + \beta_8Evening + interactions\)</span></p>
+<p>Mean and variance are equal to lambda. So,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.mlr)<span class="sc">$</span>coefficients[<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  20.833333  17.000000  28.833333  -8.666667  53.333333 106.166667
+ [7]  48.766667 -28.333333 -54.166667  11.333333 -40.857143 -66.833333
+[13] -14.119048 -21.800000 -63.233333 -18.783333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.nb)<span class="sc">$</span>coefficients[<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  3.03655427  0.59663628  0.86877975 -0.53785430  1.26976054  1.80763282
+ [7]  1.20621030 -0.76246537 -1.28668142  0.57317806 -0.80470838 -1.22433047
+[13]  0.34011643 -0.66809524 -1.55049823  0.03632441</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fl">20.833333</span> <span class="sc">+</span> <span class="fl">17.000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37.83333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.03655427+0.59663628</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37.83333</code></pre>
+</div>
+</div>
+<p>Above showed that due to the structure of the data, these two methods are getting the same coefficients. However, the negative binomial(nb) model is a better fit for the data. The dispersion parameter for the nb is much lower. The data clearly do not come from a normal distribution as is assumed by the multiple linear regression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> crashi2</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>c2<span class="sc">$</span>resmlr <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod.mlr)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>c2<span class="sc">$</span>resnb <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod.nb, <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>c2<span class="sc">$</span>fitmlr <span class="ot">&lt;-</span> mod.mlr<span class="sc">$</span>fitted.values</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>c2<span class="sc">$</span>fit.nb <span class="ot">&lt;-</span> mod.nb<span class="sc">$</span>fitted.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(c2) <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Day.Cat, <span class="at">y =</span> resmlr, <span class="at">colour =</span> Time.Cat) <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"mlr resids"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(c2) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Day.Cat, <span class="at">y =</span> resnb, <span class="at">colour =</span> Time.Cat) <span class="sc">+</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"nb resids"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="aHW_8_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="aHW_8_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+<p>Looking at the residuals, it is clear that the nb model is much better. The mlr model has residuals as high as 50, compared to the 2 or 3 from the nb.</p>
 </section>
 <section id="b-compare-the-predicted-number-of-crashes" class="level3">
-<h3 class="anchored" data-anchor-id="b-compare-the-predicted-number-of-crashes">(b) Compare the predicted number of crashes</h3>
+<h3 class="anchored" data-anchor-id="b-compare-the-predicted-number-of-crashes">(<em>b</em>) Compare the predicted number of crashes</h3>
 <p>Now compare the predicted number of crashes in the early morning on Saturdays using your model from part (a) and the negative binomial model from the Lab. Are they the same? Different?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>newdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Day.Cat =</span> <span class="st">"Sat"</span>, <span class="at">Time.Cat =</span> <span class="st">"Early.Morn"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="do">## predict using Poisson regression and NB regression</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod.mlr, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+37.83333 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod.nb, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+37.83333 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>c2<span class="sc">$</span>predmlr <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod.mlr, c2)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>c2<span class="sc">$</span>prednb <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod.nb, c2, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sum</span>(<span class="fu">near</span>(c2<span class="sc">$</span>predmlr, c2<span class="sc">$</span>prednb, <span class="at">tol =</span> .<span class="dv">0000000000001</span>))<span class="sc">/</span><span class="fu">length</span>(c2<span class="sc">$</span>prednb))<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14.88095</code></pre>
+</div>
+</div>
+<p>Not only are the estimates for Saturday morning close, but all of them are close. They are 100% similar within 1 x 10^-12, and for the reasons I explained in part a.</p>
 </section>
 <section id="c-examine-the-standard-errors" class="level3">
-<h3 class="anchored" data-anchor-id="c-examine-the-standard-errors">(c) Examine the standard errors</h3>
+<h3 class="anchored" data-anchor-id="c-examine-the-standard-errors">(<em>c</em>) Examine the standard errors</h3>
 <p>Now examine the standard errors associated with the predictions from part (b). Are they the same? Different? Which model do you prefer? Please explain.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## manually doing the back transformation</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod.mlr, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$fit
+       1 
+37.83333 
+
+$se.fit
+[1] 8.528403
+
+$residual.scale
+[1] 20.89023</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod.nb, <span class="at">newdata =</span> newdat, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$fit
+       1 
+37.83333 
+
+$se.fit
+       1 
+4.868124 
+
+$residual.scale
+[1] 1</code></pre>
+</div>
+</div>
+<p>I am not sure how these homework assignments work in gradescope, but I answered all of these questions in part a. The question about comparing model fit was general enough that I thought I was supposed to answer all these questions.</p>
+<p>The SE for the mlr is higher than for the nb, but the nb fits the data better. Referring to the residual plot in part a, you can see that the mlr was scattered about wildly. The residual scale above shows that the standard deviation of the residuals is much higher for the mlr.</p>
 </section>
 </section>
 </section>
@@ -313,7 +602,12 @@ ul.task-list li input[type="checkbox"] {
 <h1>Conceptual Question</h1>
 <section id="issues-with-large-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="issues-with-large-datasets">2. Issues with large datasets</h2>
-<p>(5 points) Please find an article or web posting in which the authors discuss the statistical issues with large datasets. Write a short paragraph in which you identify at least one of the issues that the authors raise. Also please comment on whether you agree with or disagree with their assessment. Please submit either a PDF copy of the article you read, or a web link to the article or post.</p>
+<p><em>(5 points)</em> Please find an article or web posting in which the authors discuss the statistical issues with large datasets. Write a short paragraph in which you identify at least one of the issues that the authors raise. Also please comment on whether you agree with or disagree with their assessment. Please submit either a PDF copy of the article you read, or a web link to the article or post.</p>
+<p>The article is <em>Fan, Jianqing, Fang Han, and Han Liu. “Challenges of big data analysis.” National science review 1.2 (2014): 293-314.</em></p>
+<p><a href="https://watermark.silverchair.com/nwt032.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAA0QwggNABgkqhkiG9w0BBwagggMxMIIDLQIBADCCAyYGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMxaOACBkBMIqERZ2BAgEQgIIC94qT9w4wGtCqe4EeEcNHx_8s4BsaFGfHn-gHl8duxvqsiMma8-wfgoWE7R7tWekm3y_uyXszNza4-DK_0VH4Y0GLYV0W-na9vW6QmL74-9VbVXKDF4Y69uNI7WNElNGIKaAbvtoBBPsFJsoBkG90CvCYriI6VYPvT76q0x6doP02y1BP_XxBLLbbXfctkm2jsWNZVQZ22QfaeGH3EHJUfrO-lT1Yv2f2GOKLSiCdp5OBtaoWrdJED5sffRS43LvWFmPmE6ID5mn8taY9vet6RQ7lHiNx5dCVLAlJ-bAiLeTG0tYXNjoiJ5QwyZWgbzwhuT-wsFmTocVdTztNC96demF0_0E6vZE8YLBtfNkERAJruIBKt1dr3fLxUSGefVRlR7YvboA8WtR6ZrhIxI03S8G9M1cwKbzRtrOCg351W8gSkwU7C-KsgWM6mFYZS9ne1bk0ITxbhuFF9Zy0Lxz1JD21llN-i1TnC8FOCLwZHeRsP9zp_hzyMk-ttQdymbdM0jwBoM-kj487fsgvbuYTYYiGxe6rFK4TbKiNpXzDX3TTrEyyeO8dk99m8cdzdbrRUVSa6u58A8govjMZrtX8PyKoafd1p0_eyEE74xbhsdRcX0EGPGXTI6J4ZSV-0qQlMimFXXNaW5NalARaKWA_F7p5rS4lqUG3l7B_JOb8YOzTXsS2rC0CdjzryUCP6jYuTE1bS4toI0SRtdlCa2O0lqnHr4-k1jy-aeoLHaRc_ZZZ5rlKOqUefopc6vxyNjDxZeqhtsGm_qqKztqyJFZ4DBA7P6hqc12FGsz4yK0WwoRh4OsEey6Gsh3BZ84o4NcjmDdh35suQWCvCrbKqexrLycJSpS1zIhleW79a2GDYnQYquc5Kbl5ULJiuUNNLIvhRizqBEYNsypcfVFRypuFDSfJlkFqr-Z-2Q55_8Kz-djWG2uFAAGZ3dUHwx2DrRdFjpOAVTH3AjsVKQYOvMC_9-dQuyY4MbrPi1_rdOeThgvDiMuqBQIiCg">Challenges of big data analysis pdf</a></p>
+<p>https://academic.oup.com/nsr/article/1/2/293/1397586</p>
+<p>The authors speak of Noise accumulation on page 6. To summarize in part, classification can be obfuscated by many weak predictors that do not reduce classification error. If a dataset has 200 predictors but only 2 are really useful, the noise added by the other 198 is enough to ruin the classification. Noise accumulation makes variable selection important, but due to “spurious correlations” it can be more difficult with big data. Spurious correlations are when variables are correlated for no apparent reason. It leads to associating selected variables that are not relevant. The presence of spurious variables also impacts inference, variance tends to be seriously underestimated. Finally, Incidental endogeneity is when some predictors correlate with noise.</p>
+<p>This is a pretty long article and I do not have time to read the whole thing now. However, I have been stuck at work while trying to predict the types of trees that will regenerate in forests with and without different types of disturbance. I have known that I have all of these issues, even though I didn’t know they had names. There are many things that could be predictive of forest type, but they are all weak and there is a lot of noise. I very much agree with the authors that these are problems when dealing with big data. I have been working with a random forests model, and hoping that I could fix some other issues that would help my model. I am excited to read the rest of this paper and do some more digging. I have zero-inflation, over dispersion, noise accumulation, and indcidental endogeneity in my dataset.</p>
 
 
 </section>
